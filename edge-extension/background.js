@@ -23,11 +23,73 @@ async function relay(tabs, message) {
   return out;
 }
 
+async function getBridgeConfig() {
+  return chrome.storage.local.get({
+    ctisApiBase: '',
+    ctisSessionToken: ''
+  });
+}
+
+async function storeCapturedPacket(message) {
+  const { ctisApiBase, ctisSessionToken } = await getBridgeConfig();
+  const packet = message?.packet;
+  const filename = message?.filename;
+
+  if (!packet || packet.schema !== 'ctis/1.0' || !filename) {
+    return { ok: false, error: 'Invalid CTIS capture packet.' };
+  }
+
+  if (!ctisApiBase) {
+    const pending = await chrome.storage.local.get({ ctisPendingPackets: [] });
+    pending.ctisPendingPackets.push({ packet, filename, capturedAt: new Date().toISOString() });
+    await chrome.storage.local.set({ ctisPendingPackets: pending.ctisPendingPackets.slice(-500) });
+    return { ok: false, queued: true, error: 'CTIS storage API is not configured; packet queued locally.' };
+  }
+
+  const endpoint = `${ctisApiBase.replace(/\/$/, '')}/v1/messages`;
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(ctisSessionToken ? { Authorization: `Bearer ${ctisSessionToken}` } : {})
+    },
+    body: JSON.stringify({ filename, message: packet })
+  });
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => '');
+    throw new Error(`CTIS storage returned ${response.status}: ${text.slice(0, 300)}`);
+  }
+  return { ok: true, stored: true, result: await response.json().catch(() => ({})) };
+}
+
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   (async () => {
     if (message?.type === 'CTIS_STATUS') {
       const tabs = await existingTabs();
-      sendResponse({ ok: true, chatgpt: tabs.chatgpt.length, claude: tabs.claude.length });
+      const config = await getBridgeConfig();
+      const pending = await chrome.storage.local.get({ ctisPendingPackets: [] });
+      sendResponse({
+        ok: true,
+        chatgpt: tabs.chatgpt.length,
+        claude: tabs.claude.length,
+        storageConfigured: !!config.ctisApiBase,
+        pendingPackets: pending.ctisPendingPackets.length
+      });
+      return;
+    }
+
+    if (message?.type === 'CTIS_CAPTURED_RESPONSE') {
+      sendResponse(await storeCapturedPacket(message));
+      return;
+    }
+
+    if (message?.type === 'CTIS_CONFIGURE_STORAGE') {
+      await chrome.storage.local.set({
+        ctisApiBase: String(message.ctisApiBase || '').trim(),
+        ctisSessionToken: String(message.ctisSessionToken || '').trim()
+      });
+      sendResponse({ ok: true });
       return;
     }
 
