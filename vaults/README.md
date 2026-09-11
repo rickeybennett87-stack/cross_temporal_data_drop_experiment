@@ -1,19 +1,21 @@
-# `vaults/` is a ciphertext-only namespace
+# Per-user CTIS storage namespace
 
-This directory documents the production storage convention for CTIS user vaults.
+This directory documents the namespace convention for CTIS customer data.
 
-**Do not commit plaintext customer conversations here.**
-
-Every customer is assigned a random opaque vault ID. The conceptual layout is:
+Each customer receives a separate internal user ID and storage area:
 
 ```text
-vaults/<opaque-vault-uuid>/vault.json
-vaults/<opaque-vault-uuid>/index.enc.json
-vaults/<opaque-vault-uuid>/messages/<random-object-uuid>.enc.json
+users/<opaque-user-uuid>/profile.json
+users/<opaque-user-uuid>/manifest.json
+users/<opaque-user-uuid>/messages/<message-file>.json
 ```
 
-The folder name must not contain a person's name, email address, billing ID, model provider, thread title, or timestamp.
+This design does not use client-side encryption. Stored conversations remain ordinary CTIS JSON so supported model participants can read them without decryption logic.
 
-All conversation content and private indices are encrypted in the user's browser before storage. Repository administrators may be able to see ciphertext and metadata, but must not possess the keys required to decrypt customer content.
+Normal customer access must be restricted by the backend so that an authenticated account can read and write only its own `users/<user_id>/` namespace. The client must not be allowed to choose arbitrary repository paths.
 
-For a commercial deployment, actual customer vault data should be written to a separate private production repository or purpose-built object store rather than this public source repository. See `architecture/USER_VAULTS.md`.
+The service administrator may have technical access to the backing store. Therefore privacy disclosures must not claim that administrators are cryptographically unable to inspect stored conversations.
+
+For commercial deployment, actual customer conversations should live in a separate private production repository or backend data store, not in this public source repository.
+
+See `architecture/USER_VAULTS.md`.
