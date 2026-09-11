@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "CTIS Passive Tab Bridge",
+  "version": "0.1.0",
+  "description": "Finds user-opened ChatGPT and Claude tabs and can place user-supplied text into their existing composers. Never opens, navigates, submits, or clicks.",
+  "permissions": ["tabs"],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://claude.ai/*"
+  ],
+  "action": {
+    "default_title": "CTIS Passive Tab Bridge",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*", "https://claude.ai/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
