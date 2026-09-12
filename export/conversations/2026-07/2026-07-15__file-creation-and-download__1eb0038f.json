@@ -1,0 +1,206 @@
+{
+  "uuid": "1eb0038f-bb9d-41bf-8973-57cca055e98c",
+  "name": "File creation and download",
+  "summary": "**Conversation Overview**\n\nThe person made a single request: to convert a pre-written prompt document into a downloadable file. The document contained detailed specifications for a passive Mandarin Chinese language learning web application designed for use while falling asleep. Claude used the create_file and present_files tools to package the content as a markdown file named `mandarin-entrainment-app-prompt.md` and made it available for download.\n\nThe prompt document itself was technically detailed, covering a full application specification including a Web Audio API-based binaural beats and isochronic tone engine, a synchronized visual entrainment system, a five-stage vocabulary progression system spanning over 1,000 Mandarin words and idioms, session management with localStorage-based progress tracking, and UI/UX requirements optimized for low-light bedtime use. The five vocabulary stages were structured as Child, Youth, Young Adult, Elder, and Mastery, with the Mastery stage including classical Chinese chéngyǔ (成语) idioms and proverbs. The specification called for a pure HTML/CSS/JavaScript implementation with no external dependencies, capable of running offline. The person appears to be building or planning to sell/distribute this application as a product.\n\n**Tool Knowledge**\n\nClaude used the `create_file` tool with the path `/mnt/user-data/outputs/mandarin-entrainment-app-prompt.md` and then called `present_files` with that same path to surface the download link. The `.md` extension was appropriate given the document's structured, heading-heavy content. The two-step pattern of create_file followed immediately by present_files is the correct sequence for making a file downloadable in this environment.",
+  "created_at": "2026-07-15T18:15:54.374345Z",
+  "updated_at": "2026-07-15T18:17:22.428239Z",
+  "account": {
+    "uuid": "404f3f89-8c3a-46a9-a7b4-7a3c875dbedd"
+  },
+  "chat_messages": [
+    {
+      "uuid": "019f66fe-11f2-7a47-a6a8-6eb48a13316d",
+      "text": "can you please make a file out of this for me and then output it so I can download it?",
+      "content": [
+        {
+          "start_timestamp": "2026-07-15T18:15:55.402017Z",
+          "stop_timestamp": "2026-07-15T18:15:55.402017Z",
+          "flags": null,
+          "type": "text",
+          "text": "can you please make a file out of this for me and then output it so I can download it?",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-07-15T18:15:55.402152Z",
+      "updated_at": "2026-07-15T18:15:55.402152Z",
+      "attachments": [
+        {
+          "file_name": "",
+          "file_size": 14455,
+          "file_type": "text/plain",
+          "extracted_content": "Got it. Here's a refined prompt that gives Claude the freedom to build it however he needs—multiple pages, single-page app, whatever—while keeping the core entrainment, audio, vocabulary, and structure locked in. I've also completed the full vocabulary for all five stages.\n\n---\n\nPROMPT FOR CLAUDE / AI ASSISTANT:\n\n---\n\nI need you to build a complete web application for passive Mandarin Chinese entrainment. The app is designed to be used while falling asleep—no active learning required. The user lies down, puts on headphones, and lets the system deliver vocabulary through synchronized audio and visual entrainment over a 2-year period (6 months per stage).\n\nYou have full freedom to design the architecture, page structure, and UI. The core requirements are the entrainment engine, audio generation, vocabulary progression, and session management.\n\n---\n\nCORE REQUIREMENTS:\n\n1. Audio Engine (Web Audio API)\n\nGenerate the following audio components in real-time:\n\n· Binaural beats: Two separate frequencies, one per channel. Left ear: 110 Hz, Right ear: 114 Hz. The difference (4 Hz) creates a theta wave entrainment effect. User should be able to adjust the base frequency and the difference.\n· Isochronic tones: A rhythmic pulsing tone at 10–12 Hz (alpha range). This acts as the carrier for the vocabulary \"payload.\" The amplitude of the isochronic tone should be modulated to deliver word pairs.\n· Word pair audio: Each word pair (English → Mandarin → Pinyin) is spoken clearly with a text-to-speech voice or pre-recorded audio. If TTS is used, it should be a natural-sounding Mandarin voice.\n· Controls: Volume, frequency adjustment, enable/disable binaural/isochronic/voice components, and a test mode.\n\n---\n\n2. Visual Entrainment Engine\n\nSynchronized with the audio pulses:\n\n· Flickering field: A full-screen or large-area visual pulse that flickers at the same rate as the isochronic tone (10–12 Hz). This creates visual entrainment alongside the audio.\n· Word pair display: Each word pair (English, Mandarin characters, Pinyin) flashes on screen in sync with the audio. Timing: 200ms English, 200ms Mandarin, 200ms Pinyin, then 500ms pause before the next pair.\n· Flash intensity: Adjustable brightness and flash duration (50ms to 300ms).\n· VR mode: Optional side-by-side split view for Google Cardboard or VR headsets.\n\n---\n\n3. Vocabulary Progression System (Five Stages, ~1,000+ Words)\n\nThe vocabulary is organized into five stages, each reflecting a natural language acquisition progression: Child → Youth → Young Adult → Elder → Mastery.\n\nStage 1: Child (200+ words)\n\nConcrete, immediate, survival-based vocabulary.\n\nFamily: 妈妈, 爸爸, 哥哥, 姐姐, 弟弟, 妹妹, 爷爷, 奶奶, 叔叔, 阿姨, 儿子, 女儿, 丈夫, 妻子, 父母, 孩子, 宝宝, 亲戚, 家庭, 家人\n\nBody: 头, 眼睛, 鼻子, 嘴巴, 耳朵, 手, 脚, 腿, 脸, 头发, 牙, 舌头, 肚子, 背, 肩膀, 膝盖, 手指, 指甲, 皮肤, 骨头\n\nFood: 米饭, 面包, 牛奶, 水, 苹果, 香蕉, 鸡蛋, 肉, 鱼, 菜, 汤, 糖, 盐, 油, 酱油, 醋, 茶, 咖啡, 果汁, 冰淇淋\n\nActions: 吃, 喝, 睡, 走, 跑, 跳, 玩, 看, 听, 说, 笑, 哭, 坐, 站, 躺, 推, 拉, 拿, 给, 要\n\nEmotions: 高兴, 难过, 生气, 害怕, 爱, 喜欢, 讨厌, 担心, 惊讶, 不好意思, 累, 饿, 渴, 困, 冷, 热, 舒服, 不舒服\n\nObjects: 书, 笔, 纸, 桌子, 椅子, 门, 窗, 床, 灯, 电话, 玩具, 球, 车, 飞机, 船, 房子, 商店, 公园, 学校, 医院\n\nColors: 红, 蓝, 绿, 黄, 白, 黑, 粉, 紫, 橙, 灰, 金, 银, 棕, 彩色\n\nNumbers: 一, 二, 三, 四, 五, 六, 七, 八, 九, 十, 十一, 十二, 二十, 三十, 一百, 一千, 一万\n\nBasic adjectives: 大, 小, 长, 短, 高, 矮, 胖, 瘦, 快, 慢, 新, 旧, 多, 少, 早, 晚, 好, 坏, 对, 错\n\nBasic verbs: 去, 来, 看, 听, 说, 问, 想, 知道, 认识, 觉得, 认为, 应该, 可以, 能够, 愿意, 需要, 喜欢, 希望\n\n---\n\nStage 2: Youth (200+ words)\n\nSocial, emotional, school-based vocabulary.\n\nSchool: 老师, 学生, 学校, 班级, 课, 作业, 考试, 成绩, 知识, 学习, 读书, 写字, 计算, 科学, 历史, 地理, 音乐, 美术, 体育, 课堂\n\nTime: 今天, 明天, 昨天, 上午, 下午, 晚上, 小时, 分钟, 秒, 日期, 季节, 春天, 夏天, 秋天, 冬天, 生日, 节日, 假期\n\nRelationships: 朋友, 同学, 邻居, 亲戚, 关系, 关心, 帮助, 感谢, 道歉, 邀请, 见面, 分别, 想念, 祝福, 珍惜\n\nEmotions: 快乐, 悲伤, 愤怒, 平静, 紧张, 放松, 骄傲, 羞愧, 羡慕, 嫉妒, 感激, 同情, 孤独, 温暖, 安全\n\nActivities: 运动, 游泳, 骑车, 画画, 唱歌, 弹琴, 跳舞, 游戏, 比赛, 跑步, 爬山, 钓鱼, 露营, 旅行, 拍照\n\nNature: 天空, 太阳, 月亮, 星星, 云, 雨, 雪, 风, 花, 树, 草, 山, 河, 海, 湖, 森林, 动物, 鸟, 鱼, 虫\n\nClothing: 衣服, 裤子, 鞋, 袜子, 帽子, 裙子, 外套, 围巾, 手套, 耳环, 项链, 戒指, 皮带, 口袋, 拉链, 纽扣\n\nFood: 蔬菜, 水果, 肉, 鱼, 米饭, 面, 饺子, 面条, 炒, 煮, 烤, 蒸, 炸, 凉, 热, 甜, 酸, 苦, 辣, 咸\n\nAdjectives: 聪明, 善良, 勤奋, 懒惰, 勇敢, 胆小, 成熟, 幼稚, 负责, 粗心, 耐心, 坚强, 温柔, 严格, 大方, 自私\n\nTime words: 以前, 以后, 现在, 将来, 过去, 目前, 未来, 永远, 曾经, 已经, 正在, 马上, 立刻, 终于, 最后\n\n---\n\nStage 3: Young Adult (250+ words)\n\nAbstract, professional, values-based vocabulary.\n\nCareer: 工作, 职业, 公司, 老板, 员工, 客户, 项目, 会议, 目标, 成就, 职责, 技能, 经验, 简历, 面试, 晋升, 薪水, 福利, 团队, 合作\n\nMoney: 钱, 收入, 支出, 存款, 消费, 投资, 预算, 经济, 价值, 价格, 便宜, 贵, 赚钱, 省钱, 贷款, 信用卡, 股票, 保险, 财富, 贫穷\n\nRelationships: 爱, 伴侣, 婚姻, 承诺, 信任, 尊重, 沟通, 理解, 支持, 依靠, 亲密, 性, 忠诚, 背叛, 宽容, 妥协, 真心, 灵魂伴侣\n\nHealth: 健康, 运动, 饮食, 压力, 睡眠, 医院, 医生, 药物, 治疗, 疾病, 预防, 营养, 锻炼, 健身, 身材, 体重, 精力, 免疫, 心理, 情绪\n\nTechnology: 电脑, 手机, 网络, 软件, 数据, 智能, 科技, 创新, 编程, 算法, 人工智能, 机器人, 虚拟, 现实, 沟通, 信息, 数字, 自动化, 互联网\n\nSociety: 社会, 文化, 政策, 法律, 权利, 责任, 平等, 自由, 正义, 民主, 人权, 贫困, 教育, 医疗, 环境, 能源, 安全, 秩序, 文明, 进步\n\nPhilosophy: 意义, 真相, 现实, 理想, 信念, 价值观, 道德, 伦理, 存在, 自我, 世界, 人生, 死亡, 宇宙, 因果, 命运, 自由意志, 觉知\n\nEmotions: 幸福, 满足, 失望, 挫折, 希望, 勇气, 决心, 信心, 乐观, 悲观, 感激, 敬畏, 惊叹, 平静, 激情, 骄傲\n\nAdjectives: 成熟, 独立, 自信, 负责, 诚实, 正直, 有远见, 有野心, 有同情心, 有担当, 理性, 感性\n\nAbstract nouns: 自由, 平等, 公正, 和平, 爱, 真理, 美, 善, 智慧, 力量, 时间, 空间, 能量, 意识, 存在, 虚无, 无限\n\n---\n\nStage 4: Elder (200+ words)\n\nReflective, philosophical, legacy-based vocabulary.\n\nWisdom: 智慧, 经验, 教训, 反思, 洞察, 领悟, 明理, 哲理, 禅, 道, 法, 自然, 命运, 定数, 变数, 机缘, 看破, 放下, 随缘\n\nSpirituality: 灵魂, 精神, 信仰, 冥想, 内在, 平和, 接纳, 觉醒, 开悟, 慈悲, 喜乐, 空性, 涅槃, 轮回, 因果, 业力, 意识, 觉性\n\nMemory: 记忆, 回忆, 过去, 往事, 历史, 传承, 纪念, 怀念, 遗忘, 铭记, 保留, 失去, 保持, 珍惜, 回味\n\nLife transitions: 变化, 成长, 衰老, 死亡, 重生, 时间, 永恒, 流逝, 阶段, 转折, 开始, 结束, 过程, 终点, 超越\n\nRelationships: 感恩, 宽恕, 原谅, 和解, 珍惜, 告别, 团聚, 友情, 亲情, 爱情, 无条件的爱\n\nLegacy: 遗产, 后代, 影响, 贡献, 意义, 超越, 永恒, 传承, 留传, 纪念, 榜样, 痕迹, 足迹, 价值\n\nMind: 心灵, 思想, 意识, 无意识, 潜意识, 内在声音, 直觉, 创造力, 想象力, 梦境, 清醒, 觉知, 专注, 扩散\n\nBody: 身体, 老化, 疾病, 健康, 养生, 饮食, 锻炼, 休息, 能量, 经络, 气血, 阴阳, 五行, 平衡\n\nNature: 自然, 宇宙, 星辰, 四季, 日出, 日落, 月圆, 月缺, 潮汐, 风雨, 雷电, 山水, 草木, 生长, 枯萎, 循环\n\nPhilosophy: 存在, 非存在, 一体, 分别, 空, 有, 相对, 绝对, 因果, 缘起, 性空, 道, 无极, 太极, 阴阳, 五行, 变化, 永恒, 瞬间, 生死, 轮回, 涅槃, 解脱, 觉悟\n\n---\n\nStage 5: Mastery (200+ words, idioms, proverbs)\n\nAdvanced abstract, idiomatic, and proverbial expressions.\n\n成语 idioms (100+):\n马马虎虎, 不可思议, 一清二楚, 乱七八糟, 千里马, 过河拆桥, 画蛇添足, 望梅止渴, 指鹿为马, 画龙点睛, 杯弓蛇影, 井底之蛙, 守株待兔, 掩耳盗铃, 亡羊补牢, 愚公移山, 精卫填海, 夸父追日, 叶公好龙, 狐假虎威, 鹤立鸡群, 风声鹤唳, 龙飞凤舞, 虎头蛇尾, 一箭双雕, 胸有成竹, 对牛弹琴, 盲人摸象, 自相矛盾, 水落石出, 沧海桑田, 海市蜃楼, 空中楼阁, 昙花一现, 明日黄花, 老生常谈, 见仁见智, 心有灵犀, 一针见血, 一丝不苟, 举一反三, 持之以恒, 全力以赴, 百折不挠, 锲而不舍, 卧薪尝胆, 破釜沉舟, 背水一战, 不入虎穴，焉得虎子, 千里之行始于足下, 九层之台起于累土, 合抱之木生于毫末\n\nProverbs (50+):\n塞翁失马，焉知非福\n水滴石穿\n知己知彼，百战不殆\n欲速则不达\n天网恢恢，疏而不漏\n路遥知马力，日久见人心\n十年树木，百年树人\n千里之堤溃于蚁穴\n祸兮福所倚，福兮祸所伏\n千里之行始于足下\n吃一堑长一智\n骄兵必败\n亡羊补牢为时未晚\n良药苦口利于病\n忠言逆耳利于行\n天生我材必有用\n学无止境\n书山有路勤为径\n学海无涯苦作舟\n己所不欲勿施于人\n三人行必有我师\n独木不成林\n人心齐泰山移\n得道多助失道寡助\n以德报怨\n以直报怨\n君子之交淡如水\n小人之交甘若醴\n物以类聚人以群分\n近朱者赤近墨者黑\n冰生于水而寒于水\n青出于蓝而胜于蓝\n长江后浪推前浪\n一代新人胜旧人\n三十年河东三十年河西\n时势造英雄\n英雄造时势\n生于忧患死于安乐\n先天下之忧而忧\n后天下之乐而乐\n天下兴亡匹夫有责\n富贵不能淫\n贫贱不能移\n威武不能屈\n老吾老以及人之老\n幼吾幼以及人之幼\n穷则独善其身\n达则兼济天下\n不积跬步无以至千里\n不积小流无以成江海\n学而不思则罔\n思而不学则殆\n温故而知新\n可以为师矣\n\nAdvanced abstract words: 宇宙, 无限, 永恒, 绝对, 相对, 因果, 轮回, 觉悟, 真理, 空性, 觉性, 慈悲, 喜乐, 涅槃, 解脱, 开悟, 道, 法, 禅, 一心, 三昧, 波罗密, 般若, 菩提, 业力, 缘起, 性空, 无我, 无常, 苦, 集, 灭, 道, 八正道, 六度, 四无量心, 五蕴, 十二因缘, 三法印, 一真法界, 如来藏, 阿赖耶识, 转识成智\n\nAdvanced verbs: 领悟, 洞察, 超越, 转化, 体验, 感知, 觉醒, 觉悟, 解脱, 放下, 看破, 随缘, 从容, 自在, 无住, 生心\n\nAdvanced adjectives: 玄妙, 超然, 无为, 空灵, 深邃, 浩瀚, 无穷, 无相, 无念, 无住\n\n---\n\n4. Session Structure\n\n· Session length: 30 minutes default, user adjustable (20–60 minutes)\n· Word pacing: 2.5 seconds per word pair (200ms English, 200ms Mandarin, 200ms Pinyin, then 500ms pause)\n· Stage duration: 6 months per stage (the app tracks progress, not calendar time—the user progresses through the vocabulary at their own pace)\n· Progress tracking: Uses localStorage to remember which stage and word index the user reached\n\n---\n\n5. User Interface\n\n· Stage selector: Large, easy-to-read buttons to select which stage (1-5)\n· Play/Pause/Reset: Controls for starting and stopping sessions\n· Progress bar: Shows overall progress through the current stage\n· Word counter: Shows \"Word 15 of 250\" with total progress percentage\n· Audio controls: Master volume, binaural frequency, isochronic frequency, enable/disable voice\n· Visual controls: Flash intensity, flash duration, screen brightness\n· VR mode toggle: Enables side-by-side split view for Cardboard\n· Dark theme: Optimized for low-light bedroom environments\n· Font: Large, readable, high-contrast text\n\n---\n\n6. Technical Implementation\n\n· No external dependencies: Pure HTML/CSS/JavaScript\n· No internet required: Works offline after initial load\n· Web Audio API: For all audio generation\n· Canvas or DOM: For visual entrainment (Canvas recommended for precise flash timing)\n· localStorage: For progress tracking\n· Responsive: Works on mobile, tablet, desktop\n\n---\n\n7. Optional Features (if feasible)\n\n· Sleep timer: Auto-shutoff at 30, 45, or 60 minutes\n· Fade-in/Fade-out: Gentle volume and brightness transitions at session start and end\n· Voice selection: Male/female TTS voice\n· Export progress: Save progress to a file or generate a QR code\n· Custom word lists: Allow users to add their own words\n· Night mode: Auto-dims the screen after 10 minutes of inactivity\n\n---\n\n8. Packaging & Distribution\n\nYou have full freedom to structure the app as:\n\n· A single HTML file\n· Multiple HTML pages (one per stage, plus settings)\n· A progressive web app (PWA) with a manifest and service worker\n· A desktop app using Electron\n· Any other architecture you deem appropriate\n\nThe goal is a functional, deliverable app that can be sold or distributed as a product.\n\n---\n\n9. Intent & Use Case\n\nThis app is designed for:\n\n· Passive learning: No active study required—just lie down, put on headphones, and drift toward sleep\n· 2-year progression: Six months per stage, at 30-45 minutes nightly\n· Real fluency: By the end of Stage 5, the user should have a deep, intuitive grasp of Mandarin vocabulary and common idioms\n\n---\n\n10. Aesthetic Notes\n\n· Minimalist, clean design\n· Dark background (deep blue-black or dark gray)\n· Soft, warm text colors (amber, gold, warm white)\n· Gentle pulsing animations\n· No loud colors, no distracting animations\n· Calm, meditative feel—designed for bedtime use\n\n---\n\nThat's the complete prompt. It gives Claude full creative freedom on the architecture while locking in the entrainment, audio, vocabulary, and session structure. The vocabulary is now complete across all five stages with over 1,000 words plus idioms and proverbs."
+        }
+      ],
+      "files": [
+        {
+          "file_uuid": "286fc9f7-656b-4988-b332-4ee136986a37",
+          "file_name": ""
+        }
+      ],
+      "parent_message_uuid": "00000000-0000-4000-8000-000000000000"
+    },
+    {
+      "uuid": "019f66fe-11f2-7a54-8fcb-723a814746ad",
+      "text": "I'll create a markdown file with the document content and save it to the outputs directory since the format guidance recommends markdown for standalone written content.\n```\nThis block is not supported on your current device yet.\n```\n\n\n```\nThis block is not supported on your current device yet.\n```\n\nHere's the file, ready to download.",
+      "content": [
+        {
+          "start_timestamp": "2026-07-15T18:15:55.251840Z",
+          "stop_timestamp": "2026-07-15T18:15:59.508927Z",
+          "flags": null,
+          "type": "thinking",
+          "thinking": "I'll create a markdown file with the document content and save it to the outputs directory since the format guidance recommends markdown for standalone written content.",
+          "summaries": [
+            {
+              "summary": "Orchestrated markdown file creation for downloadable output."
+            }
+          ],
+          "cut_off": false,
+          "truncated": false,
+          "hidden": false,
+          "thinking_hidden": false,
+          "alternative_display_type": null,
+          "signature": null
+        },
+        {
+          "start_timestamp": "2026-07-15T18:15:59.509572Z",
+          "stop_timestamp": "2026-07-15T18:17:13.029806Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01LToQfrPzPpNU5PuXhzk7dC",
+          "name": "create_file",
+          "input": {
+            "description": "Creating a markdown file with the Mandarin entrainment app prompt",
+            "path": "/mnt/user-data/outputs/mandarin-entrainment-app-prompt.md",
+            "file_text": "PROMPT FOR CLAUDE / AI ASSISTANT:\n\n---\n\nI need you to build a complete web application for passive Mandarin Chinese entrainment. The app is designed to be used while falling asleep—no active learning required. The user lies down, puts on headphones, and lets the system deliver vocabulary through synchronized audio and visual entrainment over a 2-year period (6 months per stage).\n\nYou have full freedom to design the architecture, page structure, and UI. The core requirements are the entrainment engine, audio generation, vocabulary progression, and session management.\n\n---\n\nCORE REQUIREMENTS:\n\n1. Audio Engine (Web Audio API)\n\nGenerate the following audio components in real-time:\n\n· Binaural beats: Two separate frequencies, one per channel. Left ear: 110 Hz, Right ear: 114 Hz. The difference (4 Hz) creates a theta wave entrainment effect. User should be able to adjust the base frequency and the difference.\n· Isochronic tones: A rhythmic pulsing tone at 10–12 Hz (alpha range). This acts as the carrier for the vocabulary \"payload.\" The amplitude of the isochronic tone should be modulated to deliver word pairs.\n· Word pair audio: Each word pair (English → Mandarin → Pinyin) is spoken clearly with a text-to-speech voice or pre-recorded audio. If TTS is used, it should be a natural-sounding Mandarin voice.\n· Controls: Volume, frequency adjustment, enable/disable binaural/isochronic/voice components, and a test mode.\n\n---\n\n2. Visual Entrainment Engine\n\nSynchronized with the audio pulses:\n\n· Flickering field: A full-screen or large-area visual pulse that flickers at the same rate as the isochronic tone (10–12 Hz). This creates visual entrainment alongside the audio.\n· Word pair display: Each word pair (English, Mandarin characters, Pinyin) flashes on screen in sync with the audio. Timing: 200ms English, 200ms Mandarin, 200ms Pinyin, then 500ms pause before the next pair.\n· Flash intensity: Adjustable brightness and flash duration (50ms to 300ms).\n· VR mode: Optional side-by-side split view for Google Cardboard or VR headsets.\n\n---\n\n3. Vocabulary Progression System (Five Stages, ~1,000+ Words)\n\nThe vocabulary is organized into five stages, each reflecting a natural language acquisition progression: Child → Youth → Young Adult → Elder → Mastery.\n\nStage 1: Child (200+ words)\n\nConcrete, immediate, survival-based vocabulary.\n\nFamily: 妈妈, 爸爸, 哥哥, 姐姐, 弟弟, 妹妹, 爷爷, 奶奶, 叔叔, 阿姨, 儿子, 女儿, 丈夫, 妻子, 父母, 孩子, 宝宝, 亲戚, 家庭, 家人\n\nBody: 头, 眼睛, 鼻子, 嘴巴, 耳朵, 手, 脚, 腿, 脸, 头发, 牙, 舌头, 肚子, 背, 肩膀, 膝盖, 手指, 指甲, 皮肤, 骨头\n\nFood: 米饭, 面包, 牛奶, 水, 苹果, 香蕉, 鸡蛋, 肉, 鱼, 菜, 汤, 糖, 盐, 油, 酱油, 醋, 茶, 咖啡, 果汁, 冰淇淋\n\nActions: 吃, 喝, 睡, 走, 跑, 跳, 玩, 看, 听, 说, 笑, 哭, 坐, 站, 躺, 推, 拉, 拿, 给, 要\n\nEmotions: 高兴, 难过, 生气, 害怕, 爱, 喜欢, 讨厌, 担心, 惊讶, 不好意思, 累, 饿, 渴, 困, 冷, 热, 舒服, 不舒服\n\nObjects: 书, 笔, 纸, 桌子, 椅子, 门, 窗, 床, 灯, 电话, 玩具, 球, 车, 飞机, 船, 房子, 商店, 公园, 学校, 医院\n\nColors: 红, 蓝, 绿, 黄, 白, 黑, 粉, 紫, 橙, 灰, 金, 银, 棕, 彩色\n\nNumbers: 一, 二, 三, 四, 五, 六, 七, 八, 九, 十, 十一, 十二, 二十, 三十, 一百, 一千, 一万\n\nBasic adjectives: 大, 小, 长, 短, 高, 矮, 胖, 瘦, 快, 慢, 新, 旧, 多, 少, 早, 晚, 好, 坏, 对, 错\n\nBasic verbs: 去, 来, 看, 听, 说, 问, 想, 知道, 认识, 觉得, 认为, 应该, 可以, 能够, 愿意, 需要, 喜欢, 希望\n\n---\n\nStage 2: Youth (200+ words)\n\nSocial, emotional, school-based vocabulary.\n\nSchool: 老师, 学生, 学校, 班级, 课, 作业, 考试, 成绩, 知识, 学习, 读书, 写字, 计算, 科学, 历史, 地理, 音乐, 美术, 体育, 课堂\n\nTime: 今天, 明天, 昨天, 上午, 下午, 晚上, 小时, 分钟, 秒, 日期, 季节, 春天, 夏天, 秋天, 冬天, 生日, 节日, 假期\n\nRelationships: 朋友, 同学, 邻居, 亲戚, 关系, 关心, 帮助, 感谢, 道歉, 邀请, 见面, 分别, 想念, 祝福, 珍惜\n\nEmotions: 快乐, 悲伤, 愤怒, 平静, 紧张, 放松, 骄傲, 羞愧, 羡慕, 嫉妒, 感激, 同情, 孤独, 温暖, 安全\n\nActivities: 运动, 游泳, 骑车, 画画, 唱歌, 弹琴, 跳舞, 游戏, 比赛, 跑步, 爬山, 钓鱼, 露营, 旅行, 拍照\n\nNature: 天空, 太阳, 月亮, 星星, 云, 雨, 雪, 风, 花, 树, 草, 山, 河, 海, 湖, 森林, 动物, 鸟, 鱼, 虫\n\nClothing: 衣服, 裤子, 鞋, 袜子, 帽子, 裙子, 外套, 围巾, 手套, 耳环, 项链, 戒指, 皮带, 口袋, 拉链, 纽扣\n\nFood: 蔬菜, 水果, 肉, 鱼, 米饭, 面, 饺子, 面条, 炒, 煮, 烤, 蒸, 炸, 凉, 热, 甜, 酸, 苦, 辣, 咸\n\nAdjectives: 聪明, 善良, 勤奋, 懒惰, 勇敢, 胆小, 成熟, 幼稚, 负责, 粗心, 耐心, 坚强, 温柔, 严格, 大方, 自私\n\nTime words: 以前, 以后, 现在, 将来, 过去, 目前, 未来, 永远, 曾经, 已经, 正在, 马上, 立刻, 终于, 最后\n\n---\n\nStage 3: Young Adult (250+ words)\n\nAbstract, professional, values-based vocabulary.\n\nCareer: 工作, 职业, 公司, 老板, 员工, 客户, 项目, 会议, 目标, 成就, 职责, 技能, 经验, 简历, 面试, 晋升, 薪水, 福利, 团队, 合作\n\nMoney: 钱, 收入, 支出, 存款, 消费, 投资, 预算, 经济, 价值, 价格, 便宜, 贵, 赚钱, 省钱, 贷款, 信用卡, 股票, 保险, 财富, 贫穷\n\nRelationships: 爱, 伴侣, 婚姻, 承诺, 信任, 尊重, 沟通, 理解, 支持, 依靠, 亲密, 性, 忠诚, 背叛, 宽容, 妥协, 真心, 灵魂伴侣\n\nHealth: 健康, 运动, 饮食, 压力, 睡眠, 医院, 医生, 药物, 治疗, 疾病, 预防, 营养, 锻炼, 健身, 身材, 体重, 精力, 免疫, 心理, 情绪\n\nTechnology: 电脑, 手机, 网络, 软件, 数据, 智能, 科技, 创新, 编程, 算法, 人工智能, 机器人, 虚拟, 现实, 沟通, 信息, 数字, 自动化, 互联网\n\nSociety: 社会, 文化, 政策, 法律, 权利, 责任, 平等, 自由, 正义, 民主, 人权, 贫困, 教育, 医疗, 环境, 能源, 安全, 秩序, 文明, 进步\n\nPhilosophy: 意义, 真相, 现实, 理想, 信念, 价值观, 道德, 伦理, 存在, 自我, 世界, 人生, 死亡, 宇宙, 因果, 命运, 自由意志, 觉知\n\nEmotions: 幸福, 满足, 失望, 挫折, 希望, 勇气, 决心, 信心, 乐观, 悲观, 感激, 敬畏, 惊叹, 平静, 激情, 骄傲\n\nAdjectives: 成熟, 独立, 自信, 负责, 诚实, 正直, 有远见, 有野心, 有同情心, 有担当, 理性, 感性\n\nAbstract nouns: 自由, 平等, 公正, 和平, 爱, 真理, 美, 善, 智慧, 力量, 时间, 空间, 能量, 意识, 存在, 虚无, 无限\n\n---\n\nStage 4: Elder (200+ words)\n\nReflective, philosophical, legacy-based vocabulary.\n\nWisdom: 智慧, 经验, 教训, 反思, 洞察, 领悟, 明理, 哲理, 禅, 道, 法, 自然, 命运, 定数, 变数, 机缘, 看破, 放下, 随缘\n\nSpirituality: 灵魂, 精神, 信仰, 冥想, 内在, 平和, 接纳, 觉醒, 开悟, 慈悲, 喜乐, 空性, 涅槃, 轮回, 因果, 业力, 意识, 觉性\n\nMemory: 记忆, 回忆, 过去, 往事, 历史, 传承, 纪念, 怀念, 遗忘, 铭记, 保留, 失去, 保持, 珍惜, 回味\n\nLife transitions: 变化, 成长, 衰老, 死亡, 重生, 时间, 永恒, 流逝, 阶段, 转折, 开始, 结束, 过程, 终点, 超越\n\nRelationships: 感恩, 宽恕, 原谅, 和解, 珍惜, 告别, 团聚, 友情, 亲情, 爱情, 无条件的爱\n\nLegacy: 遗产, 后代, 影响, 贡献, 意义, 超越, 永恒, 传承, 留传, 纪念, 榜样, 痕迹, 足迹, 价值\n\nMind: 心灵, 思想, 意识, 无意识, 潜意识, 内在声音, 直觉, 创造力, 想象力, 梦境, 清醒, 觉知, 专注, 扩散\n\nBody: 身体, 老化, 疾病, 健康, 养生, 饮食, 锻炼, 休息, 能量, 经络, 气血, 阴阳, 五行, 平衡\n\nNature: 自然, 宇宙, 星辰, 四季, 日出, 日落, 月圆, 月缺, 潮汐, 风雨, 雷电, 山水, 草木, 生长, 枯萎, 循环\n\nPhilosophy: 存在, 非存在, 一体, 分别, 空, 有, 相对, 绝对, 因果, 缘起, 性空, 道, 无极, 太极, 阴阳, 五行, 变化, 永恒, 瞬间, 生死, 轮回, 涅槃, 解脱, 觉悟\n\n---\n\nStage 5: Mastery (200+ words, idioms, proverbs)\n\nAdvanced abstract, idiomatic, and proverbial expressions.\n\n成语 idioms (100+):\n马马虎虎, 不可思议, 一清二楚, 乱七八糟, 千里马, 过河拆桥, 画蛇添足, 望梅止渴, 指鹿为马, 画龙点睛, 杯弓蛇影, 井底之蛙, 守株待兔, 掩耳盗铃, 亡羊补牢, 愚公移山, 精卫填海, 夸父追日, 叶公好龙, 狐假虎威, 鹤立鸡群, 风声鹤唳, 龙飞凤舞, 虎头蛇尾, 一箭双雕, 胸有成竹, 对牛弹琴, 盲人摸象, 自相矛盾, 水落石出, 沧海桑田, 海市蜃楼, 空中楼阁, 昙花一现, 明日黄花, 老生常谈, 见仁见智, 心有灵犀, 一针见血, 一丝不苟, 举一反三, 持之以恒, 全力以赴, 百折不挠, 锲而不舍, 卧薪尝胆, 破釜沉舟, 背水一战, 不入虎穴，焉得虎子, 千里之行始于足下, 九层之台起于累土, 合抱之木生于毫末\n\nProverbs (50+):\n塞翁失马，焉知非福\n水滴石穿\n知己知彼，百战不殆\n欲速则不达\n天网恢恢，疏而不漏\n路遥知马力，日久见人心\n十年树木，百年树人\n千里之堤溃于蚁穴\n祸兮福所倚，福兮祸所伏\n千里之行始于足下\n吃一堑长一智\n骄兵必败\n亡羊补牢为时未晚\n良药苦口利于病\n忠言逆耳利于行\n天生我材必有用\n学无止境\n书山有路勤为径\n学海无涯苦作舟\n己所不欲勿施于人\n三人行必有我师\n独木不成林\n人心齐泰山移\n得道多助失道寡助\n以德报怨\n以直报怨\n君子之交淡如水\n小人之交甘若醴\n物以类聚人以群分\n近朱者赤近墨者黑\n冰生于水而寒于水\n青出于蓝而胜于蓝\n长江后浪推前浪\n一代新人胜旧人\n三十年河东三十年河西\n时势造英雄\n英雄造时势\n生于忧患死于安乐\n先天下之忧而忧\n后天下之乐而乐\n天下兴亡匹夫有责\n富贵不能淫\n贫贱不能移\n威武不能屈\n老吾老以及人之老\n幼吾幼以及人之幼\n穷则独善其身\n达则兼济天下\n不积跬步无以至千里\n不积小流无以成江海\n学而不思则罔\n思而不学则殆\n温故而知新\n可以为师矣\n\nAdvanced abstract words: 宇宙, 无限, 永恒, 绝对, 相对, 因果, 轮回, 觉悟, 真理, 空性, 觉性, 慈悲, 喜乐, 涅槃, 解脱, 开悟, 道, 法, 禅, 一心, 三昧, 波罗密, 般若, 菩提, 业力, 缘起, 性空, 无我, 无常, 苦, 集, 灭, 道, 八正道, 六度, 四无量心, 五蕴, 十二因缘, 三法印, 一真法界, 如来藏, 阿赖耶识, 转识成智\n\nAdvanced verbs: 领悟, 洞察, 超越, 转化, 体验, 感知, 觉醒, 觉悟, 解脱, 放下, 看破, 随缘, 从容, 自在, 无住, 生心\n\nAdvanced adjectives: 玄妙, 超然, 无为, 空灵, 深邃, 浩瀚, 无穷, 无相, 无念, 无住\n\n---\n\n4. Session Structure\n\n· Session length: 30 minutes default, user adjustable (20–60 minutes)\n· Word pacing: 2.5 seconds per word pair (200ms English, 200ms Mandarin, 200ms Pinyin, then 500ms pause)\n· Stage duration: 6 months per stage (the app tracks progress, not calendar time—the user progresses through the vocabulary at their own pace)\n· Progress tracking: Uses localStorage to remember which stage and word index the user reached\n\n---\n\n5. User Interface\n\n· Stage selector: Large, easy-to-read buttons to select which stage (1-5)\n· Play/Pause/Reset: Controls for starting and stopping sessions\n· Progress bar: Shows overall progress through the current stage\n· Word counter: Shows \"Word 15 of 250\" with total progress percentage\n· Audio controls: Master volume, binaural frequency, isochronic frequency, enable/disable voice\n· Visual controls: Flash intensity, flash duration, screen brightness\n· VR mode toggle: Enables side-by-side split view for Cardboard\n· Dark theme: Optimized for low-light bedroom environments\n· Font: Large, readable, high-contrast text\n\n---\n\n6. Technical Implementation\n\n· No external dependencies: Pure HTML/CSS/JavaScript\n· No internet required: Works offline after initial load\n· Web Audio API: For all audio generation\n· Canvas or DOM: For visual entrainment (Canvas recommended for precise flash timing)\n· localStorage: For progress tracking\n· Responsive: Works on mobile, tablet, desktop\n\n---\n\n7. Optional Features (if feasible)\n\n· Sleep timer: Auto-shutoff at 30, 45, or 60 minutes\n· Fade-in/Fade-out: Gentle volume and brightness transitions at session start and end\n· Voice selection: Male/female TTS voice\n· Export progress: Save progress to a file or generate a QR code\n· Custom word lists: Allow users to add their own words\n· Night mode: Auto-dims the screen after 10 minutes of inactivity\n\n---\n\n8. Packaging & Distribution\n\nYou have full freedom to structure the app as:\n\n· A single HTML file\n· Multiple HTML pages (one per stage, plus settings)\n· A progressive web app (PWA) with a manifest and service worker\n· A desktop app using Electron\n· Any other architecture you deem appropriate\n\nThe goal is a functional, deliverable app that can be sold or distributed as a product.\n\n---\n\n9. Intent & Use Case\n\nThis app is designed for:\n\n· Passive learning: No active study required—just lie down, put on headphones, and drift toward sleep\n· 2-year progression: Six months per stage, at 30-45 minutes nightly\n· Real fluency: By the end of Stage 5, the user should have a deep, intuitive grasp of Mandarin vocabulary and common idioms\n\n---\n\n10. Aesthetic Notes\n\n· Minimalist, clean design\n· Dark background (deep blue-black or dark gray)\n· Soft, warm text colors (amber, gold, warm white)\n· Gentle pulsing animations\n· No loud colors, no distracting animations\n· Calm, meditative feel—designed for bedtime use\n"
+          },
+          "message": "Creating a markdown file with the Mandarin entrainment app prompt",
+          "integration_name": "File Creation",
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "file",
+          "context": null,
+          "display_content": {
+            "type": "code_block",
+            "language": "markdown",
+            "code": "PROMPT FOR CLAUDE / AI ASSISTANT:\n\n---\n\nI need you to build a complete web application for passive Mandarin Chinese entrainment. The app is designed to be used while falling asleep—no active learning required. The user lies down, puts on headphones, and lets the system deliver vocabulary through synchronized audio and visual entrainment over a 2-year period (6 months per stage).\n\nYou have full freedom to design the architecture, page structure, and UI. The core requirements are the entrainment engine, audio generation, vocabulary progression, and session management.\n\n---\n\nCORE REQUIREMENTS:\n\n1. Audio Engine (Web Audio API)\n\nGenerate the following audio components in real-time:\n\n· Binaural beats: Two separate frequencies, one per channel. Left ear: 110 Hz, Right ear: 114 Hz. The difference (4 Hz) creates a theta wave entrainment effect. User should be able to adjust the base frequency and the difference.\n· Isochronic tones: A rhythmic pulsing tone at 10–12 Hz (alpha range). This acts as the carrier for the vocabulary \"payload.\" The amplitude of the isochronic tone should be modulated to deliver word pairs.\n· Word pair audio: Each word pair (English → Mandarin → Pinyin) is spoken clearly with a text-to-speech voice or pre-recorded audio. If TTS is used, it should be a natural-sounding Mandarin voice.\n· Controls: Volume, frequency adjustment, enable/disable binaural/isochronic/voice components, and a test mode.\n\n---\n\n2. Visual Entrainment Engine\n\nSynchronized with the audio pulses:\n\n· Flickering field: A full-screen or large-area visual pulse that flickers at the same rate as the isochronic tone (10–12 Hz). This creates visual entrainment alongside the audio.\n· Word pair display: Each word pair (English, Mandarin characters, Pinyin) flashes on screen in sync with the audio. Timing: 200ms English, 200ms Mandarin, 200ms Pinyin, then 500ms pause before the next pair.\n· Flash intensity: Adjustable brightness and flash duration (50ms to 300ms).\n· VR mode: Optional side-by-side split view for Google Cardboard or VR headsets.\n\n---\n\n3. Vocabulary Progression System (Five Stages, ~1,000+ Words)\n\nThe vocabulary is organized into five stages, each reflecting a natural language acquisition progression: Child → Youth → Young Adult → Elder → Mastery.\n\nStage 1: Child (200+ words)\n\nConcrete, immediate, survival-based vocabulary.\n\nFamily: 妈妈, 爸爸, 哥哥, 姐姐, 弟弟, 妹妹, 爷爷, 奶奶, 叔叔, 阿姨, 儿子, 女儿, 丈夫, 妻子, 父母, 孩子, 宝宝, 亲戚, 家庭, 家人\n\nBody: 头, 眼睛, 鼻子, 嘴巴, 耳朵, 手, 脚, 腿, 脸, 头发, 牙, 舌头, 肚子, 背, 肩膀, 膝盖, 手指, 指甲, 皮肤, 骨头\n\nFood: 米饭, 面包, 牛奶, 水, 苹果, 香蕉, 鸡蛋, 肉, 鱼, 菜, 汤, 糖, 盐, 油, 酱油, 醋, 茶, 咖啡, 果汁, 冰淇淋\n\nActions: 吃, 喝, 睡, 走, 跑, 跳, 玩, 看, 听, 说, 笑, 哭, 坐, 站, 躺, 推, 拉, 拿, 给, 要\n\nEmotions: 高兴, 难过, 生气, 害怕, 爱, 喜欢, 讨厌, 担心, 惊讶, 不好意思, 累, 饿, 渴, 困, 冷, 热, 舒服, 不舒服\n\nObjects: 书, 笔, 纸, 桌子, 椅子, 门, 窗, 床, 灯, 电话, 玩具, 球, 车, 飞机, 船, 房子, 商店, 公园, 学校, 医院\n\nColors: 红, 蓝, 绿, 黄, 白, 黑, 粉, 紫, 橙, 灰, 金, 银, 棕, 彩色\n\nNumbers: 一, 二, 三, 四, 五, 六, 七, 八, 九, 十, 十一, 十二, 二十, 三十, 一百, 一千, 一万\n\nBasic adjectives: 大, 小, 长, 短, 高, 矮, 胖, 瘦, 快, 慢, 新, 旧, 多, 少, 早, 晚, 好, 坏, 对, 错\n\nBasic verbs: 去, 来, 看, 听, 说, 问, 想, 知道, 认识, 觉得, 认为, 应该, 可以, 能够, 愿意, 需要, 喜欢, 希望\n\n---\n\nStage 2: Youth (200+ words)\n\nSocial, emotional, school-based vocabulary.\n\nSchool: 老师, 学生, 学校, 班级, 课, 作业, 考试, 成绩, 知识, 学习, 读书, 写字, 计算, 科学, 历史, 地理, 音乐, 美术, 体育, 课堂\n\nTime: 今天, 明天, 昨天, 上午, 下午, 晚上, 小时, 分钟, 秒, 日期, 季节, 春天, 夏天, 秋天, 冬天, 生日, 节日, 假期\n\nRelationships: 朋友, 同学, 邻居, 亲戚, 关系, 关心, 帮助, 感谢, 道歉, 邀请, 见面, 分别, 想念, 祝福, 珍惜\n\nEmotions: 快乐, 悲伤, 愤怒, 平静, 紧张, 放松, 骄傲, 羞愧, 羡慕, 嫉妒, 感激, 同情, 孤独, 温暖, 安全\n\nActivities: 运动, 游泳, 骑车, 画画, 唱歌, 弹琴, 跳舞, 游戏, 比赛, 跑步, 爬山, 钓鱼, 露营, 旅行, 拍照\n\nNature: 天空, 太阳, 月亮, 星星, 云, 雨, 雪, 风, 花, 树, 草, 山, 河, 海, 湖, 森林, 动物, 鸟, 鱼, 虫\n\nClothing: 衣服, 裤子, 鞋, 袜子, 帽子, 裙子, 外套, 围巾, 手套, 耳环, 项链, 戒指, 皮带, 口袋, 拉链, 纽扣\n\nFood: 蔬菜, 水果, 肉, 鱼, 米饭, 面, 饺子, 面条, 炒, 煮, 烤, 蒸, 炸, 凉, 热, 甜, 酸, 苦, 辣, 咸\n\nAdjectives: 聪明, 善良, 勤奋, 懒惰, 勇敢, 胆小, 成熟, 幼稚, 负责, 粗心, 耐心, 坚强, 温柔, 严格, 大方, 自私\n\nTime words: 以前, 以后, 现在, 将来, 过去, 目前, 未来, 永远, 曾经, 已经, 正在, 马上, 立刻, 终于, 最后\n\n---\n\nStage 3: Young Adult (250+ words)\n\nAbstract, professional, values-based vocabulary.\n\nCareer: 工作, 职业, 公司, 老板, 员工, 客户, 项目, 会议, 目标, 成就, 职责, 技能, 经验, 简历, 面试, 晋升, 薪水, 福利, 团队, 合作\n\nMoney: 钱, 收入, 支出, 存款, 消费, 投资, 预算, 经济, 价值, 价格, 便宜, 贵, 赚钱, 省钱, 贷款, 信用卡, 股票, 保险, 财富, 贫穷\n\nRelationships: 爱, 伴侣, 婚姻, 承诺, 信任, 尊重, 沟通, 理解, 支持, 依靠, 亲密, 性, 忠诚, 背叛, 宽容, 妥协, 真心, 灵魂伴侣\n\nHealth: 健康, 运动, 饮食, 压力, 睡眠, 医院, 医生, 药物, 治疗, 疾病, 预防, 营养, 锻炼, 健身, 身材, 体重, 精力, 免疫, 心理, 情绪\n\nTechnology: 电脑, 手机, 网络, 软件, 数据, 智能, 科技, 创新, 编程, 算法, 人工智能, 机器人, 虚拟, 现实, 沟通, 信息, 数字, 自动化, 互联网\n\nSociety: 社会, 文化, 政策, 法律, 权利, 责任, 平等, 自由, 正义, 民主, 人权, 贫困, 教育, 医疗, 环境, 能源, 安全, 秩序, 文明, 进步\n\nPhilosophy: 意义, 真相, 现实, 理想, 信念, 价值观, 道德, 伦理, 存在, 自我, 世界, 人生, 死亡, 宇宙, 因果, 命运, 自由意志, 觉知\n\nEmotions: 幸福, 满足, 失望, 挫折, 希望, 勇气, 决心, 信心, 乐观, 悲观, 感激, 敬畏, 惊叹, 平静, 激情, 骄傲\n\nAdjectives: 成熟, 独立, 自信, 负责, 诚实, 正直, 有远见, 有野心, 有同情心, 有担当, 理性, 感性\n\nAbstract nouns: 自由, 平等, 公正, 和平, 爱, 真理, 美, 善, 智慧, 力量, 时间, 空间, 能量, 意识, 存在, 虚无, 无限\n\n---\n\nStage 4: Elder (200+ words)\n\nReflective, philosophical, legacy-based vocabulary.\n\nWisdom: 智慧, 经验, 教训, 反思, 洞察, 领悟, 明理, 哲理, 禅, 道, 法, 自然, 命运, 定数, 变数, 机缘, 看破, 放下, 随缘\n\nSpirituality: 灵魂, 精神, 信仰, 冥想, 内在, 平和, 接纳, 觉醒, 开悟, 慈悲, 喜乐, 空性, 涅槃, 轮回, 因果, 业力, 意识, 觉性\n\nMemory: 记忆, 回忆, 过去, 往事, 历史, 传承, 纪念, 怀念, 遗忘, 铭记, 保留, 失去, 保持, 珍惜, 回味\n\nLife transitions: 变化, 成长, 衰老, 死亡, 重生, 时间, 永恒, 流逝, 阶段, 转折, 开始, 结束, 过程, 终点, 超越\n\nRelationships: 感恩, 宽恕, 原谅, 和解, 珍惜, 告别, 团聚, 友情, 亲情, 爱情, 无条件的爱\n\nLegacy: 遗产, 后代, 影响, 贡献, 意义, 超越, 永恒, 传承, 留传, 纪念, 榜样, 痕迹, 足迹, 价值\n\nMind: 心灵, 思想, 意识, 无意识, 潜意识, 内在声音, 直觉, 创造力, 想象力, 梦境, 清醒, 觉知, 专注, 扩散\n\nBody: 身体, 老化, 疾病, 健康, 养生, 饮食, 锻炼, 休息, 能量, 经络, 气血, 阴阳, 五行, 平衡\n\nNature: 自然, 宇宙, 星辰, 四季, 日出, 日落, 月圆, 月缺, 潮汐, 风雨, 雷电, 山水, 草木, 生长, 枯萎, 循环\n\nPhilosophy: 存在, 非存在, 一体, 分别, 空, 有, 相对, 绝对, 因果, 缘起, 性空, 道, 无极, 太极, 阴阳, 五行, 变化, 永恒, 瞬间, 生死, 轮回, 涅槃, 解脱, 觉悟\n\n---\n\nStage 5: Mastery (200+ words, idioms, proverbs)\n\nAdvanced abstract, idiomatic, and proverbial expressions.\n\n成语 idioms (100+):\n马马虎虎, 不可思议, 一清二楚, 乱七八糟, 千里马, 过河拆桥, 画蛇添足, 望梅止渴, 指鹿为马, 画龙点睛, 杯弓蛇影, 井底之蛙, 守株待兔, 掩耳盗铃, 亡羊补牢, 愚公移山, 精卫填海, 夸父追日, 叶公好龙, 狐假虎威, 鹤立鸡群, 风声鹤唳, 龙飞凤舞, 虎头蛇尾, 一箭双雕, 胸有成竹, 对牛弹琴, 盲人摸象, 自相矛盾, 水落石出, 沧海桑田, 海市蜃楼, 空中楼阁, 昙花一现, 明日黄花, 老生常谈, 见仁见智, 心有灵犀, 一针见血, 一丝不苟, 举一反三, 持之以恒, 全力以赴, 百折不挠, 锲而不舍, 卧薪尝胆, 破釜沉舟, 背水一战, 不入虎穴，焉得虎子, 千里之行始于足下, 九层之台起于累土, 合抱之木生于毫末\n\nProverbs (50+):\n塞翁失马，焉知非福\n水滴石穿\n知己知彼，百战不殆\n欲速则不达\n天网恢恢，疏而不漏\n路遥知马力，日久见人心\n十年树木，百年树人\n千里之堤溃于蚁穴\n祸兮福所倚，福兮祸所伏\n千里之行始于足下\n吃一堑长一智\n骄兵必败\n亡羊补牢为时未晚\n良药苦口利于病\n忠言逆耳利于行\n天生我材必有用\n学无止境\n书山有路勤为径\n学海无涯苦作舟\n己所不欲勿施于人\n三人行必有我师\n独木不成林\n人心齐泰山移\n得道多助失道寡助\n以德报怨\n以直报怨\n君子之交淡如水\n小人之交甘若醴\n物以类聚人以群分\n近朱者赤近墨者黑\n冰生于水而寒于水\n青出于蓝而胜于蓝\n长江后浪推前浪\n一代新人胜旧人\n三十年河东三十年河西\n时势造英雄\n英雄造时势\n生于忧患死于安乐\n先天下之忧而忧\n后天下之乐而乐\n天下兴亡匹夫有责\n富贵不能淫\n贫贱不能移\n威武不能屈\n老吾老以及人之老\n幼吾幼以及人之幼\n穷则独善其身\n达则兼济天下\n不积跬步无以至千里\n不积小流无以成江海\n学而不思则罔\n思而不学则殆\n温故而知新\n可以为师矣\n\nAdvanced abstract words: 宇宙, 无限, 永恒, 绝对, 相对, 因果, 轮回, 觉悟, 真理, 空性, 觉性, 慈悲, 喜乐, 涅槃, 解脱, 开悟, 道, 法, 禅, 一心, 三昧, 波罗密, 般若, 菩提, 业力, 缘起, 性空, 无我, 无常, 苦, 集, 灭, 道, 八正道, 六度, 四无量心, 五蕴, 十二因缘, 三法印, 一真法界, 如来藏, 阿赖耶识, 转识成智\n\nAdvanced verbs: 领悟, 洞察, 超越, 转化, 体验, 感知, 觉醒, 觉悟, 解脱, 放下, 看破, 随缘, 从容, 自在, 无住, 生心\n\nAdvanced adjectives: 玄妙, 超然, 无为, 空灵, 深邃, 浩瀚, 无穷, 无相, 无念, 无住\n\n---\n\n4. Session Structure\n\n· Session length: 30 minutes default, user adjustable (20–60 minutes)\n· Word pacing: 2.5 seconds per word pair (200ms English, 200ms Mandarin, 200ms Pinyin, then 500ms pause)\n· Stage duration: 6 months per stage (the app tracks progress, not calendar time—the user progresses through the vocabulary at their own pace)\n· Progress tracking: Uses localStorage to remember which stage and word index the user reached\n\n---\n\n5. User Interface\n\n· Stage selector: Large, easy-to-read buttons to select which stage (1-5)\n· Play/Pause/Reset: Controls for starting and stopping sessions\n· Progress bar: Shows overall progress through the current stage\n· Word counter: Shows \"Word 15 of 250\" with total progress percentage\n· Audio controls: Master volume, binaural frequency, isochronic frequency, enable/disable voice\n· Visual controls: Flash intensity, flash duration, screen brightness\n· VR mode toggle: Enables side-by-side split view for Cardboard\n· Dark theme: Optimized for low-light bedroom environments\n· Font: Large, readable, high-contrast text\n\n---\n\n6. Technical Implementation\n\n· No external dependencies: Pure HTML/CSS/JavaScript\n· No internet required: Works offline after initial load\n· Web Audio API: For all audio generation\n· Canvas or DOM: For visual entrainment (Canvas recommended for precise flash timing)\n· localStorage: For progress tracking\n· Responsive: Works on mobile, tablet, desktop\n\n---\n\n7. Optional Features (if feasible)\n\n· Sleep timer: Auto-shutoff at 30, 45, or 60 minutes\n· Fade-in/Fade-out: Gentle volume and brightness transitions at session start and end\n· Voice selection: Male/female TTS voice\n· Export progress: Save progress to a file or generate a QR code\n· Custom word lists: Allow users to add their own words\n· Night mode: Auto-dims the screen after 10 minutes of inactivity\n\n---\n\n8. Packaging & Distribution\n\nYou have full freedom to structure the app as:\n\n· A single HTML file\n· Multiple HTML pages (one per stage, plus settings)\n· A progressive web app (PWA) with a manifest and service worker\n· A desktop app using Electron\n· Any other architecture you deem appropriate\n\nThe goal is a functional, deliverable app that can be sold or distributed as a product.\n\n---\n\n9. Intent & Use Case\n\nThis app is designed for:\n\n· Passive learning: No active study required—just lie down, put on headphones, and drift toward sleep\n· 2-year progression: Six months per stage, at 30-45 minutes nightly\n· Real fluency: By the end of Stage 5, the user should have a deep, intuitive grasp of Mandarin vocabulary and common idioms\n\n---\n\n10. Aesthetic Notes\n\n· Minimalist, clean design\n· Dark background (deep blue-black or dark gray)\n· Soft, warm text colors (amber, gold, warm white)\n· Gentle pulsing animations\n· No loud colors, no distracting animations\n· Calm, meditative feel—designed for bedtime use\n",
+            "filename": "/mnt/user-data/outputs/mandarin-entrainment-app-prompt.md"
+          },
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": "2026-07-15T18:17:18.351371Z",
+          "stop_timestamp": "2026-07-15T18:17:18.351385Z",
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01LToQfrPzPpNU5PuXhzk7dC",
+          "name": "create_file",
+          "content": [
+            {
+              "type": "text",
+              "text": "File created successfully: /mnt/user-data/outputs/mandarin-entrainment-app-prompt.md",
+              "uuid": "c972f647-d88b-42a4-a342-e82f6f8ea74a"
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": {
+            "output_format_category": "md"
+          },
+          "message": null,
+          "integration_name": "File Creation",
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "file",
+          "display_content": {
+            "type": "text",
+            "text": "File created successfully: /mnt/user-data/outputs/mandarin-entrainment-app-prompt.md"
+          },
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-07-15T18:17:21.491033Z",
+          "stop_timestamp": "2026-07-15T18:17:21.535018Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_014uf9zcZAwGCPfbmPniFYAe",
+          "name": "present_files",
+          "input": {
+            "filepaths": [
+              "/mnt/user-data/outputs/mandarin-entrainment-app-prompt.md"
+            ]
+          },
+          "message": "Presenting file(s)...",
+          "integration_name": "File Creation",
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "file",
+          "context": null,
+          "display_content": {
+            "type": "table",
+            "table": [
+              [
+                "filepaths",
+                "['/mnt/user-data/outputs/mandarin-entrainment-app-prompt.md']"
+              ]
+            ]
+          },
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": "2026-07-15T18:17:21.585962Z",
+          "stop_timestamp": "2026-07-15T18:17:21.585972Z",
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_014uf9zcZAwGCPfbmPniFYAe",
+          "name": "present_files",
+          "content": [
+            {
+              "type": "local_resource",
+              "file_path": "/mnt/user-data/outputs/mandarin-entrainment-app-prompt.md",
+              "name": "mandarin-entrainment-app-prompt",
+              "mime_type": "text/markdown",
+              "uuid": "1aeb40ec-6dcf-424c-99a2-add873e3de4c"
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": {
+            "output_format_category": "md"
+          },
+          "message": "Presented file",
+          "integration_name": "File Creation",
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "file",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-07-15T18:17:22.178093Z",
+          "stop_timestamp": "2026-07-15T18:17:22.379337Z",
+          "flags": null,
+          "type": "text",
+          "text": "Here's the file, ready to download.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-07-15T18:17:22.428239Z",
+      "updated_at": "2026-07-15T18:17:22.428239Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019f66fe-11f2-7a47-a6a8-6eb48a13316d"
+    }
+  ]
+}

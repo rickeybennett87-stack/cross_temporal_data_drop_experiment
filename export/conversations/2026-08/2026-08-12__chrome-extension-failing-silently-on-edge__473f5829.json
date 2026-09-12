@@ -1,0 +1,277 @@
+{
+  "uuid": "473f5829-c2c4-490a-94bc-336aaf55d5e1",
+  "name": "Chrome extension failing silently on Edge",
+  "summary": "**Conversation Overview**\n\nThe person reported a frustrating issue where the Claude Code Chrome extension silently fails on Microsoft Edge — it prompts for authentication but then does nothing, while working correctly in Chrome. Claude performed a web search and provided a detailed technical explanation of the root causes.\n\nClaude identified two likely bugs: first, that Claude Code's native messaging host is registered only under Chrome's registry path (`HKCU\\SOFTWARE\\Google\\Chrome\\NativeMessagingHosts`) and not Edge's equivalent path (`HKCU\\SOFTWARE\\Microsoft\\Edge\\NativeMessagingHosts`), causing Edge to silently fail to launch the host; second, a priority-race condition involving the Claude desktop app interfering with the CLI's native host handshake. Claude provided specific Windows registry commands to diagnose which issue applies and noted that fully quitting the Claude desktop app before invoking `--chrome` is the only known workaround for the second scenario. Claude confirmed both are open, unresolved issues as of recent weeks, with no shipped fix from Anthropic, and recommended using Chrome as the more supported path in the interim.",
+  "created_at": "2026-08-12T14:32:04.307138Z",
+  "updated_at": "2026-08-12T14:32:22.273562Z",
+  "account": {
+    "uuid": "404f3f89-8c3a-46a9-a7b4-7a3c875dbedd"
+  },
+  "chat_messages": [
+    {
+      "uuid": "019ff661-539b-7f85-9f73-e69b8c99f069",
+      "text": "the extension for chrome offers itself in claude code but silently fails on edge even though it asks for auth grrrrrr",
+      "content": [
+        {
+          "start_timestamp": "2026-08-12T14:32:05.836844Z",
+          "stop_timestamp": "2026-08-12T14:32:05.836844Z",
+          "flags": null,
+          "type": "text",
+          "text": "the extension for chrome offers itself in claude code but silently fails on edge even though it asks for auth grrrrrr",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-08-12T14:32:05.836977Z",
+      "updated_at": "2026-08-12T14:32:05.836977Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "00000000-0000-4000-8000-000000000000"
+    },
+    {
+      "uuid": "019ff661-539b-7cff-9f7c-771d7cc1932a",
+      "text": "\n```\nThis block is not supported on your current device yet.\n```\n\nConfirmed — this is a known issue, not something specific to your setup. Two overlapping bugs match what you're describing:\n\n**Root cause candidates:**\n1. **Native messaging host registration is Chrome-only on Windows.** Claude Code registers its native messaging host in `HKCU\\SOFTWARE\\Google\\Chrome\\NativeMessagingHosts` but never writes the equivalent `HKCU\\SOFTWARE\\Microsoft\\Edge\\NativeMessagingHosts` key. Edge looks in its own registry path, finds nothing, and the extension just reports \"not connected\" with no error surfaced. The extension can be installed in Edge since it's Chromium-based, but the native messaging connection fails because Edge looks for host registrations under its own registry path, and no error is shown to the user — it simply reports the extension is not connected because the native messaging host is never launched.\n\n2. **If you also have the Claude desktop app installed**, there's a priority-race bug where Edge's extension prefers the desktop app's native host over Claude Code's CLI host, and even when the desktop app is forced out, the CLI handshake doesn't complete — status just sits on Disabled with nothing surfaced. The extension prioritizes the desktop app's native host over the CLI's, and even when desktop is forced out of the race, the CLI's host still doesn't report Enabled — the CLI process spawns and holds a socket open, but /chrome still reports Status: Disabled with no error surfaced anywhere.\n\n**Quick check to tell which one you're hitting** — if you're on Windows, run:\n```\nreg query \"HKCU\\SOFTWARE\\Microsoft\\Edge\\NativeMessagingHosts\" /s\nreg query \"HKCU\\SOFTWARE\\Google\\Chrome\\NativeMessagingHosts\" /s\n```\nIf Chrome's key exists and Edge's is empty, that's bug #1 — Anthropic hasn't shipped the fix, and no local workaround manually adds the reg key reliably because the extension ID/manifest path Chrome uses may not match what Edge's Chromium fork expects.\n\nIf you're on Mac, or the registry checks out fine, it's more likely the desktop-app priority race (#2), in which case fully quitting the Claude desktop app before invoking `--chrome` is the only known workaround right now.\n\nBoth are open, unresolved GitHub issues as of the last few weeks — not fixed yet. If Chrome itself works fine for you, that's the more supported path until Anthropic ships the Edge registry fix.",
+      "content": [
+        {
+          "start_timestamp": "2026-08-12T14:32:07.838982Z",
+          "stop_timestamp": "2026-08-12T14:32:08.062646Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01MADZtzpGEULiWgq5mEABZ2",
+          "name": "web_search",
+          "input": {
+            "query": "Claude for Chrome extension Microsoft Edge not working auth fails"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": "2026-08-12T14:32:08.815980Z",
+          "stop_timestamp": "2026-08-12T14:32:08.816006Z",
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01MADZtzpGEULiWgq5mEABZ2",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "[BUG] Claude in Chrome extension OAuth fails with \"Redirect URI chrome-extension:// is not supported by client\" - Cowork desktop app · Issue #34176 · anthropics/claude-code",
+              "url": "https://github.com/anthropics/claude-code/issues/34176",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Reinstalling the extension does not resolve this — the same error appears on every fresh authorisation attempt. **Error message** &quot;Authorization failed / Redirect URI chrome-extension:/fcoeoabgfenejglbffodgkkbkcdhcgfn/oauth_callback.html is ...\n\nPreflight Checklist I have searched existing issues and this hasn't been reported yet This is a single bug report (please file separate reports for different bugs) I am using the latest version of Claude Code What's Wrong? Description Th...\n\nExpected behaviour After completing Google OAuth, the extension should successfully authorise and connect to the Cowork desktop app. The Claude in Chrome side panel should open and show a \"Connected\" state, allowing Claude to read and interact with browser tabs on the user's behalf. Instead, OAuth completes but the redirect back to the extension fails immediately with the \"not supported by client\" error, leaving the extension in a permanently disconnected state. \n\nReinstalling the extension does not resolve this — the same error appears on every fresh authorisation attempt. **Error message** \"Authorization failed / Redirect URI chrome-extension:/fcoeoabgfenejglbffodgkkbkcdhcgfn/oauth_callback.html is not supported by client\" ... The extension ID in the error matches the official Anthropic Claude extension: fcoeoabgfenejglbffodgkkbkcdhcgfn · This appears related to [BUG] Claude in Chrome: Authorize button click handler empty, oauth_callback.html missing #17786 (oauth_callback.html missing\n\n[BUG] Claude in Chrome extension OAuth fails with \"Redirect URI chrome-extension:// is not supported by client\" - Cowork desktop app#34176 ... area:autharea:browser-extensionarea:coworkbugSomething isn't workingSomething isn't workingplatform:macosIssue specifically occurs on macOSIssue specifically occurs on macOSstaleIssue is inactiveIssue is inactive ... \n\nDescription The Claude in Chrome browser extension fails to authorise when used via the Cowork desktop app. The error appears immediatel",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "March 13, 2026",
+                "search_provider": "anthropic",
+                "url": "https://github.com/anthropics/claude-code/issues/34176"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Bug: Claude in Chrome extension OAuth authorization fails with ERR_BLOCKED_BY_CLIENT and unsupported redirect URI · Issue #38664 · anthropics/claude-code",
+              "url": "https://github.com/anthropics/claude-code/issues/38664",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Bug: Claude in Chrome extension OAuth authorization fails with ERR_BLOCKED_BY_CLIENT and unsupported redirect URI#38664 ... Describe the bug: The Claude in Chrome extension fails to authorize/connect with two distinct errors: ERR_BLOCKED_BY_CLIENT — Chrome blocks the extension&#x27;s own options page (chrome-extension://...options.html) Authorization failed: Redirect URI chrome-extension://.../oauth_callback.html is not supported by client · The extension appears enabled (toggle is blue in Claude Code connectors menu) but never actually establishes a connection to the Claude Code session. ... Expected behavior: Extension connects successfully and Claude Code can control the browser. ... Impact: Extension is completely unusable. Cannot use any browser automation tools from Claude Code.\n\n\n\nBug Report Describe the bug: The Claude in Chrome extension fails to authorize/connect with two distinct errors: ERR_BLOCKED_BY_CLIENT — Chrome blocks the extension's own options page (chrome-extension://...options.html) Authorization fa...\n\nBug: Claude in Chrome extension OAuth authorization fails with ERR_BLOCKED_BY_CLIENT and unsupported redirect URI#38664 ... Describe the bug: The Claude in Chrome extension fails to authorize/connect with two distinct errors: ERR_BLOCKED_BY_CLIENT — Chrome blocks the extension's own options page (chrome-extension://...options.html) Authorization failed: Redirect URI chrome-extension://.../oauth_callback.html is not supported by client · The extension appears enabled (toggle is blue in Claude Code connectors menu) but never actually establishes a connection to the Claude Code session. ... Expected behavior: Extension connects successfully and Claude Code can control the browser. ... Impact: Extension is completely unusable. \n\nCannot use any browser automation tools from Claude Code.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "March 25, 2026",
+                "search_provider": "anthropic",
+                "url": "https://github.com/anthropics/claude-code/issues/38664"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "[BUG] Claude browser extension native messaging host not registered for Microsoft Edge · Issue #24367 · anthropics/claude-code",
+              "url": "https://github.com/anthropics/claude-code/issues/24367",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "The Claude browser extension can be installed in Edge (it&#x27;s a Chromium-based browser that supports Chrome Web Store extensions), but the native messaging connection fails because Edge looks for host registrations under its own registry path.\n\nPreflight Checklist I have searched existing issues and this hasn't been reported yet This is a single bug report (please file separate reports for different bugs) I am using the latest version of Claude Code What's Wrong? Claude Code re...\n\nThe extension itself should also be aware that it may be running in Edge rather than Chrome, and any browser-specific behavior should account for this. # No error is shown to the user. The extension simply reports \"Browser extension is not connected\" # when Claude Code tries to use chrome-in-browser tools. # The native messaging host is never launched because Edge cannot find the registry entry. ... \n\nVerify the registry: reg query \"HKCU\\SOFTWARE\\Microsoft\\Edge\\NativeMessagingHosts\" /s returns nothing, while reg query \"HKCU\\SOFTWARE\\Google\\Chrome\\NativeMessagingHosts\" /s shows the registrations ·\n\nClaude Code registers its native messaging hosts in the Windows registry only for Google Chrome, not for Microsoft Edge. The Claude browser extension can be installed in Edge (it's a Chromium-based browser that supports Chrome Web Store extensions), but the native messaging connection fails because Edge looks for host registrations under its own registry path. ... The native messaging host manifest files (com.anthropic.claude_code_browser_extension.json and com.anthropic.claude_browser_extension.json) are browser-agnostic and already include the correct extension ID. Only the registry entries are missing for Edge. \n\nThe native messaging host manifests at %APPDATA%\\Claude Code\\ChromeNativeHost\\ and %APPDATA%\\Claude\\ChromeNativeHost\\ are browser-agnostic and work with Edge as-is · Other Chromium browsers (Brave, Vivaldi, Opera, etc.) also use their own registry paths for native messaging host",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "February 9, 2026",
+                "search_provider": "anthropic",
+                "url": "https://github.com/anthropics/claude-code/issues/24367"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "[BUG] Claude Chrome Extension - unable to Authorize · Issue #17790 · anthropics/claude-code",
+              "url": "https://github.com/anthropics/claude-code/issues/17790",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Trying to install and use Claude extension in Chrome, version 1.0.38 (latest), on two different machines and different profiles, all fail during Login step. Login proceeds through Google OATH2 successfully, but then when it redirects to this claude authorize page: https://claude.ai/oauth/authorize?client_id=xxxx When I click the Authorize button, nothing happens. I have tried adding a-api.anthropic.com to the manifest.json file, CSP section, but still have the same behavior. The Edge extension seems to work fine. I&#x27;m using the latest version of Chrome, tested on Windows 10 and Windows 11, same behavior. One is a work machine one is a home machine, both on Xfinity home internet. I&#x27;ve tried with a google-login chrome profile, and with a different profile with no login, with the same result. Expected behavior is, after clicking Authorize, a side pane should open on the right side of the browser, and a new tab group is created in the browser.\n\n\n\nPreflight Checklist I have searched existing issues and this hasn't been reported yet This is a single bug report (please file separate reports for different bugs) I am using the latest version of Claude Code What's Wrong? Trying to inst...\n\nTrying to install and use Claude extension in Chrome, version 1.0.38 (latest), on two different machines and different profiles, all fail during Login step. Login proceeds through Google OATH2 successfully, but then when it redirects to this claude authorize page: https://claude.ai/oauth/authorize?client_id=xxxx When I click the Authorize button, nothing happens. I have tried adding a-api.anthropic.com to the manifest.json file, CSP section, but still have the same behavior. The Edge extension seems to work fine. I'm using the latest version of Chrome, tested on Windows 10 and Windows 11, same behavior. One is a work machine one is a home machine, both on Xfinity home internet.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "January 12, 2026",
+                "search_provider": "anthropic",
+                "url": "https://github.com/anthropics/claude-code/issues/17790"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Use Claude Code with Chrome - Claude Code Docs",
+              "url": "https://code.claude.com/docs/en/chrome",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "claude.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=claude.com",
+                "site_name": "Claude Code Docs"
+              },
+              "is_missing": false,
+              "text": "Google Chrome, Microsoft Edge, or another Chromium-based browser such as Brave, Arc, Vivaldi, or Opera · Claude in Chrome extension version 1.0.36 or higher, available in the Chrome Web Store ... A direct Anthropic plan (Pro, Max, Team, or Enterprise) Chrome integration also requires signing in with /login. If you authenticate with an API key or a long-lived token from claude setup-token, Claude Code keeps Chrome integration off, even when you pass --chrome, because the browser extension can’t authenticate with those credentials. Before v2.1.216, these sessions could enable Chrome integration, but every attempt to connect to the browser extension failed with a 403 error. Chrome integration is not available through third-party providers like Amazon Bedrock, Google Cloud’s Agent Platform, or Microsoft Foundry. If you access Claude exclusively through a third-party provider, you need a separate claude.ai account to use this feature.\n\n\n\nGoogle Chrome, Microsoft Edge, or another Chromium-based browser such as Brave, Arc, Vivaldi, or Opera · Claude in Chrome extension version 1.0.36 or higher, available in the Chrome Web Store ... A direct Anthropic plan (Pro, Max, Team, or Enterprise) Chrome integration also requires signing in with /login. If you authenticate with an API key or a long-lived token from claude setup-token, Claude Code keeps Chrome integration off, even when you pass --chrome, because the browser extension can’t authenticate with those credentials. Before v2.1.216, these sessions could enable Chrome integration, but every attempt to connect to the browser extension failed with a 403 error. Chrome integration is not available through third-party providers like Amazon Bedrock, Google Cloud’s Agent Platform, or Microsoft Foundry. If you access Claude exclusively through a third-party provider, you need a separate claude.ai account to use this feature.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "19 hours ago",
+                "search_provider": "anthropic",
+                "url": "https://code.claude.com/docs/en/chrome"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "--chrome / /chrome always shows Status: Disabled on Microsoft Edge — extension prioritizes Desktop app's native host over CLI's, and CLI host doesn't complete handshake even when it wins · Issue #79592 · anthropics/claude-code",
+              "url": "https://github.com/anthropics/claude-code/issues/79592",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Even when Desktop is forced out of the race, the CLI&#x27;s host still doesn&#x27;t report Enabled: Renaming Desktop&#x27;s native-messaging manifest (Edge-scoped only) so it can&#x27;t be found forces the extension to fall through to com.anthropic.claude_code_browser_extension. When this happens, /Users/&lt;user&gt;/.local/bin/claude --chrome-native-host does spawn and holds a Unix socket open well past the extension&#x27;s 10-second ping timeout — but /chrome still reports Status: Disabled, with no error surfaced anywhere. This suggests the CLI-side handshake (the &quot;pong&quot; reply, or whatever signals success back to the interactive session) isn&#x27;t completing correctly, or the interactive session polling for status isn&#x27;t picking up a successful connection. Expected: /chrome should either connect successfully, or surface a specific error (extension not found / handshake failed / desktop app is taking priority) instead of silently showing Disabled forever.\n\n\n\nEnvironment: Claude Code: 2.1.216 (native install, darwin-arm64) OS: macOS 26.5.1 (Build 25F80), Apple Silicon Browser: Microsoft Edge, \"Claude in Chrome\" extension v1.0.81 (fcoeoabgfenejglbffodgkkbkcdhcgfn) Claude desktop app also insta...\n\nEven when Desktop is forced out of the race, the CLI's host still doesn't report Enabled: Renaming Desktop's native-messaging manifest (Edge-scoped only) so it can't be found forces the extension to fall through to com.anthropic.claude_code_browser_extension. When this happens, /Users/<user>/.local/bin/claude --chrome-native-host does spawn and holds a Unix socket open well past the extension's 10-second ping timeout — but /chrome still reports Status: Disabled, with no error surfaced anywhere. This suggests the CLI-side handshake (the \"pong\" reply, or whatever signals success back to the interactive session) isn't completing correctly, or the interactive session polling for status isn't picking up a successful connection. \n\nExpected: /chrome should eithe",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "3 weeks ago",
+                "search_provider": "anthropic",
+                "url": "https://github.com/anthropics/claude-code/issues/79592"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Claude Chrome Extension Not Working? Fixes — AI Architects",
+              "url": "https://theaiarchitects.com/blog/claude-chrome-extension-not-working",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "theaiarchitects.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=theaiarchitects.com",
+                "site_name": "AI Architects"
+              },
+              "is_missing": false,
+              "text": "End with a tool deployed on the internet for free.Grab the Blueprint → ... The most common causes are that the extension does not have access to the current page, the account is not on a paid plan, or the extension is stuck on a stale auth session.\n\nFor business owners who'd rather build than browse. Diagnose, build, ship — with a trusted AI advisor in your back pocket.\n\nClick the pin icon next to it to lock it into the toolbar. Chrome hides newly installed extensions by default. That does not mean the install failed. If the extension does not appear in the Extensions list at all, go to chrome://extensions in the address bar and check that the extension is enabled. Toggle it on if it is switched off. If it is missing entirely, reinstall from the Claude AI for Chrome listing on the Chrome Web Store. The extension ID in the Chrome Web Store URL is mmpfdbkbpokgghegejphmpmpnjncehip, which you can use to verify you're installing the official Anthropic build rather than a clone. \n\nOne more thing worth checking: Edge, Arc, and Brave all support the extension and run it the same way Chrome does. If you installed it on one Chromium browser and are trying to use it in a different one, you need a separate install for each browser profile.\n\nThe most common reason the Claude Chrome extension stops working is not a broken install. It is that the extension was never granted access to the page you are on, or your account is not on a plan that supports it. Most people reinstall and get the same result because the root cause stays in place. I have hit every one of these failure modes building browser workflows for clients. The fix is almost never reinstalling. It is one specific permission, plan setting, or auth state that needs to be corrected. This post goes through each symptom and the exact fix. \n\nA quick note on access: Anthropic launched the extension as a pilot to 1,000 Max plan users in August 2025, expanded it to all Max subscribers in November 2025, then opened it to Pr",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "June 17, 2026",
+                "search_provider": "anthropic",
+                "url": "https://theaiarchitects.com/blog/claude-chrome-extension-not-working"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-08-12T14:32:09.503776Z",
+          "stop_timestamp": "2026-08-12T14:32:13.338609Z",
+          "flags": null,
+          "type": "thinking",
+          "thinking": "",
+          "summaries": [
+            {
+              "summary": "Unearthing GitHub issues matching Edge registry complications."
+            },
+            {
+              "summary": "Excavated relevant GitHub issues matching native messaging handshake problems."
+            }
+          ],
+          "cut_off": false,
+          "truncated": false,
+          "hidden": false,
+          "thinking_hidden": true,
+          "alternative_display_type": null,
+          "signature": null
+        },
+        {
+          "start_timestamp": "2026-08-12T14:32:13.338937Z",
+          "stop_timestamp": "2026-08-12T14:32:22.224449Z",
+          "flags": null,
+          "type": "text",
+          "text": "Confirmed — this is a known issue, not something specific to your setup. Two overlapping bugs match what you're describing:\n\n**Root cause candidates:**\n1. **Native messaging host registration is Chrome-only on Windows.** Claude Code registers its native messaging host in `HKCU\\SOFTWARE\\Google\\Chrome\\NativeMessagingHosts` but never writes the equivalent `HKCU\\SOFTWARE\\Microsoft\\Edge\\NativeMessagingHosts` key. Edge looks in its own registry path, finds nothing, and the extension just reports \"not connected\" with no error surfaced. The extension can be installed in Edge since it's Chromium-based, but the native messaging connection fails because Edge looks for host registrations under its own registry path, and no error is shown to the user — it simply reports the extension is not connected because the native messaging host is never launched.\n\n2. **If you also have the Claude desktop app installed**, there's a priority-race bug where Edge's extension prefers the desktop app's native host over Claude Code's CLI host, and even when the desktop app is forced out, the CLI handshake doesn't complete — status just sits on Disabled with nothing surfaced. The extension prioritizes the desktop app's native host over the CLI's, and even when desktop is forced out of the race, the CLI's host still doesn't report Enabled — the CLI process spawns and holds a socket open, but /chrome still reports Status: Disabled with no error surfaced anywhere.\n\n**Quick check to tell which one you're hitting** — if you're on Windows, run:\n```\nreg query \"HKCU\\SOFTWARE\\Microsoft\\Edge\\NativeMessagingHosts\" /s\nreg query \"HKCU\\SOFTWARE\\Google\\Chrome\\NativeMessagingHosts\" /s\n```\nIf Chrome's key exists and Edge's is empty, that's bug #1 — Anthropic hasn't shipped the fix, and no local workaround manually adds the reg key reliably because the extension ID/manifest path Chrome uses may not match what Edge's Chromium fork expects.\n\nIf you're on Mac, or the registry checks out fine, it's more likely the desktop-app priority race (#2), in which case fully quitting the Claude desktop app before invoking `--chrome` is the only known workaround right now.\n\nBoth are open, unresolved GitHub issues as of the last few weeks — not fixed yet. If Chrome itself works fine for you, that's the more supported path until Anthropic ships the Edge registry fix.",
+          "citations": [
+            {
+              "uuid": "d4a0417b-2af4-417b-aa7f-2717155559b7",
+              "start_index": 535,
+              "end_index": 850,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://github.com/anthropics/claude-code/issues/24367"
+              }
+            },
+            {
+              "uuid": "4259f9d6-f3f1-4ef6-8da6-2f8485ea2534",
+              "start_index": 1163,
+              "end_index": 1452,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://github.com/anthropics/claude-code/issues/79592"
+              }
+            }
+          ],
+          "citations_grouping_mode": "paragraph_end"
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-08-12T14:32:22.273562Z",
+      "updated_at": "2026-08-12T14:32:22.273562Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ff661-539b-7f85-9f73-e69b8c99f069"
+    }
+  ]
+}

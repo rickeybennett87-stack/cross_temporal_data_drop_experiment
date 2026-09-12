@@ -1,0 +1,387 @@
+{
+  "uuid": "d4f9501f-8e34-4823-a366-5ef9bbfe75ee",
+  "name": "Reporting post office availability issues",
+  "summary": "**Conversation Overview**\n\nThe person sought help reporting a USPS post office for failing to open on time. The core issue was that at 9:23 AM on a Thursday, the facility's phone system routed calls directly to voicemail with a message stating the call was outside normal business hours of 8:30 AM onwards — a direct contradiction that the person recognized as strong documented evidence of a facility operations failure.\n\nClaude provided a tiered set of reporting options: filing via the USPS online complaint form at emailus.usps.com (selecting the USPS Locations category covering hours and access), calling 1-800-ASK-USPS to speak with a representative or obtain the station manager's contact, and escalating to the Postal Regulatory Commission at prc.gov/contact for pattern-based complaints requiring a formal USPS response within 45 days. Claude emphasized that the voicemail contradiction was the person's strongest piece of evidence and advised documenting it specifically.\n\nThe person then encountered a notable technical issue: pasting the emailus.usps.com URL directly into a browser address bar produced an error, but navigating to the identical URL through the USPS app worked successfully. Claude explained this as a session cookie or authentication token requirement — the USPS contact form requires an active session established through the app or main site navigation before it will load, and direct URL entry bypasses that session initialization. The practical workaround identified was to always access the form via the app or from the USPS homepage rather than direct linking. The conversation ended with Claude asking whether the person had successfully submitted the complaint.",
+  "created_at": "2026-03-12T14:22:11.199456Z",
+  "updated_at": "2026-03-12T14:44:23.560547Z",
+  "account": {
+    "uuid": "404f3f89-8c3a-46a9-a7b4-7a3c875dbedd"
+  },
+  "chat_messages": [
+    {
+      "uuid": "019ce26d-2cd5-7367-9a91-3c86d1b45050",
+      "text": "How do I report a post office to the postal network for failing to be open or available almost an hour after their opening time?",
+      "content": [
+        {
+          "start_timestamp": "2026-03-12T14:22:11.712255Z",
+          "stop_timestamp": "2026-03-12T14:22:11.712255Z",
+          "flags": null,
+          "type": "text",
+          "text": "How do I report a post office to the postal network for failing to be open or available almost an hour after their opening time?",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-03-12T14:22:11.758507Z",
+      "updated_at": "2026-03-12T14:22:11.758507Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "00000000-0000-4000-8000-000000000000"
+    },
+    {
+      "uuid": "019ce26d-2cd5-7367-9a91-3c8736eb12e4",
+      "text": "\n```\nThis block is not supported on your current device yet.\n```\n\nHere are your options for reporting this, ranked by how direct and effective they are:\n\n**Most immediate — File online via the USPS \"Email Us\" form**\nGo to **emailus.usps.com** and select the category for USPS Locations (covering access, hours, and appearance). This goes directly into their Customer 360 complaint tracking system and gets routed to staff who can act on it.\n\n**By phone**\nCall **1-800-ASK-USPS** (1-800-275-8777) to speak with a representative. You can also use this number to ask for contact info for your local station manager. Talking to the station manager directly is often the fastest path to resolution for a facility-level issue like this.\n\n**Escalation — Postal Regulatory Commission**\nIf this is a pattern rather than a one-off incident, you can submit a complaint through the PRC's contact form. They document the issue, can forward it to USPS for investigation, and USPS is required to respond within 45 days — with the PRC receiving a copy to verify the problem was handled appropriately. That's at **prc.gov/contact**.\n\n**For the complaint itself**, be specific: include the facility's name and address, the posted opening time, the time you arrived and found it closed, and whether this has happened before if you know. The more documentation you have, the harder it is for USPS to dismiss it as a one-time anomaly.",
+      "content": [
+        {
+          "start_timestamp": "2026-03-12T14:22:13.208427Z",
+          "stop_timestamp": "2026-03-12T14:22:13.545989Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01Cy7P7yuBXcKYKj9SJxsCrT",
+          "name": "web_search",
+          "input": {
+            "query": "report USPS post office not open on time complaint"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01Cy7P7yuBXcKYKj9SJxsCrT",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "How to file a U.S. Postal Service complaint | USAGov",
+              "url": "https://www.usa.gov/postal-service-complaints",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "usa.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=usa.gov",
+                "site_name": "USAGov"
+              },
+              "is_missing": false,
+              "text": "Topics include delivery issues and complaints about USPS employees or facilities. Call 1-800-ASK-USPS (1-800-275-8777) or TTY: 711. Locate your local post office to speak with your station manager.\n\nSecure .gov websites use HTTPS A lock ( ) or https:// means you’ve safely connected to the .gov website. Share sensitive information only on official, secure websites. ... Find out how to file a complaint with the U.S. Postal Service about lost or stolen mail or mail fraud. Learn where to complain about a postal employee or facility. You can make a complaint about problems with your mail service online, by phone, or in person at a USPS facility. To file a complaint online, select the topic below \"What's the reason for your inquiry?\" on the USPS \"Email us\" page. Topics include delivery issues and complaints about USPS employees or facilities. Call 1-800-ASK-USPS (1-800-275-8777) or TTY: 711. Locate your local post office to speak with your station manager. ... Find your USPS Consumer and Industry Contact office to discuss your complaint by phone or by mail.\n\nWrite your complaint to USPS’s Consumer Advocate office at: United States Postal Service Office of the Consumer Advocate 475 L’ Enfant Plaza SW Washington, D.C. 20260 · To file a complaint about theft, fraud, or waste at a USPS facility or by a USPS employee, contact the USPS Office of the Inspector General (OIG). File a complaint online. Call 1-888-USPS-OIG (1-888-877-7644). The U.S. Postal Inspection Service (USPIS) is the federal law enforcement agency that protects the mail system. File a complaint through USPIS online about: ... To comment or complain about a policy change, such as postage rates, contact the Postal Regulatory Commission (PRC). Use their online contact form. ... Ask a real person any government-related question for free.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.usa.gov/postal-service-complaints",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Where do I report problems with my mail? | Office of Inspector General OIG",
+              "url": "https://www.uspsoig.gov/focus-areas/did-you-know/where-do-i-report-problems-my-mail",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "uspsoig.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=uspsoig.gov",
+                "site_name": "USPS OIG"
+              },
+              "is_missing": false,
+              "text": "USPS lists the steps here. For other issues or more information, you can e-mail the Postal Service’s Customer Care Center at USPS® Customer Service or call 1-800-ASK-USPS (1-800-275-8777). When do you contact us?",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.uspsoig.gov/focus-areas/did-you-know/where-do-i-report-problems-my-mail",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Consumer Assistance | Postal Regulatory Commission",
+              "url": "https://prc.gov/consumer-assistance",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "prc.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=prc.gov",
+                "site_name": "Postal Regulatory Commission"
+              },
+              "is_missing": false,
+              "text": "If an appeal is sent to the Commission by mail, it must be postmarked not later than 30 days after the Postal Service’s notification of its determination. All other appeals, including appeals submitted on the Commission’s Online Filing System, must be received by the Commission within 30 days of the Postal Service’s notification of its determination. Rules for appealing a Post Office closure are located here. A complaint proceeding is a complex legal proceeding that typically requires an attorney’s assistance. The Commission accepts complaints on matters involving allegations that the Postal Service is not complying with certain laws or regulations. The scope of the Commission’s complaint authority is found here. The Commission also has specific detailed rules and procedures on what a person must do before filing a complaint, what information must be included in a complaint, ...\n\nIf an appeal is sent to the Commission by mail, it must be postmarked not later than 30 days after the Postal Service’s notification of its determination. All other appeals, including appeals submitted on the Commission’s Online Filing System, must be received by the Commission within 30 days of the Postal Service’s notification of its determination. Rules for appealing a Post Office closure are located here. A complaint proceeding is a complex legal proceeding that typically requires an attorney’s assistance. The Commission accepts complaints on matters involving allegations that the Postal Service is not complying with certain laws or regulations. The scope of the Commission’s complaint authority is found here. The Commission also has specific detailed rules and procedures on what a person must do before filing a complaint, what information must be included in a complaint, and how the complaint should be submitted and argued.\n\nPostal customers may appeal the closing of their post office or its consolidation with another post office by petitioning the Commission to review the Postal Service’s determination. Appeals may be submitted only after the Postal Service makes a final determination. The Commission’s role is not to decide whether a facility will be closed or consolidated. The Commission’s role is to determine whether the Postal Service’s closure or consolidation is consistent with the legal requirements and whether the Postal Service has followed all applicable procedures. Customers of an affected post office may assist the Commission in its consideration of an appeal by sending a · written statement explaining why they believe the Postal Service has failed to comply with the law or has failed to follow proper procedures. Under the law, appeals must be submitted within 30 days of the Postal Service’s notification to the community of its final determination.\n\nNews Consumer Assistance Filing Guide Sitemap USPS.com USPSOIG.gov USPIS.gov",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://prc.gov/consumer-assistance",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Contact the Postal Regulatory Commission | Postal Regulatory Commission",
+              "url": "https://prc.gov/contact",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "prc.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=prc.gov",
+                "site_name": "Postal Regulatory Commission"
+              },
+              "is_missing": false,
+              "text": "The Commission welcomes your comments, suggestions and feedback on how the Commission can do a better job. When you contact us with a mail service issue, your inquiry is documented at the Commission, and may be forwarded to the U.S. Postal Service for additional resolution. The Postal Service will then look into your issue and respond directly to you within 45 days with their findings. The Commission will receive a copy of the Postal Service’s response so that we can verify that the problem was handled appropriately. Use this contact form only when sending comments, suggestions and feedback relating to general Commission activities or mail service inquiries. Please note that if you are intending to submit comments or “Statements of Position” about pending Commission dockets you should click the link for “Filings” above; once you&#x27;ve arrived at our docketing website, please follow the instructions for filing comments online.\n\nNews Consumer Assistance Filing Guide Sitemap USPS.com USPSOIG.gov USPIS.gov\n\nThe Commission welcomes your comments, suggestions and feedback on how the Commission can do a better job. When you contact us with a mail service issue, your inquiry is documented at the Commission, and may be forwarded to the U.S. Postal Service for additional resolution. The Postal Service will then look into your issue and respond directly to you within 45 days with their findings. The Commission will receive a copy of the Postal Service’s response so that we can verify that the problem was handled appropriately. Use this contact form only when sending comments, suggestions and feedback relating to general Commission activities or mail service inquiries. Please note that if you are intending to submit comments or “Statements of Position” about pending Commission dockets you should click the link for “Filings” above; once you've arrived at our docketing website, please follow the instructions for filing comments online.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://prc.gov/contact",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Contact Us | USPS",
+              "url": "https://www.usps.com/help/contact-us.htm",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "usps.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=usps.com",
+                "site_name": "USPS"
+              },
+              "is_missing": false,
+              "text": "Read more · Complete our online form to tell us about your issue, and for technical issues with our USPS.com services, a convenient chat feature is available. Find the nearest USPS location by city and state or ZIP Code™. Get contact information, ...\n\nHave questions about USPS products and services? Let us help. Call us at one of the numbers provided or send us an email.\n\nCall to order free shipping boxes, envelopes, and postal forms, or to report a problem with your shipping supply order. 1-800-610-8734 ·\n\nIf you still need more help, see the contact information for technical support, Postal Store orders, and more. ALERT: Severe weather in the Southern and Midwestern U.S. may delay final delivery of your mail and packages. Read more · Complete our online form to tell us about your issue, and for technical issues with our USPS.com services, a convenient chat feature is available. Find the nearest USPS location by city and state or ZIP Code™. Get contact information, hours, and more. Postal facilities are closed on federal holidays. See a list of all upcoming USPS holidays and events. ... For general information, how-to steps, or to learn more about USPS products and services, check our FAQs. The most common questions have to do with tracking packages or delayed delivery. ... Connect with our customer service representatives to help resolve your issue and get back on track.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.usps.com/help/contact-us.htm",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Email Us | USPS",
+              "url": "https://emailus.usps.com/s/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "usps.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=usps.com",
+                "site_name": "USPS"
+              },
+              "is_missing": false,
+              "text": "Email USPS for all questions related to your missing mail, technical issues, or general USPS services. Find more solutions for mail issues with USPS FAQs\n\nAn inquiry concerning a Postal employee (i.e. Compliment, Behavior, Professionalism) ... An inquiry concerning USPS® Locations (i.e. Access, Signage, Hours, Appearance) ... An inquiry concerning Permits and Bulk Mail (i.e. Permit Holders, Non-Profit, Bulk Mail) ... Your information will be used to review and respond to inquiries and concerns regarding USPS and its products and services. Collection is authorized by 39 U.S.C. 401, 403, and 404. Providing your information is voluntary, but if not provided, we will be unable to process and respond to your inquiry or request. We do not disclose your information to third parties without your consent, except to facilitate the transaction, to act on your behalf or request, or as legally required. This includes the following limited circumstances: to a congressional office on your behalf; to financial agencies and entities for financial matters and transactions; to U.S.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://emailus.usps.com/s/",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "USPS How To File A Complaint - A Few Clicks Guide - PostalBoxGenie",
+              "url": "https://postalboxgenie.com/usps/file-a-complaint/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "postalboxgenie.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=postalboxgenie.com",
+                "site_name": "PostalBoxGenie"
+              },
+              "is_missing": false,
+              "text": "To speak to a live person at USPS, you can call the USPS customer service number at 1-800-ASK-USPS (1-800-275-8777). USPS misconduct can include theft, damage, misdelivery, unauthorized opening, and failure to deliver on time.\n\nThey might take some time to respond to your complaints, but they will surely resolve your issue if you explain it correctly to the right person. If your mail is not delivered, you can check with your neighbors to see if they received it or contact the USPS to file a missing mail report. To speak to a live person at USPS, you can call the USPS customer service number at 1-800-ASK-USPS (1-800-275-8777). USPS misconduct can include theft, damage, misdelivery, unauthorized opening, and failure to deliver on time. The postmaster general is responsible for overseeing the USPS. The postmaster general is appointed by the president and confirmed by the Senate. The USPS provides several ways for people to share their problems. Whether it’s a small delivery issue or a bigger concern like theft, they’re ready to listen. You can complain to them by email, by phone call, submit a form on their official website or you can even directly visit them at the local post office.\n\nLearn the steps to file a complaint with USPS efficiently. Our guide simplifies the process, ensuring your concerns are heard and addressed.\n\nCustomer care service is meant to help people in tough situations. Some customers express dissatisfaction related to the behavior or responsiveness of customer care or the staff at local post offices. Mail fraud by individuals or companies can include tactics like dispatching counterfeit promotional checks, misrepresenting charitable causes, or mailing merchandise and then demanding unwarranted payment. Changes in policies might sometimes be disadvantageous to the public. This could be due to increased postage rates, alterations in delivery times, or modifications to available mail services. Here is a step-by-step guide on how to file a complaint using the USPS complaint form: Visit the Official USPS Site: Head to the USPS official website and look for the ‘Contact‘ or ‘Help’ section. Select the Complaint Form: You’ll find various options, so select the complaint form created for your concern.\n\nYou can complain to USPS in many ways, such as by email, by phone call, by visiting the local post office, etc. Complaints can be made about any kind of issue, whether about a small issue like slow delivery or big issue like theft. USPS takes complaints very seriously. So make sure you explain your issue clearly to the customer care person. You can file a complaint in USPS in many different ways, like by emailing, calling their customer care at 800-ASK-USPS, or directly visiting the post office. For an immediate solution, start by visiting the USPS official website with a dedicated section for complaints. Here, you can detail your problem, whether it’s about delivery, service, or even an employee’s behavior. If it’s a serious issue, you can write a complaint letter and send it to the USPS’s Consumer Advocate office or U.S. Postal Inspection Service.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://postalboxgenie.com/usps/file-a-complaint/",
+                "search_provider": "anthropic",
+                "age": "2 weeks ago"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Postal Service | Representative Nancy Pelosi",
+              "url": "https://pelosi.house.gov/how-can-i-help-you/frequently-asked-questions/postal-service",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "house.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=house.gov",
+                "site_name": "Representative Nancy Pelosi"
+              },
+              "is_missing": false,
+              "text": "However, you can file a complaint of your non-received mail with the USPS. If expected mail has not arrived after sufficient time has elapsed (please wait 14 days from its date of mailing), please fill out PS Form 1510, Mail Loss/Rifling Report. This form is available at your local post office.\n\nWhen First-Class Mail does not arrive, the post office has no sure way of knowing what may have happened to the item. Only Registered Mail and Express Mail items are accounted for during their entire journey through the mail system. However, you can file a complaint of your non-received mail with the USPS. If expected mail has not arrived after sufficient time has elapsed (please wait 14 days from its date of mailing), please fill out PS Form 1510, Mail Loss/Rifling Report. This form is available at your local post office. Another option you have is to contact your local Consumer Affairs Claims and Inquiry office. Whichever way you choose, a postal employee will assist you in completing your inquiry. Specifics will be directed to the Inspection Service Operation Support (ISOS) office for the state in which the article was mailed. The USPS is currently using a method of capturing customer complaints and eliminating the complaint card used at Post Office facilities.\n\nThis new and expanding program will permit you to submit complaints in one of three ways: Filing a complaint online by visiting the USPS website and clicking the contact us link at the bottom of the page. It will ask you to submit your question; however, it is the link the USPS recommends for filing a complaint. Calling 1-800-ASK-USPS (1-800-275-8777). Speaking to the Station Manager at a local Post Office. If you need immediate assistance, please give USPS a call. General Information 1-800-ASK-USPS® or (800) 275-8777 Hours of Operation: Monday through Friday from 8:00 a.m. to 8:30 p.m. (Eastern Time) Saturdays from 8:00 a.m. to 6:00 p.m. (Eastern Time) Closed Sundays and Holidays · Domestic Package Tracking 1-800-222-1811 Hours of Operation: Monday through Friday from 7:30 a.m. to 10:30 p.m. (Eastern Time) Saturdays, Sundays and Holidays from 9:00 a.m.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://pelosi.house.gov/how-can-i-help-you/frequently-asked-questions/postal-service",
+                "search_provider": "anthropic",
+                "age": "June 11, 2013"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Service alerts - Newsroom - About.usps.com",
+              "url": "https://about.usps.com/newsroom/service-alerts/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "usps.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=usps.com",
+                "site_name": "USPS"
+              },
+              "is_missing": false,
+              "text": "Or you can call our customer service center at 1-800-ASK-USPS (800-275-8777). Need more support? Have questions? Need to report a service disruption? Contact your local Business Service Network Representative or visit PostalPro for additional information. See what mail is coming before it arrives.\n\nResidential customers should check this Mail Service Disruptions website first for current, frequently-updated information about whether mail is being delivered to your neighborhood or if your local Post Office is open. Or you can call our customer service center at 1-800-ASK-USPS (800-275-8777). Need more support? Have questions? Need to report a service disruption? Contact your local Business Service Network Representative or visit PostalPro for additional information. See what mail is coming before it arrives.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://about.usps.com/newsroom/service-alerts/",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "U.S. Postal Service: Customer Complaints Process | U.S. GAO",
+              "url": "https://www.gao.gov/products/gao-21-465",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "gao.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=gao.gov",
+                "site_name": "U.S. GAO"
+              },
+              "is_missing": false,
+              "text": "To help it serve customers, USPS has a 5-step process for addressing and resolving residential customers&#x27; complaints. USPS defines a complaint as a reported service issue that is not resolved in a customer&#x27;s initial contact with USPS and requires additional action to resolve. (See figure.) Once a complaint is received it is assigned to staff best positioned to respond to the issue. For example, a complaint about a missing package might be referred to a local Post Office for investigation and resolution if that Post Office was the destination facility for the package. USPS collects and tracks a range of customer service and complaint information using a new software system known as Customer 360 (C360). According to USPS officials, the C360 system, which USPS started using in 2019, captures more detailed data and has additional data fields, such as root cause, which may help officials identify service issues and analyze issues resulting in complaints.\n\nU.S. Government Accountability Office Menu · GAO-21-465 Published: May 25, 2021. Publicly Released: Jun 14, 2021. ... The U.S. Postal Service's financial viability has been on our High Risk List since 2009. Declining mail volumes and increased costs have made it harder for USPS to cover all its costs. USPS cites quality customer service as important to sustaining its business. We looked at USPS's process for addressing residential customer complaints. In fiscal year 2020, USPS received 10.7 million complaints, with 69% of those related to missing or delayed packages. USPS started using a new software system in 2019 to track complaints and customer service issues. The system collects more detailed data and may help identify the causes of some problems. ... The United States Postal Service (USPS) delivers mail to about 147-million residential addresses.\n\nTo help it serve customers, USPS has a 5-step process for addressing and resolving residential customers' complaints. USPS defines a complaint as a reported service issue that is not resolved in a customer's initial contact with USPS and requires additional action to resolve. (See figure.) Once a complaint is received it is assigned to staff best positioned to respond to the issue. For example, a complaint about a missing package might be referred to a local Post Office for investigation and resolution if that Post Office was the destination facility for the package. USPS collects and tracks a range of customer service and complaint information using a new software system known as Customer 360 (C360). According to USPS officials, the C360 system, which USPS started using in 2019, captures more detailed data and has additional data fields, such as root cause, which may help officials identify service issues and analyze issues resulting in complaints.\n\nUSPS officials also noted ongoing efforts to educate employees on the C360 system through trainings as well as efforts to collect feedback from users to help enhance the C360 system. U.S. Postal Service's Five Step Customer Complaint Process · Most of the 10.7-million complaints USPS received in fiscal year 2020 concerned packages, and USPS analyzes C360 data to monitor timeliness in addressing these complaints. GAO's analysis of USPS's fiscal year 2020 residential complaints data found a total of 10.7-million residential customer complaints were reported by about 5.6 percent of the residential addresses USPS served. Most of these complaints—69 percent—were related to packages, such as missing or delayed packages. GAO found that about 21 percent of addresses that reported a complaint had more than one complaint. Of those addresses, a majority of complaints occurred less than one month apart, and many had two complaints with the same USPS-assigned root cause.\n\nUSPS officials are currently reviewing whether the root cause field is accurately capturing the cause of a complaint. Across USPS, multiple officials told GAO they use the C360 system's reporting capabilities to access, review, and analyze complaints data. USPS officials said that given the size of their operations, it is not realistic to eliminate all complaints. The Office of Customer Experience monitors and assesses performance related to timeliness in contacting customers and closing complaints. Delivery operations staff use complaints data in conjunction with delivery operations information to identify service issues or specific causes for increases in complaints. USPS, one of the largest customer service organizations in the United States, has struggled to operate as a self-financing entity due primarily to declining mail volumes and increased costs.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.gao.gov/products/gao-21-465",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-03-12T14:22:16.431818Z",
+          "stop_timestamp": "2026-03-12T14:22:26.207227Z",
+          "flags": null,
+          "type": "text",
+          "text": "Here are your options for reporting this, ranked by how direct and effective they are:\n\n**Most immediate — File online via the USPS \"Email Us\" form**\nGo to **emailus.usps.com** and select the category for USPS Locations (covering access, hours, and appearance). This goes directly into their Customer 360 complaint tracking system and gets routed to staff who can act on it.\n\n**By phone**\nCall **1-800-ASK-USPS** (1-800-275-8777) to speak with a representative. You can also use this number to ask for contact info for your local station manager. Talking to the station manager directly is often the fastest path to resolution for a facility-level issue like this.\n\n**Escalation — Postal Regulatory Commission**\nIf this is a pattern rather than a one-off incident, you can submit a complaint through the PRC's contact form. They document the issue, can forward it to USPS for investigation, and USPS is required to respond within 45 days — with the PRC receiving a copy to verify the problem was handled appropriately. That's at **prc.gov/contact**.\n\n**For the complaint itself**, be specific: include the facility's name and address, the posted opening time, the time you arrived and found it closed, and whether this has happened before if you know. The more documentation you have, the harder it is for USPS to dismiss it as a one-time anomaly.",
+          "citations": [
+            {
+              "uuid": "8c12fca6-aa79-4c43-a632-243deded81ce",
+              "start_index": 389,
+              "end_index": 546,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://www.usa.gov/postal-service-complaints"
+              }
+            },
+            {
+              "uuid": "6a864505-bcb6-4143-a1ee-ec4809f9e407",
+              "start_index": 765,
+              "end_index": 1018,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://prc.gov/contact"
+              }
+            }
+          ]
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-03-12T14:22:26.357407Z",
+      "updated_at": "2026-03-12T14:22:26.357407Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ce26d-2cd5-7367-9a91-3c86d1b45050"
+    },
+    {
+      "uuid": "019ce26e-6b99-751e-b026-ecf1a86f963b",
+      "text": "No, it is 9:23 in the morning. I called their phone number and it immediately without ringing. Went to voicemail declaring that I had called outside their normal business hours of 8:30 a.m. till whenever p.m. It is 9:23 in the morning on a Thursday",
+      "content": [
+        {
+          "start_timestamp": "2026-03-12T14:23:33.347002Z",
+          "stop_timestamp": "2026-03-12T14:23:33.347002Z",
+          "flags": null,
+          "type": "text",
+          "text": "No, it is 9:23 in the morning. I called their phone number and it immediately without ringing. Went to voicemail declaring that I had called outside their normal business hours of 8:30 a.m. till whenever p.m. It is 9:23 in the morning on a Thursday",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-03-12T14:23:33.406086Z",
+      "updated_at": "2026-03-12T14:23:33.406086Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ce26d-2cd5-7367-9a91-3c8736eb12e4"
+    },
+    {
+      "uuid": "019ce26e-6b99-751e-b026-ecf2d6619168",
+      "text": " That's genuinely frustrating — their own voicemail is contradicting itself by claiming 9:23 AM is outside their 8:30 AM opening hours on a regular business day.\n\nYour best move right now is the **online form**, since calling them is clearly not working:\n\nGo to **emailus.usps.com** and select the category for **USPS Locations (hours, access, appearance)**. Describe exactly what you just told me — that you called at 9:23 AM on a Thursday, and the automated voicemail declared you were outside their business hours of 8:30 AM onwards. That's a documented, specific, verifiable contradiction that they can't easily wave away.\n\nIf you want to escalate simultaneously, **prc.gov/contact** lets you file with the Postal Regulatory Commission, which requires USPS to formally respond and report back.\n\nThe voicemail detail is actually your strongest piece of evidence here — it's not just that the office was closed, it's that their own system is misconfigured to tell customers they're calling outside business hours when they aren't. That's a facility operations failure worth documenting precisely.",
+      "content": [
+        {
+          "start_timestamp": "2026-03-12T14:23:34.291758Z",
+          "stop_timestamp": "2026-03-12T14:23:40.263062Z",
+          "flags": null,
+          "type": "text",
+          "text": " That's genuinely frustrating — their own voicemail is contradicting itself by claiming 9:23 AM is outside their 8:30 AM opening hours on a regular business day.\n\nYour best move right now is the **online form**, since calling them is clearly not working:\n\nGo to **emailus.usps.com** and select the category for **USPS Locations (hours, access, appearance)**. Describe exactly what you just told me — that you called at 9:23 AM on a Thursday, and the automated voicemail declared you were outside their business hours of 8:30 AM onwards. That's a documented, specific, verifiable contradiction that they can't easily wave away.\n\nIf you want to escalate simultaneously, **prc.gov/contact** lets you file with the Postal Regulatory Commission, which requires USPS to formally respond and report back.\n\nThe voicemail detail is actually your strongest piece of evidence here — it's not just that the office was closed, it's that their own system is misconfigured to tell customers they're calling outside business hours when they aren't. That's a facility operations failure worth documenting precisely.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-03-12T14:23:40.293193Z",
+      "updated_at": "2026-03-12T14:23:40.293193Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ce26e-6b99-751e-b026-ecf1a86f963b"
+    },
+    {
+      "uuid": "019ce281-5ed0-706b-b0e7-b0b83f2fdacb",
+      "text": "Well I did what I could but even though your even though the web page you gave me was exactly accurate, attempting to go to it by typing it into the web address bar resulted in an error. I could only achieve access to it through clicking a link which took me to the same exact web address through their app but directly pasting your link in didn't work only going through their app and getting the same exact address did which is odd to say the least",
+      "content": [
+        {
+          "start_timestamp": "2026-03-12T14:44:15.215062Z",
+          "stop_timestamp": "2026-03-12T14:44:15.215062Z",
+          "flags": null,
+          "type": "text",
+          "text": "Well I did what I could but even though your even though the web page you gave me was exactly accurate, attempting to go to it by typing it into the web address bar resulted in an error. I could only achieve access to it through clicking a link which took me to the same exact web address through their app but directly pasting your link in didn't work only going through their app and getting the same exact address did which is odd to say the least",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-03-12T14:44:15.239962Z",
+      "updated_at": "2026-03-12T14:44:15.239962Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ce26e-6b99-751e-b026-ecf2d6619168"
+    },
+    {
+      "uuid": "019ce281-5ed0-706b-b0e7-b0b947115892",
+      "text": " That is genuinely strange behavior — same URL, two different outcomes depending on how you navigate to it. What you're describing is almost certainly a **session cookie or authentication token** issue. USPS's website likely requires an active session established through their app or main site navigation before their contact forms will load. When you paste the URL directly into the address bar, there's no session context, so the server rejects the request — even though the address itself is correct.\n\nIt's a frustratingly common problem with government and large institutional websites that gate their forms behind session state rather than making them directly accessible. The app probably seeds that session automatically when you open it.\n\nThe practical takeaway: if you ever need to go back to that form, go through the app or navigate from the USPS homepage rather than direct-linking. Annoying, but at least you got through.\n\nMore importantly — were you able to actually submit your complaint once you got in through the app?",
+      "content": [
+        {
+          "start_timestamp": "2026-03-12T14:44:16.755939Z",
+          "stop_timestamp": "2026-03-12T14:44:23.509122Z",
+          "flags": null,
+          "type": "text",
+          "text": " That is genuinely strange behavior — same URL, two different outcomes depending on how you navigate to it. What you're describing is almost certainly a **session cookie or authentication token** issue. USPS's website likely requires an active session established through their app or main site navigation before their contact forms will load. When you paste the URL directly into the address bar, there's no session context, so the server rejects the request — even though the address itself is correct.\n\nIt's a frustratingly common problem with government and large institutional websites that gate their forms behind session state rather than making them directly accessible. The app probably seeds that session automatically when you open it.\n\nThe practical takeaway: if you ever need to go back to that form, go through the app or navigate from the USPS homepage rather than direct-linking. Annoying, but at least you got through.\n\nMore importantly — were you able to actually submit your complaint once you got in through the app?",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-03-12T14:44:23.560547Z",
+      "updated_at": "2026-03-12T14:44:23.560547Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ce281-5ed0-706b-b0e7-b0b83f2fdacb"
+    }
+  ]
+}

@@ -1,0 +1,1352 @@
+{
+  "uuid": "efbe3717-95a6-4038-a713-682d5bffc9ee",
+  "name": "Xbox controller Bluetooth connection to Dell laptop",
+  "summary": "**Conversation Overview**\n\nThe person sought help connecting an Xbox Elite Series 1 controller wirelessly to a Dell Inspiron laptop. Claude explained a core hardware limitation: the Elite Series 1 does not support Bluetooth and uses Microsoft's proprietary Xbox Wireless protocol instead, meaning no driver update could resolve the issue. Claude outlined three options — USB cable, the Xbox Wireless Adapter for Windows (~$25), or the Brook X ONE Bluetooth dongle that physically attaches to the controller.\n\nThe person pushed further, approaching the problem analytically, asking whether the laptop's existing Wi-Fi radio (which operates on the same 2.4GHz band as Xbox Wireless) could be coerced into speaking the protocol. Claude explained the reverse engineering landscape in detail: the Xbox Wireless Adapter uses a Mediatek MT7612 chip running Microsoft's GIP (Game Input Protocol), and while open-source Linux drivers like `xone` have reverse-engineered the protocol, they still require the physical dongle. The remaining barrier is a cryptographic handshake (ECDH, RSA, HMAC-SHA256) that authenticates to specific dongle hardware, blocking any pure software emulation path. The person also asked whether Microsoft's own Xbox Accessories app could bridge the connection, and Claude confirmed it is a configuration tool only — it cannot establish wireless connections and has no access to the GIP wireless stack.\n\nThe person ultimately decided to use a wired USB connection, noting the practical constraint that their current Micro-USB cable is only 11 inches, which is problematic given their current setting. Claude recommended picking up a 6- to 10-foot Micro-USB cable as a simple, low-cost fix. The person expressed frustration with Microsoft's deliberate hardware ecosystem lock-in throughout the conversation.",
+  "created_at": "2026-05-13T01:46:51.553357Z",
+  "updated_at": "2026-05-13T04:55:41.458509Z",
+  "account": {
+    "uuid": "404f3f89-8c3a-46a9-a7b4-7a3c875dbedd"
+  },
+  "chat_messages": [
+    {
+      "uuid": "019e1f03-eff5-75db-96e2-3140c5fbc8f8",
+      "text": "I need you to find me some way to manually update drivers or something so that the Bluetooth in my Xbox elite series 1 for Xbox One wireless controller can connect to this Dell laptop inspirion model computer",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T01:46:52.331622Z",
+          "stop_timestamp": "2026-05-13T01:46:52.331622Z",
+          "flags": null,
+          "type": "text",
+          "text": "I need you to find me some way to manually update drivers or something so that the Bluetooth in my Xbox elite series 1 for Xbox One wireless controller can connect to this Dell laptop inspirion model computer",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-13T01:46:52.331763Z",
+      "updated_at": "2026-05-13T01:46:52.331763Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "00000000-0000-4000-8000-000000000000"
+    },
+    {
+      "uuid": "019e1f03-eff5-75db-96e2-3141e8809a5c",
+      "text": "\n```\nThis block is not supported on your current device yet.\n```\n\nHere's the situation and your options, straight:\n\n**The core problem:** The Xbox Elite Series 1 does not natively support Bluetooth. It only supports the proprietary Xbox Wireless protocol and wired USB. This is a hardware limitation, not a driver issue — no driver update will add Bluetooth to a controller that doesn't have the radio for it.\n\n---\n\n**Your actual options:**\n\n**Option 1 — USB cable (easiest, works immediately)**\nPlug a Micro-USB cable from the controller into your laptop. Windows will install the driver automatically and it'll just work. No pairing, no fuss.\n\n**Option 2 — Xbox Wireless Adapter for Windows (~$25)**\nTo use Xbox Wireless, you either need an Xbox Wireless Adapter plugged into your PC, or a laptop that specifically has built-in support for that proprietary protocol. The adapter plugs into a USB port and handles the wireless connection. This is the closest thing to \"wireless Bluetooth\" you're going to get with the Series 1. It shows up in Device Manager and Windows handles the driver automatically once plugged in.\n\n**Option 3 — Brook X ONE Adapter**\nBluetooth connectivity for the Elite Series 1 can be achieved by using a Bluetooth adapter like the Brook X ONE Adapter. This is a hardware dongle that attaches to the controller itself and adds Bluetooth. More expensive than the Xbox Wireless Adapter and adds bulk, but it's the only way to actually use Bluetooth specifically.\n\n---\n\n**Bottom line:** If you just want wireless, the Xbox Wireless USB adapter is the right call. If you specifically need Bluetooth (e.g., for Steam Deck, phone, etc.), Brook X ONE is your path. No driver on earth will make the Series 1 Bluetooth-capable on its own.",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T01:46:53.730564Z",
+          "stop_timestamp": "2026-05-13T01:46:53.930835Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01X7q2AarncvjAVZYT9SjPYm",
+          "name": "web_search",
+          "input": {
+            "query": "Xbox Elite Series 1 controller Bluetooth connect Dell Inspiron laptop Windows driver"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01X7q2AarncvjAVZYT9SjPYm",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "How do I connect my Xbox controller to PC?",
+              "url": "https://support.xbox.com/en-US/help/hardware-network/controller/connect-xbox-wireless-controller-to-pc",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "xbox.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=xbox.com",
+                "site_name": "Xbox Support"
+              },
+              "is_missing": false,
+              "text": "You need to enable JavaScript to run this app",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://support.xbox.com/en-US/help/hardware-network/controller/connect-xbox-wireless-controller-to-pc",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "dell compatibility with xbox one wireless controller | DELL Technologies",
+              "url": "https://www.dell.com/community/en/conversations/xps/dell-compatibility-with-xbox-one-wireless-controller/647f7da9f4ccf8a8dec16979",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "dell.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=dell.com",
+                "site_name": "Dell"
+              },
+              "is_missing": false,
+              "text": "My 10 year old inspiron is dying so I want a new one that will be compatible with my xbox one wireless controller. I know it is all microsoft but supposedly Lenovo&#x27;s laptops will connect right out of the box where as I see people on these boards having trouble with their connections using Dell machines. Please advise thank you... ... First it depends on which generation of Xbox One controller you have. The older Xbox One controllers that have a glossy black top edge only support the proprietary Xbox Wireless protocol (and also wired USB, of course). The newer controllers that have a matte top edge and include regular Bluetooth support. In order to use Xbox Wireless, you either need an Xbox Wireless adapter plugged into your PC or you need a laptop that specifically has built-in support for that proprietary protocol, and the only laptop I&#x27;m aware of that includes that is the 15&quot; Microsoft Surface Book 2.\n\nMy 10 year old inspiron is dying so I want a new one that will be compatible with my xbox one wireless controller. I know it is all microsoft but supposedly Lenovo's laptops will connect right out of the box where as I see people on these boards having trouble with their connections using Dell machines. Please advise thank you... ... First it depends on which generation of Xbox One controller you have. The older Xbox One controllers that have a glossy black top edge only support the proprietary Xbox Wireless protocol (and also wired USB, of course). The newer controllers that have a matte top edge and include regular Bluetooth support. In order to use Xbox Wireless, you either need an Xbox Wireless adapter plugged into your PC or you need a laptop that specifically has built-in support for that proprietary protocol, and the only laptop I'm aware of that includes that is the 15\" Microsoft Surface Book 2.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.dell.com/community/en/conversations/xps/dell-compatibility-with-xbox-one-wireless-controller/647f7da9f4ccf8a8dec16979",
+                "search_provider": "anthropic",
+                "age": "November 20, 2018"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Controller:Xbox Elite Wireless Controller - PCGamingWiki PCGW - bugs, fixes, crashes, mods, guides and improvements for every PC game",
+              "url": "https://www.pcgamingwiki.com/wiki/Controller:Xbox_Elite_Wireless_Controller",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "pcgamingwiki.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=pcgamingwiki.com",
+                "site_name": "PCGamingWiki"
+              },
+              "is_missing": false,
+              "text": "Controller can be connected to PC via Bluetooth. Xbox Wireless Adapter for Windows is no longer needed. Adds Motion Control (Gyro for PC/PS4/Switch and supports Turbo and Remap. For this option Steam has to recognize controller as Switch Pro Controller or DualShock 4 ·\n\nNew revised controller variation Xbox Elite Wireless Controller Series 2 includes Bluetooth connectivity, USB-C support, and a rechargable battery that lasts for up to 40 hours per charge[2]. Three configs can be stored locally on controller and device has new adjustable tension thumbsticks. When supported wrapper is used, the software-defined back paddles mappings will taking priority over the built-in profiles' mappings. Available in two variants: An older, larger Model 1713 and a new, smaller Model 1790. Supports up to 8 controllers. Support for Windows 7 and Windows 8.1 were dropped for Model 1790. Connecting the controller should automatically download and install latest drivers for the controller. Configuration is available only in Xbox Accessories tool which is available on Windows 10. Custom application reWASD allows remapping the whole controller and works on Windows 7 or newer.\n\nWorks without any drivers on any operating system that supports Steam. Can be used just to send input from a controller to a PC. Go into Streaming options, hit 𝗬 and disable video and audio streaming. Controller connected via USB works as expected.[8] Steam Link has experimental support for the wireless adapter and it works through VirtualHere too (Model 1537 and 1697).[9] Won't work great unless the streaming device is connected to LAN or a low latency Wi-Fi. Xbox Wireless Controller with gyroscope via Brook X One Adapter EXTRA. User can use Xbox One controller to play PC, PS4, Switch, Xbox One games wirelessly. Controller can be connected to PC via Bluetooth. Xbox Wireless Adapter for Windows is no longer needed. Adds Motion Control (Gyro for PC/PS4/Switch and supports Turbo and Remap. For this option Steam has to recognize controller as Switch Pro Controller or DualShock 4 ·\n\nXbox One Chatpad - Drivers for official chatpad can be installed through Xbox Accessories App from Microsoft Store · Device name: Xbox One Elite Controller, HWID: 045E:02E3 · See also Xbox Wireless Controller for the device name and HWID for the Xbox Wireless Adapter. A lightweight tray app that displays the battery level of most Bluetooth game controllers. Application emulates the Sony DualShock 4 gamepad using an Xbox controller. Allows to use Xbox controller for Sony Playstation Now or Playstation Remote Play applications. ↑ UPDATE: New Xbox One 1TB Console Unveiled | Xbox Live's Major Nelson · ↑ Microsoft’s Xbox Elite 2 controller arrives on November 4th for $179.99 | The Verge - last accessed on 2025-07-02 · ↑ Set Up the Xbox Wireless Adapter for Windows - last accessed on 2016-10-26 · ↑ How to switch profiles with an xbox one elite gamepad - last accessed on June 2023 ·\n\nThe Xbox Elite Wireless Controller is a native, GIP-based XInput controller, meaning it is supported in games that use either the XInput API, Windows.Gaming.Input API or GameInput API, with impulse triggers being supported on supported games with the latter two. Up to 2 built-in profiles and up to 256 profile in the cloud can be customized using Xbox Accessories App on Xbox One, Xbox Series X|S, and Windows PC (Requires Windows 10 and later), but thrid-party software like Steam, reWASD, and JoyShockMapper allow assigning paddles to keyboard and mouse actions or macros. The controller can be connected through either wired (via Micro-USB), or wireless via the Xbox Wireless Adapter for Windows (supports up to 8 controllers).[1] While not natively support Bluetooth connectivity, it can be done by using a Bluetooth adapter like Brook X ONE Adapter. ... 5 × digital functional buttons: Ⲷ ᴍᴇɴᴜ, ⧉ ᴠɪᴇᴡ, xʙᴏx, ᴘʀᴏꜰɪʟᴇ, ᴘᴀɪʀ ...",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.pcgamingwiki.com/wiki/Controller:Xbox_Elite_Wireless_Controller",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Connecting Xbox Controller via BT after Xbox USBDevice update causes GSOD | Windows 11 Forum",
+              "url": "https://www.elevenforum.com/t/connecting-xbox-controller-via-bt-after-xbox-usbdevice-update-causes-gsod.35218/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "elevenforum.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=elevenforum.com",
+                "site_name": "Eleven Forum"
+              },
+              "is_missing": false,
+              "text": "Then once boot into windows, open cmd but run as administrator In the command prompt type below pnputil /enum-drivers &gt; drivers.txt Then a file will appear on the desktop as drivers.txt Now open this file with notepad and search for 1.14.20.740. If notepad fails to open this file use MS Word ...\n\nI ran Windows Update earlier and there was an update for Xbox USBDevice (Xbox - USBDevice - 1.14.20.740). I installed that, then rebooted and now every time I try to connect my controller via Bluetooth, it will cause an immediate GSOD. I can plug in the Elite Series 2 controller via USB and it doesn't cause a crash. Dump file: Google Drive link ... 1 TB PNY XLR8 NVMe SSD (Boot drive), 960 GB ADATA SSD, 1 TB Samsung SSD, 2 TB Samsung SSD, 2 TB Samsung SSD, 2 TB Crucial P5 NVMe SSD, 10 TB WD MyBook external HDD, 10 TB Seagate external HDD, 15 TB WD MyBook external HDD ... Same here. This is the only forum reporting on the issue I could find on google. I've tried to pause driver updates and rollback to a previous system restore point but without much success, it will crashes. ... Same here. This is the only forum reporting on the issue I could find on google.\n\nI ended up having to disable the device in Device Manager, because even unplugging it after it was plugged in would cause the GSOD because it would attempt to reconnect via Bluetooth. Seems like Windows Update may have pushed out a bad driver update. ... 1 TB PNY XLR8 NVMe SSD (Boot drive), 960 GB ADATA SSD, 1 TB Samsung SSD, 2 TB Samsung SSD, 2 TB Samsung SSD, 2 TB Crucial P5 NVMe SSD, 10 TB WD MyBook external HDD, 10 TB Seagate external HDD, 15 TB WD MyBook external HDD ... I just saw this update on my windows update page and im skeptical about it...thank god i checked before i updated it...maybe give it a couple of days before i update ... I ran Windows Update earlier and there was an update for Xbox USBDevice (Xbox - USBDevice - 1.14.20.740). I installed that, then rebooted and now every time I try to connect my controller via Bluetooth, it will cause an immediate GSOD. I can plug in the Elite Series 2 controller via USB and it doesn't cause a crash.\n\nThen once boot into windows, open cmd but run as administrator In the command prompt type below pnputil /enum-drivers > drivers.txt Then a file will appear on the desktop as drivers.txt Now open this file with notepad and search for 1.14.20.740. If notepad fails to open this file use MS Word or any other document editor app. Once it finds it look for something like oem74.inf but the 74 might be a different number for you. Copy that oem inf text then go back to command and type below but replace the oem inf text with the one you copied from the drivers file pnputil /delete-driver oem74.inf /uninstall /force Then hit enter. This will remove the issue that’s causing the GSOD when connecting the controller to Bluetooth Go back to win+r and type msonfig the hit the boot tab then uncheck Safe Boot then click Apply then restart Remember to pause windows update until a new fix is made Now connect your controller to Bluetooth.\n\nSame issue as well. There was a controller update available through the Xbox Accessories app but it didn't help the crashing. I ended up reinstalling my old Windows Xbox Adapter and connecting the Xbox Series controller to that which is working/not causing crashes. Hope this gets resolved so I can go back to bluetooth and avoid the less reliable adapter. ... I got the exact same update today and it does the same thing, I fire up my Xbox series controller and get the immediate Green screen of death. This happened while I connected a new external USB drive to my PC. Not sure if the two are connected but it happened at the same time. I'm on Win 11 pro build 26120.3863. ... Same. How can we rollback? I found the driver in Device Manager, but rollback isn't working. ... Windows 11. Pro ... I found a solution to this problem. First you need to disable Windows Update until Microsoft releases a fix for this.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.elevenforum.com/t/connecting-xbox-controller-via-bt-after-xbox-usbdevice-update-causes-gsod.35218/",
+                "search_provider": "anthropic",
+                "age": "April 16, 2025"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "How to Connect Your Xbox Controller to a PC | Microsoft Windows",
+              "url": "https://www.microsoft.com/en-us/windows/learning-center/how-to-connect-xbox-controller-to-pc",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "microsoft.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=microsoft.com",
+                "site_name": "Microsoft"
+              },
+              "is_missing": false,
+              "text": "Select Settings &gt; Bluetooth &amp; devices. Select Add device. Find your controller by selecting Everything else. From here, choose either Xbox Wireless Controller or Xbox Elite Wireless Controller.\n\nSelect Settings > Bluetooth & devices. Select Add device. Find your controller by selecting Everything else. From here, choose either Xbox Wireless Controller or Xbox Elite Wireless Controller. When your controller is connected to your PC, the Xbox button will stay lit. ... Plug one end of a mini-USB into the port on your controller. Plug the other end of the cord into your PC’s mini-USB port. If your computer still isn’t connecting to your controller, press the Xbox button. Depending on your computer setup, you may want to consider getting a longer mini-USB cable for more comfortable playing. ... Make sure your device is fully charged. If the batteries in your controller are low or dead, you’ll need to replace or recharge them. Ensure your computer’s Bluetooth is turned on. Even if your controller is turned on, it won’t be able to connect to your computer if Bluetooth is turned off.\n\nThis is the Trace Id: 14371d1a06fd5aaecb4011c61a17af72 ... If you like gaming on your Windows computer and prefer to use an Xbox controller, you’re not alone. Fortunately, you can easily connect an Xbox controller to a PC. Enjoy the functionality of your favorite controller when you connect your Xbox controller to your PC with one of these easy methods. ... If you’re wondering how to connect your Xbox controller to your laptop, we have you covered. It’s easy, and you have options. Here are three ways to get gaming with the computer and Xbox controller combo you like best. ... If you want to use Bluetooth to connect your Xbox controller to your PC, your computer will need to have the Windows 10 Anniversary Update or later. It’s easy to figure out which version of Windows you are running. If you haven’t yet, upgrade to Windows 11 for the best gaming experience on Windows.\n\nEnsure your computer’s Bluetooth is turned on. Even if your controller is turned on, it won’t be able to connect to your computer if Bluetooth is turned off. ... If you want to connect your Xbox controller to your Windows 11 PC, get ready for the best gaming experience yet with Xbox Game Pass for a small monthly fee. From Minecraft and FIFA 22 video game to Monster Hunter Rise and Forza Horizon 5, there’s no shortage of ways to play. Connecting your Xbox controller to a PC is fast and easy. Now that you know how to pair your Xbox controller with your PC, let the games begin! ... You can connect an Xbox controller using Bluetooth, Xbox Wireless, or a USB cable. Once connected, your PC should recognize it automatically so you can start gaming right away. Turn on your controller, hold the Pair button until the Xbox icon flashes, then go to Settings > Bluetooth & devices on your PC.\n\nTurn on Bluetooth, select Add device, and choose your controller from the list. For wireless Xbox 360 controllers, you’ll need an Xbox 360 Wireless Receiver for Windows. Plug it into your PC, press the Pair button on the receiver, then press the Sync button on the controller to connect. Plug a micro‑USB or USB‑C cable (depending on the model) into your controller and connect the other end to your PC. Your controller should connect instantly once the cable is plugged in. Make sure the controller is charged, Bluetooth is turned on (for wireless connections), your Windows version supports Bluetooth pairing, and that the controller is close to your PC. Updating the controller firmware may also help resolve connection issues. DISCLAIMER: Features and functionality subject to change. Articles are written specifically for the United States market; features, functionality, and availability may vary by region.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.microsoft.com/en-us/windows/learning-center/how-to-connect-xbox-controller-to-pc",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "How to Connect Xbox Controller to Windows 11 in Reliable Ways?",
+              "url": "https://www.minitool.com/news/connect-xbox-controller-to-windows-11.html",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "minitool.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=minitool.com",
+                "site_name": "MiniTool"
+              },
+              "is_missing": false,
+              "text": "Turn on Bluetooth. Select Add device and the PC will start searching for your controller. Choose Xbox Wireless Controller or Xbox Elite Wireless Controller &gt; Done. ... Xbox Controller attachments like headsets, chat pads, as well as the Xbox ...\n\nTurn on Bluetooth. Select Add device and the PC will start searching for your controller. Choose Xbox Wireless Controller or Xbox Elite Wireless Controller > Done. ... Xbox Controller attachments like headsets, chat pads, as well as the Xbox Stereo Adapter, won’t work with your controller while connected via Bluetooth. You’d better only connect only one controller via Bluetooth at a time. Besides, you can rely on a USB cable to connect your Xbox controller to your Windows machine. Just plug one end of a micro-USB charging cable into the top of the controller and plug the other end into your computer. If you are using an Xbox Series X|S, Xbox Elite Wireless Controller Series 2, or Xbox Adaptive Controller, you should use a USB-C cable to connect your controller with a PC. The advantage of connecting Xbox controller to PC is that you can connect 8 controllers or 4 controllers that have Xbox Chat Headsets attached at the same time.\n\nOn Windows 11, navigate to Settings > Bluetooth & devices. Select Add device > Everything else. Choose Xbox Wireless Controller or Xbox Elite Wireless Controller. When connected, the Xbox button on the controller will stay lit. Using Xbox Wireless, also, you can connect 8 controllers or 4 controllers that have Xbox Chat Headsets attached at the same time. If the controllers have Xbox Stereo Headsets, only 2 can be connected at the same time. ... The Xbox Wireless Controller that comes with Xbox Series X|S includes a Pair button that permits quickly switching between a paired Bluetooth device and an Xbox console or PC relying on Xbox Wireless. To use the Xbox controller with its console after using it with a PC, you must resync the controller to the console. If your Xbox controller can’t recognize Windows 11 or Windows 11 fails to detect Xbox controller, you can try the following methods to solve the problem.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.minitool.com/news/connect-xbox-controller-to-windows-11.html",
+                "search_provider": "anthropic",
+                "age": "August 9, 2023"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Xbox One controller won't connect to PC via Bluetooth",
+              "url": "https://www.thewindowsclub.com/fix-xbox-one-controller-wont-connect-to-pc-via-bluetooth",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "thewindowsclub.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=thewindowsclub.com",
+                "site_name": "The Windows Club"
+              },
+              "is_missing": false,
+              "text": "In this case, updating or reinstalling the Bluetooth driver should resolve the issue. First, open the Optional updates page in Windows 11/10 Settings and check if there is any update available for your Bluetooth driver.\n\nRight-click on the HID-compliant game controller and select Uninstall device. This will uninstall the HID-compliant game controller driver. If you do not find this driver under the Human Interface Devices node, click View and select Show hidden devices. Now, open Windows 11/10 Settings and add your controller again. This solution is for the users who do not find their Xbox controller in the Bluetooth Add a Device window. Check the status of the Device Association Service. If the service is not running, start it. Follow the instructions written below. Press Win + R keys to launch the Run command box. Type services.msc and click OK. This will launch the Services app. Scroll down and locate the Device Association Service. Its Status should show Running. If not, start the service. To start the service, right-click on it and select Start. After starting the service, check if you can connect your Xbox controller with your PC via Bluetooth or not.\n\nIf you are still unable to connect your Xbox controller to your PC, there might be a problem with your Bluetooth driver. In this case, updating or reinstalling the Bluetooth driver should resolve the issue. First, open the Optional updates page in Windows 11/10 Settings and check if there is any update available for your Bluetooth driver. If yes, install it. If there is no pending update for your Bluetooth driver in Windows 11/10 Optional updates page, open the Device Manager and expand the Bluetooth node. Now, right-click on your Xbox controller’s Bluetooth driver and select Update driver. After that, click Search automatically for drivers. If updating the driver does not fix your problem, uninstall it from the Device Manager and restart your computer. After restarting your device, Windows will automatically search for and install the latest available version.\n\nIf your Xbox One controller is not connecting to your computer through Bluetooth, make sure that Bluetooth is turned on and Airplane mode is turned off. You can try removing and adding your Xbox controller to your computer. If these fixes do not work, your Bluetooth driver may have malfunctioned. Hence, consider updating it. Add TheWindowsClub as a Preferred Source on Google Search · If your Xbox controller is not showing up on your PC Bluetooth, make sure that the controller is turned on and is in the range of your PC Bluetooth. If everything is OK, the issue may be with your Bluetooth driver. Open the Device Manager and update your Bluetooth driver. If your Xbox One controller Bluetooth shows a Driver Error on Windows 11, uninstall the controller driver via Device Manager and then reinstall it. Next, update your Bluetooth drivers to the latest version available for your PC.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.thewindowsclub.com/fix-xbox-one-controller-wont-connect-to-pc-via-bluetooth",
+                "search_provider": "anthropic",
+                "age": "October 17, 2025"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-13T01:46:57.484880Z",
+          "stop_timestamp": "2026-05-13T01:47:07.210759Z",
+          "flags": null,
+          "type": "text",
+          "text": "Here's the situation and your options, straight:\n\n**The core problem:** The Xbox Elite Series 1 does not natively support Bluetooth. It only supports the proprietary Xbox Wireless protocol and wired USB. This is a hardware limitation, not a driver issue — no driver update will add Bluetooth to a controller that doesn't have the radio for it.\n\n---\n\n**Your actual options:**\n\n**Option 1 — USB cable (easiest, works immediately)**\nPlug a Micro-USB cable from the controller into your laptop. Windows will install the driver automatically and it'll just work. No pairing, no fuss.\n\n**Option 2 — Xbox Wireless Adapter for Windows (~$25)**\nTo use Xbox Wireless, you either need an Xbox Wireless Adapter plugged into your PC, or a laptop that specifically has built-in support for that proprietary protocol. The adapter plugs into a USB port and handles the wireless connection. This is the closest thing to \"wireless Bluetooth\" you're going to get with the Series 1. It shows up in Device Manager and Windows handles the driver automatically once plugged in.\n\n**Option 3 — Brook X ONE Adapter**\nBluetooth connectivity for the Elite Series 1 can be achieved by using a Bluetooth adapter like the Brook X ONE Adapter. This is a hardware dongle that attaches to the controller itself and adds Bluetooth. More expensive than the Xbox Wireless Adapter and adds bulk, but it's the only way to actually use Bluetooth specifically.\n\n---\n\n**Bottom line:** If you just want wireless, the Xbox Wireless USB adapter is the right call. If you specifically need Bluetooth (e.g., for Steam Deck, phone, etc.), Brook X ONE is your path. No driver on earth will make the Series 1 Bluetooth-capable on its own.",
+          "citations": [
+            {
+              "uuid": "bbf76e29-9a2e-4d93-90f5-4cf1eeb163e7",
+              "start_index": 72,
+              "end_index": 203,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://www.pcgamingwiki.com/wiki/Controller:Xbox_Elite_Wireless_Controller"
+              }
+            },
+            {
+              "uuid": "3491b782-67ec-46dc-90d3-bb0d01741eab",
+              "start_index": 636,
+              "end_index": 802,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://www.dell.com/community/en/conversations/xps/dell-compatibility-with-xbox-one-wireless-controller/647f7da9f4ccf8a8dec16979"
+              }
+            },
+            {
+              "uuid": "6f32534c-193e-4250-b08d-384ad6b6242d",
+              "start_index": 1091,
+              "end_index": 1211,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://www.pcgamingwiki.com/wiki/Controller:Xbox_Elite_Wireless_Controller"
+              }
+            }
+          ]
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-13T01:47:07.252616Z",
+      "updated_at": "2026-05-13T01:47:07.252616Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1f03-eff5-75db-96e2-3140c5fbc8f8"
+    },
+    {
+      "uuid": "019e1f04-ff24-73a4-bcb8-4fd0e3ae5cf3",
+      "text": "okay then is there a workaround to connect to the bullshit Microsoft system on the controller with Wi-Fi because it's a radio frequency. let's come at this like scientists now",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T01:48:01.757665Z",
+          "stop_timestamp": "2026-05-13T01:48:01.757665Z",
+          "flags": null,
+          "type": "text",
+          "text": "okay then is there a workaround to connect to the bullshit Microsoft system on the controller with Wi-Fi because it's a radio frequency. let's come at this like scientists now",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-13T01:48:01.757785Z",
+      "updated_at": "2026-05-13T01:48:01.757785Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1f03-eff5-75db-96e2-3141e8809a5c"
+    },
+    {
+      "uuid": "019e1f04-ff24-73a4-bcb8-4fd1c68aaa47",
+      "text": " Good framing. Let's actually think through this.\n\nThe Xbox Wireless protocol runs on **2.4GHz RF** — same band as Wi-Fi and Bluetooth, but it's a proprietary protocol sitting on top of that frequency. The laptop's Wi-Fi card physically operates on 2.4GHz too, which means the radio hardware is *there*. The question is whether the Wi-Fi card can be coerced into speaking Xbox Wireless.\n```\nThis block is not supported on your current device yet.\n```\n\n\n```\nThis block is not supported on your current device yet.\n```\n\n\n```\nThis block is not supported on your current device yet.\n```\n\nOkay, here's the honest scientific breakdown:\n\n**What we learned from the reverse engineering community:**\n\nThe Xbox Wireless Adapter itself runs a Mediatek MT7612 Wi-Fi chip and loads three drivers — a firmware binary, `xboxgip.sys`, and `mt7612US.sys`. The controllers connect to the adapter essentially like a hotspot. The adapter is capable of 2.4GHz, 5.2GHz, and 5.8GHz — it is literally just a Wi-Fi radio running Microsoft's proprietary GIP (Game Input Protocol) on top.\n\nSo your instinct is correct: **the radio your laptop already has is physically capable of the same frequencies.** The barrier isn't hardware. It's the GIP protocol layer.\n\n**Here's where it walls off:**\n\nThe packet format follows Microsoft's undisclosed GIP specification, and the reverse engineering that exists was done primarily through Wireshark captures between the dongle and a Windows PC — with no publicly available datasheets for the chip. The open source work (`xone`, `xow`) that cracked this protocol only works on Linux as a kernel driver, and critically, it still requires the physical Xbox Wireless Dongle — it just replaces Microsoft's closed driver for *that dongle*. Nobody has successfully emulated the dongle itself in software on a generic Wi-Fi card.\n\n**Why that last mile hasn't been crossed:**\n\nThe GIP handshake includes authentication and cryptographic operations using ECDH, RSA, and HMAC-SHA256. The controller authenticates *to the dongle's specific hardware identity*. Even if you wrote a software GIP stack and put your Wi-Fi card into AP mode on the right channel, the controller would reject the handshake because it's not talking to recognized hardware. That crypto layer is what keeps this from being a pure software problem.\n\n---\n\n**Realistic options given all of this:**\n\n1. **Xbox Wireless USB Adapter (~$25)** — plug in, done. It's the dongle the protocol is designed for. Windows installs the driver automatically.\n2. **USB cable** — works right now, zero cost.\n3. **If you're on or willing to dual-boot Linux** — `xone` driver + the dongle gives you a fully open-source, community-maintained wireless stack with the Elite Series 1 explicitly supported.\n\nThere is no pure software path on Windows that bypasses the dongle. The protocol was deliberately locked behind hardware authentication, and nobody in the open source community has cracked that specific wall yet.",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T01:48:02.418231Z",
+          "stop_timestamp": "2026-05-13T01:48:05.299062Z",
+          "flags": null,
+          "type": "text",
+          "text": " Good framing. Let's actually think through this.\n\nThe Xbox Wireless protocol runs on **2.4GHz RF** — same band as Wi-Fi and Bluetooth, but it's a proprietary protocol sitting on top of that frequency. The laptop's Wi-Fi card physically operates on 2.4GHz too, which means the radio hardware is *there*. The question is whether the Wi-Fi card can be coerced into speaking Xbox Wireless.",
+          "citations": []
+        },
+        {
+          "start_timestamp": "2026-05-13T01:48:05.299062Z",
+          "stop_timestamp": "2026-05-13T01:48:05.663901Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_015e5AcacvTwcoC9U2nnYmd3",
+          "name": "web_search",
+          "input": {
+            "query": "Xbox Wireless protocol reverse engineered 2.4GHz software defined radio SDR implementation"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_015e5AcacvTwcoC9U2nnYmd3",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "Tagged: 2.4 GHz",
+              "url": "https://www.rtl-sdr.com/tag/2-4-ghz/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "rtl-sdr.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=rtl-sdr.com",
+                "site_name": "RTL-SDR"
+              },
+              "is_missing": false,
+              "text": "RTL-SDR (RTL2832U) and software defined radio news and projects. Also featuring Airspy, HackRF, FCD, SDRplay and more. ... Over on GitHub Ian Wraith has released his design and microcontroller code for a low cost 2.4 GHz downconverter circuit. A downconverter is a hardware device that shifts the signals that it receives into a lower frequency band. This is useful in the case of RTL-SDRs and Airspy SDRs, as their maximum frequency range is only 1.7 GHz. Ian&#x27;s 2.4 GHz downconverter reduces those 2.4 GHz signals down to 1 GHz, which can then be received with his Airspy. Rather than designing a circuit from scratch, Ian&#x27;s design makes use of several very cheap Chinese evaluation/development boards that he found on eBay. It costs of a mixer board, oscillator board, and an STM32 development board for controlling the oscillator board via SPI. The whole set of hardware cost him less than £30 (~37 USD).\n\n\n\nads-b airspy AIS amateur radio android antenna APT Automatic dependent surveillance broadcast bladerf DAB direction finding gnu radio GOES GPS hackrf HF hydrogen line inmarsat kerberossdr krakensdr l-band limesdr LNA NOAA outernet P25 passive radar plutosdr R820T radio astronomy radio direction finding raspberry pi reverse engineering rtl-sdr rtl2832 rtl2832u satellite sdr# sdrplay sdrsharp security Software-defined radio upconverter usrp weather satellite · RTL-SDR Discussion • RETIREMENT OF THESE FORUMS - LINK TO NEW FORUMS INSIDE · RTL-SDR Discussion • Re: Just curious about my RTL-ADR V 3 dongle · RTL-SDR Discussion • Re: Getting tired of the junk posts in this forum · RTL-SDR Discussion • Re: Just curious about my RTL-ADR V 3 dongle ·\n\n2.4GHz packet received on the RTL-SDR + downconverter from a Logitech mouse ... Stream1090: A New Approach to ADS-B Demodulation Using CRC-Based Framing Instead of Preamble Detection ...",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.rtl-sdr.com/tag/2-4-ghz/",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Performance Improvement by Changing Modulation Methods for Software   Defined Radios",
+              "url": "https://arxiv.org/pdf/1212.0114",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "arxiv.org",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=arxiv.org",
+                "site_name": "arxiv"
+              },
+              "is_missing": false,
+              "text": "# Performance Improvement by Changing Modulation Methods for Software Defined Radios\n\nBhalchandra B. Godbole\nKarmaveer Bhaurao Patil College of Engineering and\nPolytechnic, Satara - 415001\nbbgodbole@rediffmail.com\n\nDilip S. Aldar\n\nKarmaveer Bhaurao Patil College of Engineering and Polytechnic, Satara - 415001 dilip aldar@rediffmail.com\n\nAbstract- This paper describes an automatic switching of modulation method to reconfigure transceivers of Software Defined Radio (SDR) based wireless communication system. The programmable architecture of Software Radio promotes a flexible implementation of modulation methods. This flexibility also translates into adaptively, which is used here to optimize the throughput of a wireless network, operating under varying channel conditions.\n\nIt is robust and efficient with processing time overhead that still allows the SDR to maintain its real-time operating objectives. This technique is studied for digital wireless communication systems.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://arxiv.org/pdf/1212.0114",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Cross-layer Design and SDR Implementation of DSA, Backpressure Routing   and Network Coding",
+              "url": "https://arxiv.org/pdf/1912.05658",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "arxiv.org",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=arxiv.org",
+                "site_name": "arxiv"
+              },
+              "is_missing": false,
+              "text": "The backpressure algorithm is extended to support multicast traffic with network coding deployed over virtual queues (for multicast destinations). In addition to full rank decoding at destinations, rank deficient decoding is also considered to reduce the delay. Cognitive network functionalities are programmed with GNU Radio and Python modules are developed for different layers. USRP radios are used as RF front ends. A wireless network T&E system is presented to execute emulation tests, where radios communicate with each other through a wireless network emulator that controls physical channels according to path loss, fading, and topology effects. Emulation tests are presented for different topologies to evaluate the throughput, backlog and energy consumption. Results verify the SDR implementation and the joint effect of DSA, backpressure routing and network coding under realistic channel and radio hardware effects.\n\n\n\nAir Force Research Laboratory, RITF, Rome, NY 13441; Email: {jared.feldman, john.matyjas}@us.af.mil\n\nDISTRIBUTION A. Approved for public release; distribution unlimited. (AFRL/RITF; 88ABW-2018-1424). Any opinions, findings and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the Air Force.\n\nPreliminary version of the material in this paper was partially presented at IEEE Military Communications (MILCOM) 2015 [1] and 2017 [2].\n\nof spectrum occupancy in time and space [3]. With the proliferation of commercial off-the-shelf software-defined radios (SDRs), it has become feasible to deploy a multi-hop, multi-channel cognitive radio system with distributed and decentralized coordination. In this paper, we first present step by step how to design a *protocol stack* for a cognitive radio network and implement it with SDR.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://arxiv.org/pdf/1912.05658",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Hybrid platform for a software defined radio",
+              "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9136894",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "uspto.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=uspto.gov",
+                "site_name": "uspto"
+              },
+              "is_missing": false,
+              "text": "Traditional hardware based radios limit cross-functionality and can only be modified through physical intervention. This results in higher production costs and minimal flexibility in supporting multiple wireless communication standards. By contrast, software defined radio (SDR) technology provides an efficient and comparatively inexpensive solution to this problem, allowing multi-mode, multi-band and/or multi-functional radios that can be enhanced using software upgrades. SDR defines a collection of hardware and software technologies where some or all of the radio's operating functions (also referred to as physical layer (PHY) processing) are implemented through modifiable software or firmware operating on programmable processing technologies. These devices include field programmable gate arrays (FPGA), digital signal processors (DSP), general purpose processors (GPP), programmable System on Chip (SoC) or other application specific programmable processors. \n\nThe use of these technologies allows new wireless features and capabilities to be added to existing radio systems without requiring new hardware. Thus, a SDR is a radio whose components, which in a hardware-based radio would have been implemented in hardware (e.g. mixers, filters, amplifiers, modulators/demodulators, detectors, etc.), are instead implemented by means of software on a personal computer or embedded computing devices. Software defined radios find use in the afore-mentioned personal computer and a number of other portable devices. A basic SDR may include a personal computer equipped with analog-to-digital converter, preceded by a radio frequency (RF) frontend. Significant amounts of signal processing are handled by a programmed general-purpose processor, rather than being done in special-purpose hardware. Such a design produces a radio that can receive and transmit widely different wireless communication protocols based solely on the software used.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9136894",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Real-Time Implementation of Multiband Spectrum Sensing Using SDR Technology",
+              "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8157380/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "nih.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=nih.gov",
+                "site_name": "nih"
+              },
+              "is_missing": false,
+              "text": "Hence, in this work, it is proposed to link several affordable software-defined radios to sense a wide band of the radioelectric spectrum using this technique. Furthermore, in this real-time implementation, the following are proposed: (i) a module for the elimination of impulsive noise, with which the appearance of sudden changes in the signal is reduced through the detail coefficients of the multiresolution analysis, and (ii) the management of different devices through an application that updates the information of each secondary user every 100 ms. The performance of these linked devices was evaluated with encouraging results: 95% probability of success for signal-to-noise ratio (SNR) values greater than 0 dB and just five samples (mean) in error of the edge detection (start and end) for a primary user transmission.\n\n## 1. Introduction\n\n\n\nIn this work [[3506]], one of the three ML algorithms, used for the classification of the coefficients, was the K-means algorithm. By considering this algorithm, it was possible to obtain, on average, 98% certainty of detecting the beginning and end of a *PU* transmission, for an SNR greater than 0 dB. These results were obtained in a simulated environment on the MATLAB platform. Thus, the previously mentioned technique is now implemented in some easy-access SDR (software-defined radio) devices deployed in a real wireless communication environment. This paper allows appreciating the performance of theoretical contributions in a commercial electronic device based on SDR.\n\nAccording to the literature, there were some recent and high-impact works in the field of interest related to MBSS and its implementation in a simulated or experimental environment with SDR and USRP (universal software radio peripheral) devices.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8157380/",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Self-booting software defined radio module",
+              "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7404074",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "uspto.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=uspto.gov",
+                "site_name": "uspto"
+              },
+              "is_missing": false,
+              "text": "Other devices suffer from the same difficulties, and accessories and other implementation schemes have to be used to provide interconnectivity. A proposed solution to the non-standardized communications operations lies in the software defined radio (SDR) architecture. In general, software defined radios (SDRs) is used to describe radios that provide software control and reconfiguration of a variety of modulation techniques, wide-band or narrow-band operation, communications security functions (such as hopping), and waveform requirements of current and evolving standards over a broad frequency range. The frequency bands covered may still be constrained at the front-end requiring a switch in the antenna system. Since the initial developments in the early 1990's, researchers have been feverishly working on making SDR a reality. As stated, a software defined radio is a radio whose channel modulation waveforms are defined in the software. \n\nWaveforms are generated as sampled digital signals, converted from digital to analog via a wideband digital to analog converter (DAC) and possibly upconverted from an intermediate frequency (IF) to a radio frequency (RF). On the receiver end, a wideband Analog to Digital Converter (ADC) captures all of the channels of the software radio node. The receiver then extracts, downconverts and demodulates the channel waveform using software on a general purpose processor. By employing common hardware elements and implementing design changes via the software, the end-user obtains a seamless transition between various protocols and the life cycle of the device is greatly enhanced. SDR is an enabling technology applicable across a wide range of areas within the wireless industry that provides efficient and comparatively inexpensive solutions to several constraints posed in current systems.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7404074",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "IEEE 802.15.4 transceiver for the 868/915 MHz band using Software   Defined Radio",
+              "url": "https://arxiv.org/pdf/1304.8028",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "arxiv.org",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=arxiv.org",
+                "site_name": "arxiv"
+              },
+              "is_missing": false,
+              "text": "SDR offers one possibility to realize a transceiver with high flexibility and reconfigurability [3]. The whole -transmitter and receiver- chain has been defined in software using the GNU Radio software project [4] and the USRP (Universal Software Radio Peripheral) platform from Ettus Research [5]. Two new blocks have been added to the GNU Radio project, one for the Direct Sequence Spread Spectrum and the second for the reconstruction of the packets. The experimentations have been performed in a noisy environment and the PER, BER and SNR have been computed. The obtained results are coherent with what can be expected from the theory.\n\nIndex Terms—Wireless communications, Software Defined Radio, IEEE 802.15.4, GNU Radio.\n\n# I. INTRODUCTION\n\nMost of the standards and protocols of lower layers of wireless transmissions (AM, FM, IEEE 802.11, IEEE 802.15.1, IEEE 802.15.4. etc.) are mainly implemented in hardware (HW). \n\nThis lack of reconfigurability makes the adaptation to varying radio resources difficult, especially when multiple standards need to be often switched in order to take advantage of the scarce radio resources available. The purpose of Software Defined Radio (SDR) is to avoid these drawbacks of traditional wireless communications and replace the hardware equipment by software. The huge advantage of SDR platform lies in its flexibility, its multi-functionality and its low development cost. The reconfigurability of the platform ensures the reusability of the hardware [3], thus minimizing the design complexity of new RF terminals.\n\nThe ideal SDR allows the analog-to-digital (ADC) and digital-to-analog (DAC) conversion to be as close as possible to the antenna [?], eliminating the need of high-frequency radio subsystems. Subsequently, the CPU executes the software (SW) subsystem of the SDR, all signal processing operations are accomplished by SW. Unfortunately, today's\n\n\n\ntechnology is neither cost-effective for direct ADC conversion from the antenna nor enough",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://arxiv.org/pdf/1304.8028",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "A Millimeter-Wave Software-Defined Radio for Wireless Experimentation",
+              "url": "https://arxiv.org/pdf/2302.08444",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "arxiv.org",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=arxiv.org",
+                "site_name": "arxiv"
+              },
+              "is_missing": false,
+              "text": "In this work, we address this issue with a new SDR solution that is low cost, highly flexible and portable, and developed from commercial off-the-shelf components.\n\nIn the literature, there is a substantial interest in developing mmWave SDRs. For example, in [1], an SDR with multiple phased-antenna arrays (PAAs) is proposed by hijacking a commercial IEEE 802.11ad radio. In [2], mmWave transceivers from Sivers, IBM, and InterDigital are evaluated, which are paired with universal software-radio peripherals (USRPs) or Xilinx ZCU111 for COSMOS testbed. While Xilinx ZCU111 enables the testbed to support waveforms with a larger bandwidth, the USRP-based approach offers the flexibility of SDR. In [3], four 60 GHz PAAs are connected to Xilinx ZCU111, where the design particularly focuses on the implementation of IEEE 802.11ad in the field-programmable gate array (FPGA). In [4], ZCU111 is utilized with the discrete circuits for a wireless sensing application. \n\nWith this feature, we conduct a beam sweeping experiment and create a dataset consisting of the IQ samples for a given TX-RX antenna weighting vector (AWV) index pair [7].\n\n# II. MILLIMETER-WAVE SDR ARCHITECTURE\n\nFor the proposed SDR, we prioritize the flexibility so that an arbitrary waveform, e.g., the ones based on a standard such as IEEE 802.11ay/ad or 3GPP 5G New Radio (NR) or a custom waveform for a particular experiment, can be used. To this end, our strategy is to implement a minimal feature set by taking the aspects of mmWave communications into account. The proposed SDR uses Sivers EVK06002 evaluation kit and RFSoC2x2 FPGA board, and provides an application programming interface (API) for a CC-based signal processing. All the constituents of the proposed SDR are open source [8] and can be customized depending on the experiment requirements.\n\n![](_page_1_Figure_0.jpeg)\n\nFig. 1. The architecture of the proposed SDR and the implemented SDR itself. \n\nThe proposed architecture and the implemented SDR are shown in",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://arxiv.org/pdf/2302.08444",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Method for multi-standard software defined radio base-band processing",
+              "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7784028",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "uspto.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=uspto.gov",
+                "site_name": "uspto"
+              },
+              "is_missing": false,
+              "text": "FIELD OF THE INVENTION The present invention relates to a method for Software defined radio (SDR) base band processing, and more particularly, to a method for SDR base band processing used for many wireless communication standards such as WCDMA, CDMA2000, HSDPA, OFDM, and WLAN. BACKGROUND OF THE INVENTION Putting forward in recent years, the Software defined radio (SDR) technology is a new architecture for implementing wireless communication. It is mainly directed at some problems existing in the field of wireless communication, such as coexistence of multiple communication systems, fierce competition between various standards, and shortage of frequency resources.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7784028",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "SDR Proof-of-Concept of Full-Duplex Jamming for Enhanced Physical Layer Security",
+              "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7865673/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "nih.gov",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=nih.gov",
+                "site_name": "nih"
+              },
+              "is_missing": false,
+              "text": "In order to secure wireless communications, we consider the usage of physical-layer security (PLS) mechanisms (i.e., coding for secrecy mechanisms) combined with self-interference generation. We present a prototype implementation of a scrambled coding for secrecy mechanisms with interference generation by the legitimate receiver and the cancellation of the effect of self-interference (SI). Regarding the SI cancellation, four state-of-the-art algorithms were considered: Least mean square (LMS), normalized least mean square (NLMS), recursive least squares (RLS) and QR decomposition recursive least squares (QRDRLS). The prototype implementation is performed in real-world software-defined radio (SDR) devices using GNU-Radio, showing that the LMS outperforms all other algorithms considered (NLMS, RLS and QRDRLS), being the best choice to use in this situation (SI cancellation).",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7865673/",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-13T01:48:08.221788Z",
+          "stop_timestamp": "2026-05-13T01:48:08.741387Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01JXvtMn34VUNeXGbFKvEFy8",
+          "name": "web_search",
+          "input": {
+            "query": "Xbox Wireless protocol reverse engineered open source driver xow xone-gip"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01JXvtMn34VUNeXGbFKvEFy8",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "GitHub - medusalix/xone: Linux kernel driver for Xbox One and Xbox Series X|S accessories · GitHub",
+              "url": "https://github.com/medusalix/xone",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Replace the wildcard (gip*) if you want to control the LED of a specific device. The modes and the maximum brightness can vary from device to device. Uninstall the release version and install a debug build of xone (see installation guide).\n\nLinux kernel driver for Xbox One and Xbox Series X|S accessories - medusalix/xone\n\nxone is a Linux kernel driver for Xbox One and Xbox Series X|S accessories. It serves as a modern replacement for xpad, aiming to be compatible with Microsoft's Game Input Protocol (GIP). ... Installing xone will disable the xpad kernel driver. If you are still using Xbox or Xbox 360 peripherals, you will have to install xpad-noone as a replacement for xpad. ... This project is in maintenance mode and will receive only occasional minor fixes. An actively developed fork is available here. ... Feel free to package xone for any Linux distribution or hardware you like. Any issues regarding the packaging should be reported to the respective maintainers. ... Unplug your Xbox devices. ... NOTE: You can use the --release flag to disable debug logging. ... NOTE: The --skip-disclaimer flag might be useful for scripting purposes. Plug in your Xbox devices. Make sure to completely uninstall xone before updating: ...",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/medusalix/xone",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "GitHub - medusalix/xow: Linux driver for the Xbox One wireless dongle · GitHub",
+              "url": "https://github.com/medusalix/xow",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Upgrading to xone is highly recommended! xow is a Linux user mode driver for the Xbox One wireless dongle. It communicates with the dongle via libusb and provides joystick input through the uinput kernel module.\n\nPlugging your dongle into a USB port that uses an ASMedia controller will lead to problems. Most Intel USB controllers work well with xow. Power management issues can arise when using a USB 3 controller. These can lead to timeouts of the USB communication. The use of a USB hub can mitigate these problems. In case of any other problems, please open an issue with all the relevant details (dongle version, controller version, logs, captures, etc.). NOTE: Please refrain from creating issues concerning input remapping, deadzones or game compatibility as these topics are outside the scope of this project. The dongle's wireless chip (MT76xx) handles the WLAN connection with individual controllers. The packet format follows Microsoft's undisclosed GIP (Game Input Protocol) specification. Most of the reverse engineering was done by capturing the communication between the dongle and a Windows PC using Wireshark.\n\nUpgrading to xone is highly recommended! xow is a Linux user mode driver for the Xbox One wireless dongle. It communicates with the dongle via libusb and provides joystick input through the uinput kernel module. The input mapping is based on existing kernel drivers like xpad. xow supports both versions of the wireless dongle (slim and bulky one) and the Surface Book 2's built-in adapter. The following Xbox One controllers are currently compatible with the driver: ... Feel free to package xow for any Linux distribution or hardware you like. Any issues regarding the packaging should be reported to the respective maintainers. ... NOTE: Please use BUILD=DEBUG when asked for your debug logs. ... NOTE: The --skip-disclaimer flag might be useful for scripting purposes. Enable and start the systemd service (runs xow at boot time): sudo systemctl enable xow sudo systemctl start xow ·\n\nNOTE: Running xow manually is strongly discouraged. A reboot might be required for xow to work correctly. Make sure to completely uninstall xow before updating: sudo systemctl stop xow sudo systemctl disable xow sudo make uninstall · You can enable the dongle's pairing mode by sending the SIGUSR1 signal to xow: ... NOTE: Signals are only handled after a dongle has been plugged in. The default behavior for SIGUSR1 is to terminate the process. ... The /dev/uinput device has to be available. The uinput kernel module needs to be loaded. ... The permissions for /dev/uinput have to allow read and write access. The udev rules need to be installed and any conflicts with existing rules have to be resolved. ... Another driver might have already loaded the dongle's firmware. The dongle needs to be unplugged to reset its internal memory, followed by a restart of xow's systemd service.\n\nOnly a single program can communicate with the dongle at once. Any existing drivers that might interfere with xow need to be disabled. This includes running multiple instances of xow. ... The permissions for the dongle's USB device have to be set correctly. This is also handled by the udev rules. Using an outdated version of libusb can cause various issues. Make sure to update libusb to the latest version. The controller only remembers the last device it was connected to. It will not automatically establish a connection to the dongle if it was previously plugged into a USB port or paired via bluetooth, even if the same computer was used. ... Enable the compatibility mode in the service configuration, reload the systemd daemon and restart the service. Controllers connected to the dongle will appear as Xbox 360 controllers. ... Try the options listed on this page to remap your inputs.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/medusalix/xow",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "xpadneo | Advanced Linux Driver for Xbox One Wireless Controller (shipped with Xbox One S)",
+              "url": "https://atar-axis.github.io/xpadneo/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.io",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.io",
+                "site_name": "Atar-Axis"
+              },
+              "is_missing": false,
+              "text": "xone is a driver aiming for fully supporting all Microsoft GIP devices thus replacing the xpad driver in the kernel. It supports Xbox One and Xbox Series X|S accessories. xow is an unmaintained driver for the Xbox One S controllers, which has been superseded by xone.\n\nxone is a driver aiming for fully supporting all Microsoft GIP devices thus replacing the xpad driver in the kernel. It supports Xbox One and Xbox Series X|S accessories. xow is an unmaintained driver for the Xbox One S controllers, which has been superseded by xone. Kudos to @medusalix for working together on finding some work-arounds for controller firmware bugs. xpad supports this and many other controllers in USB mode. MissionControl aims to support the controller on Nintendo Switch via Bluetooth. These other projects may not support some of the advanced features of xpadneo. Licensing of the project has changed, so please update your packaging if you maintain a package for this driver. Please refer to LICENSE.md for details. If you have any questions, please ask. The project introduced some packaging helpers and changed the installation process.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://atar-axis.github.io/xpadneo/",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "GitHub - dlundqvist/xone: Linux kernel driver for Xbox One and Xbox Series X|S accessories · GitHub",
+              "url": "https://github.com/dlundqvist/xone",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Replace the wildcard (gip*) if you want to control the LED of a specific device. The modes and the maximum brightness can vary from device to device. The pairing mode of the dongle can be queried via sysfs: ... # show number of connected controllers ...\n\nxone is a Linux kernel driver for Xbox One and Xbox Series X|S accessories. It serves as a modern replacement for xpad, aiming to be compatible with Microsoft's Game Input Protocol (GIP). ... The original project is in maintance mode, please refer to this one for updates and issues. Huge thanks to medusalix for all the work and creating this driver! ... Installing xone will disable the xpad kernel driver. If you are still using Xbox or Xbox 360 peripherals, you will have to install xpad-noone as a replacement for xpad. This driver is still in active development. Use at your own risk! If you are running xow upgrading to xone is highly recommended! Always update your Xbox devices to the latest firmware version! Any feedback including bug reports, suggestions or ideas is greatly appreciated. ... Feel free to package xone for any Linux distribution or hardware you like.\n\nReplace the wildcard (gip*) if you want to control the LED of a specific device. The modes and the maximum brightness can vary from device to device. The pairing mode of the dongle can be queried via sysfs: ... # show number of connected controllers cat /sys/bus/usb/drivers/xone-dongle/*/active_clients # power off selected client (possible values from 0 to 15) sudo tee /sys/bus/usb/drivers/xone-dongle/*/poweroff <<< 1 # power off all connected clients sudo tee /sys/bus/usb/drivers/xone-dongle/*/poweroff <<< -1 · Uninstall the release version and install a debug build of xone (see installation guide). Run sudo dmesg to gather logs and check for any error messages related to xone. If xone is not being loaded automatically you might have to reboot your system. Direct firmware load for xow_dongle.bin failed with error -2 · Download the firmware for the wireless dongle (see installation guide).\n\nsudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/dlundqvist/xone/master/install/steam-deck-install.sh)\" ... xone doesn't support Xbox 360 controllers at all. On top of that, xone needs to disable xpad driver to work properly, which would normally support Xbox 360 controllers. This is due to xpad also trying to handle Xbox One controllers, which xone aims to support. To fix that, there is a fork of xpad driver, called xpad-noone that has disabled support for Xbox One controllers, so it can coexist with xone driver. If you're using Xbox 360 controllers, it is recommended to use it to replace the standard xpad driver. Xbox devices have to be paired to the wireless dongle. They will not automatically connect to the dongle if they have been previously plugged into a USB port or used via Bluetooth. Instructions for pairing your devices can be found here (see the section on Xbox Wireless).",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/dlundqvist/xone",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "GitHub - heypop/xbox: Linux kernel driver for Xbox One and Xbox Series X|S accessories · GitHub",
+              "url": "https://github.com/heypop/xbox",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Replace the wildcard (gip*) if you want to control the LED of a specific device. The modes and the maximum brightness can vary from device to device. Uninstall the release version and install a debug build of xone (see installation guide).\n\nLinux kernel driver for Xbox One and Xbox Series X|S accessories - heypop/xbox\n\nxone is a Linux kernel driver for Xbox One and Xbox Series X|S accessories. It serves as a modern replacement for xpad, aiming to be compatible with Microsoft's Game Input Protocol (GIP). ... This driver is still in active development. Use at your own risk! If you are running xow upgrading to xone is highly recommended! Always update your Xbox devices to the latest firmware version! Any feedback including bug reports, suggestions or ideas is greatly appreciated. ... Feel free to package xone for any Linux distribution or hardware you like. Any issues regarding the packaging should be reported to the respective maintainers. ... Unplug your Xbox devices. ... NOTE: Please omit the --release flag when asked for your debug logs. ... NOTE: The --skip-disclaimer flag might be useful for scripting purposes. Plug in your Xbox devices. Make sure to completely uninstall xone before updating: ...",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/heypop/xbox",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "dlundqvist/xone | DeepWiki",
+              "url": "https://deepwiki.com/dlundqvist/xone",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "deepwiki.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=deepwiki.com",
+                "site_name": "DeepWiki"
+              },
+              "is_missing": false,
+              "text": "The driver serves as a modern replacement for the standard xpad driver, aiming for compatibility with Microsoft&#x27;s Game Input Protocol (GIP). The xone driver is designed to provide comprehensive support for modern Xbox peripherals, offering features ...\n\nThis document provides an introduction to the xone Linux kernel driver, which enables support for Xbox One and Xbox Series X|S accessories on Linux systems. The driver serves as a modern replacement for the standard xpad driver, aiming for compatibility with Microsoft's Game Input Protocol (GIP). The xone driver is designed to provide comprehensive support for modern Xbox peripherals, offering features beyond basic input functionality including audio support, battery reporting, and power management. It implements a modular architecture with clear separation between transport, protocol, and device-specific layers. This driver supports both wired (USB) connections and wireless connections through the Xbox Wireless Dongle. It does not support Bluetooth connections to Xbox controllers - for Bluetooth support, see the `xpadneo` project. For detailed information about installing the driver, see Installation Guide.\n\nThe xone driver implements a layered architecture that separates concerns between physical connectivity, protocol implementation, and device-specific functionality. The system is organized into four main directories: transport/, bus/, driver/, and auth/. ... bus/protocol.c: GIP protocol implementation with gip_process_buffer() for parsing and gip_send_pkt() for transmission · bus/bus.c: Linux bus subsystem integration with gip_bus_type, gip_adapter, and gip_client structures · auth/crypto.c: Authentication and cryptographic operations using ECDH, RSA, and HMAC-SHA256 ... For more detailed information about the system architecture, see System Architecture. ... The gip_bus_type acts as a Linux kernel bus subsystem that manages device discovery and driver binding. When a transport adapter (wired or wireless) detects a device, it calls gip_add_client() to register a gip_client instance.\n\nThe bus infrastructure asynchronously matches clients to drivers using GIP class strings (e.g., \"Windows.Xbox.Input.Gamepad\"), triggering the appropriate driver's probe callback. For detailed information on each device driver, see Device Drivers. ... Input Path: Hardware events trigger USB URB completions in the transport layer, which calls gip_process_buffer() to parse GIP packets. The protocol layer dispatches to device drivers via operation callbacks (drv->ops.input), and drivers generate Linux input events. Output Path: User space commands (like force feedback) enter through device drivers, which call protocol functions like gip_send_rumble(). The protocol layer encodes GIP packets and submits them to the transport layer via adapter->ops.submit_buffer(), which sends USB URBs to hardware. ... For more information on the wireless dongle and pairing, see Wireless Dongle Transport.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://deepwiki.com/dlundqvist/xone",
+                "search_provider": "anthropic",
+                "age": "December 11, 2025"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "GitHub - SkyN9ne/xOne: Linux kernel driver for Xbox One and Xbox Series X|S accessories",
+              "url": "https://github.com/SkyN9ne/xOne",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Replace the wildcard (gip*) if you want to control the LED of a specific device. The modes and the maximum brightness can vary from device to device. Uninstall the release version and install a debug build of xone (see installation guide).\n\nLinux kernel driver for Xbox One and Xbox Series X|S accessories - SkyN9ne/xOne\n\nxone is a Linux kernel driver for Xbox One and Xbox Series X|S accessories. It serves as a modern replacement for xpad, aiming to be compatible with Microsoft's Game Input Protocol (GIP). ... This driver is still in active development. Use at your own risk! If you are running xow upgrading to xone is highly recommended! Always update your Xbox devices to the latest firmware version! Any feedback including bug reports, suggestions or ideas is greatly appreciated. ... Feel free to package xone for any Linux distribution or hardware you like. Any issues regarding the packaging should be reported to the respective maintainers. ... Unplug your Xbox devices. ... NOTE: Please omit the --release flag when asked for your debug logs. ... NOTE: The --skip-disclaimer flag might be useful for scripting purposes. Plug in your Xbox devices. Make sure to completely uninstall xone before updating: ...",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/SkyN9ne/xOne",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "GitHub - tkafcode/xone-recon: Linux kernel driver for Xbox One and Xbox Series X|S accessories, Turtle Beach Recon optimized · GitHub",
+              "url": "https://github.com/tkafcode/xone-recon",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Replace the wildcard (gip*) if you want to control the LED of a specific device. The modes and the maximum brightness can vary from device to device. Uninstall the release version and install a debug build of xone (see installation guide).\n\nLinux kernel driver for Xbox One and Xbox Series X|S accessories, Turtle Beach Recon optimized - tkafcode/xone-recon\n\nxone is a Linux kernel driver for Xbox One and Xbox Series X|S accessories. It serves as a modern replacement for xpad, aiming to be compatible with Microsoft's Game Input Protocol (GIP). This fork from the original at medusalix/xone is optimized for Turtle Beach Recon controller and works entirely out of the box (at least on Ubuntu 22.04). The optimization includes removal of wireless install, since it's not needed. It also includes an install script for Ubuntu 22.04 that's ready to chmod +x and run. ... This driver is still in active development. Use at your own risk! If you are running xow upgrading to xone is highly recommended! Always update your Xbox devices to the latest firmware version! Any feedback including bug reports, suggestions or ideas is greatly appreciated. ... Feel free to package xone for any Linux distribution or hardware you like.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/tkafcode/xone-recon",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "GitHub - atar-axis/xpadneo: Advanced Linux Driver for Xbox One Wireless Controller (shipped with Xbox One S) · GitHub",
+              "url": "https://github.com/atar-axis/xpadneo",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "xone is a driver aiming for fully supporting all Microsoft GIP devices thus replacing the xpad driver in the kernel. It supports Xbox One and Xbox Series X|S accessories. xow is an unmaintained driver for the Xbox One S controllers, which has ...\n\nxone is a driver aiming for fully supporting all Microsoft GIP devices thus replacing the xpad driver in the kernel. It supports Xbox One and Xbox Series X|S accessories. xow is an unmaintained driver for the Xbox One S controllers, which has been superseded by xone. Kudos to @medusalix for working together on finding some work-arounds for controller firmware bugs. xpad supports this and many other controllers in USB mode. MissionControl aims to support the controller on Nintendo Switch via Bluetooth. These other projects may not support some of the advanced features of xpadneo. Licensing of the project has changed, so please update your packaging if you maintain a package for this driver. Please refer to LICENSE.md for details. If you have any questions, please ask. The project introduced some packaging helpers and changed the installation process.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/atar-axis/xpadneo",
+                "search_provider": "anthropic",
+                "age": "1 month ago"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "GitHub - tskaar/xone: Linux kernel driver for Xbox One and Xbox Series X|S accessories · GitHub",
+              "url": "https://github.com/tskaar/xone",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Replace the wildcard (gip*) if you want to control the LED of a specific device. The modes and the maximum brightness can vary from device to device. Uninstall the release version and install a debug build of xone (see installation guide).\n\nLinux kernel driver for Xbox One and Xbox Series X|S accessories - tskaar/xone\n\nxone is a Linux kernel driver for Xbox One and Xbox Series X|S accessories. It serves as a modern replacement for xpad, aiming to be compatible with Microsoft's Game Input Protocol (GIP). ... Installing xone will disable the xpad kernel driver. If you are still using Xbox or Xbox 360 peripherals, you will have to install xpad-noone as a replacement for xpad. This driver is still in active development. Use at your own risk! If you are running xow upgrading to xone is highly recommended! Always update your Xbox devices to the latest firmware version! Any feedback including bug reports, suggestions or ideas is greatly appreciated. ... Feel free to package xone for any Linux distribution or hardware you like. Any issues regarding the packaging should be reported to the respective maintainers. ... Unplug your Xbox devices. ... NOTE: You can use the --release flag to disable debug logging.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/tskaar/xone",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-13T01:48:11.389650Z",
+          "stop_timestamp": "2026-05-13T01:48:11.935112Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01DZwkro57XWAAwQ4LKtabci",
+          "name": "web_search",
+          "input": {
+            "query": "Xbox Wireless dongle chip MT76xx wi-fi card emulate dongle Windows software workaround"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01DZwkro57XWAAwQ4LKtabci",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "GitHub - medusalix/xow: Linux driver for the Xbox One wireless dongle · GitHub",
+              "url": "https://github.com/medusalix/xow",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Most of the reverse engineering was done by capturing the communication between the dongle and a Windows PC using Wireshark. As no datasheets for this chip are publicly available, I have used datasheets of similar wireless radios for assistance.\n\nThe dongle's wireless chip (MT76xx) handles the WLAN connection with individual controllers. The packet format follows Microsoft's undisclosed GIP (Game Input Protocol) specification. Most of the reverse engineering was done by capturing the communication between the dongle and a Windows PC using Wireshark. As no datasheets for this chip are publicly available, I have used datasheets of similar wireless radios for assistance. Special thanks to the authors of OpenWrt's mt76 kernel driver. It would have been impossible for me to create this driver without mt76's source code. If anyone has a greater understanding of the GIP or the weird quirks I had to add to make the driver work, please contact me. xow is released under the GNU General Public License, Version 2.\n\nThe permissions for /dev/uinput have to allow read and write access. The udev rules need to be installed and any conflicts with existing rules have to be resolved. ... Another driver might have already loaded the dongle's firmware. The dongle needs to be unplugged to reset its internal memory, followed by a restart of xow's systemd service. ... See the USB incompatibilities section. ... Only a single program can communicate with the dongle at once. Any existing drivers that might interfere with xow need to be disabled. This includes running multiple instances of xow. ... The permissions for the dongle's USB device have to be set correctly. This is also handled by the udev rules. Using an outdated version of libusb can cause various issues. Make sure to update libusb to the latest version. The controller only remembers the last device it was connected to.\n\nIt will not automatically establish a connection to the dongle if it was previously plugged into a USB port or paired via bluetooth, even if the same computer was used. ... Enable the compatibility mode in the service configuration, reload the systemd daemon and restart the service. Controllers connected to the dongle will appear as Xbox 360 controllers. ... Try the options listed on this page to remap your inputs. ... Try the options listed on this page to set your deadzones. Some USB controllers are known to cause issues with xow. Plugging your dongle into a USB port that uses an ASMedia controller will lead to problems. Most Intel USB controllers work well with xow. Power management issues can arise when using a USB 3 controller. These can lead to timeouts of the USB communication. The use of a USB hub can mitigate these problems. In case of any other problems, please open an issue with all the relevant details (dongle version, controller version, logs, captures, etc.).\n\nxow is a Linux user mode driver for the Xbox One wireless dongle. It communicates with the dongle via libusb and provides joystick input through the uinput kernel module. The input mapping is based on existing kernel drivers like xpad. xow supports both versions of the wireless dongle (slim and bulky one) and the Surface Book 2's built-in adapter. The following Xbox One controllers are currently compatible with the driver: ... Feel free to package xow for any Linux distribution or hardware you like. Any issues regarding the packaging should be reported to the respective maintainers. ... NOTE: Please use BUILD=DEBUG when asked for your debug logs. ... NOTE: The --skip-disclaimer flag might be useful for scripting purposes. Enable and start the systemd service (runs xow at boot time): sudo systemctl enable xow sudo systemctl start xow · NOTE: Running xow manually is strongly discouraged.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/medusalix/xow",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "xone: Wireless Adapter - wifi protocol · Issue #25 · paroj/xpad",
+              "url": "https://github.com/paroj/xpad/issues/25",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. ... @dodslaser Bought an adapter yesterday and just hooked it up to my win10 laptop. The adapter loads three drivers; FW_ACC_00U.bin (firmware I assume), xboxgip.sys (no clue) and mt7612US.sys (driver for the mediatek mt7612 wireless chip). So the controller must be communicating over 802.11b/g/n/ac right? And the controllers connect to the adapter like a hotspot? I don&#x27;t have a linux box handy right now, but maybe sniffing the authentication with normal wifi tools, like aircrack-ng, might tell us something. Edit: Searching FCC database for the FCC-ID (C3K 1713) yeilds a lot of information (Internal photos etc.). It is listed as capable of using the 5.2, 5.8 and 2.4 GHz bands.\n\nYou signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. ... @dodslaser Bought an adapter yesterday and just hooked it up to my win10 laptop. The adapter loads three drivers; FW_ACC_00U.bin (firmware I assume), xboxgip.sys (no clue) and mt7612US.sys (driver for the mediatek mt7612 wireless chip). So the controller must be communicating over 802.11b/g/n/ac right? And the controllers connect to the adapter like a hotspot? I don't have a linux box handy right now, but maybe sniffing the authentication with normal wifi tools, like aircrack-ng, might tell us something. Edit: Searching FCC database for the FCC-ID (C3K 1713) yeilds a lot of information (Internal photos etc.). It is listed as capable of using the 5.2, 5.8 and 2.4 GHz bands.\n\nEdit 2: The test reports seem to confirm that the adapter is in fact just a WiFi adapter. Maybe we could even use other adapters if we are able to come up with a Linux driver? Edit 3: This document claims that the wireless platform is proprietary, dual band and uses 5GHz (So 5.2 and 5.8 I assume) for communication. TDS_XboxOneControllerPlusWDAforWindows_1510A.pdf ...",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/paroj/xpad/issues/25",
+                "search_provider": "anthropic",
+                "age": "February 21, 2016"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "OBSOLETE - How to install the Xbox One Wireless Receiver 1713 (Windows 7/8.1) - iFixit Repair Guide",
+              "url": "https://www.ifixit.com/Guide/OBSOLETE+-+How+to+install+the+Xbox+One+Wireless+Receiver+1713+(Windows+7-8.1)/102955",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "ifixit.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=ifixit.com",
+                "site_name": "iFixit"
+              },
+              "is_missing": false,
+              "text": "If you purchased an Xbox Wireless Receiver for Windows and are wondering how to use it on Windows 7 or 8.x, this guide will show you how to install the drivers. Since Microsoft is aggressively pushing Windows 10 (despite most choosing to wait), problems have begun to arise with the push to get reluctant 7/8.x users to upgrade. This guide will show you how to manually install the driver and get it working on these older systems. IMPORTANT: While my screenshots show Windows 7, Microsoft no longer supports it as of 1/14/2020. Since the steps are still identical between 7 and 8.x, I retained the old screenshots. PASSED (1/14/2020): Windows 7 end of life; AUTHOR SUPPORT FOR WINDOWS 7 ENDED. However, this procedure remains valid as it still works. PASSED (12/14/2021): No more in-guide support for Windows 8.1; critical guide issues will be fixed as time permits.\n\nIMPORTANT: AS OF 1/1/2023, THIS GUIDE IS OBSOLETE AND WILL NO LONGER BE SUPPORTED, UPDATED OR MAINTAINED BY THE AUTHOR. ALL OPERATING SYSTEMS COVERED ARE END-OF-LIFE AND NO LONGER UPDATED BY MICROSOFT. RATHER THAN HOPING FOR THE BEST, I AM NO LONGER GOING TO SUPPORT THIS GUIDE AS I CANNOT GUARANTEE FURTHER FIXES OR DRIVER AVAILABILITY FROM MICROSOFT. HOWEVER, I DID ARCHIVE THE DRIVER FILES AND WILL KEEP THIS GUIDE AVAILABLE INDEFINETLY. IN ADDITION, I ALSO ARCHIVED THE DRIVER FILES AS INSURANCE IN THE EVENT THEY ARE PULLED FROM THE MICROSIFT SERVERS DUE TO THE END-OF-LIFE OS STATUS OF THESE OPERATING SYSTEMS. While this guide is being kept available \"as-is\" with no author support, this method remains valid for these legacy systems. BEWARE: Due to the nature of software guides, I may have to pull this guide down permanently at any time in the event of a major issue!\n\nThe small one only works in Windows 10. The fat one works in 7/8.x and 10. There is a dedicated W10 guide with a warning related to drivers. ... My dongle has version 1713 printed on it (tiny font) and it worked on W7. Some details here ... Thank you. It's a shame. Such intentional and shady practices from Microsoft, blockade on a driver. You seem to really know your stuff… do you know if the Windows 10 dongle has features the old one does not? Since I don't even need to google it to know the old dongle is no longer for sale outside of second-hand. ... Not that I'm aware of. I can still find the old one new so it's available. I doubt it's discontinued.\n\nIf you purchased an Xbox Wireless Receiver for Windows and are wondering how to use it on Windows 7 or 8.x, this guide will show you how to install the drivers. Since Microsoft is aggressively pushing Windows 10 (despite most choosing to wait), problems have begun to arise with the push to get reluctant 7/8.x users to upgrade. This guide will show you how to manually install the driver and get it working on these older systems. IMPORTANT: While my screenshots show Windows 7, Microsoft no longer supports it as of 1/14/2020. Since the steps are still identical between 7 and 8.x, I retained the old screenshots. PASSED (1/14/2020): Windows 7 end of life; AUTHOR SUPPORT FOR WINDOWS 7 ENDED. However, this procedure remains valid as it still works. PASSED (12/14/2021): No more in-guide support for Windows 8.1; critical guide issues will be fixed as time permits.\n\nPASSED (1/1/2023): Windows 8.1 end-of-life early cutoff (Microsoft EOL: 1/10/2023). GUIDE IS NO LONGER SUPPORTED AND CONSIDERED OBSOLETE. I am choosing to cut support early by 9 days to simplify phasing this guide out. In most cases, the receiver will pick up the driver automatically but may need encouragement. If the automatic install does not work, follow the manual steps. Windows 10/11 users: This guide is specific to Windows 7 and 8.x. Windows 10/11 requires different drivers. Refer to the Windows 10/11 guide. Try this method first. Microsoft pulled the download from the public Microsoft Update catalog. Before opening Device Manager, see if the driver installed correctly (it will say \"Ready to use\"). If it does not say this, open Device Manager to confirm. Plug the Xbox Wireless Receiver into your PC. Before using the manual option, confirm the automatic installation worked.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.ifixit.com/Guide/OBSOLETE+-+How+to+install+the+Xbox+One+Wireless+Receiver+1713+(Windows+7-8.1)/102955",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "How to install the Xbox One Wireless Receiver (1713, Windows 10/11) - iFixit Repair Guide",
+              "url": "https://www.ifixit.com/Guide/How+to+install+the+Xbox+One+Wireless+Receiver+(1713+Windows+10-11)/103157",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "ifixit.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=ifixit.com",
+                "site_name": "iFixit"
+              },
+              "is_missing": false,
+              "text": "READ: I have confirmed these steps apply to Windows 10 and 11 without process changes. However, this guide was authored in 2018, so Windows 10 was used when it was authored. As such, multiple &quot;end of life&quot; apply: ... Windows 11: TBD; No Win11 EOL date to reference from Microsoft. It is suspected to occur in ~2030. If you purchased an original Xbox Wireless Receiver for Windows and are having issues using it in Win10/Win11, this guide will show you how to install the driver manually if it is not automatically picked up. While these older adapters generally do not have issues in Windows 10 as often (it happens, but far less frequently), Windows 11 may require some manual assistance as I have observed a few instances where it was not as &quot;plug and play&quot; as the receiver is when using Windows 10. In most cases, Windows 10 tends to “just work&quot;. Manual installation may be required if it does not automatically pick up and install the driver.\n\nREAD: I have confirmed these steps apply to Windows 10 and 11 without process changes. However, this guide was authored in 2018, so Windows 10 was used when it was authored. As such, multiple \"end of life\" apply: ... Windows 11: TBD; No Win11 EOL date to reference from Microsoft. It is suspected to occur in ~2030. If you purchased an original Xbox Wireless Receiver for Windows and are having issues using it in Win10/Win11, this guide will show you how to install the driver manually if it is not automatically picked up. While these older adapters generally do not have issues in Windows 10 as often (it happens, but far less frequently), Windows 11 may require some manual assistance as I have observed a few instances where it was not as \"plug and play\" as the receiver is when using Windows 10. In most cases, Windows 10 tends to “just work\". Manual installation may be required if it does not automatically pick up and install the driver.\n\nThis improvement results from Microsoft considering Xbox accessory compatibility in Windows 10/11 and not retroactively adding it. This was a known problem with Win7/8.x being retrofitted to support these accessories (causing all of the early issues). Windows 11 can sometimes struggle with the automatic installation process, needing help from Windows Update. This is likely due to time and focus on the \"slim\" adapter (as well as BT support in 10/11), resulting in less need to use this adapter when Bluetooth has been supported for several generations, somewhat negating its need. I found no other issues when testing in 11 at that time. If you use Windows 7/8.x, refer to the guide made specifically for these OSes specifically (NOTE: NOT AUTHOR SUPPORTED AS BOTH 7 AND 8.x ARE EOL; this is kept up for the public as a community benefit as there are no major bugs that warrant taking the guide down).",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.ifixit.com/Guide/How+to+install+the+Xbox+One+Wireless+Receiver+(1713+Windows+10-11)/103157",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "How do i install a driver for my xbox one controller? - Microsoft Q&A",
+              "url": "https://learn.microsoft.com/en-us/answers/questions/5554576/how-do-i-install-a-driver-for-my-xbox-one-controll",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "microsoft.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=microsoft.com",
+                "site_name": "Microsoft Learn"
+              },
+              "is_missing": false,
+              "text": "If it doesn’t, run Windows Update to pull the latest driver, or open Device Manager, right-click the controller, and choose Update driver. You can also install the Xbox Accessories app from the Microsoft Store to update firmware and ensure ...\n\nWindows for home | Windows 10 | Install and upgrade · Windows for home | Windows 10 | Install and upgrade ... I'm having the same issue. The driver for the xbox controller no longer shows up in device manager either. Could this be a Windows Update issue? ... Nice to meet you! My name is Randy and I'm an independent advisor. You can try these steps to install an Xbox One controller driver on Windows 10, first connect the controller via USB or the official wireless adapter, since Windows usually installs the driver automatically. If it doesn’t, run Windows Update to pull the latest driver, or open Device Manager, right-click the controller, and choose Update driver. You can also install the Xbox Accessories app from the Microsoft Store to update firmware and ensure the driver is set up correctly. Hope that this helps. ... I'm having the same issue.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://learn.microsoft.com/en-us/answers/questions/5554576/how-do-i-install-a-driver-for-my-xbox-one-controll",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Troubleshoot the Xbox Wireless Adapter for Windows",
+              "url": "https://support.xbox.com/en-US/help/hardware-network/accessories/troubleshoot-xbox-wireless-adapter-for-windows",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "xbox.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=xbox.com",
+                "site_name": "Xbox Support"
+              },
+              "is_missing": false,
+              "text": "You need to enable JavaScript to run this app",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://support.xbox.com/en-US/help/hardware-network/accessories/troubleshoot-xbox-wireless-adapter-for-windows",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "MT7922 Wi Fi 6E Fix for Xbox Ally and ROG Handhelds Using Microsoft Update Catalog | Windows Forum",
+              "url": "https://windowsforum.com/threads/mt7922-wi-fi-6e-fix-for-xbox-ally-and-rog-handhelds-using-microsoft-update-catalog.392818/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "windowsforum.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=windowsforum.com",
+                "site_name": "Windows Forum"
+              },
+              "is_missing": false,
+              "text": "The community‑discovered workaround that’s most widely shared — and the one Windows Central summarized in its step‑by‑step guide — is to manually download and install a MediaTek WLAN driver package (look for driver versions in the ...\n\nHandheld Windows gaming PCs like the ROG Ally and the Xbox‑branded Ally X ship with a combination of Windows 11, a custom “Full Screen Experience” shell, and laptop‑class network hardware. Many of these units use the MediaTek Wi‑Fi 6E module identified as MT7922 (RZ616) — a single physical chip that handles both Wi‑Fi and Bluetooth in a combo module. Community reporting and vendor support threads show the MT7922 is a recurring pivot point in reported connectivity troubles on a variety of laptops and handhelds. The community‑discovered workaround that’s most widely shared — and the one Windows Central summarized in its step‑by‑step guide — is to manually download and install a MediaTek WLAN driver package (look for driver versions in the 23.x or 3.x families) from the Microsoft Update Catalog, then force the adapter to use that driver via Device Manager.\n\nThe MT7922’s support for mesh and advanced roaming features is limited compared to some Intel chips. Microsoft Community engineering posts and forum threads note the MT7922 may not implement every Wi‑Fi steering protocol (for example, 802.11k or parts of mesh steering), which can cause odd roaming or AP‑selection behavior on complex home networks. That kind of gap is not always visible in a basic driver update, but it explains why some users see persistent problems on mesh systems even after updating drivers. Firmware/driver mismatches and Windows update bundles can make the adapter unstable; rolling forward or rolling back drivers sometimes fixes today’s problem while breaking another, making a single universal fix unlikely. Multiple threads document users who had to try several driver versions before finding a working combination. If your Xbox Ally, Ally X, ROG Ally or similar handheld drops Wi‑Fi repeatedly, follow this ordered playbook.\n\nRisks: The MT7922 family has a documented history of inconsistent behavior across platforms and driver revisions. A one‑size‑fits‑all solution does not exist; some users will need to try multiple driver builds, revert to vendor packages, adjust power settings, or pursue hardware replacement. Mesh and advanced roaming scenarios can expose limitations in the chip’s protocol support, compounding the problem for some users. Practical verdict: Try the catalog driver path early in your troubleshooting sequence because it’s the least destructive next step beyond simple reboots and toggles. If that doesn’t fix the issue reliably in your environment, escalate methodically — network reset, vendor drivers, isolation testing, and then hardware service or replacement. Keep notes of the versions you try and the symptoms you observe; that data will materially speed troubleshooting with ASUS support or community helpers.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://windowsforum.com/threads/mt7922-wi-fi-6e-fix-for-xbox-ally-and-rog-handhelds-using-microsoft-update-catalog.392818/",
+                "search_provider": "anthropic",
+                "age": "December 7, 2025"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-13T01:48:13.364083Z",
+          "stop_timestamp": "2026-05-13T01:48:28.991465Z",
+          "flags": null,
+          "type": "text",
+          "text": "Okay, here's the honest scientific breakdown:\n\n**What we learned from the reverse engineering community:**\n\nThe Xbox Wireless Adapter itself runs a Mediatek MT7612 Wi-Fi chip and loads three drivers — a firmware binary, `xboxgip.sys`, and `mt7612US.sys`. The controllers connect to the adapter essentially like a hotspot. The adapter is capable of 2.4GHz, 5.2GHz, and 5.8GHz — it is literally just a Wi-Fi radio running Microsoft's proprietary GIP (Game Input Protocol) on top.\n\nSo your instinct is correct: **the radio your laptop already has is physically capable of the same frequencies.** The barrier isn't hardware. It's the GIP protocol layer.\n\n**Here's where it walls off:**\n\nThe packet format follows Microsoft's undisclosed GIP specification, and the reverse engineering that exists was done primarily through Wireshark captures between the dongle and a Windows PC — with no publicly available datasheets for the chip. The open source work (`xone`, `xow`) that cracked this protocol only works on Linux as a kernel driver, and critically, it still requires the physical Xbox Wireless Dongle — it just replaces Microsoft's closed driver for *that dongle*. Nobody has successfully emulated the dongle itself in software on a generic Wi-Fi card.\n\n**Why that last mile hasn't been crossed:**\n\nThe GIP handshake includes authentication and cryptographic operations using ECDH, RSA, and HMAC-SHA256. The controller authenticates *to the dongle's specific hardware identity*. Even if you wrote a software GIP stack and put your Wi-Fi card into AP mode on the right channel, the controller would reject the handshake because it's not talking to recognized hardware. That crypto layer is what keeps this from being a pure software problem.\n\n---\n\n**Realistic options given all of this:**\n\n1. **Xbox Wireless USB Adapter (~$25)** — plug in, done. It's the dongle the protocol is designed for. Windows installs the driver automatically.\n2. **USB cable** — works right now, zero cost.\n3. **If you're on or willing to dual-boot Linux** — `xone` driver + the dongle gives you a fully open-source, community-maintained wireless stack with the Elite Series 1 explicitly supported.\n\nThere is no pure software path on Windows that bypasses the dongle. The protocol was deliberately locked behind hardware authentication, and nobody in the open source community has cracked that specific wall yet.",
+          "citations": [
+            {
+              "uuid": "ef128a5c-2228-4b26-ab72-ed110b9bd2e6",
+              "start_index": 108,
+              "end_index": 477,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://github.com/paroj/xpad/issues/25"
+              }
+            },
+            {
+              "uuid": "76dbc7cc-2d3b-49d7-9407-e1a9f82201d9",
+              "start_index": 683,
+              "end_index": 927,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://github.com/medusalix/xow"
+              }
+            },
+            {
+              "uuid": "b0dd70da-6faa-43f6-bd4d-e0a8226f087e",
+              "start_index": 992,
+              "end_index": 1030,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://github.com/medusalix/xone"
+              }
+            },
+            {
+              "uuid": "eb1a8381-1216-46df-a2a2-e919a7752340",
+              "start_index": 1325,
+              "end_index": 1402,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://deepwiki.com/dlundqvist/xone"
+              }
+            }
+          ]
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-13T01:48:29.027009Z",
+      "updated_at": "2026-05-13T01:48:29.027009Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1f04-ff24-73a4-bcb8-4fd0e3ae5cf3"
+    },
+    {
+      "uuid": "019e1f06-ede0-7778-9032-d77dda646b09",
+      "text": "what about the proprietary Xbox software for Windows? will it talk to the controller?",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T01:50:08.413591Z",
+          "stop_timestamp": "2026-05-13T01:50:08.413591Z",
+          "flags": null,
+          "type": "text",
+          "text": "what about the proprietary Xbox software for Windows? will it talk to the controller?",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-13T01:50:08.413703Z",
+      "updated_at": "2026-05-13T01:50:08.413703Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1f04-ff24-73a4-bcb8-4fd1c68aaa47"
+    },
+    {
+      "uuid": "019e1f06-ede0-7778-9032-d77ec7a403e0",
+      "text": " You're asking whether the Xbox app or Xbox Accessories app on Windows can establish the wireless connection natively — essentially whether Microsoft's own software stack can bridge it without the dongle.\n```\nThis block is not supported on your current device yet.\n```\n\nNo. The Xbox Accessories app is a configuration tool, not a connection manager. It handles remapping buttons, updating firmware, saving profiles, and configuring sensitivity curves — but it has no mechanism to establish a wireless connection. It talks *to* a controller that's already connected, it doesn't create the connection itself.\n\nTo use it, you plug the controller in via Micro-USB first, then the app opens. It has no wireless pairing function because it has no access to the Xbox Wireless radio layer — that lives entirely in the dongle's hardware and firmware.\n\nThe Elite Series 1's only wireless path is the Xbox Wireless Adapter for Windows. Microsoft never built the GIP wireless stack into Windows itself as a generic radio driver the way they built Bluetooth into the OS. So even their own software doesn't give you a workaround here.\n\nThe answer is the same wall we hit before, approached from a different angle: Microsoft deliberately kept the wireless protocol living in the dongle hardware rather than in the OS software stack. The app has nothing to offer you on this.",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T01:50:09.614894Z",
+          "stop_timestamp": "2026-05-13T01:50:11.231023Z",
+          "flags": null,
+          "type": "text",
+          "text": " You're asking whether the Xbox app or Xbox Accessories app on Windows can establish the wireless connection natively — essentially whether Microsoft's own software stack can bridge it without the dongle.",
+          "citations": []
+        },
+        {
+          "start_timestamp": "2026-05-13T01:50:11.231023Z",
+          "stop_timestamp": "2026-05-13T01:50:11.467536Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_013VX9v5eyRfxjwr94uCbCRh",
+          "name": "web_search",
+          "input": {
+            "query": "Xbox Accessories app Windows connect Elite Series 1 wirelessly without dongle"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_013VX9v5eyRfxjwr94uCbCRh",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "Set up the Xbox Wireless Adapter for Windows",
+              "url": "https://support.xbox.com/en-US/help/hardware-network/accessories/xbox-wireless-adapter-for-windows-setup",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "xbox.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=xbox.com",
+                "site_name": "Xbox Support"
+              },
+              "is_missing": false,
+              "text": "You need to enable JavaScript to run this app",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://support.xbox.com/en-US/help/hardware-network/accessories/xbox-wireless-adapter-for-windows-setup",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "All about the Xbox Accessories app",
+              "url": "https://support.xbox.com/en-US/help/hardware-network/accessories/xbox-accessories-app",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "xbox.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=xbox.com",
+                "site_name": "Xbox Support"
+              },
+              "is_missing": false,
+              "text": "You need to enable JavaScript to run this app",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://support.xbox.com/en-US/help/hardware-network/accessories/xbox-accessories-app",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Xbox Accessories - Free download and install on Windows | Microsoft Store",
+              "url": "https://apps.microsoft.com/detail/9nblggh30xj3?hl=en-US&gl=US",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "microsoft.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=microsoft.com",
+                "site_name": "Microsoft Store"
+              },
+              "is_missing": false,
+              "text": "The Xbox Accessories app gives you more ways to play when paired with an Xbox Wireless Controller, an Xbox Elite Wireless Controller, or an Xbox Adaptive Controller. Create and edit controller profiles by remapping buttons, swapping sticks and triggers, and configuring controller vibration. The app allows you to update firmware for your controller and enables Copilot mode, so you can use two different controllers as if they were one. Additionally, with an Xbox Elite Wireless Controller or Xbox Adaptive Controller, you can save multiple profiles to your controller, so they’re ready to use whenever you’re ready to game. You can also remap bumpers and paddles, configure the level of vibration, and configure thumbstick sensitivity curves on your Xbox Elite Wireless Controller. For gamers using the Xbox Adaptive Controller or an Elite Series 2, this app gives you the option to swap ...\n\nThe Xbox Accessories app gives you more ways to play when paired with an Xbox Wireless Controller, an Xbox Elite Wireless Controller, or an Xbox Adaptive Controller. Create and edit controller profiles by remapping buttons, swapping sticks and triggers, and configuring controller vibration. The app allows you to update firmware for your controller and enables Copilot mode, so you can use two different controllers as if they were one. Additionally, with an Xbox Elite Wireless Controller or Xbox Adaptive Controller, you can save multiple profiles to your controller, so they’re ready to use whenever you’re ready to game. You can also remap bumpers and paddles, configure the level of vibration, and configure thumbstick sensitivity curves on your Xbox Elite Wireless Controller. For gamers using the Xbox Adaptive Controller or an Elite Series 2, this app gives you the option to swap your thumbstick X and Y axes and assign Shift inputs.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://apps.microsoft.com/detail/9nblggh30xj3?hl=en-US&gl=US",
+                "search_provider": "anthropic",
+                "age": "June 19, 2025"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Controller:Xbox Elite Wireless Controller - PCGamingWiki PCGW - bugs, fixes, crashes, mods, guides and improvements for every PC game",
+              "url": "https://www.pcgamingwiki.com/wiki/Controller:Xbox_Elite_Wireless_Controller",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "pcgamingwiki.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=pcgamingwiki.com",
+                "site_name": "PCGamingWiki"
+              },
+              "is_missing": false,
+              "text": "The controller can be connected through either wired (via Micro-USB), or wireless via the Xbox Wireless Adapter for Windows (supports up to 8 controllers).[1] While not natively support Bluetooth connectivity, it can be done by using a Bluetooth adapter like Brook X ONE Adapter.\n\nTry again later.\" error when signing into Xbox/Xbox Accessories App to customize controls ... Xbox Elite Wireless Controller has special limited edition (only 2000 available) designed for racing games - SCUF Forza Elite Wireless Controller. Controller has different color and paddles are connected vertically to gamepad. New revised controller variation Xbox Elite Wireless Controller Series 2 includes Bluetooth connectivity, USB-C support, and a rechargable battery that lasts for up to 40 hours per charge[2]. Three configs can be stored locally on controller and device has new adjustable tension thumbsticks. When supported wrapper is used, the software-defined back paddles mappings will taking priority over the built-in profiles' mappings. Available in two variants: An older, larger Model 1713 and a new, smaller Model 1790. Supports up to 8 controllers. Support for Windows 7 and Windows 8.1 were dropped for Model 1790.\n\nXbox One Chatpad - Drivers for official chatpad can be installed through Xbox Accessories App from Microsoft Store · Device name: Xbox One Elite Controller, HWID: 045E:02E3 · See also Xbox Wireless Controller for the device name and HWID for the Xbox Wireless Adapter. A lightweight tray app that displays the battery level of most Bluetooth game controllers. Application emulates the Sony DualShock 4 gamepad using an Xbox controller. Allows to use Xbox controller for Sony Playstation Now or Playstation Remote Play applications. ↑ UPDATE: New Xbox One 1TB Console Unveiled | Xbox Live's Major Nelson · ↑ Microsoft’s Xbox Elite 2 controller arrives on November 4th for $179.99 | The Verge - last accessed on 2025-07-02 · ↑ Set Up the Xbox Wireless Adapter for Windows - last accessed on 2016-10-26 · ↑ How to switch profiles with an xbox one elite gamepad - last accessed on June 2023 ·\n\nThe Xbox Elite Wireless Controller is a native, GIP-based XInput controller, meaning it is supported in games that use either the XInput API, Windows.Gaming.Input API or GameInput API, with impulse triggers being supported on supported games with the latter two. Up to 2 built-in profiles and up to 256 profile in the cloud can be customized using Xbox Accessories App on Xbox One, Xbox Series X|S, and Windows PC (Requires Windows 10 and later), but thrid-party software like Steam, reWASD, and JoyShockMapper allow assigning paddles to keyboard and mouse actions or macros. The controller can be connected through either wired (via Micro-USB), or wireless via the Xbox Wireless Adapter for Windows (supports up to 8 controllers).[1] While not natively support Bluetooth connectivity, it can be done by using a Bluetooth adapter like Brook X ONE Adapter. ... 5 × digital functional buttons: Ⲷ ᴍᴇɴᴜ, ⧉ ᴠɪᴇᴡ, xʙᴏx, ᴘʀᴏꜰɪʟᴇ, ᴘᴀɪʀ ...\n\n↑ Linux 4.7 One Elite Controller | Phoronix - last accessed on 2025-07-02 · ↑ Steam Client Beta - January 5th - last accessed on June 2023 ... ↑ Enable Force Feedback for Xbox One Controllers (Windows 7/8/8.1 x64 ONLY) :: Steam Community - last accessed on June 2023 · ↑ PSA for the new Xbox One controller drivers. How to fix error 37 for Windows 7.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.pcgamingwiki.com/wiki/Controller:Xbox_Elite_Wireless_Controller",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Xbox controllers on PC guide: How to use every generation, wireless or wired | PC Gamer",
+              "url": "https://www.pcgamer.com/xbox-one-controller-on-pc/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "pcgamer.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=pcgamer.com",
+                "site_name": "PC Gamer"
+              },
+              "is_missing": false,
+              "text": "1. Open the Windows Store and search for Xbox Accessories. Install the app and open it. Or you can just click this link. Windows version note: The app only works with Windows 10 with the Anniversary update applied.\n\n1. Open the Windows Store and search for Xbox Accessories. Install the app and open it. Or you can just click this link. Windows version note: The app only works with Windows 10 with the Anniversary update applied. On Windows 11, you're good. 2. Plug your Xbox One controller in with a micro-USB cable, or Series X|S controller with a USB-C cable. 3. Click the \"More options\" button to check if there's a firmware update for your controller. Instead of configuring controller options on a game-by-game basis, you can also use the Accessories app to change button mapping, swap and invert sticks and triggers, and enable or disable rumble. If you have an Xbox Elite controller, you can also use the Accessories app to configure options like trigger and analog stick sensitivity. You can save different configurations to the two profiles the controller supports.\n\nThe Xbox Series controller includes built-in Bluetooth, which allows for easy wireless pairing with your PC. There are two ways to go about using this controller wirelessly: one is with an Xbox wireless adapter, and the other is through a standard Bluetooth connection. Note: You don't need the official adapter as long as your PC has built-in Bluetooth, or you have another Bluetooth dongle. How to connect with an Xbox Wireless adapter for Windows ... Plug an Xbox Wireless adapter into a USB port. Turn on your Xbox Series controller by holding the Guide button in the center. Now press the the small sync button on the top of the controller until the Guide button begins flashing. Press the small sync button located on the side of the Xbox Wireless adapter for a couple seconds. Watch the flashing Guide button on the controller. When it goes solid, you're connected!\n\nGame Pads Raspberry Pi-based homebrew dongle enables full wireless Sony DualSense controller functionality on the PC including haptics · Game Pads Valve on the $99 Steam Controller: 'I do know price has gone up from where we originally wanted it to be' Game Pads Valve is bullish on global Steam Controller availability: 'We have knobs we can turn to try to get things to people faster' Game Pads Valve will be providing Steam Controller replacement parts via iFixit after launch ... AI Sony Interactive Entertainment chief says AI will enable 'gaming experiences like never before,' and I wonder: How long are these guys going to talk about it before we actually start seeing it? Third Person Shooter Brigador Killers smacked me in the mouth by making me level a city and kill the protagonists of the first game, and I can't wait for more · Hardware Valve forming an orderly queue for the Steam Controller makes it clear we need the same for the Steam Machine, Frame, and perhaps a lot more in-deman\n\nRead 1 article to unlock your first badge. ... Explore ways to get more involved as a member. ... News and reviews of the latest PC hardware. Explore · See what you’ve unlocked. Explore your membership benefits. ... Get the biggest gaming news, reviews, and releases straight to your inbox. Explore ... Gaming Industry Microsoft ends Copilot AI on Xbox to help 'get the business back on track,' as new CEO simultaneously welcomes AI executives into the fold · Controllers GameSir G7 Pro 8K Aimlabs Edition review · Controllers Best PC controllers in 2026: the pads I recommend for PC gamers · Game Pads eBay resellers are turning a tidy profit on Steam Controllers · Controllers Valve says Steam Controller sold out 'faster than we anticipated' but previously told us it has knobs it can turn to get more · Gaming Industry Xbox creator becomes first console designer to bake bread using wild yeast illicitly collected from Microsoft campus ·",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.pcgamer.com/xbox-one-controller-on-pc/",
+                "search_provider": "anthropic",
+                "age": "2 weeks ago"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Trying to use Xbox elite controller through wired connection to pc - Microsoft Q&A",
+              "url": "https://learn.microsoft.com/en-us/answers/questions/4132694/trying-to-use-xbox-elite-controller-through-wired",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "microsoft.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=microsoft.com",
+                "site_name": "Microsoft Learn"
+              },
+              "is_missing": false,
+              "text": "You can do this through the Xbox Accessories app, which is available on the Microsoft Store. https://support.xbox.com/en-US/help/hardware-ne.... Remember to restart your PC after performing these steps to ensure changes take effect.\n\nI'm sorry to hear that you are having a problem with your Xbox elite controller ... The most common issue is outdated drivers. To update your USB drivers: Press the Windows key + X and choose Device Manager. Expand the Universal Serial Bus controllers category. Right-click on each USB Root Hub and choose Update driver. Choose Search automatically for drivers and let the process run. ... The Xbox controller drivers might be corrupted or missing. You can try to update these drivers manually with the Device Manager. Open Device Manager. Expand the Xbox Peripherals category. Right-click on the Xbox controller and choose Update driver. Choose Search automatically for drivers and let the process run. Turn off Anti-virus and Re-install Xbox Controller Drivers · In rare cases, the antivirus could be interfering with your drives. You could turn off the program and reinstall the driver.\n\nCan you help me because my Xbox elite controller won’t work on my pc (it used to just fine). It is receiving power through the usb cause I feel it vibrate but the home button won’t turn solid and the controller doesn’t work. I’m using usbc and I tried Bluetooth but it was unplayable. ... Locked Question. This question was migrated from the Microsoft Support Community. You can vote on whether it's helpful, but you can't add comments or replies or follow the question. ... Standard Disclaimer: This is a non-Microsoft website. The page appears to be providing accurate, safe information. Watch out for ads on the site that may advertise products frequently classified as a PUP (Potentially Unwanted Products). Thoroughly research any product advertised on the site before you decide to download and install it. ... I can’t find the Xbox peripherals section.\n\nYou can do this through the Xbox Accessories app, which is available on the Microsoft Store. https://support.xbox.com/en-US/help/hardware-ne.... Remember to restart your PC after performing these steps to ensure changes take effect. If the problem persists, refer to this link for more possible solutions · https://support.xbox.com/en-US/help/account-pro.... I hope this is helpful. If you require any additional assistance, don't hesitate to respond to this. This is a user-to-user support forum.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://learn.microsoft.com/en-us/answers/questions/4132694/trying-to-use-xbox-elite-controller-through-wired",
+                "search_provider": "anthropic",
+                "age": "June 28, 2023"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-13T01:50:13.509605Z",
+          "stop_timestamp": "2026-05-13T01:50:20.720518Z",
+          "flags": null,
+          "type": "text",
+          "text": "No. The Xbox Accessories app is a configuration tool, not a connection manager. It handles remapping buttons, updating firmware, saving profiles, and configuring sensitivity curves — but it has no mechanism to establish a wireless connection. It talks *to* a controller that's already connected, it doesn't create the connection itself.\n\nTo use it, you plug the controller in via Micro-USB first, then the app opens. It has no wireless pairing function because it has no access to the Xbox Wireless radio layer — that lives entirely in the dongle's hardware and firmware.\n\nThe Elite Series 1's only wireless path is the Xbox Wireless Adapter for Windows. Microsoft never built the GIP wireless stack into Windows itself as a generic radio driver the way they built Bluetooth into the OS. So even their own software doesn't give you a workaround here.\n\nThe answer is the same wall we hit before, approached from a different angle: Microsoft deliberately kept the wireless protocol living in the dongle hardware rather than in the OS software stack. The app has nothing to offer you on this.",
+          "citations": [
+            {
+              "uuid": "98e2c2e7-48b8-4409-b162-dbf5ac327763",
+              "start_index": 80,
+              "end_index": 180,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://apps.microsoft.com/detail/9nblggh30xj3?hl=en-US&gl=US"
+              }
+            },
+            {
+              "uuid": "883cc61e-0db9-4780-bea5-75704b7ae63c",
+              "start_index": 338,
+              "end_index": 416,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://www.pcgamer.com/xbox-one-controller-on-pc/"
+              }
+            },
+            {
+              "uuid": "3d18abfc-cbff-4210-b354-095c560f323b",
+              "start_index": 573,
+              "end_index": 787,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://www.pcgamingwiki.com/wiki/Controller:Xbox_Elite_Wireless_Controller"
+              }
+            }
+          ]
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-13T01:50:20.749475Z",
+      "updated_at": "2026-05-13T01:50:20.749475Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1f06-ede0-7778-9032-d77dda646b09"
+    },
+    {
+      "uuid": "019e1f08-269f-7477-8605-015943fbd44a",
+      "text": "just another reason to dissolve that company if I ever do succeed",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T01:51:28.481725Z",
+          "stop_timestamp": "2026-05-13T01:51:28.481725Z",
+          "flags": null,
+          "type": "text",
+          "text": "just another reason to dissolve that company if I ever do succeed",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-13T01:51:28.481867Z",
+      "updated_at": "2026-05-13T01:51:28.481867Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1f06-ede0-7778-9032-d77ec7a403e0"
+    },
+    {
+      "uuid": "019e1f08-269f-7477-8605-015abc58dad9",
+      "text": " Genuinely hard to argue with that assessment given what we just documented — they built a proprietary wireless protocol, locked it behind a $25 piece of hardware that should be unnecessary, didn't expose it to their own OS, and then released a Series 2 with Bluetooth just to make the Series 1 look artificially crippled by comparison.\n\nIt's a textbook hardware forced-obsolescence play dressed up as a technical limitation.",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T01:51:29.138196Z",
+          "stop_timestamp": "2026-05-13T01:51:31.600259Z",
+          "flags": null,
+          "type": "text",
+          "text": " Genuinely hard to argue with that assessment given what we just documented — they built a proprietary wireless protocol, locked it behind a $25 piece of hardware that should be unnecessary, didn't expose it to their own OS, and then released a Series 2 with Bluetooth just to make the Series 1 look artificially crippled by comparison.\n\nIt's a textbook hardware forced-obsolescence play dressed up as a technical limitation.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-13T01:51:31.642232Z",
+      "updated_at": "2026-05-13T01:51:31.642232Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1f08-269f-7477-8605-015943fbd44a"
+    },
+    {
+      "uuid": "019e1f09-51cf-7554-ab29-fe7908b41e1f",
+      "text": "you know what? it doesn't matter. I'll just use a wire. it's just really fucking short that's going to be in the way in the hospital",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T01:52:45.086506Z",
+          "stop_timestamp": "2026-05-13T01:52:45.086506Z",
+          "flags": null,
+          "type": "text",
+          "text": "you know what? it doesn't matter. I'll just use a wire. it's just really fucking short that's going to be in the way in the hospital",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-13T01:52:45.086661Z",
+      "updated_at": "2026-05-13T01:52:45.086661Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1f08-269f-7477-8605-015abc58dad9"
+    },
+    {
+      "uuid": "019e1f09-51cf-7554-ab29-fe7a8e6172b0",
+      "text": " Yeah that's the actual problem then — not the protocol, just cord length. Micro-USB cables come in up to 10 feet and are dirt cheap on Amazon, like $7-8. That'll get the controller well into your lap from wherever the laptop is sitting without the cable being in the way.",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T01:52:45.755552Z",
+          "stop_timestamp": "2026-05-13T01:52:47.803847Z",
+          "flags": null,
+          "type": "text",
+          "text": " Yeah that's the actual problem then — not the protocol, just cord length. Micro-USB cables come in up to 10 feet and are dirt cheap on Amazon, like $7-8. That'll get the controller well into your lap from wherever the laptop is sitting without the cable being in the way.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-13T01:52:47.834963Z",
+      "updated_at": "2026-05-13T01:52:47.834963Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1f09-51cf-7554-ab29-fe7908b41e1f"
+    },
+    {
+      "uuid": "019e1fb0-bfc7-732f-a7ff-0704bfd11656",
+      "text": "yeah and I got a I got a a 11-in cord",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T04:55:37.720224Z",
+          "stop_timestamp": "2026-05-13T04:55:37.720224Z",
+          "flags": null,
+          "type": "text",
+          "text": "yeah and I got a I got a a 11-in cord",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-13T04:55:37.720379Z",
+      "updated_at": "2026-05-13T04:55:37.720379Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1f09-51cf-7554-ab29-fe7a8e6172b0"
+    },
+    {
+      "uuid": "019e1fb0-bfc7-732f-a7ff-07051a83eb40",
+      "text": " 11 inches is brutal, especially in a hospital bed setup. Grab a 6-foot or 10-foot Micro-USB and that problem just disappears entirely.",
+      "content": [
+        {
+          "start_timestamp": "2026-05-13T04:55:40.561021Z",
+          "stop_timestamp": "2026-05-13T04:55:41.428261Z",
+          "flags": null,
+          "type": "text",
+          "text": " 11 inches is brutal, especially in a hospital bed setup. Grab a 6-foot or 10-foot Micro-USB and that problem just disappears entirely.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-13T04:55:41.458509Z",
+      "updated_at": "2026-05-13T04:55:41.458509Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e1fb0-bfc7-732f-a7ff-0704bfd11656"
+    }
+  ]
+}

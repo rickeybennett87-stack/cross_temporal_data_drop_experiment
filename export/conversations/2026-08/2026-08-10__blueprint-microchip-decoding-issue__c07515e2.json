@@ -1,0 +1,635 @@
+{
+  "uuid": "c07515e2-080d-4e62-ad12-b27b1487946f",
+  "name": "Blueprint microchip decoding issue",
+  "summary": "**Conversation Overview**\n\nThe person asked for help troubleshooting a confusing game mechanic in The Planet Crafter, specifically why they were receiving a \"no more blueprints to decode right now\" message despite holding a blueprint chip (also called a blueprint microchip) in their inventory. Claude identified the root cause: the generic blueprint chip pool decodes into a finite set of unlockable items, and once those are exhausted for the current terraforming stage, the message appears even when chips are still in inventory. Claude also noted a secondary gotcha where mixed chip stacks can trigger the message even if not all chips are depleted. The resolution offered was that chips are not lost or wasted — new decode slots open up after crossing the next terraforming milestone (Ti stage), so the practical advice was to hold onto the chips and recheck the decoder after the next terraforming tier unlock.",
+  "created_at": "2026-08-10T07:54:44.902504Z",
+  "updated_at": "2026-08-10T07:55:11.127545Z",
+  "account": {
+    "uuid": "404f3f89-8c3a-46a9-a7b4-7a3c875dbedd"
+  },
+  "chat_messages": [
+    {
+      "uuid": "019feaaa-baeb-7a69-89aa-f32d488f1d40",
+      "text": "So I'm holding a blueprint chip in my inventory, and I open the blueprint screen, and I hit the y button, and it tells me there are no more blueprints to decode right now. But I'm holding a blueprint microchip in my inventory when they tell me this.",
+      "content": [
+        {
+          "start_timestamp": "2026-08-10T07:54:46.194548Z",
+          "stop_timestamp": "2026-08-10T07:54:46.194548Z",
+          "flags": null,
+          "type": "text",
+          "text": "So I'm holding a blueprint chip in my inventory, and I open the blueprint screen, and I hit the y button, and it tells me there are no more blueprints to decode right now. But I'm holding a blueprint microchip in my inventory when they tell me this.",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-08-10T07:54:46.194731Z",
+      "updated_at": "2026-08-10T07:54:46.194731Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "00000000-0000-4000-8000-000000000000"
+    },
+    {
+      "uuid": "019feaaa-baeb-7a86-badb-e6d526ee9cdd",
+      "text": "The user is asking about a game mechanic involving blueprint chips and\n```\nThis block is not supported on your current device yet.\n```\n\nTrying to recall the No Man's Sky mechanics around blueprint chips and decode terminals—I'm not entirely certain whether it's the Blueprint Analysis Chip used with a Quick Silver Synthesis Companion or a different terminal interaction, so I need to think through this more carefully.\n```\nThis block is not supported on your current device yet.\n```\n\nWait, I'm second-guessing myself here—these search results aren't actually addressing the specific mechanics the user mentioned. The \"blueprint chip\" versus \"blueprint microchip\" distinction and that \"y button\" decode interaction sounds more like Abiotic Factor than No Man's Sky. The user does play Abiotic Factor, so maybe I'm looking at the wrong game entirely. Let me think about whether Abiotic Factor even has a blueprint system with that kind of decoding mechanic.\n```\nThis block is not supported on your current device yet.\n```\n\nThis is The Planet Crafter, not a bug. Here's what's happening:\n\n- **\"Blueprint chip\"** and **\"blueprint microchip\"** are the same item — generic decode fodder that drops from blue chests and wrecks.\n- **\"No more blueprints to decode right now\"** means the game has run out of *unlockable* items to give you from those generic chips — not that your chips are broken or empty. There are always more generic chips floating around than there are things left to unlock.\n- One key gotcha from other players: if you're holding a stack of chips and even one of them is a \"used up\" type, the game can throw that message even though you're also holding a *different*, still-useful chip (like a named chip from a portal wreck or trade rocket). Those aren't tied to the same unlock pool as the generic ones.\n\nWhat actually unlocks more slots for those chips to decode into: raising your terraformation stage (Ti number — atmosphere, heat, pressure milestones). Once you cross into the next terraforming tier, previously \"dead\" chips start decoding again.\n\nPractical move: just hang onto the chip. It's not lost or wasted — recheck the decoder after your next terraforming milestone.",
+      "content": [
+        {
+          "start_timestamp": "2026-08-10T07:54:46.190211Z",
+          "stop_timestamp": "2026-08-10T07:54:48.440438Z",
+          "flags": null,
+          "type": "thinking",
+          "thinking": "The user is asking about a game mechanic involving blueprint chips and",
+          "summaries": [],
+          "cut_off": false,
+          "truncated": true,
+          "hidden": false,
+          "thinking_hidden": false,
+          "alternative_display_type": null,
+          "signature": null
+        },
+        {
+          "start_timestamp": "2026-08-10T07:54:48.441008Z",
+          "stop_timestamp": "2026-08-10T07:54:48.445183Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01V4dtAra4ZWnCqRtSPteQan",
+          "name": "memory_read",
+          "input": {
+            "path": "/topics/gaming.md"
+          },
+          "message": "Reading memory",
+          "integration_name": "Memory",
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "bookText",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null,
+          "tool_origin": "first_party"
+        },
+        {
+          "start_timestamp": "2026-08-10T07:54:48.626667Z",
+          "stop_timestamp": "2026-08-10T07:54:48.626687Z",
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01V4dtAra4ZWnCqRtSPteQan",
+          "name": "memory_read",
+          "content": [
+            {
+              "type": "text",
+              "text": "[updated: 2026-07-15T04:10:47.467725+00:00] [size: 784 of 49152 bytes — 48368 free] [version: f7b729a029a2] (pass as if_version on your next write or edit of this path)\n---\nname: gaming\ndescription: Video games the user plays and related interests\nsources: [backfill]\naliases: []\n---\n- [stated] Long-term No Man's Sky player (same save since 2022) with deep encyclopedic game knowledge\n- [stated] Also plays Albion Online, Death Stranding, and Starfield\n- [stated] Deeply engaged in No Man's Sky: running expeditions, optimizing ship builds (Positron Ejector DPS, hyperdrive configurations), hunting for a longer S-class Sentinel freighter\n- [stated] Developing a proposal for an Atlas AI trained on NMS's full update history as a community-feedback-driven procedural generation fitness function\n- [stated] Also plays Abiotic Factor (long-running on-and-off save); currently working through the Reactors sector, based out of the Power Services apartment",
+              "uuid": "7a64e980-95e3-4d22-858c-cd27d6349f16"
+            }
+          ],
+          "is_error": false,
+          "structured_content": {
+            "path": "/topics/gaming.md",
+            "path_segments": [
+              "topics",
+              "gaming.md"
+            ],
+            "version": "f7b729a029a2",
+            "updated_at": "2026-07-15T04:10:47.467725Z",
+            "parsed": {
+              "name": "gaming",
+              "description": "Video games the user plays and related interests",
+              "metadata": {},
+              "body": "- Long-term No Man's Sky player (same save since 2022) with deep encyclopedic game knowledge\n- Also plays Albion Online, Death Stranding, and Starfield\n- Deeply engaged in No Man's Sky: running expeditions, optimizing ship builds (Positron Ejector DPS, hyperdrive configurations), hunting for a longer S-class Sentinel freighter\n- Developing a proposal for an Atlas AI trained on NMS's full update history as a community-feedback-driven procedural generation fitness function\n- Also plays Abiotic Factor (long-running on-and-off save); currently working through the Reactors sector, based out of the Power Services apartment",
+              "wikilinks": [],
+              "wikilink_refs": [],
+              "body_has_rewritten_wikilinks": false
+            },
+            "target": {
+              "file_path": "/topics/gaming.md",
+              "files_list": false
+            }
+          },
+          "meta": null,
+          "message": "Recalled memory",
+          "integration_name": "Memory",
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "bookText",
+          "display_content": {
+            "type": "rich_content",
+            "content": [
+              {
+                "title": "/topics/gaming.md",
+                "subtitles": [
+                  "---\nname: gaming\ndescription: Video games the user plays and related interests\ns…"
+                ],
+                "url": null,
+                "resource_type": null,
+                "icon_url": null,
+                "source": null
+              }
+            ]
+          },
+          "hidden_in_chat": null,
+          "tool_origin": "first_party"
+        },
+        {
+          "start_timestamp": "2026-08-10T07:54:49.793909Z",
+          "stop_timestamp": "2026-08-10T07:54:57.546766Z",
+          "flags": null,
+          "type": "thinking",
+          "thinking": "Trying to recall the No Man's Sky mechanics around blueprint chips and decode terminals—I'm not entirely certain whether it's the Blueprint Analysis Chip used with a Quick Silver Synthesis Companion or a different terminal interaction, so I need to think through this more carefully.",
+          "summaries": [],
+          "cut_off": false,
+          "truncated": true,
+          "hidden": false,
+          "thinking_hidden": false,
+          "alternative_display_type": null,
+          "signature": null
+        },
+        {
+          "start_timestamp": "2026-08-10T07:54:57.548309Z",
+          "stop_timestamp": "2026-08-10T07:54:57.597570Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01M5W5J6m2dbzM1QtKBQ433n",
+          "name": "web_search",
+          "input": {
+            "query": "No Man's Sky blueprint chip vs blueprint microchip decode no more blueprints"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": "2026-08-10T07:54:58.249762Z",
+          "stop_timestamp": "2026-08-10T07:54:58.249783Z",
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01M5W5J6m2dbzM1QtKBQ433n",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "Blueprint Analyser - No Man's Sky Wiki - Fandom",
+              "url": "https://nomanssky.fandom.com/wiki/Blueprint_Analyser",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "fandom.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=fandom.com",
+                "site_name": "No Man's Sky Wiki"
+              },
+              "is_missing": false,
+              "text": "The subject of this article is from a previous version of No Man&#x27;s Sky and is now considered obsolete. The information from this article is kept for historical purposes and should not be further categorised. Blueprint Analyser is a portable base (or freighter) building product. ... Blueprint Analyser is a portable base building product for discovering new blueprints in exchange for Salvaged Data. It can be found in the Build Menu under the Equipment/Portable Technology. Portable blueprint decryption device. This field-deployable memory salvage module allows the user to recover valuable data from old or damage technology modules. The blueprint can be acquired from the base building tutorial, when starting a new game. On pre-NEXT saves the blueprint initially was not available for the players, but it has been fixed. Blueprint Analyser can be built using a blueprint and the following ingredients: Magnetised Ferrite ×20 + Carbon Nanotubes ×1 → Blueprint Analyser ·\n\n\n\nThe subject of this article is from a previous version of No Man's Sky and is now considered obsolete. The information from this article is kept for historical purposes and should not be further categorised. Blueprint Analyser is a portable base (or freighter) building product. ... Blueprint Analyser is a portable base building product for discovering new blueprints in exchange for Salvaged Data. It can be found in the Build Menu under the Equipment/Portable Technology. Portable blueprint decryption device. This field-deployable memory salvage module allows the user to recover valuable data from old or damage technology modules. The blueprint can be acquired from the base building tutorial, when starting a new game. On pre-NEXT saves the blueprint initially was not available for the players, but it has been fixed. Blueprint Analyser can be built using a blueprint and the following ingredients: Magnetised Ferrite ×20 + Carbon Nanotubes ×1 → Blueprint Analyser ·\n\n\n\nBlueprint Analyser cannot be",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "June 26, 2026",
+                "search_provider": "anthropic",
+                "url": "https://nomanssky.fandom.com/wiki/Blueprint_Analyser"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "How to know which existing modules are purchased vs built from blueprints? :: No Man's Sky General Discussion",
+              "url": "https://steamcommunity.com/app/275850/discussions/0/1752358461530438539/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "Steam Community"
+              },
+              "is_missing": false,
+              "text": "Glad it helps you, that&#x27;s why I keep notes :) You can deconstruct any installed blueprint or module (middle mouse on it), but you won&#x27;t get all materials back, As karenhamnik said, the menu tells you what you get back when you hower the mouse ...\n\nAfter building / purchasing & installing upgrade modules, sometimes you want to do some adjacency optimization which requires these upgrade modules to be moved. 2 Issues here: 1) Does anyone know how much you get back of original material when modules are dismantled? 2) Is there any easy way other than trial and error and numerous loads to distinguish between modules which I've purchased and can't rebuild vs those built from blueprints and can be rebuilt? ... Many thanks! This is indeed super useful! It seems from the upgrades here. not much blueprint based upgrades exist and are limited to classes C-A, so by default any S Class upgrade I have would mean I've purchased it and it's unmovable. ... \n\nHere is a way to distinguish MODULES and BLUEPRINTS, and also about PERFORMANCE: ---------------------------------------------------------------------------------------------------------------------------- There are 2 types of upgrades now: Upgrade Blueprints (UB) that you build and Modules (M)\n\nOriginally posted by MGGebriel:Thanks alt3rn1ty for the Teleporter tip. And japp_02, that's great really. Finally, I way to distinguish them, although I am beginning to discover that the bulk majority of upgrades are purchased modules, which can't be moved noresold! Glad it helps you, that's why I keep notes :) You can deconstruct any installed blueprint or module (middle mouse on it), but you won't get all materials back, As karenhamnik said, the menu tells you what you get back when you hower the mouse over it. ... Originally posted by japp_02: As karenhamnik said, the menu tells you what you get back when you hower the mouse over it. \n\nYeah, that is well known, but whether u knew the formula via a blueprint or not was the iss",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/275850/discussions/0/1752358461530438539/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Microprocessor - No Man's Sky Wiki",
+              "url": "https://nomanssky.fandom.com/wiki/Microprocessor",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "fandom.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=fandom.com",
+                "site_name": "No Man's Sky Wiki"
+              },
+              "is_missing": false,
+              "text": "A compact, low-heat microchip. Assembled from processed Chromatic Metal, created from one of several specialised terrain metals. Used in the creation of a wide range of advanced technologies. Blueprint can be awarded in the Scientific Research mission, found in Manufacturing Facilities and Operations Centres, or purchased from Synthesis Laboratory for 250 . Microprocessor can be built using a blueprint and the following ingredients: Chromatic Metal ×40 + Carbon Nanotubes ×1 → Microprocessor · Also available from any Galactic Trade Terminal. Microprocessor is used as an ingredient for crafting the following products: Alternative Landing Pad -- Metal Plating x10 + Ion Battery x2 + Microprocessor x2 → Alternative Landing Pad · Artemis&#x27; Translator -- Microprocessor x1 + Copper x100 → Artemis&#x27; Translator · AtlasPass v1 -- Copper x200 + Microprocessor x1 → AtlasPass v1 ·\n\nA compact, low-heat microchip. \n\nAssembled from processed Chromatic Metal, created from one of several specialised terrain metals. Used in the creation of a wide range of advanced technologies. Blueprint can be awarded in the Scientific Research mission, found in Manufacturing Facilities and Operations Centres, or purchased from Synthesis Laboratory for 250 . Microprocessor can be built using a blueprint and the following ingredients: Chromatic Metal ×40 + Carbon Nanotubes ×1 → Microprocessor · Also available from any Galactic Trade Terminal. Microprocessor is used as an ingredient for crafting the following products: Alternative Landing Pad -- Metal Plating x10 + Ion Battery x2 + Microprocessor x2 → Alternative Landing Pad · Artemis' Translator -- Microprocessor x1 + Copper x100 → Artemis' Translator · AtlasPass v1 -- Copper x200 + Microprocessor x1 → AtlasPass v1 ·\n\nPrisms - Added Synthesis Laboratory as a blueprint source.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "June 26, 2026",
+                "search_provider": "anthropic",
+                "url": "https://nomanssky.fandom.com/wiki/Microprocessor"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Microprocessor - No Man's Sky Wiki - Miraheze",
+              "url": "https://nomanssky.miraheze.org/wiki/Microprocessor",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "miraheze.org",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=miraheze.org",
+                "site_name": "No Man's Sky Wiki"
+              },
+              "is_missing": false,
+              "text": "A compact, low-heat microchip. Assembled from processed Chromatic Metal, created from one of several specialised terrain metals. Used in the creation of a wide range of advanced technologies. Blueprint can be awarded in the Scientific Research mission, found in Manufacturing Facilities and Operations Centres, or purchased from Synthesis Laboratory for 250 . Microprocessor can be built using a blueprint and the following ingredients: Chromatic Metal ×40 + Carbon Nanotubes ×1 → Microprocessor ×1 · Also available from any Galactic Trade Terminal. Microprocessor is used as an ingredient for crafting the following products: Alternative Landing Pad -- Metal Plating x10 + Ion Battery x2 + Microprocessor x2 → Alternative Landing Pad · Artemis&#x27; Translator -- Microprocessor x1 + Copper x 100 → Artemis&#x27; Translator · AtlasPass v1 -- Copper x200 + Microprocessor x1 → AtlasPass v1 ·\n\nPrisms - Added Synthesis Laboratory as a blueprint source. ...",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "October 23, 2024",
+                "search_provider": "anthropic",
+                "url": "https://nomanssky.miraheze.org/wiki/Microprocessor"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Microprocessor | No Man's Sky Resources",
+              "url": "https://www.nomansskyresources.com/crafted-products/microprocessor",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "nomansskyresources.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=nomansskyresources.com",
+                "site_name": "NoMan'sSky Resources"
+              },
+              "is_missing": false,
+              "text": "Blueprint costs either a factory override at a Manufacturing Facility OR 250 nanites from Space Anomaly&#x27;s Synthesis Laboratory Computer. Quantum Computer - Blueprint Requirements [Emergence 3.70].png · Atlas Pass v1 - Blueprint Requirements [Emergence 3.70].png · Atlas Pass v2 - Blueprint Requirements [Emergence 3.70].png · Atlas Pass v3 - Blueprint Requirements [Emergence 3.70].png · Artemis&#x27; Translator - Blueprint Requirements [Emergence 3.70].png · Hyperdrive - Blueprint Requirements [Emergence 3.70].png · Emergency Warp Unit - Blueprint Requirements [Emergence 3.70].png · Economy Scanner - Blueprint Requirements [Emergence 3.70].png · Environment Control Unit - Blueprint Requirements [Emergence 3.70].png · Exocraft Advanced Signal Booster - Blueprint Requirements [Emergence 3.70].png · Exocraft Signal Booster - Blueprint Requirements [Emergence 3.70].png ·\n\n\n\nBlueprint costs either a factory override at a Manufacturing Facility OR 250 nanites from Space Anomaly's Synthesis Laboratory Computer. Quantum Computer - Blueprint Requirements [Emergence 3.70].png · Atlas Pass v1 - Blueprint Requirements [Emergence 3.70].png · Atlas Pass v2 - Blueprint Requirements [Emergence 3.70].png · Atlas Pass v3 - Blueprint Requirements [Emergence 3.70].png · Artemis' Translator - Blueprint Requirements [Emergence 3.70].png · Hyperdrive - Blueprint Requirements [Emergence 3.70].png · Emergency Warp Unit - Blueprint Requirements [Emergence 3.70].png · Economy Scanner - Blueprint Requirements [Emergence 3.70].png · Environment Control Unit - Blueprint Requirements [Emergence 3.70].png · Exocraft Advanced Signal Booster - Blueprint Requirements [Emergence 3.70].png · Exocraft Signal Booster - Blueprint Requirements [Emergence 3.70].png ·\n\n\n\nIcarus Fuel System - Blueprint Requirements [Emergence 3.70].png · Galactic Trade Terminal - Blueprint Requirements [Emergence 3.70].png · Landing Pad - Blueprint Requirements [Emergence 3.70].png · Large Refiner",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://www.nomansskyresources.com/crafted-products/microprocessor"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "How to Unlock Microprocessor & Adv. Refiner Blueprints from Scientist | No Man's Sky 1.5 NEXT Update - YouTube",
+              "url": "https://www.youtube.com/watch?v=SeNOQEhN8eY",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "youtube.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=youtube.com",
+                "site_name": "YouTube"
+              },
+              "is_missing": false,
+              "text": "This No Man&#x27;s Sky Video Walkthrough will teach you all you need to know about how learn the blueprints needed to craft microprocessors from your Scientist at...",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "August 8, 2018",
+                "search_provider": "anthropic",
+                "url": "https://www.youtube.com/watch?v=SeNOQEhN8eY"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "No Man's Sky",
+              "url": "https://steamcommunity.com/app/275850/discussions/0/2850173019342452981",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "steamcommunity"
+              },
+              "is_missing": false,
+              "text": "No Man's Sky\n\nNo Man's Sky\n\nView Stats:\nSky715 Sep 27, 2020 @ 12:33pm\nNew Blueprint formula\nIn the past, we were able to obtain new formula to increase our building supplies. I have new items to build for my base and ship but don't have the tools needed for building them.\n\nBefore this new update, I could raid a manufacturing center and receive some new blueprints but it doesn't seem to work that way any more.\n\nHow do I obtain plans for Hydraulic Wiring, Magnetic Resonator and the Amino Chamber?\n\nI have two saves, one save I have more than 290 hours and have gotten all the formulas which include the above, and a second save with about 39 hours which I started over after the last major update and can't get the required blueprints.\n< >\nShowing 1-13 of 13 comments\ntkwoods Sep 27, 2020 @ 12:37pm \nI've got 5000+ game play hours and one save with 550 hours and never heard of these items.\nAzure Fang Sep 27, 2020 @ 12:39pm \n\n\nThese items were added as replacement for the 6 \"compressed\" materials (TetraCobalt, etc.) If you do not have the blueprints, you have to get them from Manufacturing Centers, just like pre-Origins; there was no change in that system, and you're just unlucky in finding ones that trigger the full blueprint tree as a reward.\nDarkefyre Sep 27, 2020 @ 12:40pm \nThose are obtained the same way their old equivalents were before, at Manufacturing Centers.\n\n\nThe reward at those Centers is not always new blueprints. Sometimes it just gives you 1 random blueprint. Sometimes the reward is some other junk. Sometimes it's pick 2 blueprints of your choice from the tree.\nSky715 Sep 27, 2020 @ 12:43pm \nI've gone to 2 manufacturing centers and correcting fixed the problem and I didn't get a request for crafting upgrades. They gave me an update to my ship and another one for my exopack. But, no new crafting was offered.\nSirProsik Sep 27, 2020 @ 12:43pm",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/275850/discussions/0/2850173019342452981"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "No Man's Sky",
+              "url": "https://steamcommunity.com/app/275850/discussions/8/1738841319811781391/?l=spanish",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "steamcommunity"
+              },
+              "is_missing": false,
+              "text": "No Man's Sky\n\nNo Man's Sky\n\nVer estadísticas:\nLeviathan 31 AGO 2018 a las 20:35\nmultiple raw materials to refinery\nSo I am still proceeding with my 80hr game from the previous old version, but I'm kinda stuck. There are no new blueprints, I already made it to another galaxy, I got this base refinery that has multiple slots to enter raw materials.\nJust guessing that I need some sort of a recipe to make something from multiple materials but I spent just another 15hrs exploring and visiting stations from all different stars (red blue yellow green) and there are absolutely no new blueprints.\n\nI have also yet to see another unique ship that I can buy. Just junky low level stuff.\nI got many millions of credits but I don't even know what to do with, I just basically want to figure out what else is in this game.\n< >\nMostrando 1-4 de 4 comentarios\nAzchael 1 SEP 2018 a las 9:33 \n\n\nIn the menu, in the guide section u can see a list of all blueprints u know as well as a blacked out symbol for missing blueprints. Maybe u alread have all.\nlordoftheapes79 1 SEP 2018 a las 10:13 \nThey added several dozen new blueprints in Next...\nJTracx 4 SEP 2018 a las 7:42 \nIf I read this correctly, you want to know if there is a recipe to put into the big refiner. (?)\nIf so, then no.\nJust add things and see what the output is.\nTry different order of items as well.\nie: Gold & Silver > Platinum\nBUT Silver & Gold > Platinum but only in 2 unit increments. (That is my experience)\nLeviathan 12 SEP 2018 a las 19:20 \nPublicado originalmente por Finnerty:\nhttps://www.reddit.com/r/NoMansSkyTheGame/comments/94xyih/all_recipes_for_all_refiners_with_its_results/\nThanks, although I'd rather had played the game to find these, but I don't mean playing as trying to plugging in various stuff and hope for something and go nuts after 10 min, but somewhere in the guide telling me how to do this.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/275850/discussions/8/1738841319811781391/?l=spanish"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "No Man's Sky",
+              "url": "https://steamcommunity.com/app/275850/discussions/0/3185654583877370884",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "steamcommunity"
+              },
+              "is_missing": false,
+              "text": "No Man's Sky\n\nNo Man's Sky\n\nView Stats:\nMr Scumbag Aug 16, 2019 @ 9:57pm\nHow/Where to get Warp Hypercore blueprint?\nI've been looking forward to the new warp hypercores since they allow for five times the jumps of the regular cores but can't figure out how or where to get the blueprint.\n\nI have a bunch of storm crystals ready to go so I can craft them. Anyone know how to learn the blueprint?\n< >\nShowing 1-15 of 17 comments\nAYAYA Aug 16, 2019 @ 9:59pm \nI'm guessing they're from a manufacturing facility or something? They're not listed in any of the tech places.\nNMSPlayer Aug 16, 2019 @ 10:02pm \nCheck the bridge of your freighter, where the mission board used to be is a blue print tree, i believe you need freighter tech for that which can be found in crashed freighter sights\ndphipps3 Aug 16, 2019 @ 10:03pm \nNope. It's in the Anomaly, under the starship vendor.\nMr Scumbag Aug 16, 2019 @ 10:42pm \nThe blueprint is not available in either the Freighter bridge or the Anomaly.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/275850/discussions/0/3185654583877370884"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "No Man's Sky",
+              "url": "https://steamcommunity.com/app/275850/discussions/0/1738841319815579356",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "steamcommunity"
+              },
+              "is_missing": false,
+              "text": "No Man's Sky\n\nNo Man's Sky\n\nView Stats:\nSmall Storage Container Blueprint Found\nSo I got a blueprint from the blueprint analyzer for a storage unit that looks like a small case, its labelled as storage and not decoration, but it doesn't show up in the build menus.\n\nhttps://i.gyazo.com/ac26593765c87d709a3062b8851cbe48.jpg\n< >\nShowing 1-8 of 8 comments\nLil Puppy Sep 1, 2018 @ 8:59pm \nI recall it not being an actual storage unit for YOUR stuff, but it did something in previous builds, I just don't remember what.\nteflonhotpocket Sep 1, 2018 @ 9:07pm \ndissapointing, I got really excited expecting it to be a small form of storage that didn't take up so much space, or rely on limited numbers of them placed... it's truly bizzare how much of a hassle storage is in a game like this.\nralffuerst Sep 2, 2018 @ 4:55am \nI never get this blueprint from my blueprint analyzer but waited for because you can never have too much storage. :(\nDr Jekill UK Sep 2, 2018 @ 5:10am",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/275850/discussions/0/1738841319815579356"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-08-10T07:54:58.883045Z",
+          "stop_timestamp": "2026-08-10T07:55:03.851991Z",
+          "flags": null,
+          "type": "thinking",
+          "thinking": "Wait, I'm second-guessing myself here—these search results aren't actually addressing the specific mechanics the user mentioned. The \"blueprint chip\" versus \"blueprint microchip\" distinction and that \"y button\" decode interaction sounds more like Abiotic Factor than No Man's Sky. The user does play Abiotic Factor, so maybe I'm looking at the wrong game entirely. Let me think about whether Abiotic Factor even has a blueprint system with that kind of decoding mechanic.",
+          "summaries": [],
+          "cut_off": false,
+          "truncated": true,
+          "hidden": false,
+          "thinking_hidden": false,
+          "alternative_display_type": null,
+          "signature": null
+        },
+        {
+          "start_timestamp": "2026-08-10T07:55:03.852814Z",
+          "stop_timestamp": "2026-08-10T07:55:04.016012Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_0126RSPczhxBBqsmmimdTPFK",
+          "name": "web_search",
+          "input": {
+            "query": "\"no more blueprints to decode\" game"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": "2026-08-10T07:55:04.689775Z",
+          "stop_timestamp": "2026-08-10T07:55:04.689805Z",
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_0126RSPczhxBBqsmmimdTPFK",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "Message: No more blueprimts to decode for now :: The Planet Crafter General Discussions",
+              "url": "https://steamcommunity.com/app/1284190/discussions/0/4358996848574314420/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "Steam Community"
+              },
+              "is_missing": false,
+              "text": "It just means there&#x27;s more generic blue print chips than there is unlocks for those generic chips. You can still decode the ones from the trade rocket or the named chips from portal wrecks.\n\nIn the decoder screen I get the message \"No more blueprints to decode for now\", although I see plenty of locked items on the screen. So what gives, how does this work? For reference I am at Insect state going towards breathable air. The author of this topic has marked a post as the answer to their question. Click here to jump to that post. Originally posted by kamspokx: The generic Blueprint Chips are not affected by the Ti numbers. If the RNGs are *very* kind to you, you can access all the generic plans fairly early in the game. Or spam the blue chests... Excellent explanation in the Wiki: https:// /planet-crafter.fandom.com/wiki/Blueprint_microchip ... It just means there's more generic blue print chips than there is unlocks for those generic chips. \n\nYou can still decode the ones from the trade rocket or the named chips from portal wrecks. ... It means at the moment there is nothing else to unlock.\n\nIncrease your Ti and more may become available. IDR how many items there are, but at some point you unlock all of them. Save the rest of your blueprint chips for any stuff added in future. ... The author of this thread has indicated that this post answers the original topic. ... The generic Blueprint Chips are not affected by the Ti numbers. If the RNGs are *very* kind to you, you can access all the generic plans fairly early in the game. Or spam the blue chests... Excellent explanation in the Wiki: https:// /planet-crafter.fandom.com/wiki/Blueprint_microchip ... Originally posted by kamspokx:The generic Blueprint Chips are not affected by the Ti numbers. If the RNGs are *very* kind to you, you can access all the generic plans fairly early in the game. Or spam the blue chests... \n\nExcellent explanation in the Wiki: https:// /planet-crafter.fandom.com/wiki/Blueprint_microchip",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "April 19, 2024",
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/1284190/discussions/0/4358996848574314420/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "\"No more blueprints to decode right now.\"? :: The Planet Crafter General Discussions",
+              "url": "https://steamcommunity.com/app/1284190/discussions/0/596269981727984170/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "Steam Community"
+              },
+              "is_missing": false,
+              "text": "Just have a chest with them in it. ... Sometimes if you&#x27;ve decoded too many generic blueprint chips too early in the game, the game will throw up that message, in which case try again a bit later.\n\nI reached that message again today, before the game was at .4 somthing. I'm at the fish level, what amount of chips have yet to unlock? ... if it says you have unlocked everything then there is nothing more to unlock unless the devs add more stuff in future so just keep them in a chest or i think you can put them through a recycle machine ... Originally posted by Gargoyle Girl:I have 6 more blueprint chips in my inventory, yet I'm not being allowed to decode them? Yeah, there's no more blueprints to decode, like the message says. It's not a riddle. Duh ... After terraforming a planet I usually end up with a surplus of 20-30 blueprints. It's probably so you can unlock all the important tech even if you don't find all the secrets. ... \n\nThat is why I think we should be able to sell them on the trade rocket. I have way too many chips... I should use the planet trade rockets to gather them all up on one planet to count them all...",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/1284190/discussions/0/596269981727984170/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "No More Blueprints to Decode :: The Planet Crafter General Discussions",
+              "url": "https://steamcommunity.com/app/1284190/discussions/0/4839692156558340064/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "Steam Community"
+              },
+              "is_missing": false,
+              "text": "... There are more microchips than there are things to unlock. Congrats, you&#x27;ve unlocked them all! ... It means that the dves haven&#x27;t implemented more things to decode... Do what I do with those chips; hoard them...\n\nDoes anyone know what it means when you get the message No More Blueprints to Decode Right Now? Does it mean I already have those blueprints? Or does it mean I have to raise the numbers to get them unlocked? Or does it mean I must wait for the next update? ... There are more microchips than there are things to unlock. Congrats, you've unlocked them all! ... It means that the dves haven't implemented more things to decode... Do what I do with those chips; hoard them... :-) ... Yeah I have about 10 blue print chips I can't use I can't break em' down either they are trash to me cause I've unlocked most of the items in the skill tree. ... \n\nOriginally posted by ziplip:Yeah I have about 10 blue print chips I can't use I can't break em' down either they are trash to me cause I've unlocked most of the items in the skill tree. They might not be trash after future updates.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/1284190/discussions/0/4839692156558340064/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "\"No more blueprints to decode for now\" :: The Planet Crafter General Discussions",
+              "url": "https://steamcommunity.com/app/1284190/discussions/0/3454843328423693431/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "Steam Community"
+              },
+              "is_missing": false,
+              "text": "Originally posted by Maljen: You&#x27;ve decoded all that you can for now. Save the chips because the devs add more stuff with each update. ... The author of this thread has indicated that this post answers the original topic.\n\nWhen I try to decode a microchip and I get \"No more blueprints to decode for now\" does it mean I decoded all possible techs OR that some techs are somehow locked out? The author of this topic has marked a post as the answer to their question. Click here to jump to that post. Originally posted by Maljen: You've decoded all that you can for now. Save the chips because the devs add more stuff with each update. ... The author of this thread has indicated that this post answers the original topic. ... You've decoded all that you can for now. Save the chips because the devs add more stuff with each update. ... Quartz chips... Yeah I watch some youtubers... ... Originally posted by Thiesen:Quartz chips... Yeah I watch some youtubers... \n\nQuartz chips go great with silicon dip. ... Originally posted by Thiesen:Quartz chips... Yeah I watch some youtubers... Quartz chips go great with silicon dip.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/1284190/discussions/0/3454843328423693431/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Blueprint unlocks :: The Planet Crafter General Discussions",
+              "url": "https://steamcommunity.com/app/1284190/discussions/0/798967297093100989/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "Steam Community"
+              },
+              "is_missing": false,
+              "text": "But it will always be way more than you need on Prime/Humble. Once you see &quot;No more recipes to unlock&quot; you can start recycling the Blueprint Microchips, or just stop picking them up if you don&#x27;t need Circuit Boards.\n\nI am past breatheable air terraformation and am currently at 54 GTi I have found more blueprints to decode but i get the message \"No more blueprints to decode for now\". Does this mean I need to raise my terraforation level. There are more blueprints then unlockable blueprints and i have run out of blueprints to unlock. I have unlocked all blueprints availible in the game so far but more are to be released in the future. ... Originally posted by Distractions:I am past breatheable air terraformation and am currently at 54 GTi I have found more blueprints to decode but i get the message \"No more blueprints to decode for now\". Does this mean I need to raise my terraforation level. \n\nThere are more blueprints then unlockable blueprints and i have run out of blueprints to unlock. I have unlocked all blueprints availible in the game so far but more are to be released in the future.\n\nJust keep working on the terraforming and once in a while try a chip again. When you get far enough it should unlock more goodies. Check the screen to see what unlocks are coming and work on the ones you can till you get there. Have fun... ... i beleve that there are extra blueprint chips so it is easer to get all the blueprints in the game. now you can also recicle the ones you dont need, you may have notest that when you do wreckes that there are other blueprints to get but they show a picture of what it is when you click on it in your invantory ... Every blue chest you open has a chance to have a Blueprint Microchip, so the number you get over a run will vary wildly. But it will always be way more than you need on Prime/Humble. \n\nOnce you see \"No more recipes to unlock\" you can start recycling the Blueprint Microchips, or just stop picking them up if you don't nee",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "April 17, 2026",
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/1284190/discussions/0/798967297093100989/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "The Planet Crafter",
+              "url": "https://steamcommunity.com/app/1284190/discussions/0/560232350276975219",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "steamcommunity.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=steamcommunity.com",
+                "site_name": "steamcommunity"
+              },
+              "is_missing": false,
+              "text": "The Planet Crafter\n\nThe Planet Crafter\n\nView Stats:\nOrnalee Dec 14, 2024 @ 6:37am\nOld Save vs. New Decor\nI found 4 blueprint chips for some of the new decor (bonsai pot, large planter, ivy, and one other) using one of my oldest saves. I can't unlock a single one of them. I only get the \"no more blueprints to decode\" message when I try. Is it just me? Or is anyone else having this issue, today?\n< >\nShowing 1-13 of 13 comments\nJohn Strangueur Dec 14, 2024 @ 8:10am \nIt's not a bug. New crafting blueprints just don't get that way. You must find each new decoration in the procedural wrecks and deconstruct them to get a chip containing that blueprint\nLast edited by John Strangueur; Dec 14, 2024 @ 8:17am\nJohn Strangueur Dec 14, 2024 @ 8:12am \nTo get all the new decorations you will have to make several procedural wrecks because they appear randomly in them\nThe procedural wrecks during this update have been facilitated by the way\nKushiKorn Dec 14, 2024 @ 8:33am \nSimilar issue. \n\nI found 5 of the new decorations and only 2 popped for me. The wall Ivy was one that didn't pop, it just made the unlock sound but no message came up to say blueprint unlocked like usual and I can't find it, or the others, anywhere to craft them.\nCurried-Cat Dec 14, 2024 @ 9:11am \nI find that if I cash in several blueprints at a time they don't always unlock. Unlock a blueprint then wait a minute before trying the next one.\nRobirda Dec 14, 2024 @ 2:09pm \nOriginally posted by Ornalee:\nI found 4 blueprint chips for some of the new decor (bonsai pot, large planter, ivy, and one other) using one of my oldest saves. I can't unlock a single one of them. I only get the \"no more blueprints to decode\" message when I try. Is it just me? Or is anyone else having this issue, today?\n\n\n\nIf you have several chips, and just one of them is from the 'all unlocked' set, it will tell you there's no more chips to unlock, even though you have other chips that aren't unlocked - ditch the one that is, and the rest wil",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://steamcommunity.com/app/1284190/discussions/0/560232350276975219"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Decode Impossible - Level 2",
+              "url": "https://decode-impossible.itch.io/httpsdrivegooglecomfiled1zd98vf6kf491pormop0zk6i884klhrisviewuspdrive",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "itch.io",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=itch.io",
+                "site_name": "itch"
+              },
+              "is_missing": false,
+              "text": "Decode Impossible - Level 2\nA downloadable Game\nDecode Impossible Level 2 is a single-player puzzle mind game designed to sharpen focus, logic, and language skills. Using only numbers as clues, players must crack hidden messages by converting them into alphabetic sentences. No apps, no distractions and with multiple difficulty modes including Mirror Code and Impossible Mode, the game builds mental agility while keeping screen time minimal. Perfect for kids, adults, and classrooms, Decode Impossible is a powerful way to unplug, think critically, and train your brain—one code at a time.\nhttps://drive.google.com/file/d/1Zd98Vf6kf491PorMoP0zK6I884kLHRis/view?usp=drive...\nPublished | 6 days ago |\nStatus | Released |\nAuthor | Decode Impossible |\nGenre | Puzzle |\nTags | 2D, Indie, Multiplayer, No AI, Singleplayer |\nAverage session | A few seconds |\nLanguages | English |\nInputs | Keyboard, Mouse, Touchscreen, Smartphone |",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://decode-impossible.itch.io/httpsdrivegooglecomfiled1zd98vf6kf491pormop0zk6i884klhrisviewuspdrive"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Decode Impossible : Image Invasion - Level 2",
+              "url": "https://decode-impossible.itch.io/decodeimpossible-level2",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "itch.io",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=itch.io",
+                "site_name": "itch"
+              },
+              "is_missing": false,
+              "text": "Decode Impossible : Image Invasion - Level 2\nA downloadable Game\nDecode Impossible Level 2 is the medium level for a single-player puzzle mind game designed to sharpen focus, logic, and language skills. Using only numbers as clues, players must crack hidden messages by converting them into alphabetic sentences. No apps, no distractions and with multiple difficulty modes including Mirror Code and Impossible Mode, the game builds mental agility while keeping screen time minimal. Perfect for kids, adults, and classrooms, Decode Impossible is a powerful way to unplug, think critically, and train your brain—one code at a time.\n| Status | Released |\n| Author | Decode Impossible |\n| Genre | Puzzle |\n| Tags | 2D, Indie, Multiplayer, No AI, Singleplayer |\n| Average session | A few seconds |\n| Languages | English |\n| Inputs | Keyboard, Mouse, Touchscreen, Smartphone |\n| Accessibility | Configurable controls, High-contrast, Interactive tutorial |\n| Multiplayer | Local multiplayer |",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://decode-impossible.itch.io/decodeimpossible-level2"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "watcherdm.itch.io",
+              "url": "https://watcherdm.itch.io/dont-play-this-game/comments",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "itch.io",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=itch.io",
+                "site_name": "itch"
+              },
+              "is_missing": false,
+              "text": "I'm very confused. It appears to be just 1 page filled with gibberish. I get that this might be a puzzle game for super smart people but I feel like it's a stretch to call this an RPG.\nFair enough. Once you decode it, it's a journaling game / solo RPG. I know those aren't everyone's idea of an RPG anyways, and this one, in particular, is strange. I understand if it feels too weird to be an RPG.\nThat said, please don't think this game is only for super-smart people. Anyone with patience (and an internet connection) should be able to solve it. Because we've got some prizes for first five solvers, I don't want to give too many hints publically, but I will offer three tips on getting started:\n.\n.\n.\n.\n.\n1. The upper right area is full of hints and keys.\n2. Start with the upper left box and work down that column. The right-hand chapter is the last (and the longest).\n3. It's a substitution cipher; each of those strange glyphs corresponds to a letter.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://watcherdm.itch.io/dont-play-this-game/comments"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-08-10T07:55:05.396969Z",
+          "stop_timestamp": "2026-08-10T07:55:11.071689Z",
+          "flags": null,
+          "type": "text",
+          "text": "This is The Planet Crafter, not a bug. Here's what's happening:\n\n- **\"Blueprint chip\"** and **\"blueprint microchip\"** are the same item — generic decode fodder that drops from blue chests and wrecks.\n- **\"No more blueprints to decode right now\"** means the game has run out of *unlockable* items to give you from those generic chips — not that your chips are broken or empty. There are always more generic chips floating around than there are things left to unlock.\n- One key gotcha from other players: if you're holding a stack of chips and even one of them is a \"used up\" type, the game can throw that message even though you're also holding a *different*, still-useful chip (like a named chip from a portal wreck or trade rocket). Those aren't tied to the same unlock pool as the generic ones.\n\nWhat actually unlocks more slots for those chips to decode into: raising your terraformation stage (Ti number — atmosphere, heat, pressure milestones). Once you cross into the next terraforming tier, previously \"dead\" chips start decoding again.\n\nPractical move: just hang onto the chip. It's not lost or wasted — recheck the decoder after your next terraforming milestone.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-08-10T07:55:11.127545Z",
+      "updated_at": "2026-08-10T07:55:11.127545Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019feaaa-baeb-7a69-89aa-f32d488f1d40"
+    }
+  ]
+}

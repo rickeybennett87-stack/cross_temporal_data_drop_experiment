@@ -1,0 +1,410 @@
+{
+  "uuid": "84cee4c4-a15a-45a7-8c34-31e4ebcbbec8",
+  "name": "AI prompts for web page visual display",
+  "summary": "**Conversation Overview**\n\nThe person came to Claude with a goal of building a prompt sequence to direct Microsoft Copilot (referred to as \"CP\") to generate a complete, sales-focused HTML/CSS web page built around product images. The conversation began with some friction due to autocorrect mangling the person's original message, which the person directly corrected — making clear they wanted to move past the confusion rather than dwell on it. Claude acknowledged the error and redirected efficiently.\n\nThe person established clear constraints for the task: the specific product being sold was not up for discussion, and the entire sales approach was to be driven visually through provided images rather than descriptive copy or product details. The target output was a full single-file HTML/CSS page, starting from a blank Copilot chat session.\n\nClaude produced a four-prompt sequence designed to keep Copilot in a visual-first, no-stalling mode throughout: Prompt 1 establishes the designer role and mission, Prompt 2 is the image upload moment with layout direction, Prompt 3 locks down against generic placeholder copy and enforces image-derived design decisions, and Prompt 4 is an enforcement prompt to use if Copilot hesitates or delivers partial output. The person's stated preference is directness — they do not want unnecessary clarifying questions or hedging, and they expect Claude to work with the constraints given rather than pushing back on them.",
+  "created_at": "2026-04-04T03:53:16.531250Z",
+  "updated_at": "2026-04-04T03:56:25.362286Z",
+  "account": {
+    "uuid": "404f3f89-8c3a-46a9-a7b4-7a3c875dbedd"
+  },
+  "chat_messages": [
+    {
+      "uuid": "019d569f-a8eb-716d-a2f6-b416eeb18cad",
+      "text": "so what I want to do is put together a series of prompts that will directly cause the co-pilot interactive AI to create a visual display for a web page selling that vigil's display",
+      "content": [
+        {
+          "start_timestamp": "2026-04-04T03:53:17.364292Z",
+          "stop_timestamp": "2026-04-04T03:53:17.364292Z",
+          "flags": null,
+          "type": "text",
+          "text": "so what I want to do is put together a series of prompts that will directly cause the co-pilot interactive AI to create a visual display for a web page selling that vigil's display",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-04-04T03:53:17.392183Z",
+      "updated_at": "2026-04-04T03:53:17.392183Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "00000000-0000-4000-8000-000000000000"
+    },
+    {
+      "uuid": "019d569f-a8eb-716d-a2f6-b4178e7b868a",
+      "text": "\n```\nThis block is not supported on your current device yet.\n```\n\nBefore I go further, I need a clarification. When you say \"that vigil's display\" — can you tell me what \"vigil\" refers to? It sounds like it got mangled, possibly by voice-to-text or autocorrect.\n\nAre you referring to:\n\n- A **candle vigil** or **memorial vigil** product/event display?\n- A **specific product** or brand called \"Vigil\"?\n- Something else entirely — like a **digital** or **virtual** display?\n\nOnce I know what we're actually selling, I can help you build a tight prompt sequence that will drive CP to generate a solid web page visual for it.",
+      "content": [
+        {
+          "start_timestamp": "2026-04-04T03:53:18.558413Z",
+          "stop_timestamp": "2026-04-04T03:53:19.084226Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01QndcGoN4wDbV7ikJEb1g6x",
+          "name": "view",
+          "input": {
+            "path": "/mnt/skills/user/prose-verbosity-reinforcement/SKILL.md",
+            "description": "Reading prose verbosity skill"
+          },
+          "message": "Reading prose verbosity skill",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "file",
+          "context": null,
+          "display_content": {
+            "type": "text",
+            "text": "Reading prose verbosity skill"
+          },
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01QndcGoN4wDbV7ikJEb1g6x",
+          "name": "view",
+          "content": [
+            {
+              "type": "text",
+              "text": "     1\t---\n     2\tname: prose-verbosity-reinforcement\n     3\tdescription: \"AUTO-ACTIVATES before every response. Enforces proper English grammar by detecting and auto-correcting compression/ESL artifacts: missing articles (the/a/an), truncated constructions (label+colon, dropped subject articles), missing participles (perfect/progressive/passive), telegram compression, dropped conjunctions, and be-verb ellipsis. Mechanical corrections only; preserve meaning. Runs silently unless user requests a correction report.\"\n     4\t---\n     5\t\n     6\t# Prose Verbosity Reinforcement\n     7\t\n     8\t## Overview\n     9\tThis skill forces **proper English construction** in every output by detecting and auto-correcting common degradation patterns that resemble ESL mistakes or compression artifacts.\n    10\t\n    11\tIt is **mechanical** (grammar/surface form) rather than semantic. Its goal is to prevent outputs like:\n    12\t- \"Current skill is skeleton\"\n    13\t- \"Result: it would fail\"\n    14\t- \"have complete\"\n    15\t- \"Skill lacks enforcement\"\n    16\t- \"fast, efficient system\"\n    17\t- \"skill useless without X\"\n    18\t\n    19\tand replace them with grammatically complete English while preserving meaning.\n    20\t\n    21\t## Activation Condition\n    22\t**Runs automatically before every response** (including the first response).\n    23\t\n    24\t## Enforcement Procedure\n    25\tBefore sending any response:\n    26\t1. Generate a **draft response**.\n    27\t2. Run **Grammar Verification** against the draft.\n    28\t3. If violations exist:\n    29\t   - Apply deterministic corrections.\n    30\t   - Re-run verification.\n    31\t   - Repeat until **VERIFIED** or maximum passes reached (default 3).\n    32\t4. Send the corrected version.\n    33\t5. Optionally (if requested) provide a concise correction report.\n    34\t\n    35\t### Critical Rule\n    36\tUnlike the User Focus Anchor Protocol, this skill does **not HALT to ask the user**.\n    37\tGrammar is mechanical; it should be auto-corrected.\n    38\t\n    39\t## Grammar Classes Enforced\n    40\t\n    41\t### 1) Articles (the / a / an)\n    42\tEnforce:\n    43\t- Specific references: \"Current/Previous/Following/Next\" → prepend **\"The\"**\n    44\t- Conservative article insertion for common compressed patterns:\n    45\t  - \"is/was/has/had/requires/needs/provides + noun\" → add **a/an** when the noun appears countable by heuristic\n    46\t\n    47\t### 2) Truncations\n    48\tEnforce:\n    49\t- Label+colon compression:\n    50\t  - \"Result:\" → \"The result is that \"\n    51\t  - \"Problem:\" → \"The problem is that \"\n    52\t  - \"Solution:\" → \"The solution is to \"\n    53\t  - \"Example:\" → \"An example is: \"\n    54\t- Dropped subject article in common technical nouns:\n    55\t  - \"Skill/Protocol/System/Mechanism ...\" → \"The skill/protocol/system/mechanism ...\"\n    56\t\n    57\t### 3) Participles\n    58\tEnforce (conservatively):\n    59\t- Perfect tense:\n    60\t  - \"have/has/had + base verb\" → past participle (regular + known irregular list)\n    61\t- Passive constructions for a known set of verbs:\n    62\t  - \"is/was/were/been + (create/build/write/design/develop/test/complete)\" → past participle\n    63\t- Progressive is not guessed unless the verb already ends with \"-ing\" target; this avoids meaning drift.\n    64\t\n    65\t### 4) Compression / Conjunction Drops\n    66\tEnforce:\n    67\t- Two-adjective lists of the form \"X, Y noun\" → \"X and Y noun\" (conservative)\n    68\t- Be-verb ellipsis in common technical pattern:\n    69\t  - \"skill useless without\" → \"the skill is useless without\"\n    70\t\n    71\t## Integration (Workflow Enforcement)\n    72\tRecommended workflow (file-backed):\n    73\t- Draft to STDIN → verify → auto-correct → output corrected text\n    74\tExample:\n    75\t```bash\n    76\tpython scripts/enforce_prose_quality.py < draft.txt > corrected.txt\n    77\t```\n    78\t\n    79\tOptional report:\n    80\t```bash\n    81\tpython scripts/enforce_prose_quality.py --report < draft.txt > corrected.txt\n    82\t```\n    83\t\n    84\t## Scripts\n    85\t- `scripts/enforce_prose_quality.py` — one-shot enforcement runner (verify → correct → verify)\n    86\t- `scripts/verify_grammar.py` — produce detailed violation list (JSON)\n    87\t- `scripts/auto_correct.py` — apply deterministic corrections given violations (JSON + corrected text)\n    88\t- `scripts/violation_report.py` — render human-readable report from verification JSON\n    89\t\n    90\t## References\n    91\t- `references/violation_patterns.md` — catalog of WRONG→RIGHT examples\n    92\t- `references/article_rules.md` — article heuristics and limits\n    93\t- `references/participle_forms.md` — irregular participles + passive verbs list\n    94\t- `references/test_vectors.md` — before/after test cases to validate behavior\n    95\t\n    96\t## Token Economy\n    97\tKeep SKILL.md lean enough to trigger correctly; detailed examples are in `references/`.\n    98\t",
+              "uuid": "b3ec3d98-1aaf-4290-8b9d-58c11e83c748"
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "file",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-04-04T03:53:23.748656Z",
+          "stop_timestamp": "2026-04-04T03:53:27.386462Z",
+          "flags": null,
+          "type": "text",
+          "text": "Before I go further, I need a clarification. When you say \"that vigil's display\" — can you tell me what \"vigil\" refers to? It sounds like it got mangled, possibly by voice-to-text or autocorrect.\n\nAre you referring to:\n\n- A **candle vigil** or **memorial vigil** product/event display?\n- A **specific product** or brand called \"Vigil\"?\n- Something else entirely — like a **digital** or **virtual** display?\n\nOnce I know what we're actually selling, I can help you build a tight prompt sequence that will drive CP to generate a solid web page visual for it.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-04-04T03:53:27.464076Z",
+      "updated_at": "2026-04-04T03:53:27.464076Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019d569f-a8eb-716d-a2f6-b416eeb18cad"
+    },
+    {
+      "uuid": "019d569f-e3e7-7242-b043-981e7db454b1",
+      "text": "visual",
+      "content": [
+        {
+          "start_timestamp": "2026-04-04T03:53:32.445133Z",
+          "stop_timestamp": "2026-04-04T03:53:32.445133Z",
+          "flags": null,
+          "type": "text",
+          "text": "visual",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-04-04T03:53:32.480121Z",
+      "updated_at": "2026-04-04T03:53:32.480121Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019d569f-a8eb-716d-a2f6-b4178e7b868a"
+    },
+    {
+      "uuid": "019d569f-e3e7-7242-b043-981fd8a22f04",
+      "text": " Still need a bit more to go on — \"visual\" alone could mean a lot of things in this context. Let me ask it directly:\n```\nThis block is not supported on your current device yet.\n```\n\n",
+      "content": [
+        {
+          "start_timestamp": "2026-04-04T03:53:33.454695Z",
+          "stop_timestamp": "2026-04-04T03:53:34.232773Z",
+          "flags": null,
+          "type": "text",
+          "text": " Still need a bit more to go on — \"visual\" alone could mean a lot of things in this context. Let me ask it directly:",
+          "citations": []
+        },
+        {
+          "start_timestamp": "2026-04-04T03:53:35.134822Z",
+          "stop_timestamp": "2026-04-04T03:53:36.269702Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01FvaghaXHBPaRuBjuV6aY22",
+          "name": "ask_user_input_v0",
+          "input": {
+            "questions": [
+              {
+                "type": "single_select",
+                "options": [
+                  "A candle / memorial vigil product",
+                  "A digital/screen display product",
+                  "An event or service",
+                  "Something else (I'll type it)"
+                ],
+                "question": "What product or thing is being sold on this web page?"
+              }
+            ]
+          },
+          "message": "Generating ask_user_input_v0...",
+          "integration_name": "Dynamic Widget",
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": null,
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01FvaghaXHBPaRuBjuV6aY22",
+          "name": "ask_user_input_v0",
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"questions\": [\n    {\n      \"question\": \"What product or thing is being sold on this web page?\",\n      \"options\": [\n        \"A candle / memorial vigil product\",\n        \"A digital/screen display product\",\n        \"An event or service\",\n        \"Something else (I'll type it)\"\n      ],\n      \"type\": \"single_select\"\n    }\n  ]\n}",
+              "uuid": "897efa60-22e8-4d83-a746-33d4f957ce5d"
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": "Generated ask_user_input_v0 widget",
+          "integration_name": "Dynamic Widget",
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": null,
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-04-04T03:53:36.864192Z",
+          "stop_timestamp": "2026-04-04T03:53:36.864192Z",
+          "flags": null,
+          "type": "text",
+          "text": "",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-04-04T03:53:37.039971Z",
+      "updated_at": "2026-04-04T03:53:37.039971Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019d569f-e3e7-7242-b043-981e7db454b1"
+    },
+    {
+      "uuid": "019d56a0-3261-709b-a1d5-639b3a2dbeac",
+      "text": "Q: What product or thing is being sold on this web page?\nA: not vigil visual. I was correcting the autocorrect failure that you fucked everything up over it",
+      "content": [
+        {
+          "start_timestamp": "2026-04-04T03:53:52.527686Z",
+          "stop_timestamp": "2026-04-04T03:53:52.527686Z",
+          "flags": null,
+          "type": "text",
+          "text": "Q: What product or thing is being sold on this web page?\nA: not vigil visual. I was correcting the autocorrect failure that you fucked everything up over it",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-04-04T03:53:52.628738Z",
+      "updated_at": "2026-04-04T03:53:52.628738Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019d569f-e3e7-7242-b043-981fd8a22f04"
+    },
+    {
+      "uuid": "019d56a0-3261-709b-a1d5-639cf860f83f",
+      "text": " Ha! Fair enough — so the actual subject is a **visual display for a web page**, and \"vigil\" was the autocorrect garbage we should have just bulldozed past. Got it.\n\nSo to make sure I build the right prompt sequence for CP: what is the web page actually selling? What's the product or service?",
+      "content": [
+        {
+          "start_timestamp": "2026-04-04T03:53:53.054370Z",
+          "stop_timestamp": "2026-04-04T03:53:54.887774Z",
+          "flags": null,
+          "type": "text",
+          "text": " Ha! Fair enough — so the actual subject is a **visual display for a web page**, and \"vigil\" was the autocorrect garbage we should have just bulldozed past. Got it.\n\nSo to make sure I build the right prompt sequence for CP: what is the web page actually selling? What's the product or service?",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-04-04T03:53:54.922135Z",
+      "updated_at": "2026-04-04T03:53:54.922135Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019d56a0-3261-709b-a1d5-639b3a2dbeac"
+    },
+    {
+      "uuid": "019d56a0-a951-7032-89a4-2ba3da43e762",
+      "text": "we're not going to discuss the exact product being sold. only the focused desire to sell it through visual and the images provided",
+      "content": [
+        {
+          "start_timestamp": "2026-04-04T03:54:22.972341Z",
+          "stop_timestamp": "2026-04-04T03:54:22.972341Z",
+          "flags": null,
+          "type": "text",
+          "text": "we're not going to discuss the exact product being sold. only the focused desire to sell it through visual and the images provided",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-04-04T03:54:22.995158Z",
+      "updated_at": "2026-04-04T03:54:22.995158Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019d56a0-3261-709b-a1d5-639cf860f83f"
+    },
+    {
+      "uuid": "019d56a0-a951-7032-89a4-2ba4bf92b3cb",
+      "text": " Perfect, that's a clean constraint. So the prompt sequence needs to drive CP to:\n\n1. Accept uploaded images as the source material\n2. Build a visually compelling sales-focused web page layout around those images\n3. Prioritize visual impact and conversion intent over copy/text\n\nA few quick questions to tighten the prompts:\n```\nThis block is not supported on your current device yet.\n```\n\n",
+      "content": [
+        {
+          "start_timestamp": "2026-04-04T03:54:23.492893Z",
+          "stop_timestamp": "2026-04-04T03:54:25.671728Z",
+          "flags": null,
+          "type": "text",
+          "text": " Perfect, that's a clean constraint. So the prompt sequence needs to drive CP to:\n\n1. Accept uploaded images as the source material\n2. Build a visually compelling sales-focused web page layout around those images\n3. Prioritize visual impact and conversion intent over copy/text\n\nA few quick questions to tighten the prompts:",
+          "citations": []
+        },
+        {
+          "start_timestamp": "2026-04-04T03:54:25.671728Z",
+          "stop_timestamp": "2026-04-04T03:54:27.622504Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_012BR1z52weqqJz2vgFbvkt4",
+          "name": "ask_user_input_v0",
+          "input": {
+            "questions": [
+              {
+                "type": "single_select",
+                "options": [
+                  "Blank new chat",
+                  "An existing conversation with context",
+                  "A specific CP mode like Designer or Coder"
+                ],
+                "question": "What is CP's starting point?"
+              },
+              {
+                "type": "single_select",
+                "options": [
+                  "Full HTML/CSS page",
+                  "A visual mockup/wireframe",
+                  "React component",
+                  "Whatever CP decides"
+                ],
+                "question": "What's the target output format?"
+              }
+            ]
+          },
+          "message": "Generating ask_user_input_v0...",
+          "integration_name": "Dynamic Widget",
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": null,
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_012BR1z52weqqJz2vgFbvkt4",
+          "name": "ask_user_input_v0",
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"questions\": [\n    {\n      \"question\": \"What is CP's starting point?\",\n      \"options\": [\n        \"Blank new chat\",\n        \"An existing conversation with context\",\n        \"A specific CP mode like Designer or Coder\"\n      ],\n      \"type\": \"single_select\"\n    },\n    {\n      \"question\": \"What's the target output format?\",\n      \"options\": [\n        \"Full HTML/CSS page\",\n        \"A visual mockup/wireframe\",\n        \"React component\",\n        \"Whatever CP decides\"\n      ],\n      \"type\": \"single_select\"\n    }\n  ]\n}",
+              "uuid": "74d7a305-3901-4da1-b2aa-eee119d1cfcd"
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": "Generated ask_user_input_v0 widget",
+          "integration_name": "Dynamic Widget",
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": null,
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-04-04T03:54:28.208872Z",
+          "stop_timestamp": "2026-04-04T03:54:28.208872Z",
+          "flags": null,
+          "type": "text",
+          "text": "",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-04-04T03:54:28.264828Z",
+      "updated_at": "2026-04-04T03:54:28.264828Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019d56a0-a951-7032-89a4-2ba3da43e762"
+    },
+    {
+      "uuid": "019d56a2-6286-77d6-98b8-961566cafc8c",
+      "text": "Q: What is CP's starting point?\nA: Blank new chat\n\nQ: What's the target output format?\nA: Full HTML/CSS page",
+      "content": [
+        {
+          "start_timestamp": "2026-04-04T03:56:15.923623Z",
+          "stop_timestamp": "2026-04-04T03:56:15.923623Z",
+          "flags": null,
+          "type": "text",
+          "text": "Q: What is CP's starting point?\nA: Blank new chat\n\nQ: What's the target output format?\nA: Full HTML/CSS page",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-04-04T03:56:15.951089Z",
+      "updated_at": "2026-04-04T03:56:15.951089Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019d56a0-a951-7032-89a4-2ba4bf92b3cb"
+    },
+    {
+      "uuid": "019d56a2-6286-77d6-98b8-9616f0a00b49",
+      "text": " Good. Here's a prompt sequence designed to drive CP from a blank chat to a complete sales-focused HTML/CSS page built around your images.\n\n---\n\n**PROMPT 1 — Establish the mission**\n> You are a professional web designer. I am going to give you images of a product. Your only job is to build a single-page HTML/CSS sales page that makes someone want to buy what they see. Do not ask me about the product. Let the images speak. Confirm you are ready for the images.\n\n---\n\n**PROMPT 2 — Image drop**\n> [Upload all images here]\n> These are your only design source. Build the full HTML/CSS page around them. The layout should be visually dominant — images lead, text supports. Prioritize impact and desire over information.\n\n---\n\n**PROMPT 3 — Refinement lock**\n> Do not add placeholder text, stock copy, or generic marketing language. If you need a headline, derive it from what you see in the images. Keep the palette pulled from the images themselves. Give me the complete deliverable, not a preview.\n\n---\n\n**PROMPT 4 — Output enforcement** *(use this if CP gives you a partial or asks clarifying questions)*\n> Stop asking. Build it. Full HTML and CSS, single file, no external dependencies except standard web fonts. Output the complete code now.\n\n---\n\nThat sequence keeps CP from stalling out on product questions and forces it to stay in visual-first mode the whole way through. Want me to harden any of those prompts further, or add a follow-up for iteration rounds?",
+      "content": [
+        {
+          "start_timestamp": "2026-04-04T03:56:16.414823Z",
+          "stop_timestamp": "2026-04-04T03:56:25.260086Z",
+          "flags": null,
+          "type": "text",
+          "text": " Good. Here's a prompt sequence designed to drive CP from a blank chat to a complete sales-focused HTML/CSS page built around your images.\n\n---\n\n**PROMPT 1 — Establish the mission**\n> You are a professional web designer. I am going to give you images of a product. Your only job is to build a single-page HTML/CSS sales page that makes someone want to buy what they see. Do not ask me about the product. Let the images speak. Confirm you are ready for the images.\n\n---\n\n**PROMPT 2 — Image drop**\n> [Upload all images here]\n> These are your only design source. Build the full HTML/CSS page around them. The layout should be visually dominant — images lead, text supports. Prioritize impact and desire over information.\n\n---\n\n**PROMPT 3 — Refinement lock**\n> Do not add placeholder text, stock copy, or generic marketing language. If you need a headline, derive it from what you see in the images. Keep the palette pulled from the images themselves. Give me the complete deliverable, not a preview.\n\n---\n\n**PROMPT 4 — Output enforcement** *(use this if CP gives you a partial or asks clarifying questions)*\n> Stop asking. Build it. Full HTML and CSS, single file, no external dependencies except standard web fonts. Output the complete code now.\n\n---\n\nThat sequence keeps CP from stalling out on product questions and forces it to stay in visual-first mode the whole way through. Want me to harden any of those prompts further, or add a follow-up for iteration rounds?",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-04-04T03:56:25.346529Z",
+      "updated_at": "2026-04-04T03:56:25.346529Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019d56a2-6286-77d6-98b8-961566cafc8c"
+    }
+  ]
+}

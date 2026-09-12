@@ -1,0 +1,227 @@
+**POLARITON BLADE DEVICE  //  MATERIALS AND ENGINEERING SPECIFICATION  //  REV 1.0**
+
+**POLARITON BLADE DEVICE**
+
+**MATERIALS AND ENGINEERING SPECIFICATION**
+
+REVISION 1.0  |  APRIL 2026  |  RICKEY JAY BENNETT II
+
+| **FIELD** | **VALUE** |
+| --- | --- |
+| **Document Title** | Polariton Blade Device — Materials and Engineering Specification |
+| **Revision** | 1.0 |
+| **Date** | April 2026 |
+| **Author** | Rickey Jay Bennett II |
+| **Status** | Theoretical — Pre-Prototype |
+| **Classification** | Open Research |
+
+# **1. SCOPE**
+
+This document specifies materials, dimensional requirements, operating parameters, and known engineering constraints for a polariton condensate blade device. All specifications are derived from published experimental data. Parameters marked [REQUIRES PROTOTYPE MEASUREMENT] have not been empirically established at device scale and must be determined during prototype development.
+
+This is an engineering specification. Theoretical background is not included here. See companion paper for physics derivation.
+
+# **2. COMPONENT ARCHITECTURE**
+
+The device consists of five components:
+
+| **#** | **COMPONENT** | **FUNCTION** | **FABRICATION STATUS** |
+| --- | --- | --- | --- |
+| 1 | Crystal Substrate | Phonon-photon coupling — generates polariton condensate | Lab scale demonstrated |
+| 2 | Emitter Geometry | Shapes condensate output mode into blade waveguide | Requires nanofab tooling |
+| 3 | Initiation Coil | EM field drives phonon cascade in crystal | Prototype feasible |
+| 4 | Blade Waveguide | SWCNT lattice — confines and propagates condensate | Centimeter scale demonstrated |
+| 5 | Hilt Assembly | Housing, power delivery, activation interface | Standard engineering |
+
+# **3. COMPONENT 1 — CRYSTAL SUBSTRATE**
+
+## **3.1 Material**
+
+| **PARAMETER** | **SPECIFICATION** |
+| --- | --- |
+| **Primary material** | Cesium lead bromide perovskite — CsPbBr3 |
+| **Crystal form** | Single crystal — microwire or microplatelet geometry |
+| **Synthesis method** | Template-assisted fabrication (Kedziorowa et al. 2024 method) |
+| **Crystal quality requirement** | Minimal nonradiative recombination sites — high photoluminescence quantum yield required |
+| **Polarity** | All-inorganic — no organic cation |
+
+## **3.2 Optical Parameters (Confirmed — CsPbBr3)**
+
+| **PARAMETER** | **VALUE** | **SOURCE** |
+| --- | --- | --- |
+| **Emission wavelength** | ~520 nm (green) | Su et al. 2018 |
+| **Exciton binding energy** | ~40 meV | Su et al. 2018 |
+| **Polariton condensation threshold (CW)** | ~0.53 W/cm2 | Wu et al. 2025 |
+| **Polariton propagation distance (RT)** | >60 micrometers | Su et al. 2018 |
+| **Condensate linewidth** | ~0.5 meV | Wu et al. 2025 |
+| **Operating temperature** | Room temperature (confirmed) | Multiple 2024-2025 sources |
+
+## **3.3 Dimensional Requirements**
+
+| **PARAMETER** | **TARGET** | **STATUS** |
+| --- | --- | --- |
+| **Crystal length** | [REQUIRES PROTOTYPE MEASUREMENT] | Depends on coil geometry |
+| **Crystal cross-section** | [REQUIRES PROTOTYPE MEASUREMENT] | Match to emitter output mode |
+| **Emitter face diameter** | Match to blade waveguide inner diameter | Requires nanofab |
+| **Surface roughness — emitter face** | Sub-wavelength smoothness required | FIB milling target |
+
+*NOTE: Blade color is determined by crystal lattice geometry and composition. CsPbBr3 emits green (~520 nm). Other halide perovskite compositions shift emission wavelength. Color is not separately adjustable — it is set by crystal selection.*
+
+# **4. COMPONENT 2 — EMITTER GEOMETRY**
+
+## **4.1 Specification**
+
+| **PARAMETER** | **SPECIFICATION** |
+| --- | --- |
+| **Material** | Same crystal as Component 1 — continuous structure, no interface |
+| **Function** | Shape polariton condensate exit mode to match blade waveguide inner diameter |
+| **Geometry** | Cylindrical output mode — diameter matched to waveguide |
+| **Fabrication method** | Focused ion beam (FIB) milling |
+| **Critical constraint** | Zero material discontinuity between crystal body and emitter face — any interface = decoherence point |
+
+*NOTE: The emitter is not a separate component. It is the terminal end of the crystal, shaped to specification. Separate emitter materials are NOT acceptable.*
+
+# **5. COMPONENT 3 — INITIATION COIL**
+
+## **5.1 Specification**
+
+| **PARAMETER** | **SPECIFICATION** |
+| --- | --- |
+| **Geometry** | Solenoid — wound around crystal body within hilt |
+| **Conductor material** | High conductivity — copper or silver preferred |
+| **Target frequency** | Phonon resonance frequency of specific crystal batch [REQUIRES MEASUREMENT] |
+| **Drive signal type** | Continuous wave — not pulsed |
+| **Drive power** | Sufficient to maintain condensate above threshold (~0.53 W/cm2 baseline) [REQUIRES PROTOTYPE CALIBRATION] |
+| **Tuning method** | Spectroscopic measurement of crystal phonon resonance post-synthesis — coil wound to match |
+| **Coil-crystal pairing** | 1:1 — each coil is tuned to one specific crystal. Cross-compatibility is NOT expected. |
+
+*NOTE: Coil frequency must be measured and matched to the specific crystal. Generic coil specifications cannot be provided — they are crystal-dependent. This is a physical constraint, not a design choice.*
+
+# **6. COMPONENT 4 — BLADE WAVEGUIDE**
+
+## **6.1 Material**
+
+| **PARAMETER** | **SPECIFICATION** |
+| --- | --- |
+| **Primary material** | Single-walled carbon nanotubes (SWCNT) — semiconducting chirality, polymer-sorted |
+| **Preferred SWCNT type** | (6,5) chirality — demonstrated polariton coupling, near-IR operation (Graf et al. 2016) |
+| **Structure** | Cylindrical composite lattice — SWCNT film on structural substrate |
+| **Optical requirement** | Translucent — condensate emission must be visible through lattice wall |
+| **Phonon conductance** | Ballistic phonon transport along tube axis — inherent to SWCNT geometry |
+
+## **6.2 Confirmed Performance Parameters (SWCNT Polariton Systems)**
+
+| **PARAMETER** | **VALUE** | **SOURCE** |
+| --- | --- | --- |
+| **Rabi splitting** | >110 meV | Graf et al. 2016 |
+| **Coupling strength ratio** | Up to 13.3% | Multiple sources |
+| **Operating temperature** | Room temperature (confirmed) | Held et al. 2024 |
+| **Electrical tunability** | Confirmed via gate voltage | Held et al. 2024 |
+| **Polariton propagation velocity** | Up to 3x10^7 m/s | ACS Photonics 2021 |
+
+## **6.3 Dimensional Requirements**
+
+| **PARAMETER** | **TARGET** | **STATUS** |
+| --- | --- | --- |
+| **Inner diameter** | Match to crystal emitter output mode diameter | Crystal-dependent |
+| **Wall thickness** | Minimum for structural integrity — maximize translucency | Requires prototype optimization |
+| **Blade length — proof of concept** | 1 cm target | Achievable with current technology |
+| **Blade length — functional device** | ~1 meter target | REQUIRES MANUFACTURING DEVELOPMENT |
+| **Lattice spacing** | Tuned to crystal phonon-photon coupling frequency [REQUIRES CALCULATION] | Crystal-dependent |
+
+*NOTE: Scaling from centimeter to meter blade length is the primary manufacturing challenge. No demonstrated pathway exists at time of writing. This is the single largest unresolved engineering problem in the device.*
+
+## **6.4 Structural Behavior Under Active Condensate**
+
+| **PARAMETER** | **STATUS** |
+| --- | --- |
+| **Predicted behavior — active** | Polariton condensate pressurizes lattice from within — produces structural rigidity |
+| **Predicted behavior — inactive** | Lattice returns to unloaded flexible state |
+| **Experimental confirmation** | NOT DEMONSTRATED at any scale. This is a theoretical prediction requiring experimental validation. |
+| **Priority** | CRITICAL PATH — must be demonstrated at proof-of-concept scale before device development proceeds |
+
+# **7. COMPONENT 5 — HILT ASSEMBLY**
+
+## **7.1 Specification**
+
+| **PARAMETER** | **SPECIFICATION** |
+| --- | --- |
+| **Housing material** | Standard engineering — aluminum, titanium, or composite. No exotic material required. |
+| **Crystal mount** | Vibration-isolated mount. Prevent phonon feedback from blade impact events disrupting crystal condensation. |
+| **Coil-crystal alignment** | Must maintain precise coil-to-crystal geometry under physical impact. Tolerance [REQUIRES PROTOTYPE MEASUREMENT]. |
+| **Activation interface** | Physical switch completing coil drive circuit. No biological interface required. |
+| **Grip** | Standard. No special material required. |
+
+## **7.2 Power Source**
+
+| **PARAMETER** | **SPECIFICATION** |
+| --- | --- |
+| **Primary candidate** | High-density solid state battery — continuous discharge regulation |
+| **Power requirement baseline** | ~0.53 W/cm2 at crystal face (CW condensation threshold — Wu et al. 2025) |
+| **Actual power requirement** | [REQUIRES PROTOTYPE MEASUREMENT] — coil efficiency and crystal geometry affect actual draw |
+| **Alternative candidates** | Capacitive discharge bank; piezoelectric harvesting from grip pressure |
+| **Selection method** | Prototype measurement required. Power system cannot be fully specified before crystal and coil are characterized. |
+
+# **8. BLADE INTERACTION MECHANISM**
+
+| **PARAMETER** | **VALUE / STATUS** |
+| --- | --- |
+| **Interaction mechanism** | Polariton-polariton scattering at contact region between two active condensate blades |
+| **Physical basis** | Non-zero effective mass of polariton quasiparticle — confirmed property |
+| **Polariton effective mass** | 4-5 orders of magnitude below electron mass — inherent to quasiparticle |
+| **Interaction constant** | g = 6Eb * aB^2 / S (Ciuti et al. 1998) — confirmed formula |
+| **Force magnitude** | Proportional to polariton density at contact — controlled by coil drive power |
+| **Demonstration status** | Polariton-polariton scattering confirmed in laboratory. Force magnitude at blade scale NOT demonstrated. |
+
+# **9. BLADE LENGTH CONTROL**
+
+| **PARAMETER** | **VALUE / STATUS** |
+| --- | --- |
+| **Control mechanism** | Coil drive power — higher power increases condensate density and extends coherence length |
+| **Physical basis** | Coherence length scales with condensate density in polariton BEC systems — confirmed relationship |
+| **Transfer function** | [REQUIRES PROTOTYPE MEASUREMENT] — power-to-length calibration curve must be established empirically |
+| **Minimum blade length** | [REQUIRES PROTOTYPE MEASUREMENT] |
+| **Maximum blade length** | Limited by waveguide length and power budget [REQUIRES PROTOTYPE MEASUREMENT] |
+
+# **10. MINIMUM VIABLE PROOF-OF-CONCEPT EXPERIMENT**
+
+The following experiment validates the core architecture at bench scale. Required before blade-length development proceeds.
+
+| **ITEM** | **SPECIFICATION** |
+| --- | --- |
+| **Goal** | Demonstrate polariton condensate propagation through SWCNT waveguide at room temperature, initiated by EM coil, with measurable coherence at waveguide output |
+| **Crystal** | CsPbBr3 single crystal perovskite microwire |
+| **Waveguide** | SWCNT composite film on cylindrical substrate — 1 cm length |
+| **Coil** | Custom solenoid wound to crystal phonon resonance frequency |
+| **Drive source** | CW source at calibrated frequency |
+| **Measurement — condensation** | Photoluminescence spectroscopy confirming nonlinear threshold behavior at crystal |
+| **Measurement — propagation** | Interferometric coherence measurement at waveguide output |
+| **Measurement — rigidity** | Mechanical probe contact force measurement under active vs. inactive condensate |
+| **Success criteria** | (1) Condensation confirmed above threshold. (2) Coherence detected at waveguide output. (3) Measurable force differential between active and inactive states. |
+| **Facility requirement** | University condensed matter optics laboratory — standard equipment |
+
+# **11. OPEN ENGINEERING PROBLEMS — PRIORITY ORDER**
+
+| **PRI** | **PROBLEM** | **DESCRIPTION** | **BLOCKING** |
+| --- | --- | --- | --- |
+| 1 | Condensate-waveguide rigidity | Structural rigidity under active condensate has not been demonstrated at any scale | Device viability |
+| 2 | Blade waveguide scaling | No manufacturing pathway demonstrated for meter-scale SWCNT cylindrical lattice | Functional blade length |
+| 3 | Crystal optical quality | Polariton lifetime requires crystal quality exceeding routine availability | Coherence length |
+| 4 | Emitter nanofabrication | FIB milling of crystal emitter face to required geometry | Mode matching |
+| 5 | Coil tuning protocol | Standardized procedure for crystal resonance measurement and matched coil winding | Repeatability |
+
+# **12. PRIMARY REFERENCES**
+
+| **REFERENCE** | **RELEVANCE** |
+| --- | --- |
+| Su et al. 2018 — Science Advances | Room temperature polariton condensate flow in CsPbBr3 microwire — 60 micrometer propagation |
+| Wu et al. 2025 — Science Advances | CW polariton condensation at room temperature — 0.53 W/cm2 threshold |
+| Kedziorowa et al. 2024 — Nature Materials | Predesigned perovskite crystal waveguides — template fabrication method |
+| Graf et al. 2016 — Nature Communications | SWCNT polariton coupling — >110 meV Rabi splitting at room temperature |
+| Held et al. 2024 — Nature Photonics | Electrical pumping of polaritons in SWCNT microcavities at room temperature |
+| Ardizzone et al. 2022 — Nature | Polariton BEC in bound state in continuum — waveguide geometry |
+| Ciuti et al. 1998 — Physical Review B | Polariton-polariton interaction constant — basis for blade interaction force |
+
+**END OF SPECIFICATION  //  REV 1.0  //  RICKEY JAY BENNETT II  //  APRIL 2026**
+
+AUTHOR: RICKEY JAY BENNETT II  //  APRIL 2026  //  CONFIDENTIAL RESEARCH DOCUMENT
