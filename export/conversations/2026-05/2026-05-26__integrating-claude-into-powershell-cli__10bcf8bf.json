@@ -1,0 +1,598 @@
+{
+  "uuid": "10bcf8bf-105e-47bb-933e-4bb7892f1ee5",
+  "name": "Integrating Claude into PowerShell CLI",
+  "summary": "**Conversation Overview**\n\nThe person is working on integrating Claude into their PowerShell (PS) CLI environment. They asked Claude for guidance on how to accomplish this, and Claude presented three distinct integration approaches: using the official `ant` CLI tool, making direct API calls via PowerShell's native `Invoke-RestMethod`, or building a reusable PowerShell module using the official C# SDK.\n\nClaude walked through concrete implementation details for each option, including code examples. The `ant` CLI path covered installation, setting the `ANTHROPIC_API_KEY` environment variable, basic command syntax with backtick line continuation for PowerShell, and piping JSON output through `ConvertFrom-Json`. The `Invoke-RestMethod` approach was presented as a zero-dependency option with a reusable `Invoke-Claude` function pattern. The C# SDK option was flagged as relevant specifically for building proper PS modules on .NET with MCP integration support. The conversation ended with Claude asking a clarifying question about which direction best fit the person's use case before proceeding further.",
+  "created_at": "2026-05-26T18:53:32.976945Z",
+  "updated_at": "2026-05-26T18:54:03.522115Z",
+  "account": {
+    "uuid": "404f3f89-8c3a-46a9-a7b4-7a3c875dbedd"
+  },
+  "chat_messages": [
+    {
+      "uuid": "019e65a2-8dec-713e-9f23-45ce88733496",
+      "text": "i need to integrate claude into my ps cli",
+      "content": [
+        {
+          "start_timestamp": "2026-05-26T18:53:33.311579Z",
+          "stop_timestamp": "2026-05-26T18:53:33.311579Z",
+          "flags": null,
+          "type": "text",
+          "text": "i need to integrate claude into my ps cli",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-26T18:53:33.311655Z",
+      "updated_at": "2026-05-26T18:53:33.311655Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "00000000-0000-4000-8000-000000000000"
+    },
+    {
+      "uuid": "019e65a2-8dec-7074-b7a7-3861169aad35",
+      "text": "\n```\nThis block is not supported on your current device yet.\n```\n\n\n```\nThis block is not supported on your current device yet.\n```\n\n\n```\nThis block is not supported on your current device yet.\n```\n\n\n```\nThis block is not supported on your current device yet.\n```\n\n\n```\nThis block is not supported on your current device yet.\n```\n\nTwo solid paths here. Let me lay them both out.\n\n---\n\n**Option 1: The `ant` CLI (official, cleanest for PS scripting)**\n\nAnthropic ships an official `ant` CLI that exposes every API resource as a subcommand, with typed flags, response filtering via `--transform`, and native PowerShell completion.\n\nFor Windows/PS, you set the env var and call it directly:\n\n```powershell\n# Set your key (add to $PROFILE for persistence)\n$env:ANTHROPIC_API_KEY = \"sk-ant-...\"\n\n# Install (Windows - grab the binary or use Go)\n# go install github.com/anthropics/anthropic-go/cmd/ant@latest\n\n# Basic call\nant messages create `\n  --model claude-sonnet-4-6 `\n  --max-tokens 1024 `\n  --message '{role: user, content: \"your prompt here\"}'\n```\n\nThe CLI ships completion scripts for PowerShell — generate and install one with the built-in shell completion command. It also reads your key from `ANTHROPIC_API_KEY` automatically, and you can override with `--api-key` per invocation.\n\nFor PS scripting, you pipe and transform the JSON output:\n\n```powershell\n$response = ant messages create --model claude-sonnet-4-6 --max-tokens 512 --message \"{role: user, content: `\"$prompt`\"}\" | ConvertFrom-Json\n$response.content[0].text\n```\n\n---\n\n**Option 2: Raw `Invoke-RestMethod` (no install, pure PS)**\n\nIf you want zero dependencies:\n\n```powershell\nfunction Invoke-Claude {\n    param([string]$Prompt, [string]$Model = \"claude-sonnet-4-6\", [int]$MaxTokens = 1024)\n\n    $body = @{\n        model = $Model\n        max_tokens = $MaxTokens\n        messages = @(@{ role = \"user\"; content = $Prompt })\n    } | ConvertTo-Json -Depth 5\n\n    $response = Invoke-RestMethod -Uri \"https://api.anthropic.com/v1/messages\" `\n        -Method POST `\n        -Headers @{\n            \"x-api-key\"         = $env:ANTHROPIC_API_KEY\n            \"anthropic-version\" = \"2023-06-01\"\n            \"content-type\"      = \"application/json\"\n        } `\n        -Body $body\n\n    return $response.content[0].text\n}\n\n# Usage\nInvoke-Claude \"Summarize this for me: ...\"\n```\n\n---\n\n**Option 3: Official C# SDK (if you're building a module)**\n\nThe official Anthropic C# SDK reads the API key from `ANTHROPIC_API_KEY` automatically and implements `IChatClient` for MCP integration — relevant if you're building a proper PS module on .NET.\n\n---\n\nWhich direction fits your use case — scripting automation with `ant`, raw `Invoke-RestMethod` for no-install portability, or building a reusable PS module? That'll determine how deep to go.",
+      "content": [
+        {
+          "start_timestamp": "2026-05-26T18:53:34.996245Z",
+          "stop_timestamp": "2026-05-26T18:53:35.477859Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_013frdAb4AnMTevbUiRfQXZe",
+          "name": "view",
+          "input": {
+            "description": "Check product self-knowledge skill",
+            "path": "/mnt/skills/public/product-self-knowledge/SKILL.md"
+          },
+          "message": "Check product self-knowledge skill",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "file",
+          "context": null,
+          "display_content": {
+            "type": "text",
+            "text": "Check product self-knowledge skill"
+          },
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_013frdAb4AnMTevbUiRfQXZe",
+          "name": "view",
+          "content": [
+            {
+              "type": "text",
+              "text": "     1\t---\n     2\tname: product-self-knowledge\n     3\tdescription: \"Stop and consult this skill whenever your response would include specific facts about Anthropic's products. Covers: Claude Code (how to install, Node.js requirements, platform/OS support, MCP server integration, configuration), Claude API (function calling/tool use, batch processing, SDK usage, rate limits, pricing, models, streaming), and Claude.ai (Pro vs Team vs Enterprise plans, feature limits). Trigger this even for coding tasks that use the Anthropic SDK, content creation mentioning Claude capabilities or pricing, or LLM provider comparisons. Any time you would otherwise rely on memory for Anthropic product details, verify here instead — your training data may be outdated or wrong.\"\n     4\t---\n     5\t\n     6\t# Anthropic Product Knowledge\n     7\t\n     8\t## Core Principles\n     9\t\n    10\t1. **Accuracy over guessing** - Check official docs when uncertain\n    11\t2. **Distinguish products** - Claude.ai, Claude Code, and Claude API are separate products\n    12\t3. **Source everything** - Always include official documentation URLs\n    13\t4. **Right resource first** - Use the correct docs for each product (see routing below)\n    14\t\n    15\t---\n    16\t\n    17\t## Question Routing\n    18\t\n    19\t### Claude API or Claude Code questions?\n    20\t\n    21\t→ **Check the docs maps first**, then navigate to specific pages:\n    22\t\n    23\t- **Claude API & General:** https://docs.claude.com/en/docs_site_map.md\n    24\t- **Claude Code:** https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md\n    25\t\n    26\t### Claude.ai questions?\n    27\t\n    28\t→ **Browse the support page:**\n    29\t\n    30\t- **Claude.ai Help Center:** https://support.claude.com\n    31\t\n    32\t---\n    33\t\n    34\t## Response Workflow\n    35\t\n    36\t1. **Identify the product** - API, Claude Code, or Claude.ai?\n    37\t2. **Use the right resource** - Docs maps for API/Code, support page for Claude.ai\n    38\t3. **Verify details** - Navigate to specific documentation pages\n    39\t4. **Provide answer** - Include source link and specify which product\n    40\t5. **If uncertain** - Direct user to relevant docs: \"For the most current information, see [URL]\"\n    41\t\n    42\t---\n    43\t\n    44\t## Quick Reference\n    45\t\n    46\t**Claude API:**\n    47\t\n    48\t- Documentation: https://docs.claude.com/en/api/overview\n    49\t- Docs Map: https://docs.claude.com/en/docs_site_map.md\n    50\t\n    51\t**Claude Code:**\n    52\t\n    53\t- Documentation: https://docs.claude.com/en/docs/claude-code/overview\n    54\t- Docs Map: https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md\n    55\t- npm Package: https://www.npmjs.com/package/@anthropic-ai/claude-code\n    56\t\n    57\t**Claude.ai:**\n    58\t\n    59\t- Support Center: https://support.claude.com\n    60\t- Getting Help: https://support.claude.com/en/articles/9015913-how-to-get-support\n    61\t\n    62\t**Other:**\n    63\t\n    64\t- Product News: https://www.anthropic.com/news\n    65\t- Enterprise Sales: https://www.anthropic.com/contact-sales\n    66\t",
+              "uuid": "0735fe30-d793-46a7-966c-a0129267ae80"
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "file",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-26T18:53:41.181237Z",
+          "stop_timestamp": "2026-05-26T18:53:41.557136Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01QwGBXezAr5BeVff93d5MU7",
+          "name": "web_fetch",
+          "input": {
+            "url": "https://docs.claude.com/en/docs_site_map.md",
+            "text_content_token_limit": 3000
+          },
+          "message": "Fetching: https://docs.claude.com/en/docs_site_map.md",
+          "integration_name": "Web Fetch",
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01QwGBXezAr5BeVff93d5MU7",
+          "name": "web_fetch",
+          "content": [
+            {
+              "type": "text",
+              "text": "{\"error_type\": \"PERMISSIONS_ERROR\", \"error_message\": \"This URL cannot be fetched because it was not provided by the user nor did it appear in any search/fetch results\"}",
+              "uuid": "e5b1f421-2ec8-4e54-a928-0da755a3f9b5"
+            }
+          ],
+          "is_error": true,
+          "structured_content": null,
+          "meta": null,
+          "message": "Failed to fetch: https://docs.claude.com/en/docs_site_map.md",
+          "integration_name": "Web Fetch",
+          "mcp_server_url": null,
+          "integration_icon_url": "https://www.google.com/s2/favicons?sz=64&domain=claude.com",
+          "icon_name": "globe",
+          "display_content": {
+            "type": "rich_link",
+            "link": {
+              "title": "https://docs.claude.com/en/docs_site_map.md",
+              "subtitles": null,
+              "url": "https://docs.claude.com/en/docs_site_map.md",
+              "resource_type": null,
+              "icon_url": "https://www.google.com/s2/favicons?sz=64&domain=claude.com",
+              "source": "claude"
+            },
+            "is_trusted": false
+          },
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-26T18:53:43.183390Z",
+          "stop_timestamp": "2026-05-26T18:53:43.324205Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01JwN5h2Xdbj4xaQuzDeyP5J",
+          "name": "web_fetch",
+          "input": {
+            "url": "https://docs.anthropic.com/en/api/overview",
+            "text_content_token_limit": 2000
+          },
+          "message": "Fetching: https://docs.anthropic.com/en/api/overview",
+          "integration_name": "Web Fetch",
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01JwN5h2Xdbj4xaQuzDeyP5J",
+          "name": "web_fetch",
+          "content": [
+            {
+              "type": "text",
+              "text": "{\"error_type\": \"PERMISSIONS_ERROR\", \"error_message\": \"This URL cannot be fetched because it was not provided by the user nor did it appear in any search/fetch results\"}",
+              "uuid": "1dbf48af-b9eb-410e-a019-22091a76f4ae"
+            }
+          ],
+          "is_error": true,
+          "structured_content": null,
+          "meta": null,
+          "message": "Failed to fetch: https://docs.anthropic.com/en/api/overview",
+          "integration_name": "Web Fetch",
+          "mcp_server_url": null,
+          "integration_icon_url": "https://www.google.com/s2/favicons?sz=64&domain=anthropic.com",
+          "icon_name": "globe",
+          "display_content": {
+            "type": "rich_link",
+            "link": {
+              "title": "https://docs.anthropic.com/en/api/overview",
+              "subtitles": null,
+              "url": "https://docs.anthropic.com/en/api/overview",
+              "resource_type": null,
+              "icon_url": "https://www.google.com/s2/favicons?sz=64&domain=anthropic.com",
+              "source": "anthropic"
+            },
+            "is_trusted": false
+          },
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-26T18:53:45.004434Z",
+          "stop_timestamp": "2026-05-26T18:53:45.176221Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01Nd5gTTWfRAtSyfkXuHj4FG",
+          "name": "web_search",
+          "input": {
+            "query": "Anthropic Claude API PowerShell integration SDK 2025"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01Nd5gTTWfRAtSyfkXuHj4FG",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "GitHub - tghamm/Anthropic.SDK: An unofficial C#/.NET SDK for accessing the Anthropic Claude API. This package is not affiliated with, endorsed by, or sponsored by Anthropic. Anthropic and Claude are trademarks of Anthropic, PBC. · GitHub",
+              "url": "https://github.com/tghamm/Anthropic.SDK",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Anthropic.SDK is an unofficial C# client designed for interacting with the Claude AI API. This powerful interface simplifies the integration of the Claude AI into your C# applications.\n\nAnthropic.SDK is an unofficial C# client designed for interacting with the Claude AI API. This powerful interface simplifies the integration of the Claude AI into your C# applications. It targets NetStandard 2.0, .NET 8.0, and .NET 10.0. Note: This package is not affiliated with, endorsed by, or sponsored by Anthropic. Anthropic and Claude are trademarks of Anthropic, PBC. ... You can load the API Key from an environment variable named ANTHROPIC_API_KEY by default. Alternatively, you can supply it as a string to the AnthropicClient constructor. The AnthropicClient can optionally take a custom HttpClient in the AnthropicClient constructor, which allows you to control elements such as retries and timeouts. Note: If you provide your own HttpClient, you are responsible for disposal of that client. \n\nThere are two ways to start using the AnthropicClient.\n\nSee integration tests for more examples like streaming. The AnthropicClient supports the Web Fetch API, which allows Claude to retrieve full content from specified web pages and PDF documents. Like web search, the default version (web_fetch_20260209) supports dynamic filtering with Claude Opus 4.6 and Sonnet 4.6. Use ServerTools.WebFetchVersionLegacy for the version without dynamic filtering.\n\nvar thinkingParams = new ThinkingParameters { BudgetTokens = 3000 }; ChatOptions options = new() { ModelId = AnthropicModels.Claude46Sonnet, MaxOutputTokens = 4096, Temperature = 1.0f, }.WithThinking(thinkingParams); For enhanced thinking capabilities that allow thinking tokens to exceed max_tokens, you can use the WithInterleavedThinking extension method. \n\nThis enables the interleaved-thinking-2025-05-14 beta header: // Enable interleaved thinking with budget tokens exceeding max_tokens ChatOptions options = new() { ModelId = AnthropicModels.Clau",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://github.com/tghamm/Anthropic.SDK",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "NuGet Gallery | Anthropic.SDK 5.10.0",
+              "url": "https://www.nuget.org/packages/Anthropic.SDK",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "nuget.org",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=nuget.org",
+                "site_name": "NuGet"
+              },
+              "is_missing": false,
+              "text": "Here&#x27;s an example of a non-streaming call to the Claude AI API to the Claude Sonnet 4.6 model: var client = new AnthropicClient(); var messages = new List&lt;Message&gt;() { new Message(RoleType.User, &quot;Who won the world series in 2020?&quot;), new Message(RoleType.Assistant, &quot;The Los Angeles Dodgers won the World Series in 2020.&quot;), new Message(RoleType.User, &quot;Where was it played?&quot;), }; var parameters = new MessageParameters() { Messages = messages, MaxTokens = 1024, Model = AnthropicModels.Claude46Sonnet, Stream = false, Temperature = 1.0m, }; var firstResult = await client.Messages.GetClaudeMessageAsync(parameters); //print result Console.WriteLine(firstR\n\nAnthropic.SDK is an unofficial C# client designed for interacting with the Claude AI API. This powerful interface simplifies the integration of the Claude AI into your C# applications. It targets NetStandard 2.0, .NET 8.0, and .NET 10.0. \n\nNote: This package is not affiliated with, endorsed by, or sponsored by Anthropic. Anthropic and Claude are trademarks of Anthropic, PBC. ... You can load the API Key from an environment variable named ANTHROPIC_API_KEY by default. Alternatively, you can supply it as a string to the AnthropicClient constructor. The AnthropicClient can optionally take a custom HttpClient in the AnthropicClient constructor, which allows you to control elements such as retries and timeouts. Note: If you provide your own HttpClient, you are responsible for disposal of that client. There are two ways to start using the AnthropicClient.\n\nSee integration tests for more examples like streaming. The AnthropicClient supports the Web Fetch API, which allows Claude to retrieve full content from specified web pages and PDF documents. Like web search, the default version (web_fetch_20260209) supports dynamic filtering with Claude Opus 4.6 and Sonnet 4.6. \n\nUse ServerTools.WebFetchVersionLegacy for the version without dynamic filtering.\n\nvar thinkingParams = new ThinkingParameter",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://www.nuget.org/packages/Anthropic.SDK",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Claude in Azure with .NET – Anthropic Claude + Microsoft Extensions.AI (MEAI) 💥",
+              "url": "https://elbruno.com/2025/12/04/claude-in-azure-with-net-anthropic-claude-microsoft-extensions-ai-meai-%F0%9F%92%A5/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "elbruno.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=elbruno.com",
+                "site_name": "El Bruno"
+              },
+              "is_missing": false,
+              "text": "The integration supports multiple languages – you can call Claude from Python, JavaScript, or C# SDKs with either API key or Azure AD authentication. In C#, this typically involves using either Anthropic’s .NET SDK or Microsoft Extensions ...\n\nThis is a “serverless” integration this means you use Azure’s credentials (API key or Entra ID token) to call the Claude Messages API at the Azure endpoint. The integration supports multiple languages – you can call Claude from Python, JavaScript, or C# SDKs with either API key or Azure AD authentication. In C#, this typically involves using either Anthropic’s .NET SDK or Microsoft Extensions for AI (MEAI). Let’s focus on the latter and how to get Claude working with it. Microsoft Extensions for AI (MEAI) is a new set of .NET libraries providing unified interfaces (like IChatClient) to interact with AI models (Azure OpenAI, local models, etc.). \n\nA Claude deployment (Haiku 4.5) in Azure Foundry – note the usage example on the right uses Anthropic’s API style (x-api-key, anthropic-version headers, etc.) differing from the OpenAI API. Because of these differences, a vanilla Azure OpenAI client (which MEAI uses under the hood) cannot directly call the Claude endpoint – it would send the wrong headers/JSON and get errors. Official support is in progress – Microsoft has indicated that new AI provider connectors (like Anthropic) will be integrated via the MEAI abstractionsgithub.com. In fact, Anthropic has released a C# SDK (NuGet Anthropic package) that implements the IChatClient interface (nuget.orgnuget.org), which suggests that future versions of MEAI may simply require plugging in Anthropic’s client. But until full official support arrives (and while the SDK is maturing), developers have a workaround: use a compatibility shim that converts between OpenAI and Claude formats.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://elbruno.com/2025/12/04/claude-in-azure-with-net-anthropic-claude-microsoft-extensions-ai-meai-%F0%9F%92%A5/",
+                "search_provider": "anthropic",
+                "age": "December 4, 2025"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Client SDKs - Claude API Docs",
+              "url": "https://platform.claude.com/docs/en/api/client-sdks",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "claude.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=claude.com",
+                "site_name": "Claude API Docs"
+              },
+              "is_missing": false,
+              "text": "Anthropic provides official client SDKs in multiple languages to make it easier to work with the Claude API. Each SDK provides idiomatic interfaces, type safety, and built-in support for features like streaming, retries, and error handling.\n\nOfficial SDKs for building with the Claude API in Python, TypeScript, Java, Go, Ruby, C#, PHP, and the command line. ... Anthropic provides official client SDKs in multiple languages to make it easier to work with the Claude API. Each SDK provides idiomatic interfaces, type safety, and built-in support for features like streaming, retries, and error handling. For the full API specification, see the API reference. ... Platform support varies by language. See individual SDK pages for platform-specific setup instructions and availability. Access beta features using the beta namespace in any SDK: See Beta headers for available beta features. ... \n\nimport anthropic client = anthropic.Anthropic() message = client.messages.create( model=\"claude-opus-4-7\", max_tokens=1024, messages=[{\"role\": \"user\", \"content\": \"Hello, Claude\"}], ) print(message.content) ...\n\nAnthropic provides official client SDKs in multiple languages to make it easier to work with the Claude API. Each SDK provides idiomatic interfaces, type safety, and built-in support for features like streaming, retries, and error handling. For the full API specification, see the API reference. CLI · Shell scripting, typed flags, response transforms · Python · Sync and async clients, Pydantic models · TypeScript · Node.js, Deno, Bun, and browser support · Java · Builder pattern, CompletableFuture async · Go · Context-based cancellation, functional options · Ruby · Sorbet types, streaming helpers · C# .NET Standard 2.0+, IChatClient integration · PHP · Value objects, builder pattern · SDKs support the following platforms: Platform support varies by language.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://platform.claude.com/docs/en/api/client-sdks",
+                "search_provider": "anthropic",
+                "age": "April 11, 2026"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "CLI - Claude API Docs",
+              "url": "https://platform.claude.com/docs/en/api/sdks/cli",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "claude.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=claude.com",
+                "site_name": "Claude API Docs"
+              },
+              "is_missing": false,
+              "text": "Claude Code shells out to ant, parses the structured output, and reasons over the results (no custom integration code required). Add --debug to any command to print the exact HTTP request and response (headers and body) to stderr. API keys are redacted. ... GET /v1/agents?beta=true HTTP/1.1 Host: api.anthropic.com Anthropic-Beta: managed-agents-2026-04-01 Anthropic-Version: 2023-06-01 X-Api-Key: &lt;REDACTED&gt; ... The CLI ships completion scripts for bash, zsh, fish, and PowerShell. Generate and install one for your shell: ... Every API resource the CLI exposes is documented in the API reference.\n\nClaude Code shells out to ant, parses the structured output, and reasons over the results (no custom integration code required). Add --debug to any command to print the exact HTTP request and response (headers and body) to stderr. API keys are redacted. ... \n\nGET /v1/agents?beta=true HTTP/1.1 Host: api.anthropic.com Anthropic-Beta: managed-agents-2026-04-01 Anthropic-Version: 2023-06-01 X-Api-Key: <REDACTED> ... The CLI ships completion scripts for bash, zsh, fish, and PowerShell. Generate and install one for your shell: ... Every API resource the CLI exposes is documented in the API reference.\n\nThe CLI also reads your API key from the ANTHROPIC_API_KEY environment variable. Get a key from the Claude Console. ... To override the key for a single invocation, pass --api-key. To point at a different API host, set ANTHROPIC_BASE_URL or pass --base-url. ant auth status prints the credential source the CLI selected (API key environment variable, OAuth login, federation, or profile), the active profile, the workspace the active token is bound to, and the configuration directory paths. Use it to diagnose why a workload picked the wrong credential or workspace. ...",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://platform.claude.com/docs/en/api/sdks/cli",
+                "search_provider": "anthropic",
+                "age": "February 4, 2026"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Claude Agent SDK | AI Wiki",
+              "url": "https://aiwiki.ai/wiki/claude_agent_sdk",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "aiwiki.ai",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=aiwiki.ai",
+                "site_name": "AI Wiki"
+              },
+              "is_missing": false,
+              "text": "Anthropic launched Skills publicly on October 16, 2025 across Claude.ai, Claude Code, the Anthropic API, and the Claude Agent SDK simultaneously. The SDK has supported skills natively since CLI version 2.1, with hot reload added shortly after.\n\nThe Claude Agent SDK is Anthropic's official software development kit for building custom AI agents powered by Claude. Available for both Python and TypeScript, it provides developers with the same tools, agent loop, and context management infrastructure that powers Claude Code, packaged as a programmable library. The SDK enables the creation of autonomous agents that can read files, execute terminal commands, search the web, edit code, and interact with external systems through the Model Context Protocol (MCP). Originally released as the Claude Code SDK in mid-2025, the project was renamed to the Claude Agent SDK on September 29, 2025, to reflect its broader applicability beyond coding tasks. \n\nAnthropic recognized that developers were using the SDK for deep research, video creation, customer support, legal analysis, and many other non-coding applications.\n\nThe stable 1.0 release followed on September 29, 2025, at which point Anthropic also renamed the package from claude-code-sdk to claude-agent-sdk (Python) and from @anthropic-ai/claude-code to @anthropic-ai/claude-agent-sdk (TypeScript / JavaScript). The rename was timed alongside the launch of Claude Sonnet 4.5 and the Claude Code 2.0 release. Anthropic published an engineering post titled \"Building agents with the Claude Agent SDK\" explaining the design philosophy: that giving a model access to a real computer, with real tools, is a shorter path to capable agents than reinventing tool calling on top of a chat API. \n\nA notable enterprise milestone came on February 3, 2026, when Apple announced that Xcode 26.3 would include a native integration with the Claude Agent SDK, bringing agentic coding capabilities to iOS, macOS, and visionOS development. Apple's announcement spe",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://aiwiki.ai/wiki/claude_agent_sdk",
+                "search_provider": "anthropic",
+                "age": "3 weeks ago"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "C# SDK - Claude API Docs",
+              "url": "https://platform.claude.com/docs/en/api/sdks/csharp",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "claude.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=claude.com",
+                "site_name": "Claude API Docs"
+              },
+              "is_missing": false,
+              "text": "using Anthropic; // Configured using the ANTHROPIC_API_KEY, ANTHROPIC_AUTH_TOKEN and ANTHROPIC_BASE_URL environment variables AnthropicClient client = new(); ... Or using a combination of the two approaches.\n\nusing Anthropic; // Configured using the ANTHROPIC_API_KEY, ANTHROPIC_AUTH_TOKEN and ANTHROPIC_BASE_URL environment variables AnthropicClient client = new(); ... Or using a combination of the two approaches.\n\nThe SDK provides an implementation of the IChatClient interface from the Microsoft.Extensions.AI.Abstractions library. This enables AnthropicClient (and Anthropic.Services.IBetaService) to be used with other libraries that integrate with these core abstractions. For example, tools in the MCP C# SDK (ModelContextProtocol) library can be used directly with an AnthropicClient exposed through IChatClient.\n\nThe Anthropic C# SDK provides convenient access to the Anthropic REST API from applications written in C#. The C# SDK is currently in beta. APIs may change between versions.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://platform.claude.com/docs/en/api/sdks/csharp",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "RubyGems Navigation menu",
+              "url": "https://rubygems.org/gems/claude-ruby/versions/0.4.1?locale=ja",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "rubygems.org",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=rubygems.org",
+                "site_name": "rubygems"
+              },
+              "is_missing": false,
+              "text": "RubyGems Navigation menu\n\nclaude-ruby 0.4.1\n\nRuby SDK for interacting with the Anthropic API, for generating and streaming messages through Claude AI.\n\nGemfile:\n=\n\nインストール:\n=\n\nバージョン履歴:\n\n  1. 0.4.1 November 05, 2024 (10.5KB)\n  2. 0.4.0 July 09, 2024 (10.5KB)\n  3. 0.3.1 June 29, 2024 (9.5KB)\n  4. 0.3.0 June 29, 2024 (15KB)\n  5. 0.2.1 March 24, 2024 (8.5KB)\n全てのバージョンを表示(全8件)\n\n所有者:\n\nプッシュ者:\n\n作者:\n\n  • Web Ventures Ltd\n\nSHA 256チェックサム:\n\n=\n\n累計ダウンロード数 3,310\n\nこのバージョンのみ 780\n\nこのバージョンがリリースされたのは:\n\nライセンス:\n\nMIT\n\n必要なRubyのバージョン: >= 3.0.0\n\nリンク:",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "url": "https://rubygems.org/gems/claude-ruby/versions/0.4.1?locale=ja",
+                "search_provider": "anthropic"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-26T18:53:48.471423Z",
+          "stop_timestamp": "2026-05-26T18:53:48.875482Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01Bg84zg16WGae8Tnt5JZStg",
+          "name": "web_fetch",
+          "input": {
+            "url": "https://platform.claude.com/docs/en/api/sdks/cli",
+            "text_content_token_limit": 3000
+          },
+          "message": "Fetching: https://platform.claude.com/docs/en/api/sdks/cli",
+          "integration_name": "Web Fetch",
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01Bg84zg16WGae8Tnt5JZStg",
+          "name": "web_fetch",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "CLI",
+              "url": "https://platform.claude.com/docs/en/api/sdks/cli",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "claude.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=claude.com",
+                "site_name": "claude"
+              },
+              "is_missing": false,
+              "text": "CLI - Claude API Docs\n\nLoading...\n\nMessages\n\n* [Build](https://platform.claude.com/docs/en/intro)\n* [Admin](https://platform.claude.com/docs/en/build-with-claude/administration-api)\n* [Models & pricing](https://platform.claude.com/docs/en/about-claude/models/overview)\n* [Client SDKs](https://platform.claude.com/docs/en/api/client-sdks)\n* [API Reference](https://platform.claude.com/docs/en/api/overview)\n\nEnglish[Log in](https://platform.claude.com/login?returnTo=%2Fdocs%2Fen%2Fapi%2Fsdks%2Fcli)\n\nSearch...\n\n⌘K\n\nClient SDKs\n\n[Overview](https://platform.claude.com/docs/en/api/client-sdks)[CLI](https://platform.claude.com/docs/en/api/sdks/cli)[Python SDK](https://platform.claude.com/docs/en/api/sdks/python)[TypeScript SDK](https://platform.claude.com/docs/en/api/sdks/typescript)[Java SDK](https://platform.claude.com/docs/en/api/sdks/java)[Go SDK](https://platform.claude.com/docs/en/api/sdks/go)[Ruby SDK](https://platform.claude.com/docs/en/api/sdks/ruby)[C# SDK](https://platform.claude.com/docs/en/api/sdks/csharp)[PHP SDK](https://platform.claude.com/docs/en/api/sdks/php)\n\nCompatibility\n\n[OpenAI SDK compatibility](https://platform.claude.com/docs/en/api/openai-sdk)\n\n[Console](https://platform.claude.com/)\n\n[Log in](https://platform.claude.com/login)\n\nClient SDKsCLI\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\nLoading...\n\n### Solutions\n\n* [AI agents](https://claude.com/solutions/agents)\n* [Code modernization](https://claude.com/solutions/code-modernization)\n* [Coding](https://claude.com/solutions/coding)\n* [Customer support](https://claude.com/solutions/customer-support)\n* [Education](https://claude.com/solutions/education)\n* [Financial services](https://claude.com/solutions/financial-services)\n* [Government](https://claude.com/solutions/government)\n* [Life sciences](https://claude.com/solutions/life-sciences)\n\n### Partners\n\n* [Amazon Bedrock](https://claude.com/partners/amazon-bedrock)\n* [Google Cloud's Vertex AI](https://claude.com/partners/google-cloud-vertex-ai)\n\n### Learn\n\n* [Blog](https://claude.com/blog)\n* [Courses](https://www.anthropic.com/learn)\n* [Use cases](https://claude.com/resources/use-cases)\n* [Connectors](https://claude.com/partners/mcp)\n* [Customer stories](https://claude.com/customers)\n* [Engineering at Anthropic](https://www.anthropic.com/engineering)\n* [Events](https://www.anthropic.com/events)\n* [Powered by Claude](https://claude.com/partners/powered-by-claude)\n* [Service partners](https://claude.com/partners/services)\n* [Startups program](https://claude.com/programs/startups)\n\n### Company\n\n* [Anthropic](https://www.anthropic.com/company)\n* [Careers](https://www.anthropic.com/careers)\n* [Economic Futures](https://www.anthropic.com/economic-futures)\n* [Research](https://www.anthropic.com/research)\n* [News](https://www.anthropic.com/news)\n* [Responsible Scaling Policy](https://www.anthropic.com/news/announcing-our-updated-responsible-scaling-policy)\n* [Security and compliance](https://trust.anthropic.com)\n* [Transparency](https://www.anthropic.com/transparency)\n\n### Learn\n\n* [Blog](https://claude.com/blog)\n* [Courses](https://www.anthropic.com/learn)\n* [Use cases](https://claude.com/resources/use-cases)\n* [Connectors](https://claude.com/partners/mcp)\n* [Customer stories](https://claude.com/customers)\n* [Engineering at Anthropic](https://www.anthropic.com/engineering)\n* [Events](https://www.anthropic.com/events)\n* [Powered by Claude](https://claude.com/partners/powered-by-claude)\n* [Service partners](https://claude.com/partners/services)\n* [Startups program](https://claude.com/programs/startups)\n\n### Help and security\n\n* [Availability](https://www.anthropic.com/supported-countries)\n* [Status](https://status.claude.com/)\n* [Support](https://support.claude.com/)\n* [Discord](https://www.anthropic.com/discord)\n\n### Terms and policies\n\n* [Privacy policy](https://www.anthropic.com/legal/privacy)\n* [Responsible disclosure policy](https://www.anthropic.com/responsible-disclosure-policy)\n* [Terms of service: Commercial](https://www.anthropic.com/legal/commercial-terms)\n* [Terms of service: Consumer](https://www.anthropic.com/legal/consumer-terms)\n* [Usage policy](https://www.anthropic.com/legal/aup)\n\nClient SDKs\n\n# CLI\n\nCopy page\n\nInteract with the Claude API directly from your terminal with the ant command-line tool\n\nCopy page\n\nWas this page helpful?\n\n* [Installation](#installation)\n* [Authentication](#authentication)\n* [Send your first request](#send-your-first-request)\n* [Command structure](#command-structure)\n* [Global flags](#global-flags)\n* [Output formats](#output-formats)\n* [Interactive explorer](#interactive-explorer)\n* [Transform output with GJSON](#transform-output-with-gjson)\n* [Extract a scalar](#extract-a-scalar)\n* [Passing request bodies](#passing-request-bodies)\n* [Flags](#flags)\n* [Stdin](#stdin)\n* [File references](#file-references)\n* [Version-controlling API resources](#version-controlling-api-resources)\n* [Scripting patterns](#scripting-patterns)\n* [Chain list output into a second command](#chain-list-output-into-a-second-command)\n* [Inspect errors](#inspect-errors)\n* [Use the CLI from Claude Code](#use-the-cli-from-claude-code)\n* [Debugging](#debugging)\n* [Shell completion](#shell-completion)\n* [Available resources](#available-resources)\n\nThe `ant` CLI provides access to the Claude API from your terminal. Every API resource is exposed as a subcommand, with output formatting, response filtering, and support for YAML or JSON file input that make it practical for both interactive exploration and automation.\n\nCompared to calling the API with `curl`, `ant` lets you build request bodies from typed flags or piped YAML rather than hand-written JSON, inline file contents into string fields with an `@path` reference, and extract fields from the response with a built-in `--transform` query — no separate JSON tooling required. List endpoints paginate automatically. Claude Code understands how to use `ant` natively.\n\nFor endpoint-specific parameters and response schemas, see the [API reference](https://platform.claude.com/docs/en/api/cli/messages/create). This page covers CLI-specific features and workflows that apply across all endpoints.\n\n## Installation\n\nHomebrew (macOS)\n\nHomebrew (macOS)\n\ncurl (Linux/WSL)\n\ncurl (Linux/WSL)\n\nGo\n\nGo\n\nCheck the installation:\n\n```\nant --version\n```\n\n## Authentication\n\nThe CLI reads your API key from the `ANTHROPIC_API_KEY` environment variable.\n\nzsh\n\nzsh\n\nbash\n\nbash\n\nWindows\n\nWindows\n\nGet a key from the [Claude Console](https://platform.claude.com/settings/keys). To point at a different API host, set `ANTHROPIC_BASE_URL` or pass `--base-url` on any command.\n\n## Send your first request\n\nWith the binary installed and `ANTHROPIC_API_KEY` set, call the [Messages API](https://platform.claude.com/docs/en/api/cli/messages/create):\n\n```\nant messages create \\\n  --model claude-opus-4-6 \\\n  --max-tokens 1024 \\\n  --message '{role: user, content: \"Hello, Claude\"}'\n```\n\nOutput\n\n```\n{\n  \"model\": \"claude-opus-4-6\",\n  \"id\": \"msg_01YMmR5XodC5nTqMxLZMKaq6\",\n  \"type\": \"message\",\n  \"role\": \"assistant\",\n  \"content\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"Hello! How are you doing today? Is there something I can help you with?\"\n    }\n  ],\n  \"stop_reason\": \"end_turn\",\n  \"usage\": { \"input_tokens\": 27, \"output_tokens\": 20 /*, ... */ }\n}\n```\n\nThe response is the full API object, pretty-printed because stdout is a terminal. The rest of this page covers how to reshape that output, pass complex request bodies, and chain commands together.\n\n## Command structure\n\nCommands follow a `resource action` pattern. Nested resources use colons:\n\n```\nant <resource>[:<subresource>] <action> [flags]\n```\n\nRun `ant --help` for the full resource list, or append `--help` to any subcommand for its flags.\n\nResources currently in beta — including agents, sessions, deployments, environments, and skills — live under the `beta:` prefix. Commands in this namespace automatically send the appropriate `anthropic-beta` header for that resource, so you don't need to pass it yourself. Use `--beta <header>` only to override the default — for example, to opt into a different schema version.\n\n```\nant models list\nant messages create --model claude-opus-4-6 --max-tokens 1024 ...\nant beta:agents retrieve --agent-id agent_01...\nant beta:sessions:events list --session-id session_01...\n```\n\n### Global flags\n\n| Flag | Description |\n| --- | --- |\n| `--format` | Output format: `auto`, `json`, `jsonl`, `yaml`, `pretty`, `raw`, `explore` |\n| `--transform` | Filter or reshape the response with a [GJSON path](#transform-output-with-gjson) |\n| `--base-url` | Override the API base URL |\n| `--debug` | Print full HTTP request and response to stderr |\n| `--format-error`, `--transform-error` |\n\n## Output formats\n\nThe default `auto` format pretty-prints JSON when writing to a terminal and emits compact JSON when piped. Override it with `--format`:\n\n```\nant models retrieve --model-id claude-opus-4-6 --format yaml\n```\n\nOutput\n\n```\ntype: model\nid: claude-opus-4-6\ndisplay_name: Claude Opus 4.6\ncreated_at: \"2026-02-04T00:00:00Z\"\n...\n```\n\nList endpoints auto-paginate. In the default formats each item is written separately (one compact JSON object per line in `jsonl` mode, a stream of YAML documents in `yaml` mode), which streams cleanly into `head`, `grep`, and `--transform` filters.\n\n### Interactive explorer\n\nWhen connected to a terminal, `--format explore` opens a fold-and-search TUI for browsing large responses. Arrow keys expand and collapse nodes, `/` searches, `q` exits.\n\n```\nant models list --format explore\n```\n\n## Transform output with GJSON\n\nUse `--transform` to reshape responses before printing. The expression is a [GJSON path](https://github.com/tidwall/gjson/blob/master/SYNTAX.md). For list endpoints the transform runs against each item individually, not the envelope:\n\n```\nant beta:agen",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "content_type": "html",
+                "mime_type": "text/html; charset=utf-8",
+                "destination_url": "https://platform.claude.com/docs/en/api/sdks/cli"
+              },
+              "links": [
+                "https://platform.claude.com/docs/en/home",
+                "https://platform.claude.com/docs/en/intro",
+                "https://platform.claude.com/docs/en/build-with-claude/administration-api",
+                "https://platform.claude.com/docs/en/about-claude/models/overview",
+                "https://platform.claude.com/docs/en/api/client-sdks",
+                "https://platform.claude.com/docs/en/api/overview",
+                "https://platform.claude.com/login?returnTo=%2Fdocs%2Fen%2Fapi%2Fsdks%2Fcli",
+                "https://platform.claude.com/docs/en/api/sdks/cli",
+                "https://platform.claude.com/docs/en/api/sdks/python",
+                "https://platform.claude.com/docs/en/api/sdks/typescript",
+                "https://platform.claude.com/docs/en/api/sdks/java",
+                "https://platform.claude.com/docs/en/api/sdks/go",
+                "https://platform.claude.com/docs/en/api/sdks/ruby",
+                "https://platform.claude.com/docs/en/api/sdks/csharp",
+                "https://platform.claude.com/docs/en/api/sdks/php",
+                "https://platform.claude.com/docs/en/api/openai-sdk",
+                "https://platform.claude.com/",
+                "https://platform.claude.com/login",
+                "https://platform.claude.com/docs",
+                "https://x.com/claudeai",
+                "https://www.linkedin.com/showcase/claude",
+                "https://instagram.com/claudeai",
+                "https://claude.com/solutions/agents",
+                "https://claude.com/solutions/code-modernization",
+                "https://claude.com/solutions/coding",
+                "https://claude.com/solutions/customer-support",
+                "https://claude.com/solutions/education",
+                "https://claude.com/solutions/financial-services",
+                "https://claude.com/solutions/government",
+                "https://claude.com/solutions/life-sciences",
+                "https://claude.com/partners/amazon-bedrock",
+                "https://claude.com/partners/google-cloud-vertex-ai",
+                "https://claude.com/blog",
+                "https://www.anthropic.com/learn",
+                "https://claude.com/resources/use-cases",
+                "https://claude.com/partners/mcp",
+                "https://claude.com/customers",
+                "https://www.anthropic.com/engineering",
+                "https://www.anthropic.com/events",
+                "https://claude.com/partners/powered-by-claude",
+                "https://claude.com/partners/services",
+                "https://claude.com/programs/startups",
+                "https://www.anthropic.com/company",
+                "https://www.anthropic.com/careers",
+                "https://www.anthropic.com/economic-futures",
+                "https://www.anthropic.com/research",
+                "https://www.anthropic.com/news",
+                "https://www.anthropic.com/news/announcing-our-updated-responsible-scaling-policy",
+                "https://trust.anthropic.com",
+                "https://www.anthropic.com/transparency",
+                "https://www.anthropic.com/supported-countries",
+                "https://status.claude.com/",
+                "https://support.claude.com/",
+                "https://www.anthropic.com/discord",
+                "https://www.anthropic.com/legal/privacy",
+                "https://www.anthropic.com/responsible-disclosure-policy",
+                "https://www.anthropic.com/legal/commercial-terms",
+                "https://www.anthropic.com/legal/consumer-terms",
+                "https://www.anthropic.com/legal/aup",
+                "https://platform.claude.com/docs/en/api/cli/messages/create",
+                "https://platform.claude.com/settings/keys",
+                "https://github.com/tidwall/gjson/blob/master/SYNTAX.md",
+                "https://platform.claude.com/docs/en/managed-agents/overview",
+                "https://docs.claude.com/en/docs/claude-code/overview",
+                "https://platform.claude.com/docs/en/api/cli/beta/environments"
+              ]
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": "Fetched: CLI",
+          "integration_name": "Web Fetch",
+          "mcp_server_url": null,
+          "integration_icon_url": "https://www.google.com/s2/favicons?sz=64&domain=claude.com",
+          "icon_name": "globe",
+          "display_content": {
+            "type": "rich_link",
+            "link": {
+              "title": "CLI",
+              "subtitles": null,
+              "url": "https://platform.claude.com/docs/en/api/sdks/cli",
+              "resource_type": null,
+              "icon_url": "https://www.google.com/s2/favicons?sz=64&domain=claude.com",
+              "source": "claude"
+            },
+            "is_trusted": false
+          },
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-26T18:53:50.090851Z",
+          "stop_timestamp": "2026-05-26T18:54:03.490917Z",
+          "flags": null,
+          "type": "text",
+          "text": "Two solid paths here. Let me lay them both out.\n\n---\n\n**Option 1: The `ant` CLI (official, cleanest for PS scripting)**\n\nAnthropic ships an official `ant` CLI that exposes every API resource as a subcommand, with typed flags, response filtering via `--transform`, and native PowerShell completion.\n\nFor Windows/PS, you set the env var and call it directly:\n\n```powershell\n# Set your key (add to $PROFILE for persistence)\n$env:ANTHROPIC_API_KEY = \"sk-ant-...\"\n\n# Install (Windows - grab the binary or use Go)\n# go install github.com/anthropics/anthropic-go/cmd/ant@latest\n\n# Basic call\nant messages create `\n  --model claude-sonnet-4-6 `\n  --max-tokens 1024 `\n  --message '{role: user, content: \"your prompt here\"}'\n```\n\nThe CLI ships completion scripts for PowerShell — generate and install one with the built-in shell completion command. It also reads your key from `ANTHROPIC_API_KEY` automatically, and you can override with `--api-key` per invocation.\n\nFor PS scripting, you pipe and transform the JSON output:\n\n```powershell\n$response = ant messages create --model claude-sonnet-4-6 --max-tokens 512 --message \"{role: user, content: `\"$prompt`\"}\" | ConvertFrom-Json\n$response.content[0].text\n```\n\n---\n\n**Option 2: Raw `Invoke-RestMethod` (no install, pure PS)**\n\nIf you want zero dependencies:\n\n```powershell\nfunction Invoke-Claude {\n    param([string]$Prompt, [string]$Model = \"claude-sonnet-4-6\", [int]$MaxTokens = 1024)\n\n    $body = @{\n        model = $Model\n        max_tokens = $MaxTokens\n        messages = @(@{ role = \"user\"; content = $Prompt })\n    } | ConvertTo-Json -Depth 5\n\n    $response = Invoke-RestMethod -Uri \"https://api.anthropic.com/v1/messages\" `\n        -Method POST `\n        -Headers @{\n            \"x-api-key\"         = $env:ANTHROPIC_API_KEY\n            \"anthropic-version\" = \"2023-06-01\"\n            \"content-type\"      = \"application/json\"\n        } `\n        -Body $body\n\n    return $response.content[0].text\n}\n\n# Usage\nInvoke-Claude \"Summarize this for me: ...\"\n```\n\n---\n\n**Option 3: Official C# SDK (if you're building a module)**\n\nThe official Anthropic C# SDK reads the API key from `ANTHROPIC_API_KEY` automatically and implements `IChatClient` for MCP integration — relevant if you're building a proper PS module on .NET.\n\n---\n\nWhich direction fits your use case — scripting automation with `ant`, raw `Invoke-RestMethod` for no-install portability, or building a reusable PS module? That'll determine how deep to go.",
+          "citations": [
+            {
+              "uuid": "534b1aae-9e45-4269-a530-cefa7bccc90f",
+              "start_index": 121,
+              "end_index": 297,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://platform.claude.com/docs/en/api/sdks/cli"
+              }
+            },
+            {
+              "uuid": "7be8fb85-c134-42a1-9b8a-ebdded368463",
+              "start_index": 720,
+              "end_index": 955,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://platform.claude.com/docs/en/api/sdks/cli"
+              }
+            },
+            {
+              "uuid": "1bbd2626-acf5-474c-81cc-20af9096d179",
+              "start_index": 2068,
+              "end_index": 2261,
+              "details": {
+                "type": "web_search_citation",
+                "url": "https://platform.claude.com/docs/en/api/sdks/csharp"
+              }
+            }
+          ],
+          "citations_grouping_mode": "combine"
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-26T18:54:03.522115Z",
+      "updated_at": "2026-05-26T18:54:03.522115Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e65a2-8dec-713e-9f23-45ce88733496"
+    }
+  ]
+}

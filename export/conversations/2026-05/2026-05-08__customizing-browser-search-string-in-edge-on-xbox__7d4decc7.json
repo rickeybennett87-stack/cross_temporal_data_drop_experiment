@@ -1,0 +1,506 @@
+{
+  "uuid": "7d4decc7-309f-43e4-b493-7e5c5b649728",
+  "name": "Customizing browser search string in Edge on Xbox",
+  "summary": "**Conversation Overview**\n\nThe person initiated a conversation from Microsoft Edge on Xbox, seeking help modifying Edge's internal Chromium search template string to improve address bar search results. They had copied the raw template string directly from Edge's search engine settings and wanted to understand how to modify or augment it, not strip it down. After Claude initially misunderstood and assumed they wanted to edit the string externally, the person corrected this, clarifying they wanted to add or change parameters within the actual stored template.\n\nThe conversation covered how Google URL parameters work, specifically `udm=14` for classic web-only results stripping AI overviews, `udm=50` for AI-only query-driven results, and `pws=0` for turning off personalization. The person expressed particular interest in `udm=50` as a way to get purely model-driven results with no personalization. They also asked about forcing specific content types, and Claude covered `tbm` and `udm` parameters for video, images, news, and web filtering, as well as `as_filetype` for file type targeting. A zipped Google dorking reference file was consulted, which clarified that dork operators function at the query level rather than the template level.\n\nThe person decided to implement `udm=50` with `pws=0` permanently in Edge on Xbox, using that device as a dedicated AI-results search tool since they rarely use it for general browsing. The final recommended string was `{google:baseURL}search?q=%s&udm=50&pws=0&ie={inputEncoding}`. The person confirmed they would set this up.",
+  "created_at": "2026-05-08T10:40:24.484213Z",
+  "updated_at": "2026-05-08T10:49:23.396364Z",
+  "account": {
+    "uuid": "404f3f89-8c3a-46a9-a7b4-7a3c875dbedd"
+  },
+  "chat_messages": [
+    {
+      "uuid": "019e072c-8248-7345-9e00-f46b55fbc4f5",
+      "text": "{google:baseURL}search?q=%s&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchboxStats}{google:searchFieldtrialParameter}{google:language}{google:prefetchSource}{google:searchClient}{google:sourceId}{google:contextualSearchVersion}ie={inputEncoding}                                                                                                                                                how do i alter this string to improve my search function results when using search from my browser address bar in Microsoft edge on xbox since thats where im initiating this chat from so i could get a clean copy past of whats actually there",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:40:25.064423Z",
+          "stop_timestamp": "2026-05-08T10:40:25.064423Z",
+          "flags": null,
+          "type": "text",
+          "text": "{google:baseURL}search?q=%s&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchboxStats}{google:searchFieldtrialParameter}{google:language}{google:prefetchSource}{google:searchClient}{google:sourceId}{google:contextualSearchVersion}ie={inputEncoding}                                                                                                                                                how do i alter this string to improve my search function results when using search from my browser address bar in Microsoft edge on xbox since thats where im initiating this chat from so i could get a clean copy past of whats actually there",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-08T10:40:25.064633Z",
+      "updated_at": "2026-05-08T10:40:25.064633Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "00000000-0000-4000-8000-000000000000"
+    },
+    {
+      "uuid": "019e072c-824d-7500-a678-94078a9ed46b",
+      "text": " That string is a Chrome/Chromium internal search template — it's the raw URL template Edge uses behind the scenes for address bar searches. You're seeing it because Edge on Xbox likely exposed it in whatever input field you copied from.\n\nYou can't usefully edit that template directly — the `{google:*}` tokens are Chromium-internal macros that only the browser engine resolves. Pasting a modified version anywhere won't change how Edge performs searches.\n\n**What you actually want to do:**\n\nTo change your address bar search behavior in Edge on Xbox, you change the default search engine, not the template string. Go to:\n\n**Settings → Privacy, search, and services → Address bar and search → Search engine used in the address bar**\n\nFrom there you can select Google, Bing, or add a custom search engine with whatever URL format you want.\n\n**If you want a clean Google search URL for a custom engine**, the simplified version is:\n\n```\nhttps://www.google.com/search?q=%s\n```\n\nThat's all you need. The `%s` is where Edge substitutes your query. Everything else in that original string is optional tracking/session metadata that Google handles gracefully when absent.\n\nWhat are you actually trying to accomplish with the search results — different engine, cleaner results, something else?",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:40:26.284502Z",
+          "stop_timestamp": "2026-05-08T10:40:33.239588Z",
+          "flags": null,
+          "type": "text",
+          "text": " That string is a Chrome/Chromium internal search template — it's the raw URL template Edge uses behind the scenes for address bar searches. You're seeing it because Edge on Xbox likely exposed it in whatever input field you copied from.\n\nYou can't usefully edit that template directly — the `{google:*}` tokens are Chromium-internal macros that only the browser engine resolves. Pasting a modified version anywhere won't change how Edge performs searches.\n\n**What you actually want to do:**\n\nTo change your address bar search behavior in Edge on Xbox, you change the default search engine, not the template string. Go to:\n\n**Settings → Privacy, search, and services → Address bar and search → Search engine used in the address bar**\n\nFrom there you can select Google, Bing, or add a custom search engine with whatever URL format you want.\n\n**If you want a clean Google search URL for a custom engine**, the simplified version is:\n\n```\nhttps://www.google.com/search?q=%s\n```\n\nThat's all you need. The `%s` is where Edge substitutes your query. Everything else in that original string is optional tracking/session metadata that Google handles gracefully when absent.\n\nWhat are you actually trying to accomplish with the search results — different engine, cleaner results, something else?",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-08T10:40:33.537869Z",
+      "updated_at": "2026-05-08T10:40:33.537869Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e072c-8248-7345-9e00-f46b55fbc4f5"
+    },
+    {
+      "uuid": "019e072d-e077-721b-86a4-e0be8e410a44",
+      "text": "well no you see. I copied that from the place in the settings in edge on Xbox where it's kept. I copied it from the place where they store it to use but I pasted it into that cover. see this conversation with you is the copy of the text that they actually use when they run the search, which is why I asked how I might modify it to improve my searches",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:41:47.709731Z",
+          "stop_timestamp": "2026-05-08T10:41:47.709731Z",
+          "flags": null,
+          "type": "text",
+          "text": "well no you see. I copied that from the place in the settings in edge on Xbox where it's kept. I copied it from the place where they store it to use but I pasted it into that cover. see this conversation with you is the copy of the text that they actually use when they run the search, which is why I asked how I might modify it to improve my searches",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-08T10:41:47.709918Z",
+      "updated_at": "2026-05-08T10:41:47.709918Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e072c-824d-7500-a678-94078a9ed46b"
+    },
+    {
+      "uuid": "019e072d-e077-721b-86a4-e0bf081af756",
+      "text": " Got it — you copied the actual live search template string directly from Edge's settings. That string is exactly what Edge sends when you search from the address bar.\n\nThe tokens in it break down like this:\n\n- `{google:baseURL}` — resolves to `https://www.google.com/` \n- `q=%s` — your query\n- `{google:RLZ}` — device/channel tracking\n- `{google:assistedQueryStats}` — autocomplete metadata\n- `{google:searchboxStats}` — usage telemetry\n- `{google:language}` — your locale\n- `{google:searchClient}` — identifies the client as Edge\n- `ie={inputEncoding}` — character encoding\n\n**The honest answer:** most of those tokens either add telemetry or help Google auto-complete suggestions work. Removing them doesn't improve result quality — Google's ranking algorithm doesn't use them for that.\n\n**What actually improves search results from the address bar:**\n\nThe most impactful change would be switching the base to a different engine entirely. If you want to stay on Google but get cleaner results, you can replace the whole thing with:\n\n```\nhttps://www.google.com/search?q=%s&pws=0\n```\n\n`pws=0` turns off personalization, which some people prefer for less filter-bubble behavior.\n\nOr if you want to try something like:\n```\nhttps://www.google.com/search?q=%s&udm=14\n```\n`udm=14` forces the newer Google web results filter, stripping AI overviews.\n\nWhat specifically feels wrong about your current results?",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:41:49.577157Z",
+          "stop_timestamp": "2026-05-08T10:41:56.919309Z",
+          "flags": null,
+          "type": "text",
+          "text": " Got it — you copied the actual live search template string directly from Edge's settings. That string is exactly what Edge sends when you search from the address bar.\n\nThe tokens in it break down like this:\n\n- `{google:baseURL}` — resolves to `https://www.google.com/` \n- `q=%s` — your query\n- `{google:RLZ}` — device/channel tracking\n- `{google:assistedQueryStats}` — autocomplete metadata\n- `{google:searchboxStats}` — usage telemetry\n- `{google:language}` — your locale\n- `{google:searchClient}` — identifies the client as Edge\n- `ie={inputEncoding}` — character encoding\n\n**The honest answer:** most of those tokens either add telemetry or help Google auto-complete suggestions work. Removing them doesn't improve result quality — Google's ranking algorithm doesn't use them for that.\n\n**What actually improves search results from the address bar:**\n\nThe most impactful change would be switching the base to a different engine entirely. If you want to stay on Google but get cleaner results, you can replace the whole thing with:\n\n```\nhttps://www.google.com/search?q=%s&pws=0\n```\n\n`pws=0` turns off personalization, which some people prefer for less filter-bubble behavior.\n\nOr if you want to try something like:\n```\nhttps://www.google.com/search?q=%s&udm=14\n```\n`udm=14` forces the newer Google web results filter, stripping AI overviews.\n\nWhat specifically feels wrong about your current results?",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-08T10:41:56.952623Z",
+      "updated_at": "2026-05-08T10:41:56.952623Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e072d-e077-721b-86a4-e0be8e410a44"
+    },
+    {
+      "uuid": "019e072f-318f-7703-96fe-ee0c64c73d61",
+      "text": "well I'm not trying to remove things. I'm trying to add them or change them",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:43:13.979886Z",
+          "stop_timestamp": "2026-05-08T10:43:13.979886Z",
+          "flags": null,
+          "type": "text",
+          "text": "well I'm not trying to remove things. I'm trying to add them or change them",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-08T10:43:13.980009Z",
+      "updated_at": "2026-05-08T10:43:13.980009Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e072d-e077-721b-86a4-e0bf081af756"
+    },
+    {
+      "uuid": "019e072f-318f-7703-96fe-ee0df1fcb5e5",
+      "text": " That's a much more useful framing. What are you trying to get the results to do differently? For example:\n\n- Filter to a specific language or region\n- Force a date range (recent results only)\n- Strip AI overviews / get classic web results\n- Exclude certain content types\n- Something else entirely\n\nOnce I know the goal, I can tell you exactly which parameter to add and where to insert it in that string.",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:43:16.248006Z",
+          "stop_timestamp": "2026-05-08T10:43:18.508628Z",
+          "flags": null,
+          "type": "text",
+          "text": " That's a much more useful framing. What are you trying to get the results to do differently? For example:\n\n- Filter to a specific language or region\n- Force a date range (recent results only)\n- Strip AI overviews / get classic web results\n- Exclude certain content types\n- Something else entirely\n\nOnce I know the goal, I can tell you exactly which parameter to add and where to insert it in that string.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-08T10:43:18.585559Z",
+      "updated_at": "2026-05-08T10:43:18.585559Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e072f-318f-7703-96fe-ee0c64c73d61"
+    },
+    {
+      "uuid": "019e072f-b65d-7664-bbaf-bcec0872dcec",
+      "text": "how do I force include specific content types?",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:43:47.989121Z",
+          "stop_timestamp": "2026-05-08T10:43:47.989121Z",
+          "flags": null,
+          "type": "text",
+          "text": "how do I force include specific content types?",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-08T10:43:47.989270Z",
+      "updated_at": "2026-05-08T10:43:47.989270Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e072f-318f-7703-96fe-ee0df1fcb5e5"
+    },
+    {
+      "uuid": "019e072f-b65d-7664-bbaf-bced4da16f9b",
+      "text": " Google doesn't have a single clean \"include this content type\" parameter, but depending on what you mean by content type, there are different approaches:\n\n**File type:**\n```\n&as_filetype=pdf\n```\nForces results to include a specific file type (pdf, doc, xls, ppt, etc.)\n\n**Content category (what Google calls \"search type\"):**\n```\n&tbm=vid     ← video results\n&tbm=isch    ← image results\n&tbm=nws     ← news results\n&tbm=bks     ← books\n&tbm=shop    ← shopping\n```\nOmitting `tbm` gives standard web results.\n\n**Newer equivalent of tbm:**\n```\n&udm=2    ← image\n&udm=7    ← video  \n&udm=14   ← web only (strips AI/verticals)\n&udm=12   ← news\n```\n\n**Safe search level:**\n```\n&safe=active    ← strict filtering\n&safe=off       ← no filtering\n```\n\n**You'd add any of these directly after the `q=%s` section**, before the `&` that leads into the Google macro tokens, so they apply to every search you run from the address bar.\n\nWhat content type are you specifically trying to force in?",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:43:53.734539Z",
+          "stop_timestamp": "2026-05-08T10:43:59.383417Z",
+          "flags": null,
+          "type": "text",
+          "text": " Google doesn't have a single clean \"include this content type\" parameter, but depending on what you mean by content type, there are different approaches:\n\n**File type:**\n```\n&as_filetype=pdf\n```\nForces results to include a specific file type (pdf, doc, xls, ppt, etc.)\n\n**Content category (what Google calls \"search type\"):**\n```\n&tbm=vid     ← video results\n&tbm=isch    ← image results\n&tbm=nws     ← news results\n&tbm=bks     ← books\n&tbm=shop    ← shopping\n```\nOmitting `tbm` gives standard web results.\n\n**Newer equivalent of tbm:**\n```\n&udm=2    ← image\n&udm=7    ← video  \n&udm=14   ← web only (strips AI/verticals)\n&udm=12   ← news\n```\n\n**Safe search level:**\n```\n&safe=active    ← strict filtering\n&safe=off       ← no filtering\n```\n\n**You'd add any of these directly after the `q=%s` section**, before the `&` that leads into the Google macro tokens, so they apply to every search you run from the address bar.\n\nWhat content type are you specifically trying to force in?",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-08T10:43:59.426795Z",
+      "updated_at": "2026-05-08T10:43:59.426795Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e072f-b65d-7664-bbaf-bcec0872dcec"
+    },
+    {
+      "uuid": "019e0730-c29c-773a-96d4-2f1f726f451e",
+      "text": "what if any data in here could improve my search results if added to this base string?",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:44:56.656402Z",
+          "stop_timestamp": "2026-05-08T10:44:56.656402Z",
+          "flags": null,
+          "type": "text",
+          "text": "what if any data in here could improve my search results if added to this base string?",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-08T10:44:56.714969Z",
+      "updated_at": "2026-05-08T10:44:56.714969Z",
+      "attachments": [],
+      "files": [
+        {
+          "file_uuid": "49b9acdc-71d9-4f64-bff6-ee1e418c4c58",
+          "file_name": "google-dorking-main.zip"
+        }
+      ],
+      "parent_message_uuid": "019e072f-b65d-7664-bbaf-bced4da16f9b"
+    },
+    {
+      "uuid": "019e0730-c29c-773a-96d4-2f20a6a9a4b2",
+      "text": "\n```\nThis block is not supported on your current device yet.\n```\n\n\n```\nThis block is not supported on your current device yet.\n```\n\n\n```\nThis block is not supported on your current device yet.\n```\n\nHere's the honest breakdown of what's in that repo and what's actually applicable to your base string question.\n\n**What's in the repo:** It's a Google dorking guide — meaning it's about query-level operators you type *into* your searches, not URL parameters you bake into the template string. The two things operate at different layers.\n\n**What that means for your use case:**\n\nThe template string controls *how Edge sends your query to Google*. The dork operators control *what you're asking Google to find*. You can't embed dork operators into the base string because they only make sense attached to a specific search term — and your search term changes every time.\n\n**What you actually can do with the template string** based on what's in this repo plus what we already discussed:\n\n```\n{google:baseURL}search?q=%s&udm=14&pws=0&ie={inputEncoding}\n```\n\nThat's the most useful modification — `udm=14` forces classic web results and strips AI overviews, `pws=0` turns off personalization. Everything else in the original string is telemetry.\n\n**Where the dork operators do help you** is in your actual search habits. The most practically useful ones from this repo for everyday searching are `site:`, `filetype:`, `intitle:`, and `-word` for exclusions. Those get typed into your query, not the template.\n\nDo you want the dork operators broken down for a specific type of searching you do regularly, or are you more focused on locking in the template string?",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:44:58.926416Z",
+          "stop_timestamp": "2026-05-08T10:44:59.436465Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01MoZeDh3xLawLtraLvLwvcU",
+          "name": "view",
+          "input": {
+            "description": "Check skill for file reading",
+            "path": "/mnt/skills/public/file-reading/SKILL.md"
+          },
+          "message": "Check skill for file reading",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "file",
+          "context": null,
+          "display_content": {
+            "type": "text",
+            "text": "Check skill for file reading"
+          },
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01MoZeDh3xLawLtraLvLwvcU",
+          "name": "view",
+          "content": [
+            {
+              "type": "text",
+              "text": "     1\t---\n     2\tname: file-reading\n     3\tdescription: \"Use this skill when a file has been uploaded but its content is NOT in your context — only its path at /mnt/user-data/uploads/ is listed in an uploaded_files block. This skill is a router: it tells you which tool to use for each file type (pdf, docx, xlsx, csv, json, images, archives, ebooks) so you read the right amount the right way instead of blindly running cat on a binary. Triggers: any mention of /mnt/user-data/uploads/, an uploaded_files section, a file_path tag, or a user asking about an uploaded file you have not yet read. Do NOT use this skill if the file content is already visible in your context inside a documents block — you already have it.\"\n     4\tcompatibility: \"claude.ai, Claude Desktop, Cowork — any surface where uploads land at /mnt/user-data/uploads/\"\n     5\tlicense: Proprietary. LICENSE.txt has complete terms\n     6\t---\n     7\t\n     8\t# Reading Uploaded Files\n     9\t\n    10\t## Why this skill exists\n    11\t\n    12\tWhen a user uploads a file in claude.ai, Claude Desktop, or Cowork,\n    13\tthe file is written to `/mnt/user-data/uploads/<filename>` and you are told the path\n    14\tin an `<uploaded_files>` block. **The content is not in your context.**\n    15\tYou must go read it.\n    16\t\n    17\tThe naive thing — `cat /mnt/user-data/uploads/whatever` — is wrong for\n    18\tmost files:\n    19\t\n    20\t- On a PDF it prints binary garbage.\n    21\t- On a 100MB CSV it floods your context with rows you will never use.\n    22\t- On a DOCX it prints the raw ZIP bytes.\n    23\t- On an image it does nothing useful at all.\n    24\t\n    25\tThis skill tells you the right first move for each type, and when to\n    26\thand off to a deeper skill.\n    27\t\n    28\t## General protocol\n    29\t\n    30\t1. **Look at the extension.** That is your dispatch key.\n    31\t2. **Stat before you read.** Large files need sampling, not slurping.\n    32\t   ```bash\n    33\t   stat -c '%s bytes, %y' /mnt/user-data/uploads/report.pdf\n    34\t   file /mnt/user-data/uploads/report.pdf\n    35\t   ```\n    36\t3. **Read just enough to answer the user's question.** If they asked\n    37\t   \"how many rows are in this CSV\", don't load the whole thing into\n    38\t   pandas — `wc -l` gives a fast approximation (it counts newlines,\n    39\t   not CSV records, so it may over-count if quoted fields contain\n    40\t   embedded newlines).\n    41\t4. **If a dedicated skill exists, go read it.** The table below tells\n    42\t   you when. The dedicated skills cover editing, creating, and advanced\n    43\t   operations that this skill does not.\n    44\t\n    45\t## `extract-text`\n    46\t\n    47\tFor docx, odt, epub, xlsx, pptx, rtf, and ipynb the first move is\n    48\t`extract-text <file>`. It emits markdown for docx/odt/epub (headings,\n    49\tbold, lists, links, tables), tab-separated rows under `## Sheet:`\n    50\theaders for xlsx, text under `## Slide N` headers for pptx, fenced\n    51\tcode cells for ipynb, and plain text for rtf. Pass `--format <fmt>`\n    52\twhen the extension is wrong or absent (e.g., `--format xlsx` on an\n    53\t`.xlsm`). If it errors on a file, `pandoc <file> -t plain` is a\n    54\tfallback; for xlsx/pptx, fall back to the dedicated skill's\n    55\tPython-based approach (openpyxl / python-pptx).\n    56\t\n    57\t## Dispatch table\n    58\t\n    59\t| Extension                         | First move                                           | Dedicated skill                           |\n    60\t| --------------------------------- | ---------------------------------------------------- | ----------------------------------------- |\n    61\t| `.pdf`                            | Content inventory (see PDF section)                  | `/mnt/skills/public/pdf-reading/SKILL.md` |\n    62\t| `.docx`                           | `extract-text`                                       | `/mnt/skills/public/docx/SKILL.md`        |\n    63\t| `.doc` (legacy)                   | Convert to `.docx` first                             | `/mnt/skills/public/docx/SKILL.md`        |\n    64\t| `.xlsx`                           | `extract-text`                                       | `/mnt/skills/public/xlsx/SKILL.md`        |\n    65\t| `.xlsm`                           | `extract-text --format xlsx`                         | `/mnt/skills/public/xlsx/SKILL.md`        |\n    66\t| `.xls` (legacy)                   | `pd.read_excel(engine=\"xlrd\")` — openpyxl rejects it | `/mnt/skills/public/xlsx/SKILL.md`        |\n    67\t| `.ods`                            | `pd.read_excel(engine=\"odf\")` — openpyxl rejects it  | `/mnt/skills/public/xlsx/SKILL.md`        |\n    68\t| `.pptx`                           | `extract-text`                                       | `/mnt/skills/public/pptx/SKILL.md`        |\n    69\t| `.ppt` (legacy)                   | Convert to `.pptx` first                             | `/mnt/skills/public/pptx/SKILL.md`        |\n    70\t| `.csv`, `.tsv`                    | `pandas` with `nrows`                                | — (below)                                 |\n    71\t| `.json`, `.jsonl`                 | `jq` for structure                                   | — (below)                                 |\n    72\t| `.jpg`, `.png`, `.gif`, `.webp`   | Already in your context as vision input              | — (below)                                 |\n    73\t| `.zip`, `.tar`, `.tar.gz`         | List contents, do **not** auto-extract               | — (below)                                 |\n    74\t| `.gz` (single file)               | `zcat \\| head` — no manifest to list                 | — (below)                                 |\n    75\t| `.epub`, `.odt`                   | `extract-text`                                       | — (below)                                 |\n    76\t| `.rtf`                            | `extract-text`                                       | — (below)                                 |\n    77\t| `.ipynb`                          | `extract-text`                                       | — (below)                                 |\n    78\t| `.txt`, `.md`, `.log`, code files | `wc -c` then `head` or full `cat`                    | — (below)                                 |\n    79\t| Unknown                           | `file` then decide                                   | —                                         |\n    80\t\n    81\t---\n    82\t\n    83\t## PDF\n    84\t\n    85\t**Never** `cat` a PDF — it prints binary garbage.\n    86\t\n    87\tQuick first move — get the page count and check if text is extractable:\n    88\t\n    89\t```bash\n    90\tpdfinfo /mnt/user-data/uploads/report.pdf\n    91\tpdftotext -f 1 -l 1 /mnt/user-data/uploads/report.pdf - | head -20\n    92\t```\n    93\t\n    94\tThen peek at the text content:\n    95\t\n    96\t```python\n    97\tfrom pypdf import PdfReader\n    98\tr = PdfReader(\"/mnt/user-data/uploads/report.pdf\")\n    99\tprint(f\"{len(r.pages)} pages\")\n   100\tprint(r.pages[0].extract_text()[:2000])\n   101\t```\n   102\t\n   103\tFor anything beyond a quick peek — figures, tables, attachments,\n   104\tforms, scanned PDFs, visual inspection, or choosing a reading strategy\n   105\t— go read `/mnt/skills/public/pdf-reading/SKILL.md`. It covers\n   106\tcontent inventory, text extraction vs. page rasterization, embedded\n   107\tcontent extraction, and document-type-aware reading strategies.\n   108\t\n   109\tFor PDF form filling, creation, merging, splitting, or watermarking,\n   110\tgo read `/mnt/skills/public/pdf/SKILL.md`.\n   111\t\n   112\t---\n   113\t\n   114\t## DOCX / DOC\n   115\t\n   116\tThe `docx` skill covers editing, creating, tracked changes, images.\n   117\tRead it if you need any of those. For a quick look:\n   118\t\n   119\t```bash\n   120\textract-text /mnt/user-data/uploads/memo.docx | head -200\n   121\t```\n   122\t\n   123\tLegacy `.doc` (not `.docx`) must be converted first — see the `docx`\n   124\tskill.\n   125\t\n   126\t---\n   127\t\n   128\t## XLSX / XLS / spreadsheets\n   129\t\n   130\tThe `xlsx` skill covers formulas, formatting, charts, creating. Read\n   131\tit if you need any of those. For a quick look at an `.xlsx`:\n   132\t\n   133\t```bash\n   134\textract-text /mnt/user-data/uploads/data.xlsx | head -100\n   135\t```\n   136\t\n   137\tFor `.xlsm`, add `--format xlsx` (same zip structure; only the\n   138\textension differs). When you need a structured preview in Python:\n   139\t\n   140\t```python\n   141\tfrom openpyxl import load_workbook\n   142\twb = load_workbook(\"/mnt/user-data/uploads/data.xlsx\", read_only=True)\n   143\tprint(\"Sheets:\", wb.sheetnames)\n   144\tws = wb.active\n   145\tfor row in ws.iter_rows(max_row=5, values_only=True):\n   146\t    print(row)\n   147\t```\n   148\t\n   149\t`read_only=True` matters — without it, openpyxl loads the entire\n   150\tworkbook into memory, which breaks on large files. Do not trust\n   151\t`ws.max_row` in read-only mode: many non-Excel writers omit the\n   152\tdimension record, so it comes back `None` or wrong. If you need a row\n   153\tcount, iterate or use pandas.\n   154\t\n   155\t**Legacy `.xls`** — openpyxl raises `InvalidFileException`. Use:\n   156\t\n   157\t```python\n   158\timport pandas as pd\n   159\tdf = pd.read_excel(\"/mnt/user-data/uploads/old.xls\", engine=\"xlrd\", nrows=5)\n   160\t```\n   161\t\n   162\t**`.ods` (OpenDocument)** — openpyxl also rejects this. Use:\n   163\t\n   164\t```python\n   165\timport pandas as pd\n   166\tdf = pd.read_excel(\"/mnt/user-data/uploads/data.ods\", engine=\"odf\", nrows=5)\n   167\t```\n   168\t\n   169\t---\n   170\t\n   171\t## PPTX\n   172\t\n   173\t```bash\n   174\textract-text /mnt/user-data/uploads/deck.pptx | head -200\n   175\t```\n   176\t\n   177\t**Legacy `.ppt`** — convert to `.pptx` first via LibreOffice; see\n   178\t`/mnt/skills/public/pptx/SKILL.md` for the sandbox-safe\n   179\t`scripts/office/soffice.py` wrapper (bare `soffice` hangs here because\n   180\tthe seccomp filter blocks the `AF_UNIX` sockets LibreOffice uses for\n   181\tinstance management).\n   182\t\n   183\tFor anything beyond reading, go to `/mnt/skills/public/pptx/SKILL.md`.\n   184\t\n   185\t---\n   186\t\n   187\t## CSV / TSV\n   188\t\n   189\t**Do not** `cat` or `head` these blindly. A CSV with a 50KB quoted cell\n   190\tin row 1 will wreck your `head -5`. Use pandas with `nrows`:\n   191\t\n   192\t```python\n   193\timport pandas as pd\n   194\tdf = pd.read_csv(\"/mnt/user-data/uploads/data.csv\", nrows=5)\n   195\tprint(df)\n   196\tprint()\n   197\tprint(df.dtypes)\n   198\t```\n   199\t\n   200\tApproximate row count without loading (over-counts if the file has\n   201\tRFC-4180 quoted newlines — the same quoted-cell case this section\n   202\twarned about above):\n   203\t\n   204\t```bash\n   205\twc -l /mnt/user-data/uploads/data.csv\n   206\t```\n   207\t\n   208\tFull analysis only after you know the shape:\n   209\t\n   210\t```python\n   211\tdf = pd.read_csv(\"/mnt/user-data/uploads/data.csv\")\n   212\tprint(df.describe())\n   213\t```\n   214\t\n   215\tTSV: same, with `sep=\"\\t\"`.\n   216\t\n   217\t---\n   218\t\n   219\t## JSON / JSONL\n   220\t\n   221\tStructure first, content second:\n   222\t\n   223\t```bash\n   224\tjq 'type' /mnt/user-data/uploads/data.json\n   225\tjq 'if type == \"array\" then length elif type == \"object\" then keys else . end' /mnt/user-data/uploads/data.json\n   226\t```\n   227\t\n   228\t(`keys` errors on scalar JSON roots — a bare `\"hello\"` or `42` is valid\n   229\tJSON per RFC 7159 — so guard the branch.)\n   230\t\n   231\tThen drill into what the user actually asked about.\n   232\t\n   233\tJSONL (one object per line) — do **not** `jq` the whole file; work line\n   234\tby line:\n   235\t\n   236\t```bash\n   237\thead -3 /mnt/user-data/uploads/data.jsonl | jq .\n   238\twc -l /mnt/user-data/uploads/data.jsonl\n   239\t```\n   240\t\n   241\t---\n   242\t\n   243\t## Images (JPG / PNG / GIF / WEBP)\n   244\t\n   245\t**You can already see uploaded images.** They are injected into your\n   246\tcontext as vision inputs alongside the `<uploaded_files>` pointer. You\n   247\tdo not need to read them from disk to describe them.\n   248\t\n   249\tThe disk copy is only needed if you are going to **process** the image\n   250\tprogrammatically:\n   251\t\n   252\t```python\n   253\tfrom PIL import Image\n   254\timg = Image.open(\"/mnt/user-data/uploads/photo.jpg\")\n   255\tprint(img.size, img.mode, img.format)\n   256\t```\n   257\t\n   258\tFor OCR on an image (text extraction, not description):\n   259\t\n   260\t```python\n   261\timport pytesseract\n   262\tprint(pytesseract.image_to_string(img))\n   263\t```\n   264\t\n   265\tNote: the client resizes images larger than 2000×2000 down to that\n   266\tbound and re-encodes as JPEG before upload, so the disk copy may not\n   267\tbe the user's original bytes. For most processing this doesn't matter;\n   268\tif the user is asking about original-resolution pixel data, flag it.\n   269\t\n   270\t---\n   271\t\n   272\t## Archives (ZIP / TAR / TAR.GZ)\n   273\t\n   274\t**List first. Extract never — unless the user explicitly asks.**\n   275\tArchives can be huge, contain path traversal, or nest forever.\n   276\t\n   277\t```bash\n   278\tunzip -l /mnt/user-data/uploads/bundle.zip\n   279\ttar -tf /mnt/user-data/uploads/bundle.tar\n   280\t```\n   281\t\n   282\tGNU tar auto-detects compression — `tar -tf` works on `.tar`,\n   283\t`.tar.gz`, `.tar.bz2`, `.tar.xz` alike. Don't hard-code `-z`.\n   284\t\n   285\tIf the user wants one file from inside, extract just that one:\n   286\t\n   287\t```bash\n   288\tunzip -p /mnt/user-data/uploads/bundle.zip path/inside/file.txt\n   289\t```\n   290\t\n   291\t**Standalone `.gz`** (not a tar) compresses a single file — there is\n   292\tno manifest to list. Just peek at the decompressed content:\n   293\t\n   294\t```bash\n   295\tzcat /mnt/user-data/uploads/data.json.gz | head -50\n   296\t```\n   297\t\n   298\t---\n   299\t\n   300\t## EPUB / ODT\n   301\t\n   302\t```bash\n   303\textract-text /mnt/user-data/uploads/book.epub | head -200\n   304\t```\n   305\t\n   306\tFor long ebooks, pipe through `head` — you rarely need the whole thing\n   307\tto answer a question.\n   308\t\n   309\t---\n   310\t\n   311\t## RTF / IPYNB\n   312\t\n   313\t```bash\n   314\textract-text /mnt/user-data/uploads/notes.rtf | head -200\n   315\textract-text /mnt/user-data/uploads/notebook.ipynb | head -200\n   316\t```\n   317\t\n   318\t---\n   319\t\n   320\t## Plain text / code / logs\n   321\t\n   322\tCheck the size first:\n   323\t\n   324\t```bash\n   325\twc -c /mnt/user-data/uploads/app.log\n   326\t```\n   327\t\n   328\t- **Under ~20KB**: `cat` is fine.\n   329\t- **Over ~20KB**: `head -100` and `tail -100` to orient. If the user\n   330\t  asked about something specific, `grep` for it. Load the whole thing\n   331\t  only if you genuinely need all of it.\n   332\t\n   333\tFor log files, the user almost always cares about the end:\n   334\t\n   335\t```bash\n   336\ttail -200 /mnt/user-data/uploads/app.log\n   337\t```\n   338\t\n   339\t---\n   340\t\n   341\t## Unknown extension\n   342\t\n   343\t```bash\n   344\tfile /mnt/user-data/uploads/mystery.bin\n   345\txxd /mnt/user-data/uploads/mystery.bin | head -5\n   346\t```\n   347\t\n   348\t`file` identifies most things. `xxd` head shows magic bytes. If `file`\n   349\tsays \"data\" and the hex doesn't match anything you recognize, ask the\n   350\tuser what it is instead of guessing.\n   351\t",
+              "uuid": "5b315799-6cd9-4837-8e55-4e4a1d311ecc"
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "file",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-08T10:45:08.374515Z",
+          "stop_timestamp": "2026-05-08T10:45:08.852630Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_013nEW91Y6nrsSEbVuGJ29Mx",
+          "name": "bash_tool",
+          "input": {
+            "description": "List zip contents",
+            "command": "unzip -l /mnt/user-data/uploads/google-dorking-main.zip"
+          },
+          "message": "List zip contents",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "commandLine",
+          "context": null,
+          "display_content": {
+            "type": "code_block",
+            "language": "bash",
+            "code": "unzip -l /mnt/user-data/uploads/google-dorking-main.zip",
+            "filename": null
+          },
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_013nEW91Y6nrsSEbVuGJ29Mx",
+          "name": "bash_tool",
+          "content": [
+            {
+              "type": "text",
+              "text": "{\"returncode\":0,\"stdout\":\"Archive:  /mnt/user-data/uploads/google-dorking-main.zip\\n6628377d67c037890e7b672b41a5656e4b3f9e64\\n  Length      Date    Time    Name\\n---------  ---------- -----   ----\\n        0  2026-03-29 17:49   google-dorking-main/\\n        0  2026-03-29 17:49   google-dorking-main/.github/\\n       16  2026-03-29 17:49   google-dorking-main/.github/CODEOWNERS\\n      190  2026-03-29 17:49   google-dorking-main/.gitignore\\n      421  2026-03-29 17:49   google-dorking-main/CONTRIBUTING.md\\n      856  2026-03-29 17:49   google-dorking-main/LICENSE\\n     9562  2026-03-29 17:49   google-dorking-main/README.md\\n      984  2026-03-29 17:49   google-dorking-main/SECURITY.md\\n        0  2026-03-29 17:49   google-dorking-main/bing/\\n    11996  2026-03-29 17:49   google-dorking-main/bing/bing.md\\n        0  2026-03-29 17:49   google-dorking-main/dork-cheatsheet/\\n     5969  2026-03-29 17:49   google-dorking-main/dork-cheatsheet/cheatsheet.md\\n        0  2026-03-29 17:49   google-dorking-main/free-research-sites/\\n    28001  2026-03-29 17:49   google-dorking-main/free-research-sites/sites.md\\n        0  2026-03-29 17:49   google-dorking-main/github-dorking/\\n    27485  2026-03-29 17:49   google-dorking-main/github-dorking/github.md\\n        0  2026-03-29 17:49   google-dorking-main/google/\\n    16954  2026-03-29 17:49   google-dorking-main/google/advanced-combinations.md\\n    29599  2026-03-29 17:49   google-dorking-main/google/cybersecurity-dorks.md\\n    11453  2026-03-29 17:49   google-dorking-main/google/operators.md\\n    26772  2026-03-29 17:49   google-dorking-main/google/social-media-dorks.md\\n        0  2026-03-29 17:49   google-dorking-main/legal-and-ethics/\\n    15341  2026-03-29 17:49   google-dorking-main/legal-and-ethics/ethics.md\\n        0  2026-03-29 17:49   google-dorking-main/other-search-engines/\\n    15314  2026-03-29 17:49   google-dorking-main/other-search-engines/alternatives.md\\n        0  2026-03-29 17:49   google-dorking-main/shodan-dorking/\\n    24002  2026-03-29 17:49   google-dorking-main/shodan-dorking/shodan.md\\n        0  2026-03-29 17:49   google-dorking-main/tor-and-dark-web/\\n    23289  2026-03-29 17:49   google-dorking-main/tor-and-dark-web/dark-web-search.md\\n        0  2026-03-29 17:49   google-dorking-main/what-is-dorking/\\n     9814  2026-03-29 17:49   google-dorking-main/what-is-dorking/intro.md\\n        0  2026-03-29 17:49   google-dorking-main/what-next/\\n    22537  2026-03-29 17:49   google-dorking-main/what-next/pivoting.md\\n        0  2026-03-29 17:49   google-dorking-main/yandex/\\n    21987  2026-03-29 17:49   google-dorking-main/yandex/yandex.md\\n---------                     -------\\n   302542                     35 files\\n\",\"stderr\":\"\"}",
+              "uuid": "226afc56-49f4-41a5-8205-0861299c590e"
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "commandLine",
+          "display_content": {
+            "type": "json_block",
+            "json_block": "{\"returncode\":0,\"stdout\":\"Archive:  /mnt/user-data/uploads/google-dorking-main.zip\\n6628377d67c037890e7b672b41a5656e4b3f9e64\\n  Length      Date    Time    Name\\n---------  ---------- -----   ----\\n        0  2026-03-29 17:49   google-dorking-main/\\n        0  2026-03-29 17:49   google-dorking-main/.github/\\n       16  2026-03-29 17:49   google-dorking-main/.github/CODEOWNERS\\n      190  2026-03-29 17:49   google-dorking-main/.gitignore\\n      421  2026-03-29 17:49   google-dorking-main/CONTRIBUTING.md\\n      856  2026-03-29 17:49   google-dorking-main/LICENSE\\n     9562  2026-03-29 17:49   google-dorking-main/README.md\\n      984  2026-03-29 17:49   google-dorking-main/SECURITY.md\\n        0  2026-03-29 17:49   google-dorking-main/bing/\\n    11996  2026-03-29 17:49   google-dorking-main/bing/bing.md\\n        0  2026-03-29 17:49   google-dorking-main/dork-cheatsheet/\\n     5969  2026-03-29 17:49   google-dorking-main/dork-cheatsheet/cheatsheet.md\\n        0  2026-03-29 17:49   google-dorking-main/free-research-sites/\\n    28001  2026-03-29 17:49   google-dorking-main/free-research-sites/sites.md\\n        0  2026-03-29 17:49   google-dorking-main/github-dorking/\\n    27485  2026-03-29 17:49   google-dorking-main/github-dorking/github.md\\n        0  2026-03-29 17:49   google-dorking-main/google/\\n    16954  2026-03-29 17:49   google-dorking-main/google/advanced-combinations.md\\n    29599  2026-03-29 17:49   google-dorking-main/google/cybersecurity-dorks.md\\n    11453  2026-03-29 17:49   google-dorking-main/google/operators.md\\n    26772  2026-03-29 17:49   google-dorking-main/google/social-media-dorks.md\\n        0  2026-03-29 17:49   google-dorking-main/legal-and-ethics/\\n    15341  2026-03-29 17:49   google-dorking-main/legal-and-ethics/ethics.md\\n        0  2026-03-29 17:49   google-dorking-main/other-search-engines/\\n    15314  2026-03-29 17:49   google-dorking-main/other-search-engines/alternatives.md\\n        0  2026-03-29 17:49   google-dorking-main/shodan-dorking/\\n    24002  2026-03-29 17:49   google-dorking-main/shodan-dorking/shodan.md\\n        0  2026-03-29 17:49   google-dorking-main/tor-and-dark-web/\\n    23289  2026-03-29 17:49   google-dorking-main/tor-and-dark-web/dark-web-search.md\\n        0  2026-03-29 17:49   google-dorking-main/what-is-dorking/\\n     9814  2026-03-29 17:49   google-dorking-main/what-is-dorking/intro.md\\n        0  2026-03-29 17:49   google-dorking-main/what-next/\\n    22537  2026-03-29 17:49   google-dorking-main/what-next/pivoting.md\\n        0  2026-03-29 17:49   google-dorking-main/yandex/\\n    21987  2026-03-29 17:49   google-dorking-main/yandex/yandex.md\\n---------                     -------\\n   302542                     35 files\\n\",\"stderr\":\"\"}"
+          },
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-08T10:45:13.735905Z",
+          "stop_timestamp": "2026-05-08T10:45:14.087466Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01NeYT9Yxy4rf8Gi7W1gDKSD",
+          "name": "bash_tool",
+          "input": {
+            "command": "unzip -p /mnt/user-data/uploads/google-dorking-main.zip google-dorking-main/google/operators.md",
+            "description": "Read the Google operators file"
+          },
+          "message": "Read the Google operators file",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "commandLine",
+          "context": null,
+          "display_content": {
+            "type": "code_block",
+            "language": "bash",
+            "code": "unzip -p /mnt/user-data/uploads/google-dorking-main.zip google-dorking-main/google/operators.md",
+            "filename": null
+          },
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": null,
+          "stop_timestamp": null,
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01NeYT9Yxy4rf8Gi7W1gDKSD",
+          "name": "bash_tool",
+          "content": [
+            {
+              "type": "text",
+              "text": "{\"returncode\":0,\"stdout\":\"# Google Search Operators\\n\\n> Most people think Google is just a search bar. It is not. It is a filtering\\n> engine with dozens of built-in commands that let you slice through billions\\n> of pages with surgical precision. This section covers every operator worth\\n> knowing — what it does, real syntax, and what actually works in 2026.\\n\\n---\\n\\n## What Is a Search Operator?\\n\\nA search operator is a special command you type directly into the Google search\\nbar to modify what results come back. No special software. No accounts. No\\nsetup. Just you, a browser, and the right syntax.\\n\\nThink of it like the difference between walking into a library and saying\\n\\\"I want something about dogs\\\" versus walking in and saying \\\"I want a hardcover\\nbook published between 2018 and 2022, written by a veterinarian, about golden\\nretrievers specifically, that is available in this branch right now.\\\" Both are\\nvalid requests. One gets you a pile of random books. The other gets you exactly\\nwhat you need.\\n\\nOperators are how you go from the first request to the second.\\n\\n---\\n\\n## The Golden Rules of Operator Syntax\\n\\nBefore anything else — the mistakes that break most dorks happen here.\\n\\n| Rule | Correct | Wrong |\\n|---|---|---|\\n| No space after the colon | `site:example.com` | `site: example.com` |\\n| Quotes for exact phrases | `\\\"internal use only\\\"` | `internal use only` |\\n| Operators are lowercase | `filetype:pdf` | `FileType:PDF` |\\n| Combine without AND | `site:example.com filetype:pdf` | `site:example.com AND filetype:pdf` |\\n| Exclude with minus | `site:example.com -inurl:login` | `site:example.com NOT login` |\\n\\nA single space after a colon breaks the operator completely. Google will treat\\nit as a regular word and your dork will return garbage results. This is the\\nnumber one syntax mistake beginners make.\\n\\n---\\n\\n## Core Operators — The Foundation\\n\\nThese are the operators that form the backbone of almost every dork. Learn\\nthese first.\\n\\n---\\n\\n### `site:`\\n\\n**What it does:** Limits all results to a specific website or domain.\\n\\n**Syntax:**\\n```\\nsite:example.com\\nsite:gov\\nsite:edu\\nsite:.mil\\n```\\n\\n**Real examples:**\\n```\\nsite:tesla.com filetype:pdf\\nsite:reddit.com \\\"forgot my password\\\"\\nsite:gov \\\"budget report\\\" filetype:xlsx\\n```\\n\\n**What it finds:** Everything Google has indexed from that domain. This is\\nyour starting point for almost every target-specific investigation.\\n\\n**Common mistake:** People use `www` when they do not need to.\\n`site:example.com` already covers `www.example.com` and all subdomains.\\n`site:www.example.com` is more restrictive and will miss subdomains.\\n\\n**2026 status:** ✅ Fully working. One of the most reliable operators.\\n\\n---\\n\\n### `filetype:`\\n\\n**What it does:** Returns only results of a specific file type.\\n\\n**Syntax:**\\n```\\nfiletype:pdf\\nfiletype:xlsx\\nfiletype:docx\\nfiletype:txt\\nfiletype:xml\\nfiletype:json\\nfiletype:sql\\nfiletype:log\\nfiletype:env\\nfiletype:bak\\n```\\n\\n**Real examples:**\\n```\\nsite:company.com filetype:pdf \\\"confidential\\\"\\nfiletype:xlsx \\\"employee\\\" \\\"salary\\\"\\nfiletype:sql \\\"password\\\" \\\"insert into\\\"\\nfiletype:env \\\"DB_PASSWORD\\\"\\n```\\n\\n**What it finds:** File types that were uploaded to public servers and indexed.\\nThe dangerous ones — `.env`, `.sql`, `.log`, `.bak` — are files that should\\nnever be publicly accessible but frequently are due to misconfiguration.\\n\\n**Also works as:** `ext:` — same operator, different syntax. `ext:pdf` and\\n`filetype:pdf` return the same results.\\n\\n**2026 status:** ✅ Fully working.\\n\\n---\\n\\n### `inurl:`\\n\\n**What it does:** Returns results where the specified word or phrase appears\\nsomewhere in the URL of the page.\\n\\n**Syntax:**\\n```\\ninurl:admin\\ninurl:login\\ninurl:dashboard\\ninurl:config\\ninurl:backup\\n```\\n\\n**Real examples:**\\n```\\ninurl:admin site:targetdomain.com\\ninurl:login filetype:php\\ninurl:\\\"/wp-admin/\\\" site:wordpress.com\\ninurl:config filetype:xml\\n```\\n\\n**What it finds:** Admin panels, login pages, configuration files, backup\\ndirectories — anything where the path itself reveals what the page is.\\n\\n**The difference between `inurl:` and `site:`:**\\n- `site:example.com` — must be from this domain\\n- `inurl:admin` — the word \\\"admin\\\" must appear in the URL, any domain\\n\\n**2026 status:** ✅ Fully working.\\n\\n---\\n\\n### `intitle:`\\n\\n**What it does:** Returns results where the specified word or phrase appears\\nin the title of the page — the text that shows at the top of your browser tab.\\n\\n**Syntax:**\\n```\\nintitle:\\\"index of\\\"\\nintitle:\\\"login page\\\"\\nintitle:\\\"dashboard\\\"\\nintitle:\\\"admin panel\\\"\\n```\\n\\n**Real examples:**\\n```\\nintitle:\\\"index of\\\" \\\"parent directory\\\"\\nintitle:\\\"webcam\\\" inurl:view\\nintitle:\\\"phpMyAdmin\\\" inurl:index.php\\nintitle:\\\"Dashboard\\\" inurl:admin\\n```\\n\\n**What it finds:** This is one of the most powerful operators for finding\\nexposed systems. Page titles are set by developers and often reveal exactly\\nwhat a page is — \\\"Index of /\\\" means an open directory listing. \\\"phpMyAdmin\\\"\\nmeans an exposed database management interface.\\n\\n**`intitle:` vs `allintitle:`:**\\n- `intitle:admin login` — \\\"admin\\\" must be in the title, \\\"login\\\" can be anywhere\\n- `allintitle:admin login` — both \\\"admin\\\" AND \\\"login\\\" must be in the title\\n\\n**2026 status:** ✅ Fully working.\\n\\n---\\n\\n### `intext:`\\n\\n**What it does:** Returns results where the specified word or phrase appears\\nin the body text of the page.\\n\\n**Syntax:**\\n```\\nintext:\\\"password\\\"\\nintext:\\\"api_key\\\"\\nintext:\\\"confidential\\\"\\n```\\n\\n**Real examples:**\\n```\\nintext:\\\"password\\\" intext:\\\"username\\\" filetype:log\\nintext:\\\"api_key\\\" site:github.com\\nintext:\\\"BEGIN RSA PRIVATE KEY\\\"\\n```\\n\\n**What it finds:** Content buried inside pages — credentials in log files,\\nAPI keys in public documents, private keys accidentally pasted somewhere.\\n\\n**2026 status:** ✅ Fully working.\\n\\n---\\n\\n### `cache:`\\n\\n**What it does:** Shows Google's cached (saved) version of a webpage from\\nthe last time Google crawled it.\\n\\n**Syntax:**\\n```\\ncache:example.com\\ncache:example.com/specific-page\\n```\\n\\n**What it finds:** Pages that may have been taken down or modified since\\nGoogle last crawled them. If a company removes an exposed document, the cached\\nversion may still be accessible.\\n\\n**2026 status:** ⚠️ Partially working. Google has been reducing cache\\navailability. For reliable cached page access, use the\\n[Wayback Machine](https://web.archive.org) instead.\\n\\n---\\n\\n### `link:`\\n\\n**What it does:** Was supposed to show pages that link to a specific URL.\\n\\n**2026 status:** ❌ Deprecated. No longer returns reliable results. Use\\n[Ahrefs](https://ahrefs.com) or [Moz Link Explorer](https://moz.com/link-explorer)\\nfor backlink research.\\n\\n---\\n\\n### `related:`\\n\\n**What it does:** Returns websites that Google considers similar to the\\nspecified site.\\n\\n**Syntax:**\\n```\\nrelated:nytimes.com\\nrelated:github.com\\n```\\n\\n**What it finds:** Competitor sites, similar platforms, related services.\\nUseful for mapping an industry or finding alternative targets in scope.\\n\\n**2026 status:** ✅ Works, though results can be inconsistent.\\n\\n---\\n\\n### `define:`\\n\\n**What it does:** Returns the definition of a word directly in Google results.\\n\\n**2026 status:** ✅ Works. Limited OSINT use but included for completeness.\\n\\n---\\n\\n## Combining Operators — Where the Power Is\\n\\nSingle operators are useful. Combinations are where dorking becomes a real\\nintelligence tool.\\n\\nThe logic is simple: every operator you add narrows the results further. You\\nare stacking filters on top of each other until only exactly what you are\\nlooking for remains.\\n\\n**Syntax rules for combining:**\\n- Just put them next to each other with a space between them\\n- No need for AND — Google assumes AND by default\\n- Use `-` (minus) to exclude something\\n- Use `OR` (uppercase) to allow either of two things\\n- Use quotes for exact phrases\\n\\n**Examples:**\\n```\\n# Find PDFs on a specific site that mention a specific phrase\\nsite:company.com filetype:pdf \\\"internal use only\\\"\\n\\n# Find login pages on a domain that are PHP-based\\nsite:company.com inurl:login filetype:php\\n\\n# Find exposed directory listings\\nintitle:\\\"index of\\\" site:company.com\\n\\n# Find pages mentioning username and password in log files\\nfiletype:log intext:\\\"username\\\" intext:\\\"password\\\"\\n\\n# Find either of two file types\\nsite:company.com (filetype:pdf OR filetype:docx) \\\"confidential\\\"\\n\\n# Find something but exclude a specific subdomain\\nsite:company.com -site:blog.company.com filetype:pdf\\n\\n# Find exposed environment files with database credentials\\nfiletype:env intext:\\\"DB_PASSWORD\\\"\\n\\n# Find pages with admin in the title but exclude common login pages\\nintitle:\\\"admin\\\" -inurl:\\\"/login\\\" -inurl:\\\"/signin\\\"\\n```\\n\\n---\\n\\n## Operators That No Longer Work (2026)\\n\\nGoogle has quietly retired several operators over the years. Knowing which\\nones are dead saves you from wasting time debugging syntax that was never\\ngoing to work.\\n\\n| Operator | Status | What Happened |\\n|---|---|---|\\n| `link:` | ❌ Dead | Removed. Use Ahrefs or Moz. |\\n| `inanchor:` | ❌ Dead | No longer functional. |\\n| `allinanchor:` | ❌ Dead | No longer functional. |\\n| `phonebook:` | ❌ Dead | Removed years ago. |\\n| `info:` | ⚠️ Unreliable | Sometimes works, often doesn't. |\\n| `daterange:` | ❌ Dead | Use Tools → Any time filter instead. |\\n| `author:` | ❌ Dead | Was for Google Groups. Gone. |\\n| `cache:` | ⚠️ Reduced | Still exists but increasingly limited. |\\n\\n---\\n\\n## Using the Date Filter Without Operators\\n\\nOne of the most underused features in Google search is the **time filter** —\\nand it does not require any operator syntax at all.\\n\\nAfter running any search:\\n1. Click **Tools** (below the search bar, to the right)\\n2. Click **Any time**\\n3. Select a time range — Past hour, Past 24 hours, Past week, Past month,\\n   Past year, or Custom range\\n\\nThis is essential for finding **recent** exposures rather than old indexed\\nresults. If you are researching a fresh breach or a new vulnerability, filter\\nto the past week to cut through the noise.\\n\\n---\\n\\n## Quick Reference Table\\n\\n| Operator | What It Does | Example |\\n|---|---|---|\\n| `site:` | Limit to a domain | `site:example.com` |\\n| `filetype:` | Limit to file type | `filetype:pdf` |\\n| `ext:` | Same as filetype | `ext:sql` |\\n| `inurl:` | Word in URL | `inurl:admin` |\\n| `intitle:` | Word in page title | `intitle:\\\"index of\\\"` |\\n| `intext:` | Word in page body | `intext:\\\"api_key\\\"` |\\n| `allintitle:` | All words in title | `allintitle:admin panel` |\\n| `allinurl:` | All words in URL | `allinurl:admin login` |\\n| `allintext:` | All words in body | `allintext:username password` |\\n| `cache:` | Cached version | `cache:example.com` |\\n| `related:` | Similar sites | `related:github.com` |\\n| `\\\"phrase\\\"` | Exact phrase | `\\\"internal use only\\\"` |\\n| `-word` | Exclude word | `-inurl:login` |\\n| `OR` | Either term | `filetype:pdf OR filetype:doc` |\\n| `*` | Wildcard | `\\\"password * reset\\\"` |\\n| `..` | Number range | `2020..2024` |\\n\\n---\\n\\n## Common Mistakes and Fixes\\n\\n| Problem | Likely Cause | Fix |\\n|---|---|---|\\n| No results at all | Space after colon | Remove space: `site:example.com` not `site: example.com` |\\n| Too many results | Not specific enough | Add more operators to narrow down |\\n| Results from wrong sites | Missing `site:` | Add `site:` to lock to a target |\\n| Exact phrase not matching | Missing quotes | Wrap phrase in quotes: `\\\"exact phrase\\\"` |\\n| Operator not working | Deprecated operator | Check the deprecated list above |\\n| Getting login pages | Need to exclude | Add `-inurl:login` to filter them out |\\n| Old results showing up | No date filter | Use Tools → time filter |\\n\\n---\\n\\n*by SudoChef · Part of the SudoCode Pentesting Methodology Guide*\",\"stderr\":\"\"}",
+              "uuid": "e2fce215-b31c-46f9-9bda-43ff36eafcd1"
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "commandLine",
+          "display_content": {
+            "type": "json_block",
+            "json_block": "{\"returncode\":0,\"stdout\":\"# Google Search Operators\\n\\n> Most people think Google is just a search bar. It is not. It is a filtering\\n> engine with dozens of built-in commands that let you slice through billions\\n> of pages with surgical precision. This section covers every operator worth\\n> knowing — what it does, real syntax, and what actually works in 2026.\\n\\n---\\n\\n## What Is a Search Operator?\\n\\nA search operator is a special command you type directly into the Google search\\nbar to modify what results come back. No special software. No accounts. No\\nsetup. Just you, a browser, and the right syntax.\\n\\nThink of it like the difference between walking into a library and saying\\n\\\"I want something about dogs\\\" versus walking in and saying \\\"I want a hardcover\\nbook published between 2018 and 2022, written by a veterinarian, about golden\\nretrievers specifically, that is available in this branch right now.\\\" Both are\\nvalid requests. One gets you a pile of random books. The other gets you exactly\\nwhat you need.\\n\\nOperators are how you go from the first request to the second.\\n\\n---\\n\\n## The Golden Rules of Operator Syntax\\n\\nBefore anything else — the mistakes that break most dorks happen here.\\n\\n| Rule | Correct | Wrong |\\n|---|---|---|\\n| No space after the colon | `site:example.com` | `site: example.com` |\\n| Quotes for exact phrases | `\\\"internal use only\\\"` | `internal use only` |\\n| Operators are lowercase | `filetype:pdf` | `FileType:PDF` |\\n| Combine without AND | `site:example.com filetype:pdf` | `site:example.com AND filetype:pdf` |\\n| Exclude with minus | `site:example.com -inurl:login` | `site:example.com NOT login` |\\n\\nA single space after a colon breaks the operator completely. Google will treat\\nit as a regular word and your dork will return garbage results. This is the\\nnumber one syntax mistake beginners make.\\n\\n---\\n\\n## Core Operators — The Foundation\\n\\nThese are the operators that form the backbone of almost every dork. Learn\\nthese first.\\n\\n---\\n\\n### `site:`\\n\\n**What it does:** Limits all results to a specific website or domain.\\n\\n**Syntax:**\\n```\\nsite:example.com\\nsite:gov\\nsite:edu\\nsite:.mil\\n```\\n\\n**Real examples:**\\n```\\nsite:tesla.com filetype:pdf\\nsite:reddit.com \\\"forgot my password\\\"\\nsite:gov \\\"budget report\\\" filetype:xlsx\\n```\\n\\n**What it finds:** Everything Google has indexed from that domain. This is\\nyour starting point for almost every target-specific investigation.\\n\\n**Common mistake:** People use `www` when they do not need to.\\n`site:example.com` already covers `www.example.com` and all subdomains.\\n`site:www.example.com` is more restrictive and will miss subdomains.\\n\\n**2026 status:** ✅ Fully working. One of the most reliable operators.\\n\\n---\\n\\n### `filetype:`\\n\\n**What it does:** Returns only results of a specific file type.\\n\\n**Syntax:**\\n```\\nfiletype:pdf\\nfiletype:xlsx\\nfiletype:docx\\nfiletype:txt\\nfiletype:xml\\nfiletype:json\\nfiletype:sql\\nfiletype:log\\nfiletype:env\\nfiletype:bak\\n```\\n\\n**Real examples:**\\n```\\nsite:company.com filetype:pdf \\\"confidential\\\"\\nfiletype:xlsx \\\"employee\\\" \\\"salary\\\"\\nfiletype:sql \\\"password\\\" \\\"insert into\\\"\\nfiletype:env \\\"DB_PASSWORD\\\"\\n```\\n\\n**What it finds:** File types that were uploaded to public servers and indexed.\\nThe dangerous ones — `.env`, `.sql`, `.log`, `.bak` — are files that should\\nnever be publicly accessible but frequently are due to misconfiguration.\\n\\n**Also works as:** `ext:` — same operator, different syntax. `ext:pdf` and\\n`filetype:pdf` return the same results.\\n\\n**2026 status:** ✅ Fully working.\\n\\n---\\n\\n### `inurl:`\\n\\n**What it does:** Returns results where the specified word or phrase appears\\nsomewhere in the URL of the page.\\n\\n**Syntax:**\\n```\\ninurl:admin\\ninurl:login\\ninurl:dashboard\\ninurl:config\\ninurl:backup\\n```\\n\\n**Real examples:**\\n```\\ninurl:admin site:targetdomain.com\\ninurl:login filetype:php\\ninurl:\\\"/wp-admin/\\\" site:wordpress.com\\ninurl:config filetype:xml\\n```\\n\\n**What it finds:** Admin panels, login pages, configuration files, backup\\ndirectories — anything where the path itself reveals what the page is.\\n\\n**The difference between `inurl:` and `site:`:**\\n- `site:example.com` — must be from this domain\\n- `inurl:admin` — the word \\\"admin\\\" must appear in the URL, any domain\\n\\n**2026 status:** ✅ Fully working.\\n\\n---\\n\\n### `intitle:`\\n\\n**What it does:** Returns results where the specified word or phrase appears\\nin the title of the page — the text that shows at the top of your browser tab.\\n\\n**Syntax:**\\n```\\nintitle:\\\"index of\\\"\\nintitle:\\\"login page\\\"\\nintitle:\\\"dashboard\\\"\\nintitle:\\\"admin panel\\\"\\n```\\n\\n**Real examples:**\\n```\\nintitle:\\\"index of\\\" \\\"parent directory\\\"\\nintitle:\\\"webcam\\\" inurl:view\\nintitle:\\\"phpMyAdmin\\\" inurl:index.php\\nintitle:\\\"Dashboard\\\" inurl:admin\\n```\\n\\n**What it finds:** This is one of the most powerful operators for finding\\nexposed systems. Page titles are set by developers and often reveal exactly\\nwhat a page is — \\\"Index of /\\\" means an open directory listing. \\\"phpMyAdmin\\\"\\nmeans an exposed database management interface.\\n\\n**`intitle:` vs `allintitle:`:**\\n- `intitle:admin login` — \\\"admin\\\" must be in the title, \\\"login\\\" can be anywhere\\n- `allintitle:admin login` — both \\\"admin\\\" AND \\\"login\\\" must be in the title\\n\\n**2026 status:** ✅ Fully working.\\n\\n---\\n\\n### `intext:`\\n\\n**What it does:** Returns results where the specified word or phrase appears\\nin the body text of the page.\\n\\n**Syntax:**\\n```\\nintext:\\\"password\\\"\\nintext:\\\"api_key\\\"\\nintext:\\\"confidential\\\"\\n```\\n\\n**Real examples:**\\n```\\nintext:\\\"password\\\" intext:\\\"username\\\" filetype:log\\nintext:\\\"api_key\\\" site:github.com\\nintext:\\\"BEGIN RSA PRIVATE KEY\\\"\\n```\\n\\n**What it finds:** Content buried inside pages — credentials in log files,\\nAPI keys in public documents, private keys accidentally pasted somewhere.\\n\\n**2026 status:** ✅ Fully working.\\n\\n---\\n\\n### `cache:`\\n\\n**What it does:** Shows Google's cached (saved) version of a webpage from\\nthe last time Google crawled it.\\n\\n**Syntax:**\\n```\\ncache:example.com\\ncache:example.com/specific-page\\n```\\n\\n**What it finds:** Pages that may have been taken down or modified since\\nGoogle last crawled them. If a company removes an exposed document, the cached\\nversion may still be accessible.\\n\\n**2026 status:** ⚠️ Partially working. Google has been reducing cache\\navailability. For reliable cached page access, use the\\n[Wayback Machine](https://web.archive.org) instead.\\n\\n---\\n\\n### `link:`\\n\\n**What it does:** Was supposed to show pages that link to a specific URL.\\n\\n**2026 status:** ❌ Deprecated. No longer returns reliable results. Use\\n[Ahrefs](https://ahrefs.com) or [Moz Link Explorer](https://moz.com/link-explorer)\\nfor backlink research.\\n\\n---\\n\\n### `related:`\\n\\n**What it does:** Returns websites that Google considers similar to the\\nspecified site.\\n\\n**Syntax:**\\n```\\nrelated:nytimes.com\\nrelated:github.com\\n```\\n\\n**What it finds:** Competitor sites, similar platforms, related services.\\nUseful for mapping an industry or finding alternative targets in scope.\\n\\n**2026 status:** ✅ Works, though results can be inconsistent.\\n\\n---\\n\\n### `define:`\\n\\n**What it does:** Returns the definition of a word directly in Google results.\\n\\n**2026 status:** ✅ Works. Limited OSINT use but included for completeness.\\n\\n---\\n\\n## Combining Operators — Where the Power Is\\n\\nSingle operators are useful. Combinations are where dorking becomes a real\\nintelligence tool.\\n\\nThe logic is simple: every operator you add narrows the results further. You\\nare stacking filters on top of each other until only exactly what you are\\nlooking for remains.\\n\\n**Syntax rules for combining:**\\n- Just put them next to each other with a space between them\\n- No need for AND — Google assumes AND by default\\n- Use `-` (minus) to exclude something\\n- Use `OR` (uppercase) to allow either of two things\\n- Use quotes for exact phrases\\n\\n**Examples:**\\n```\\n# Find PDFs on a specific site that mention a specific phrase\\nsite:company.com filetype:pdf \\\"internal use only\\\"\\n\\n# Find login pages on a domain that are PHP-based\\nsite:company.com inurl:login filetype:php\\n\\n# Find exposed directory listings\\nintitle:\\\"index of\\\" site:company.com\\n\\n# Find pages mentioning username and password in log files\\nfiletype:log intext:\\\"username\\\" intext:\\\"password\\\"\\n\\n# Find either of two file types\\nsite:company.com (filetype:pdf OR filetype:docx) \\\"confidential\\\"\\n\\n# Find something but exclude a specific subdomain\\nsite:company.com -site:blog.company.com filetype:pdf\\n\\n# Find exposed environment files with database credentials\\nfiletype:env intext:\\\"DB_PASSWORD\\\"\\n\\n# Find pages with admin in the title but exclude common login pages\\nintitle:\\\"admin\\\" -inurl:\\\"/login\\\" -inurl:\\\"/signin\\\"\\n```\\n\\n---\\n\\n## Operators That No Longer Work (2026)\\n\\nGoogle has quietly retired several operators over the years. Knowing which\\nones are dead saves you from wasting time debugging syntax that was never\\ngoing to work.\\n\\n| Operator | Status | What Happened |\\n|---|---|---|\\n| `link:` | ❌ Dead | Removed. Use Ahrefs or Moz. |\\n| `inanchor:` | ❌ Dead | No longer functional. |\\n| `allinanchor:` | ❌ Dead | No longer functional. |\\n| `phonebook:` | ❌ Dead | Removed years ago. |\\n| `info:` | ⚠️ Unreliable | Sometimes works, often doesn't. |\\n| `daterange:` | ❌ Dead | Use Tools → Any time filter instead. |\\n| `author:` | ❌ Dead | Was for Google Groups. Gone. |\\n| `cache:` | ⚠️ Reduced | Still exists but increasingly limited. |\\n\\n---\\n\\n## Using the Date Filter Without Operators\\n\\nOne of the most underused features in Google search is the **time filter** —\\nand it does not require any operator syntax at all.\\n\\nAfter running any search:\\n1. Click **Tools** (below the search bar, to the right)\\n2. Click **Any time**\\n3. Select a time range — Past hour, Past 24 hours, Past week, Past month,\\n   Past year, or Custom range\\n\\nThis is essential for finding **recent** exposures rather than old indexed\\nresults. If you are researching a fresh breach or a new vulnerability, filter\\nto the past week to cut through the noise.\\n\\n---\\n\\n## Quick Reference Table\\n\\n| Operator | What It Does | Example |\\n|---|---|---|\\n| `site:` | Limit to a domain | `site:example.com` |\\n| `filetype:` | Limit to file type | `filetype:pdf` |\\n| `ext:` | Same as filetype | `ext:sql` |\\n| `inurl:` | Word in URL | `inurl:admin` |\\n| `intitle:` | Word in page title | `intitle:\\\"index of\\\"` |\\n| `intext:` | Word in page body | `intext:\\\"api_key\\\"` |\\n| `allintitle:` | All words in title | `allintitle:admin panel` |\\n| `allinurl:` | All words in URL | `allinurl:admin login` |\\n| `allintext:` | All words in body | `allintext:username password` |\\n| `cache:` | Cached version | `cache:example.com` |\\n| `related:` | Similar sites | `related:github.com` |\\n| `\\\"phrase\\\"` | Exact phrase | `\\\"internal use only\\\"` |\\n| `-word` | Exclude word | `-inurl:login` |\\n| `OR` | Either term | `filetype:pdf OR filetype:doc` |\\n| `*` | Wildcard | `\\\"password * reset\\\"` |\\n| `..` | Number range | `2020..2024` |\\n\\n---\\n\\n## Common Mistakes and Fixes\\n\\n| Problem | Likely Cause | Fix |\\n|---|---|---|\\n| No results at all | Space after colon | Remove space: `site:example.com` not `site: example.com` |\\n| Too many results | Not specific enough | Add more operators to narrow down |\\n| Results from wrong sites | Missing `site:` | Add `site:` to lock to a target |\\n| Exact phrase not matching | Missing quotes | Wrap phrase in quotes: `\\\"exact phrase\\\"` |\\n| Operator not working | Deprecated operator | Check the deprecated list above |\\n| Getting login pages | Need to exclude | Add `-inurl:login` to filter them out |\\n| Old results showing up | No date filter | Use Tools → time filter |\\n\\n---\\n\\n*by SudoChef · Part of the SudoCode Pentesting Methodology Guide*\",\"stderr\":\"\"}"
+          },
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-05-08T10:45:17.427348Z",
+          "stop_timestamp": "2026-05-08T10:45:26.282122Z",
+          "flags": null,
+          "type": "text",
+          "text": "Here's the honest breakdown of what's in that repo and what's actually applicable to your base string question.\n\n**What's in the repo:** It's a Google dorking guide — meaning it's about query-level operators you type *into* your searches, not URL parameters you bake into the template string. The two things operate at different layers.\n\n**What that means for your use case:**\n\nThe template string controls *how Edge sends your query to Google*. The dork operators control *what you're asking Google to find*. You can't embed dork operators into the base string because they only make sense attached to a specific search term — and your search term changes every time.\n\n**What you actually can do with the template string** based on what's in this repo plus what we already discussed:\n\n```\n{google:baseURL}search?q=%s&udm=14&pws=0&ie={inputEncoding}\n```\n\nThat's the most useful modification — `udm=14` forces classic web results and strips AI overviews, `pws=0` turns off personalization. Everything else in the original string is telemetry.\n\n**Where the dork operators do help you** is in your actual search habits. The most practically useful ones from this repo for everyday searching are `site:`, `filetype:`, `intitle:`, and `-word` for exclusions. Those get typed into your query, not the template.\n\nDo you want the dork operators broken down for a specific type of searching you do regularly, or are you more focused on locking in the template string?",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-08T10:45:26.318421Z",
+      "updated_at": "2026-05-08T10:45:26.318421Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e0730-c29c-773a-96d4-2f1f726f451e"
+    },
+    {
+      "uuid": "019e0732-97d5-74c2-8d09-4fe6ad4c36e7",
+      "text": "is there a way to do the opposite of udm14? same Target method but only the AI returns not personalized just based on the query",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:46:56.792566Z",
+          "stop_timestamp": "2026-05-08T10:46:56.792566Z",
+          "flags": null,
+          "type": "text",
+          "text": "is there a way to do the opposite of udm14? same Target method but only the AI returns not personalized just based on the query",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-08T10:46:56.792750Z",
+      "updated_at": "2026-05-08T10:46:56.792750Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e0730-c29c-773a-96d4-2f20a6a9a4b2"
+    },
+    {
+      "uuid": "019e0732-97d5-74c2-8d09-4fe7c79623d5",
+      "text": " Yes. The parameter you want is:\n\n```\n&udm=50\n```\n\nThat forces Google's AI Mode — returns only the AI-generated response, no traditional web links, purely query-driven with no personalization baked in from your account.\n\nSo your full string would be:\n\n```\n{google:baseURL}search?q=%s&udm=50&pws=0&ie={inputEncoding}\n```\n\nThough realistically you probably don't want to bake either `udm=14` or `udm=50` permanently into your base string, since you'll want different result types for different searches. The more practical approach is to have your base string stay clean and just type `udm=50` appended when you specifically want AI-only results — but that's clunky from an address bar.\n\nThe cleaner Xbox Edge solution would be to set up two separate search engines in Edge's settings — one with `udm=14` for web-only and one with `udm=50` for AI-only — and assign them different keyword shortcuts. Then you just type the shortcut before your query in the address bar to route it to whichever mode you want.",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:46:58.561213Z",
+          "stop_timestamp": "2026-05-08T10:47:04.305229Z",
+          "flags": null,
+          "type": "text",
+          "text": " Yes. The parameter you want is:\n\n```\n&udm=50\n```\n\nThat forces Google's AI Mode — returns only the AI-generated response, no traditional web links, purely query-driven with no personalization baked in from your account.\n\nSo your full string would be:\n\n```\n{google:baseURL}search?q=%s&udm=50&pws=0&ie={inputEncoding}\n```\n\nThough realistically you probably don't want to bake either `udm=14` or `udm=50` permanently into your base string, since you'll want different result types for different searches. The more practical approach is to have your base string stay clean and just type `udm=50` appended when you specifically want AI-only results — but that's clunky from an address bar.\n\nThe cleaner Xbox Edge solution would be to set up two separate search engines in Edge's settings — one with `udm=14` for web-only and one with `udm=50` for AI-only — and assign them different keyword shortcuts. Then you just type the shortcut before your query in the address bar to route it to whichever mode you want.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-08T10:47:04.342954Z",
+      "updated_at": "2026-05-08T10:47:04.342954Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e0732-97d5-74c2-8d09-4fe6ad4c36e7"
+    },
+    {
+      "uuid": "019e0734-1d22-7587-9b00-af61490c7068",
+      "text": "well I was going to do something like that. if I liked the result sets I get from it. I was going to do udm 50 in my Xbox and then anytime I wanted to get results that were entirely model driven. I could just type that in. you know I could just type it my search into the Xbox search and it would provide it. I have so many different devices that doesn't affect me much. I don't ever search on Xbox normally. only thing I search on Xbox is like porn usually but it would be a useful thing to have",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:48:36.446236Z",
+          "stop_timestamp": "2026-05-08T10:48:36.446236Z",
+          "flags": null,
+          "type": "text",
+          "text": "well I was going to do something like that. if I liked the result sets I get from it. I was going to do udm 50 in my Xbox and then anytime I wanted to get results that were entirely model driven. I could just type that in. you know I could just type it my search into the Xbox search and it would provide it. I have so many different devices that doesn't affect me much. I don't ever search on Xbox normally. only thing I search on Xbox is like porn usually but it would be a useful thing to have",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-08T10:48:36.446349Z",
+      "updated_at": "2026-05-08T10:48:36.446349Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e0732-97d5-74c2-8d09-4fe7c79623d5"
+    },
+    {
+      "uuid": "019e0734-1d22-7587-9b00-af624f0068ef",
+      "text": " That's actually a solid use case for it — a dedicated device locked to a specific search mode you'd actually use intentionally rather than by accident. Since you don't use Xbox for general browsing, having it permanently set to `udm=50` means every time you do open it for a deliberate search it goes straight to AI-only results without you having to think about it.\n\nIf you want to set it up, just go back to that same settings location where you copied the original string and replace the whole thing with:\n\n```\n{google:baseURL}search?q=%s&udm=50&pws=0&ie={inputEncoding}\n```\n\nThat's the minimal clean version — strips the telemetry tokens, forces AI mode, turns off personalization.",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:48:39.505654Z",
+          "stop_timestamp": "2026-05-08T10:48:42.941418Z",
+          "flags": null,
+          "type": "text",
+          "text": " That's actually a solid use case for it — a dedicated device locked to a specific search mode you'd actually use intentionally rather than by accident. Since you don't use Xbox for general browsing, having it permanently set to `udm=50` means every time you do open it for a deliberate search it goes straight to AI-only results without you having to think about it.\n\nIf you want to set it up, just go back to that same settings location where you copied the original string and replace the whole thing with:\n\n```\n{google:baseURL}search?q=%s&udm=50&pws=0&ie={inputEncoding}\n```\n\nThat's the minimal clean version — strips the telemetry tokens, forces AI mode, turns off personalization.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-08T10:48:42.983611Z",
+      "updated_at": "2026-05-08T10:48:42.983611Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e0734-1d22-7587-9b00-af61490c7068"
+    },
+    {
+      "uuid": "019e0734-cb6e-752a-81ec-59afbcc69f40",
+      "text": "thx will do",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:49:21.063529Z",
+          "stop_timestamp": "2026-05-08T10:49:21.063529Z",
+          "flags": null,
+          "type": "text",
+          "text": "thx will do",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-05-08T10:49:21.063643Z",
+      "updated_at": "2026-05-08T10:49:21.063643Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e0734-1d22-7587-9b00-af624f0068ef"
+    },
+    {
+      "uuid": "019e0734-cb6e-752a-81ec-59b0b5a6736b",
+      "text": " Enjoy your new AI search box. 🤙",
+      "content": [
+        {
+          "start_timestamp": "2026-05-08T10:49:22.924810Z",
+          "stop_timestamp": "2026-05-08T10:49:23.350955Z",
+          "flags": null,
+          "type": "text",
+          "text": " Enjoy your new AI search box. 🤙",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-05-08T10:49:23.396364Z",
+      "updated_at": "2026-05-08T10:49:23.396364Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019e0734-cb6e-752a-81ec-59afbcc69f40"
+    }
+  ]
+}

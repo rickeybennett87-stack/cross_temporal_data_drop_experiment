@@ -1,0 +1,608 @@
+{
+  "uuid": "d644f5f3-e0ef-4bf9-a16a-6097736bbf3a",
+  "name": "iPhone XR jailbreaking",
+  "summary": "**Conversation Overview**\n\nThe person is working on jailbreaking an iPhone XR and came to Claude for guidance on current tool compatibility. The conversation focused on identifying which jailbreak tools apply to the XR's specific hardware and software situation. The person confirmed the device is running the maximum iOS version available to it (the OS ceiling for the XR), which tops out around iOS 18.7.9.\n\nClaude initially provided information about both Dopamine and palera1n as potential options, but then corrected a significant error mid-conversation: the XR's A12 chip is not checkm8-vulnerable, meaning palera1n does not apply to this device at all (checkm8 only covers A5 through A11 chips). Claude verified against the official Dopamine GitHub repo (opa334/Dopamine) and confirmed that Dopamine's supported ceiling for A12 devices is iOS 18.7.1, leaving the person's device at 18.7.9 without a currently available public jailbreak. Claude also flagged that various third-party sites promoting tools like \"Darksword\" or \"Nipzu\" appear to be SEO spam or potential malware vectors, recommending the person rely only on official GitHub repos and established community sources like r/jailbreak.\n\nThe practical options Claude outlined were: checking ipsw.me to see if Apple is still signing iOS 18.7.1 (which would allow a restore to a supported version without needing saved SHSH blobs), waiting for Dopamine to extend its supported range, or monitoring for TrollStore compatibility as a lighter alternative. The conversation ended with Claude offering to check current Apple signing status for the XR. Key terminology used throughout includes: semi-tethered, rootless/rootful, checkm8, bootrom exploit, SHSH blobs, DFU mode, A12 chip, and IPSW.",
+  "created_at": "2026-08-14T04:45:02.872150Z",
+  "updated_at": "2026-08-14T04:46:33.513444Z",
+  "account": {
+    "uuid": "404f3f89-8c3a-46a9-a7b4-7a3c875dbedd"
+  },
+  "chat_messages": [
+    {
+      "uuid": "019ffe94-68be-7b6a-8cc1-19d8864ed63a",
+      "text": "jailb reaking an i phone xr",
+      "content": [
+        {
+          "start_timestamp": "2026-08-14T04:45:04.219993Z",
+          "stop_timestamp": "2026-08-14T04:45:04.219993Z",
+          "flags": null,
+          "type": "text",
+          "text": "jailb reaking an i phone xr",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-08-14T04:45:04.220166Z",
+      "updated_at": "2026-08-14T04:45:04.220166Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "00000000-0000-4000-8000-000000000000"
+    },
+    {
+      "uuid": "019ffe94-68be-75fe-8a5a-2de6f0a3c310",
+      "text": "Jailbreaking an iPhone XR is totally doable depending on what iOS version it's running — let me check current tool compatibility since this changes often.\n```\nThis block is not supported on your current device yet.\n```\n\nDepends entirely on what iOS version the XR is currently running — that's the deciding factor. A few things worth knowing before you pick a tool:\n\n**Which iOS is it on?**\nThe iPhone XR uses the A12 chip, which is checkm8-vulnerable (a permanent bootrom exploit), so it's one of the more jailbreak-friendly chips even years later. But tool support is split by firmware version:\n- **iOS 15.0–16.5.1 (and reportedly now up to 18.7.1 as of Dopamine 3.0, released this month)**: Dopamine is the standard tool — semi-tethered, modifies system files but not the bootloader.\n- **iOS 18.7.2+**: I don't have confirmation that any current tool covers this yet. XR's final major OS is iOS 18 (it doesn't support iOS 26), so its whole possible range tops out around 18.7.9.\n\nI'd flag one thing: some of what turned up in search (sites pushing \"Darksword\" or \"Nipzu\" as iOS 26 jailbreak tools) reads like SEO spam — promising jailbreaks for iOS versions that legitimate jailbreak communities (Reddit's r/jailbreak, the actual Dopamine/palera1n GitHub repos) say have no public jailbreak yet. I haven't verified those tools myself and wouldn't trust them on a device with your data on it — a lot of that corner of the web bundles malware with \"jailbreak\" installers.\n\n**What I'd actually do:**\n1. Check Settings → General → About for your exact iOS build.\n2. If you're in the 15.0–18.7.1 range, look at Dopamine directly from its GitHub (dopamine.jailbreak.party or the official repo) — not third-party mirror sites.\n3. If checkm8/palera1n is more your speed (works differently, via DFU mode, doesn't depend as much on iOS version), that's the other well-established option for A12 devices.\n\nWhat iOS version is it on — that'll tell me which path actually applies to you.",
+      "content": [
+        {
+          "start_timestamp": "2026-08-14T04:45:05.861975Z",
+          "stop_timestamp": "2026-08-14T04:45:06.406181Z",
+          "flags": null,
+          "type": "text",
+          "text": "Jailbreaking an iPhone XR is totally doable depending on what iOS version it's running — let me check current tool compatibility since this changes often.",
+          "citations": []
+        },
+        {
+          "start_timestamp": "2026-08-14T04:45:06.406196Z",
+          "stop_timestamp": "2026-08-14T04:45:06.888993Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_01J8hXeUj1SsmuY2gJenJbkW",
+          "name": "web_search",
+          "input": {
+            "query": "iPhone XR jailbreak 2026 current status iOS version"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": "2026-08-14T04:45:07.589798Z",
+          "stop_timestamp": "2026-08-14T04:45:07.589841Z",
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_01J8hXeUj1SsmuY2gJenJbkW",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "iPhone Jailbreak Guide (2026): iOS 26 Status, Compatibility, and Tools - iClarified",
+              "url": "https://www.iclarified.com/jailbreak",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "iclarified.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=iclarified.com",
+                "site_name": "iClarified"
+              },
+              "is_missing": false,
+              "text": "This page outlines the current jailbreak status for iPhone and iPad in 2026, including iOS 26. Today, the jailbreak landscape has changed. Apple has significantly hardened the iOS kernel and bootloader, making stable public jailbreaks much rarer.\n\nFor more than a decade, iClarified has published the most trusted jailbreak tutorials. From the era of JailbreakMe, redsn0w, and PwnageTool to modern tools like palera1n and Dopamine, we’ve helped millions take full control of their devices. This page outlines the current jailbreak status for iPhone and iPad in 2026, including iOS 26. Today, the jailbreak landscape has changed. Apple has significantly hardened the iOS kernel and bootloader, making stable public jailbreaks much rarer. This page serves as both a current status report and a historical archive of the tools that defined the hacker culture of the iPhone. Note: Jailbreaking is different from unlocking. \n\nIf you are looking to remove carrier restrictions to use a different SIM card, please see our iPhone Unlock Guide. For firmware files, visit our Download Firmware page. August 2026 update — Dopamine 3.0 released: Dopamine 3.0 expands jailbreak support to iOS and iPadOS 17.3.1 across its supported A8 - A17 and M1 - M2 devices.\n\nDopamine also supports A12/A13 devices through iOS/iPadOS 18.7.1 and A14 - A17/M1 - M2 devices through iOS/iPadOS 17.3.1. There is currently no public iOS 26 jailbreak for A18/A19 devices, including the iPhone 16 and iPhone 17 lineups. Support is specific to both chip and firmware. If your device is on a newer unsupported release, downgrading is typically not possible because Apple stops signing older firmware. Check the compatibility tables below before installing any jailbreak. In June 2026, the usbliter8 BootROM exploit was disclosed for A12 and A13 devices. \n\nIt remains a proof of concept rather than a standalone jailbreak; Dopamine 3.0's expanded support comes from the Titan and momentarius bypasses. Read our usbliter8 report. Use",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "1 week ago",
+                "search_provider": "anthropic",
+                "url": "https://www.iclarified.com/jailbreak"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Jailbreak iPhone X, XS, XS Max, XR [Updated: July 2026] – Pangu8",
+              "url": "https://pangu8.com/jailbreak/iphone-x/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "pangu8.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=pangu8.com",
+                "site_name": "Pangu8"
+              },
+              "is_missing": false,
+              "text": "Unfortunately, none of these models support the latest iOS 26 – iOS 26.6 or iOS 27 beta. Refer iOS 26 Jailbreak – iOS 26.6 Jailbreak (beta) or iOS 27 Jailbreak (beta) pages for compatibility. If you have upgraded your iPhone X, XS, XR or XS max to the latest iOS version you can download the following Jailbreak tools. However, iPhone X does not support iOS 17 &amp; higher versions and it is supported up to iOS 16.7.16 only. Other iPhone XS, XR and XS MAX models support iOS 17 – iOS 18.7.9...\n\nMost websites provide outdated information about iPhone X Jailbreak. We provide iPhone X (A11) and XS/XR/XS Max (A12) jailbreaking methods and tools that work in 2026. Unfortunately, none of these models support the latest iOS 26 – iOS 26.6 or iOS 27 beta. Refer iOS 26 Jailbreak – iOS 26.6 Jailbreak (beta) or iOS 27 Jailbreak (beta) pages for compatibility. If you have upgraded your iPhone X, XS, XR or XS max to the latest iOS version you can download the following Jailbreak tools. \n\nHowever, iPhone X does not support iOS 17 & higher versions and it is supported up to iOS 16.7.16 only. Other iPhone XS, XR and XS MAX models support iOS 17 – iOS 18.7.9. If you haven’t upgraded the iPhone X/XS model to iOS 14 – iOS 18.7.9. Click here to download iPhone X Jailbreak tools for old iOS versions (iOS 11 – iOS 14.8.1) We have also included the best jailbreak apps to get iPhone X experience on older devices.\n\nRedensa is the Terminal based Jailbreak app installation method for latest iOS 17 and higher versions. Redensa is compatible with iPhone XS, XS Max and XR models only. Even though Redensa is very new and iPhone XS models are very old, Redensa works perfectly with iPhone XS models. However Redensa does not support iPhone X jailbreak, because iPhone X can not upgrade for iOS 17 & higher versions. . Redensa is not only a Jailbreak app installation tool, You may be able to do so many things with Redensa using your iPhone XS, iPhone XR, iPhone XS Max ... \n\nIf you are an",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://pangu8.com/jailbreak/iphone-x/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "iPhone XR Jailbreak Status 2026 — Compatibility & Tools",
+              "url": "https://jailbreakly.com/device/iphone-xr",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "jailbreakly.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=jailbreakly.com",
+                "site_name": "Jailbreakly"
+              },
+              "is_missing": false,
+              "text": "Because this device is powered by the A12 chipset, it features Apple&#x27;s modern security mitigations. Currently, root-level jailbreaks (via Dopamine) are only available on iOS 15.0 - 16.5.1. Newer iOS versions are limited to sideloading options or semi-jailbreak customization helpers.\n\nFind out if your iPhone or iPad can be jailbroken. Get honest jailbreak compatibility info.\n\niPhone XR jailbreak status: Fully supported/jailbreakable on compatible iOS versions, verified against data current through iOS 26.5. Jailbreak status and compatibility for iPhone XR powered by the A12 chip. In 2026, the jailbreak status for the iPhone XR depends entirely on which iOS firmware version is currently running. Because this device is powered by the A12 chipset, it features Apple's modern security mitigations. Currently, root-level jailbreaks (via Dopamine) are only available on iOS 15.0 - 16.5.1. Newer iOS versions are limited to sideloading options or semi-jailbreak customization helpers. \n\nAlways remember: if your goal is to jailbreak, you must stay on the lowest possible iOS version and disable automatic software updates in Settings. ... Jailbreak available! ... Jailbreak available via unc0ver! ... Jailbreak available! ... Jailbreak available!\n\nNo jailbreak available for this iOS version on A12 devices. Dopamine is the tool people actually run on the A12-based iPhone XR, and it's considered safe when you back up first — it modifies system files but doesn't touch the bootloader. Jailbreaking also voids your Apple warranty while active. Dopamine for iOS 15.0–16.5.1. Check the compatibility table above for other firmware ranges — the A12 chip's best option changes by iOS version.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://jailbreakly.com/device/iphone-xr"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Does iPhone XR Still Get Updates? (2026 Guide)",
+              "url": "https://electronics.alibaba.com/buyingguides/iphone-xr-update-status-in-2026-still-supported",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "alibaba.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=alibaba.com",
+                "site_name": "Alibaba"
+              },
+              "is_missing": false,
+              "text": "This isn’t a sudden cutoff. It’s a phased transition: iOS 18 was the last major release the XR qualified for; iOS 18.7.x is its final patch series. Developers continue supporting iOS 16–18 for most mainstream apps — so your favorite ...\n\nThe iPhone XR launched in October 2018. By mid-2026, it has received ~7.5 years of official support — matching Apple’s longest-supported iPhones (e.g., iPhone 6s, iPhone 7). But “support” no longer means feature-rich OS upgrades. It now means limited, targeted security maintenance. The device entered “Limited Support” status in early 2026 — a formal designation indicating that Apple will ship patches only for high- and critical-severity vulnerabilities (e.g., zero-day exploits affecting iMessage or WebKit), not for medium- or low-risk bugs, UI refinements, or compatibility fixes. This isn’t a sudden cutoff. It’s a phased transition: iOS 18 was the last major release the XR qualified for; iOS 18.7.x is its final patch series. \n\nDevelopers continue supporting iOS 16–18 for most mainstream apps — so your favorite tools (WhatsApp, Spotify, Gmail, Instagram) still launch and function as expected.\n\nYes — but only security updates, not major OS upgrades. As of June 2026, the iPhone XR runs iOS 18.7.9 — its final supported version — and continues to receive critical security patches (the latest released May 11, 2026). It is not compatible with iOS 26 or any future major releases. If you’re a typical user who relies on core apps (Messages, Mail, Safari, Maps, banking, social media), the device remains functional and safe — but only if you keep it updated and avoid resource-heavy tasks like multitasking with 10+ tabs or editing 4K video. Over the past year, search interest in “iPhone XR updates” has held steady between 29–72 on Google Trends — signaling sustained real-world usage, not nostalgia.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "1 week ago",
+                "search_provider": "anthropic",
+                "url": "https://electronics.alibaba.com/buyingguides/iphone-xr-update-status-in-2026-still-supported"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "iOS 26 Jailbreak – The latest methods for 2026 – Pangu8",
+              "url": "https://pangu8.com/ios-26-jailbreak/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "pangu8.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=pangu8.com",
+                "site_name": "Pangu8"
+              },
+              "is_missing": false,
+              "text": "Nipzu is an online jailbreak solution for iOS 26 &amp; iOS 26.0.1. There is a jailbreak process to run and you require a 15% battery and stable internet connection before proceeding with it. Finally it will offer Cydia lite, Sileo lite, Zebra and Cydia black app manager which have limited functions.\n\nNipzu is an online jailbreak solution for iOS 26 & iOS 26.0.1. There is a jailbreak process to run and you require a 15% battery and stable internet connection before proceeding with it. Finally it will offer Cydia lite, Sileo lite, Zebra and Cydia black app manager which have limited functions. ... You should know the device compatibility before downloading. iOS 26 supports almost all iPhones currently running iOS 18. Here is the full list. \n\niPhone 17 Series – 17, 17 Pro, 17 Pro Max and iPhone Air · iPhone 16 Series – 16, 16 Plus, 16 Pro, 16 Pro Max, 16E · iPhone 15 Series – 15, 15 Plus, 15 Pro, 15 Pro Max · iPhone 14 Series – 14, 14 Plus, 14 Pro, 14 Pro Max · iPhone 13 Series – 13, 13 mini, 13 Pro, 13 Pro Max · iPhone 12 Series – 12, 12 mini, 12 Pro, 12 Pro Max ... Note – The iPhone XR, iPhone XS, and iPhone XS Max are losing eligibility for iOS 26 updates.\n\nFind all the latest iOS 26 jailbreak methods in one place. Whether you’re looking to install Cydia, Sileo, or unlock advanced AI-powered iPhone customization, you’ll find the safest and most updated jailbreak options for iOS 26 here. If you’re searching for an easy and effective iOS 26 jailbreak method, the Darksword Exploit is a strong option. With support for iOS 26 – iOS 26.6, Darksword allows you to install apps, tweaks, and themes with minimal effort; bringing a new level of customization to your device. ... \n\nDarksword is a modern jailbreak method that allows users to unlock additional functionality on their iPhones and iPads. By using this platform, you can: ... It works through a profile-based installation system, making it safer and more accessible compared to traditional root-",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "3 days ago",
+                "search_provider": "anthropic",
+                "url": "https://pangu8.com/ios-26-jailbreak/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Does the iPhone XR Still Get Updates? (2026 Guide)",
+              "url": "https://electronics.alibaba.com/buyingguides/iphone-xr-update-status-in-2026-still-safe",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "alibaba.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=alibaba.com",
+                "site_name": "Alibaba"
+              },
+              "is_missing": false,
+              "text": "If you require iOS 26-specific capabilities (Live Voicemail, advanced Focus Filters, or Apple Intelligence integrations), upgrade to an iPhone 15 or newer. If you’re weighing cost versus capability, remember: the XR’s greatest advantage ...\n\nFrom a safety standpoint, iOS 18.7.x includes all known mitigations for CVE-2025-XXXX series vulnerabilities affecting Bluetooth pairing and iMessage attachment parsing 1. No regulatory body (FCC, FDA, or FTC) prohibits continued use of iOS 18 devices — and Apple itself confirms support continues “until further notice” for security-critical patches 2. Legally, your carrier contract and warranty status remain unchanged — software support cessation doesn’t void consumer rights under Magnuson-Moss Warranty Act. If you need reliable communication, secure browsing, and predictable app behavior for another 12–18 months, keep your iPhone XR — it’s still fit for purpose. \n\nIf you require iOS 26-specific capabilities (Live Voicemail, advanced Focus Filters, or Apple Intelligence integrations), upgrade to an iPhone 15 or newer. If you’re weighing cost versus capability, remember: the XR’s greatest advantage isn’t specs — it’s predictability. Its performance ceiling is known, its update path is cle\n\nYes — but only security patches, not new features or major OS upgrades. As of June 2026, the iPhone XR runs iOS 18.7.9 (released May 11, 2026) and remains under Apple’s active security maintenance tier 1. It does not support iOS 26 or newer — its final major update was iOS 18. If you’re a typical user who checks email, texts, browses, uses banking apps, and takes photos, you don’t need to overthink this: your device is still safe, functional, and well-supported for daily use. For users prioritizing reliability and core functionality, the iPhone XR continues to deliver consistent performance and verified security protections.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "1 week ago",
+                "search_provider": "anthropic",
+                "url": "https://electronics.alibaba.com/buyingguides/iphone-xr-update-status-in-2026-still-safe"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "GitHub - iOS17/Jailbreak: iOS 26.4 - 26, 17 - 17.7.5 & iOS 18 - 18.7.3 Jailbreak Tools, Cydia/Sileo/Zebra Tweaks & Jailbreak News Updates || AI Jailbreak Finder 👇",
+              "url": "https://github.com/iOS17/Jailbreak",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Current Status: Research and Exploit Development Phase for iOS 27 Beta. No public jailbreak utility is available for iOS 27 yet. iOS 17 - iOS 17.3.1 Jailbreak Tool Released: Download and Install Relaxing Jailbreak (Relaxin is an open public ...\n\nCurrent Status: Research and Exploit Development Phase for iOS 27 Beta. No public jailbreak utility is available for iOS 27 yet. iOS 17 - iOS 17.3.1 Jailbreak Tool Released: Download and Install Relaxing Jailbreak (Relaxin is an open public beta jailbreak tool designed for iOS 17.x devices. It is built upon the foundation of Dopamine 2 but developed by an independent team.) Following Apple's WWDC 2026 keynote, the first iOS 27 Beta 1 developer preview has officially been released. Packed with new \"Siri AI\" capabilities and Liquid Glass design refinements, iOS 27 is already prompting users to explore the possibilities of customizing and jailbreaking.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://github.com/iOS17/Jailbreak"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-08-14T04:45:08.458812Z",
+          "stop_timestamp": "2026-08-14T04:45:24.973640Z",
+          "flags": null,
+          "type": "thinking",
+          "thinking": "",
+          "summaries": [
+            {
+              "summary": "Scrutinizing dubious jailbreak claims and verifying iPhone XR details."
+            },
+            {
+              "summary": "Scrutinized jailbreak options and verified device compatibility details."
+            }
+          ],
+          "cut_off": false,
+          "truncated": false,
+          "hidden": false,
+          "thinking_hidden": true,
+          "alternative_display_type": null,
+          "signature": null
+        },
+        {
+          "start_timestamp": "2026-08-14T04:45:24.974085Z",
+          "stop_timestamp": "2026-08-14T04:45:32.156024Z",
+          "flags": null,
+          "type": "text",
+          "text": "Depends entirely on what iOS version the XR is currently running — that's the deciding factor. A few things worth knowing before you pick a tool:\n\n**Which iOS is it on?**\nThe iPhone XR uses the A12 chip, which is checkm8-vulnerable (a permanent bootrom exploit), so it's one of the more jailbreak-friendly chips even years later. But tool support is split by firmware version:\n- **iOS 15.0–16.5.1 (and reportedly now up to 18.7.1 as of Dopamine 3.0, released this month)**: Dopamine is the standard tool — semi-tethered, modifies system files but not the bootloader.\n- **iOS 18.7.2+**: I don't have confirmation that any current tool covers this yet. XR's final major OS is iOS 18 (it doesn't support iOS 26), so its whole possible range tops out around 18.7.9.\n\nI'd flag one thing: some of what turned up in search (sites pushing \"Darksword\" or \"Nipzu\" as iOS 26 jailbreak tools) reads like SEO spam — promising jailbreaks for iOS versions that legitimate jailbreak communities (Reddit's r/jailbreak, the actual Dopamine/palera1n GitHub repos) say have no public jailbreak yet. I haven't verified those tools myself and wouldn't trust them on a device with your data on it — a lot of that corner of the web bundles malware with \"jailbreak\" installers.\n\n**What I'd actually do:**\n1. Check Settings → General → About for your exact iOS build.\n2. If you're in the 15.0–18.7.1 range, look at Dopamine directly from its GitHub (dopamine.jailbreak.party or the official repo) — not third-party mirror sites.\n3. If checkm8/palera1n is more your speed (works differently, via DFU mode, doesn't depend as much on iOS version), that's the other well-established option for A12 devices.\n\nWhat iOS version is it on — that'll tell me which path actually applies to you.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-08-14T04:45:32.213479Z",
+      "updated_at": "2026-08-14T04:45:32.213479Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ffe94-68be-7b6a-8cc1-19d8864ed63a"
+    },
+    {
+      "uuid": "019ffe95-09bd-7d6f-a48e-c98b18332105",
+      "text": "its got an os cielimg so well probably need an older tool",
+      "content": [
+        {
+          "start_timestamp": "2026-08-14T04:45:42.552979Z",
+          "stop_timestamp": "2026-08-14T04:45:42.552979Z",
+          "flags": null,
+          "type": "text",
+          "text": "its got an os cielimg so well probably need an older tool",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-08-14T04:45:42.553171Z",
+      "updated_at": "2026-08-14T04:45:42.553171Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ffe94-68be-75fe-8a5a-2de6f0a3c310"
+    },
+    {
+      "uuid": "019ffe95-09bd-7f97-ab47-23af06db502f",
+      "text": "Right — if it's sitting at the ceiling (18.7.9), that's past Dopamine's known cutoff (18.7.1), so full root-level jailbreak options get thin there. A couple of realistic paths:\n\n**1. Check what iOS Apple is currently signing for the XR**\nApple normally only signs the latest version or two, so downgrading to something like 16.5.1 (solid Dopamine territory) may not be possible unless you saved SHSH blobs beforehand. Worth checking before planning around it — sites like ipsw.me show current signing status per device, and you can verify in Finder/iTunes by trying a restore to a specific IPSW.\n\n**2. If it's stuck at 18.7.9 and downgrade isn't signed**\nYour realistic options shrink to whatever the newest palera1n/Dopamine builds actually support — and I don't have solid confirmation those cover 18.7.9 specifically yet (Dopamine 3.0's stated ceiling for A12 was 18.7.1, per what I found). I'd check the palera1n Discord/GitHub issues directly rather than trust a random blog, since that community tracks exact build support closely and it changes month to month.\n\n**3. If downgrade *is* still signed**\nThen yeah, going back to something in the 15.0–16.5.1 range is the more reliable route — Dopamine's had a long time to mature there, it's rootful/rootless flexible, and documentation is much better than for anything chasing 18.x.\n\nDo you know the exact build number (Settings → General → About → the actual version string), and whether you or anyone saved SHSH blobs for this device? That'll tell us whether downgrade is even on the table.",
+      "content": [
+        {
+          "start_timestamp": "2026-08-14T04:45:42.548137Z",
+          "stop_timestamp": "2026-08-14T04:45:49.111705Z",
+          "flags": null,
+          "type": "thinking",
+          "thinking": "",
+          "summaries": [
+            {
+              "summary": "Thinking about selecting appropriate tools for older OS ceilings."
+            },
+            {
+              "summary": "Seeking clarification on specific version requirements."
+            },
+            {
+              "summary": "Deciphered voice-to-text artifact and planned clarifying inquiry."
+            }
+          ],
+          "cut_off": false,
+          "truncated": false,
+          "hidden": false,
+          "thinking_hidden": true,
+          "alternative_display_type": null,
+          "signature": null
+        },
+        {
+          "start_timestamp": "2026-08-14T04:45:49.111924Z",
+          "stop_timestamp": "2026-08-14T04:45:56.123751Z",
+          "flags": null,
+          "type": "text",
+          "text": "Right — if it's sitting at the ceiling (18.7.9), that's past Dopamine's known cutoff (18.7.1), so full root-level jailbreak options get thin there. A couple of realistic paths:\n\n**1. Check what iOS Apple is currently signing for the XR**\nApple normally only signs the latest version or two, so downgrading to something like 16.5.1 (solid Dopamine territory) may not be possible unless you saved SHSH blobs beforehand. Worth checking before planning around it — sites like ipsw.me show current signing status per device, and you can verify in Finder/iTunes by trying a restore to a specific IPSW.\n\n**2. If it's stuck at 18.7.9 and downgrade isn't signed**\nYour realistic options shrink to whatever the newest palera1n/Dopamine builds actually support — and I don't have solid confirmation those cover 18.7.9 specifically yet (Dopamine 3.0's stated ceiling for A12 was 18.7.1, per what I found). I'd check the palera1n Discord/GitHub issues directly rather than trust a random blog, since that community tracks exact build support closely and it changes month to month.\n\n**3. If downgrade *is* still signed**\nThen yeah, going back to something in the 15.0–16.5.1 range is the more reliable route — Dopamine's had a long time to mature there, it's rootful/rootless flexible, and documentation is much better than for anything chasing 18.x.\n\nDo you know the exact build number (Settings → General → About → the actual version string), and whether you or anyone saved SHSH blobs for this device? That'll tell us whether downgrade is even on the table.",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-08-14T04:45:56.130684Z",
+      "updated_at": "2026-08-14T04:45:56.130684Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ffe95-09bd-7d6f-a48e-c98b18332105"
+    },
+    {
+      "uuid": "019ffe95-7285-71bc-b4de-95a047ff72ea",
+      "text": "its at the cieling",
+      "content": [
+        {
+          "start_timestamp": "2026-08-14T04:46:09.168218Z",
+          "stop_timestamp": "2026-08-14T04:46:09.168218Z",
+          "flags": null,
+          "type": "text",
+          "text": "its at the cieling",
+          "citations": []
+        }
+      ],
+      "sender": "human",
+      "created_at": "2026-08-14T04:46:09.168394Z",
+      "updated_at": "2026-08-14T04:46:09.168394Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ffe95-09bd-7f97-ab47-23af06db502f"
+    },
+    {
+      "uuid": "019ffe95-7285-78a3-a170-3cd8c4d777b1",
+      "text": "\n```\nThis block is not supported on your current device yet.\n```\n\nGood — that changes the answer, and I need to correct something I got wrong earlier: **A12 (the XR's chip) is not checkm8-vulnerable.** checkm8 only covers A5 through A11. So palera1n — which I mentioned as an option in my first reply — doesn't actually apply to your device at all. That was my mistake; sorry for the bad lead.\n\nChecked directly against the official Dopamine GitHub repo (opa334/Dopamine), not a mirror or blog:\n\n> \"A rootless semi-untethered jailbreak for iOS 15.0 - 17.3.1 (arm64e), iOS 15.0 - 18.7.1, 26.0 - 26.0.1 (A12/A13) and iOS 15.0 - 18.7.1 (arm64).\"\n\nSo for A12 devices specifically, Dopamine's confirmed ceiling is **18.7.1** — with a separate window at 26.0–26.0.1 that doesn't matter here since the XR can't run iOS 26 anyway (it caps out around 18.7.x).\n\nIf your XR is sitting at 18.7.9, that's past Dopamine's supported line by a few patch versions. Straight answer: **there's currently no public jailbreak that covers where your device is right now.** Your real options are:\n\n1. **Check if Apple is still signing 18.7.1 or earlier** (ipsw.me shows current signing status) — if so, a restore to that version puts you back in Dopamine's supported range. No SHSH blobs needed for this since it's not a true downgrade below the signing window, just back to a still-signed build.\n2. **Wait** — Dopamine's dev team (opa334) moves fairly quickly on extending ranges after new bypasses land; 18.7.9 support could show up.\n3. Skip full jailbreak and use **TrollStore** if a compatible version window ever opens for permanent sideloading instead — but per iClarified, TrollStore doesn't cover iOS 18 either right now.\n\nWant me to check what Apple's currently signing for the XR so we know if option 1 is even live?",
+      "content": [
+        {
+          "start_timestamp": "2026-08-14T04:46:10.829479Z",
+          "stop_timestamp": "2026-08-14T04:46:11.213733Z",
+          "flags": null,
+          "type": "tool_use",
+          "id": "toolu_016SfBCLxV8KWDbK5fW8vg6H",
+          "name": "web_search",
+          "input": {
+            "query": "palera1n Dopamine iOS 18.7.9 A12 jailbreak support"
+          },
+          "message": "Searching the web",
+          "integration_name": null,
+          "integration_icon_url": null,
+          "tool_identifier": null,
+          "icon_name": "globe",
+          "context": null,
+          "display_content": null,
+          "approval_options": null,
+          "approval_key": null,
+          "approval_key_legacy": null,
+          "is_mcp_app": null,
+          "hidden_in_chat": null,
+          "mcp_server_url": null
+        },
+        {
+          "start_timestamp": "2026-08-14T04:46:12.062873Z",
+          "stop_timestamp": "2026-08-14T04:46:12.062904Z",
+          "flags": null,
+          "type": "tool_result",
+          "tool_use_id": "toolu_016SfBCLxV8KWDbK5fW8vg6H",
+          "name": "web_search",
+          "content": [
+            {
+              "type": "knowledge",
+              "title": "Mastering iOS Pentesting: Part 1 — Jailbreaking Your Devices (Dopamine & palera1n) | by Faris Faisal 0xFF | Medium",
+              "url": "https://medium.com/@frsfaisall/mastering-ios-pentesting-part-1-jailbreaking-your-devices-dopamine-palera1n-200ae1dc7542",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "medium.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=medium.com",
+                "site_name": "Medium"
+              },
+              "is_missing": false,
+              "text": "iPhone 7 (iOS 15.8.5) → Dopamine (semi-untethered, easy,great for older devices) ( iOS 15.0 → 16.6.1). iPhone X (iOS 16.7.12) → palera1n (checkm8-based exploit, supports A8 to A11 on iOS 15–16+). Dopamine (iPhone 7): Install signed IPA ...\n\nWelcome to the first installment of this practical iOS Pentesting Series on Medium! This hands-on guide focuses on mobile application…\n\nOnce complete, reopen Dopamine — it should show the device as jailbroken. Sileo and Zebra icons will appear on your Home Screen. palera1n is semi-tethered (requires computer to re-jailbreak after reboot) but leverages the unpatchable checkm8 bootrom exploit. Rootless mode is recommended for pentesting to avoid filesystem conflicts. 1: Handle Passcode on A11 Devices (Critical!) For A11 devices (iPhone X, 8/8 Plus) on iOS 16: You must disable the passcode (and cannot use Face ID/Touch ID, Apple Pay, etc., while jailbroken). \n\nIf a passcode was ever set on iOS 16, you likely need to erase all content and settings first (Settings > General > Transfer or Reset iPhone > Erase All Content and Settings). Backup everything before erasing. Set up the device fresh without adding a passcode until after jailbreak. This is due to SEP (Secure Enclave Processor) limitations — no workaround exists currently.\n\niPhone 7 (iOS 15.8.5) → Dopamine (semi-untethered, easy,great for older devices) ( iOS 15.0 → 16.6.1). iPhone X (iOS 16.7.12) → palera1n (checkm8-based exploit, supports A8 to A11 on iOS 15–16+). Dopamine (iPhone 7): Install signed IPA via TrollStore/Sideloadly → open app → “Jailbreak”. Semi-untethered: After reboot, just reopen Dopamine and tap “Jailbreak” again. Download the Dopamine IPA Visit the official source: https://ellekit.space/dopamine/ (or GitHub: https://github.com/opa334/Dopamine/releases for the latest version, e.g., 2.4.x as of 2026).",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "January 16, 2026",
+                "search_provider": "anthropic",
+                "url": "https://medium.com/@frsfaisall/mastering-ios-pentesting-part-1-jailbreaking-your-devices-dopamine-palera1n-200ae1dc7542"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Palera1n Jailbreak [July 2026 Release] – Pangu8",
+              "url": "https://pangu8.com/jailbreak/palera1n/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "pangu8.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=pangu8.com",
+                "site_name": "Pangu8"
+              },
+              "is_missing": false,
+              "text": "Supported versions – iOS/iPadOS 15 – 16.4.1, iPadOS 17-17.7.11 and iPadOS 18 -18.7.9 · Supported devices – iPhone 6s, iPhone 6s Plus, iPhone SE (2016), iPhone 7, iPhone 7 Plus, iPhone 8, iPhone 8 Plus, iPhone X, iPod Touch (7th gen), iPad mini 4, iPad (5th gen), iPad (6th gen), iPad ...\n\n03. Dopamine Jailbreak – This is a newly released jailbreak for iOS 15 – iOS 15.4.1 running A12 + devices. Still in developing mode. This is a rebranded version of Fugu15 Max Jailbreak. ... 04. Serotonin Jailbreak – Serotonin jailbreak works with iOS 16 – iOS 16.6.1 versions. You need to install both TrollStore 2 and the RootHide bootstrap to install serotonin.\n\n\n\nSupported versions – iOS/iPadOS 15 – 16.4.1, iPadOS 17-17.7.11 and iPadOS 18 -18.7.9 · Supported devices – iPhone 6s, iPhone 6s Plus, iPhone SE (2016), iPhone 7, iPhone 7 Plus, iPhone 8, iPhone 8 Plus, iPhone X, iPod Touch (7th gen), iPad mini 4, iPad (5th gen), iPad (6th gen), iPad (7th gen), iPad Pro, iPad Pro (1st gen) , iPad Pro (2nd gen), iPad Air 2 ... 2. Palera1n Virtual Terminal Jailbreak – Palera1n virtual is an alternative method that you can use on all device models and all iOS/iPadOS versions without issue. It is an online method with easy steps. You can install the Sileo lite app with this method. Supported versions – iOS/iPadOS 16 – 18.7.9, iOS 26-iOS 26.6 & iOS 27 beta ·\n\nPalera1n Virtual terminal jailbreak is a web-based online process for all latest devices. Its brand new method processing through the terminal updating modified IPSW keys. \n\nIt is compatible with iOS 16 – iOS 17.7.7 running all device models including latest iPhone 16 models & iPhone 15 models. Now its works with the iOS 18 – iOS 26.6 including iOS 27 (beta) ... Step 01 – Click the above button, first you need to install zJailbreak following a very simple process. Step 02 – Launch zJailbreak from your iPhone or iPad, download Palera1n Virtual Terminal Jailbreak from jailbreak category. Step 03 – When c",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://pangu8.com/jailbreak/palera1n/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "iPhone Jailbreak Guide (2026): iOS 26 Status, Compatibility, and Tools - iClarified",
+              "url": "https://www.iclarified.com/jailbreak",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "iclarified.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=iclarified.com",
+                "site_name": "iClarified"
+              },
+              "is_missing": false,
+              "text": "TrollStore: Not a jailbreak, but the best option for permanent sideloading on iOS 14.0 - 16.6.1 and iOS 17.0. Does not support iOS 18 or 26. Dopamine is a modern, rootless jailbreak.\n\npalera1n: Best for A8 - A11 devices on the latest firmware (semi-tethered, rootless). TrollStore: Not a jailbreak, but the best option for permanent sideloading on iOS 14.0 - 16.6.1 and iOS 17.0. Does not support iOS 18 or 26. Dopamine is a modern, rootless jailbreak. It is an app-based (semi-untethered) jailbreak, meaning if your phone reboots, you simply open the Dopamine app and tap \"Jailbreak\" to restore functionality. ... A14 - A17 / M1 - M2: Supported on iOS/iPadOS 15.0 - 17.3.1. A8 - A13: Supported on compatible iOS/iPadOS releases from 15.0 - 18.7.1, depending on the device's maximum firmware. A12 - A13: Also supported on iOS/iPadOS 26.0 - 26.0.1 on devices that can run those releases. ... \n\nAugust 2026 update — Dopamine 3.0: Dopamine 3.0 adds the Titan PPL/SPTM bypass and momentarius PPL bypass, substantially expanding device and firmware support.\n\nAugust 2026 update — Dopamine 3.0 released: Dopamine 3.0 expands jailbreak support to iOS and iPadOS 17.3.1 across its supported A8 - A17 and M1 - M2 devices. Select A8 - A13 devices are supported through iOS/iPadOS 18.7.1, while compatible A12/A13 devices can also be jailbroken on iOS/iPadOS 26.0 - 26.0.1. Read our full report. ... Select your device model... ... Select your iOS version... ... Dopamine 3.0 can jailbreak compatible A12 and A13 devices running iOS/iPadOS 26.0 - 26.0.1. This includes the iPhone 11 lineup, iPhone SE (2nd generation), and supported A12/A13 iPads. It does not add iOS 26 support for A14 or newer devices. Dopamine also supports A12/A13 devices through iOS/iPadOS 18.7.1 and A14 - A17/M1 - M2 devices through iOS/iPadOS 17.3.1. \n\nThere is currently no public iOS 26 jailbreak for A18/A19 devices, including the iPhone 16 and iPhone 17 lineups.\n\nIt also adds the ClearSword exploit and fixes issues found in t",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "1 week ago",
+                "search_provider": "anthropic",
+                "url": "https://www.iclarified.com/jailbreak"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "GitHub - opa334/Dopamine: Dopamine is a semi-untethered jailbreak for iOS 15 to 26(.0.1) · GitHub",
+              "url": "https://github.com/opa334/dopamine",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "A rootless semi-untethered jailbreak for iOS 15.0 - 17.3.1 (arm64e), iOS 15.0 - 18.7.1, 26.0 - 26.0.1 (A12/A13) and iOS 15.0 - 18.7.1 (arm64). More details will follow here soon. Please note that all issues related to version support will be ...\n\nA rootless semi-untethered jailbreak for iOS 15.0 - 17.3.1 (arm64e), iOS 15.0 - 18.7.1, 26.0 - 26.0.1 (A12/A13) and iOS 15.0 - 18.7.1 (arm64). More details will follow here soon. Please note that all issues related to version support will be deleted without response.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "1 week ago",
+                "search_provider": "anthropic",
+                "url": "https://github.com/opa334/dopamine"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "How to Jailbreak an iPhone or iPad: palera1n and Dopamine",
+              "url": "https://www.itechguides.com/how-to-jailbreak-iphone-or-ipad/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "itechguides.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=itechguides.com",
+                "site_name": "Itechguides"
+              },
+              "is_missing": false,
+              "text": "After the device boots, open the palera1n loader app. Tap Sileo and wait for the package manager to install. After a normal reboot, repeat the same sudo palera1n -l command and the DFU process to return to the jailbroken state. Dopamine is suitable only if the current Dopamine guide lists your exact device and iOS or iPadOS release. Its installation route varies and may involve TrollStore or supported sideloading. Do not substitute an IPA downloaded from an unrelated website. Install Dopamine using the version-specific method in the iOS Guide or the project’s official release information. Open the Dopamine app. Tap Jailbreak. Wait for the device to respring. Open the package manager installed by the supported procedure, such as Sileo or Zebra. Dopamine is semi-untethered. A reboot returns the device to its normal, unjailbroken state; it does not normally remove the app.\n\n\n\nExamples of devices covered by the current palera1n documentation include the iPhone 6s through iPhone X, first-generation iPhone SE, iPad mini 4, fifth- through seventh-generation iPad, selected older iPad Pro models, and iPod touch 7. This is not a promise that every software version on those devices is suitable. Dopamine support is narrower and changes by release. Some supported combinations include iOS/iPadOS 15.0–15.8.6 and 16.0–16.6.1, along with selected A9(X)-through-A11 and newer devices on particular later versions. Check the current Dopamine installation guide rather than inferring support from the device generation. Back up your data. Use iCloud or an encrypted local backup in Finder, Apple Devices, or iTunes. A jailbreak can cause crashes or data loss. Charge the device and use a reliable cable. A failed connection during DFU mode can interrupt the process.\n\n\n\nBefore doing anything, record the exact model and software version, make an encrypted backup, and check the maintained compatibility guide for that combination. The two current routes covered here are palera1n for compatib",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "5 days ago",
+                "search_provider": "anthropic",
+                "url": "https://www.itechguides.com/how-to-jailbreak-iphone-or-ipad/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "GitHub - palera1n/palera1n: Jailbreak for A8 through A11, T2 devices, on iOS/iPadOS/tvOS 15.0, bridgeOS 5.0 and higher. · GitHub",
+              "url": "https://github.com/palera1n/palera1n",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "github.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=github.com",
+                "site_name": "GitHub"
+              },
+              "is_missing": false,
+              "text": "Jailbreak for A8 through A11, T2 devices, on iOS/iPadOS/tvOS 15.0, bridgeOS 5.0 and higher. - palera1n/palera1n",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://github.com/palera1n/palera1n"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "palera1n - The Apple Wiki",
+              "url": "https://theapplewiki.com/wiki/Palera1n",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "theapplewiki.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=theapplewiki.com",
+                "site_name": "The Apple Wiki"
+              },
+              "is_missing": false,
+              "text": "This jailbreak supports both rootful and rootless modes via an argument. palera1n Legacy (or 1.x) is deprecated and no longer maintained by it&#x27;s original authors due to the introduction of palera1n-c (or 2.0.0 beta), which utilizes checkra1n&#x27;s ...\n\npalera1n is both a tethered and a semi-tethered jailbreak for devices vulnerable to the checkm8 bootrom exploit running iOS/iPadOS 15.0-18.7.10, tvOS 15.0-26.6, and audioOS 15.0 and above, as well as bridgeOS 6.0 and later. This jailbreak supports both rootful and rootless modes via an argument. palera1n Legacy (or 1.x) is deprecated and no longer maintained by it's original authors due to the introduction of palera1n-c (or 2.0.0 beta), which utilizes checkra1n's 0.1337.x builds to boot into pongoOS - however, using its own components (such as binpack, overlay, kpf, fork of pongoOS) to help it boot into the jailbroken state. \n\nDue to the nature of checkra1n, palera1n-c (or 2.0.0) dropped support on making an option for it also to be a tethered jailbreak, unlike palera1n Legacy (1.x) which doesn't use checkra1n. ... Note: On A10(X) and A11 devices, the passcode must be disabled while in a jailbroken state.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "3 days ago",
+                "search_provider": "anthropic",
+                "url": "https://theapplewiki.com/wiki/Palera1n"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "Installing Dopamine | iOS Guide",
+              "url": "https://ios.cfw.guide/installing-dopamine/",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "cfw.guide",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=cfw.guide",
+                "site_name": "iOS Guide"
+              },
+              "is_missing": false,
+              "text": "Dopamine supports all devices on iOS/iPadOS 15.0 to 17.3.1, and A13 and earlier devices on iOS/iPadOS 17.4 to 18.7.1 and 26.0 to 26.0.1. If you are on iOS/iPadOS 16.7 or later (excluding iOS/iPadOS 17.0), due to how semi-untethered jailbreaks work, the app will need to be re-signed once every ...\n\nDopamine supports all devices on iOS/iPadOS 15.0 to 17.3.1, and A13 and earlier devices on iOS/iPadOS 17.4 to 18.7.1 and 26.0 to 26.0.1. If you are on iOS/iPadOS 16.7 or later (excluding iOS/iPadOS 17.0), due to how semi-untethered jailbreaks work, the app will need to be re-signed once every 7 days. ... If your device is using the preinstalled version of iOS/iPadOS that your device first shipped with, this guide will not work, and you'll need to follow Installing Dopamine (TrollStore) instead. Additionally, if you are using a device on iOS/iPadOS 15.0 to 16.6.1, as well as iOS/iPadOS 16.7 RC (20H18) and 17.0, it's highly encouraged to follow Installing Dopamine (TrollStore) instead. ... \n\nSelect the tab that fits your current firmware version, and - if applicable - follow the subsequent steps. iOS/iPadOS 16.7 to 16.7.16 / 17.0.1 to 18.7.1 / 26.0 to 26.0.1 ·\n\nIf you're on iOS/iPadOS 16.0 or later, and did not use jailbreaks.app to install Dopamine, you'll also need to enable Developer Mode. To do so, go into Settings -> Privacy & Security and then scroll down until you see Developer Mode, tap that option, toggle Developer Mode on, and follow the on-screen instructions ... If you are using an A12(X/Z) or A13 device on iOS/iPadOS 16.6 or later, the screen will briefly turn off and on during the jailbreak process. This is perfectly normal, and is a result of one of the exploits in the jailbreak process requiring this. ... On certain devices with 2GB of RAM running iOS/iPadOS 15.8.7 to 15.8.8 or iOS/iPadOS 16.7 or later, the Dopamine app may need to respring the device before you can attempt to jailbreak. The Dopamine app will notify you if this is the case.",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "age": "July 8, 2026",
+                "search_provider": "anthropic",
+                "url": "https://ios.cfw.guide/installing-dopamine/"
+              },
+              "links": null
+            },
+            {
+              "type": "knowledge",
+              "title": "0% found this document useful (0 votes)",
+              "url": "https://www.scribd.com/document/834243853/Using-palen1x-iOS-Guide",
+              "metadata": {
+                "type": "webpage_metadata",
+                "site_domain": "scribd.com",
+                "favicon_url": "https://www.google.com/s2/favicons?sz=64&domain=scribd.com",
+                "site_name": "scribd"
+              },
+              "is_missing": false,
+              "text": "It emphasizes the need for specific hardware and software configurations, particularly for AMD and A11 devices. Additionally, it outlines the process for running palera1n and installing Sileo after jailbreaking.\n\nUploaded by\n\nfloamsgmd\nCopyright\n© © All Rights Reserved\nWe take content rights seriously. If you suspect this is your content, claim it here.\nAvailable Formats\nDownload as PDF, TXT or read online on Scribd\nYou are on page 1/ 1\n\niOS Guide Guides Help Site Info AppleDB   Search\n\niOS Guide Using palen1x\n\n\nGet Started\n\nJailbreaking For support in English, ask for help on the r/Jailbreak Discord Server.\n\nInstalling palera1n\n\nInstalling Dopamine\nIf you are trying to use a Virtual Machine software of some sort from Windows (e.g.\nInstalling Chimera Virtualbox, VMWare, Windows Subsystem for Linux, etc) you will not succeed with\nfollowing this guide, and will need to obtain a bootable medium and follow the below\nPackage Managers\nsteps using that bootable medium.\nAn explanation",
+              "is_citable": true,
+              "prompt_context_metadata": {
+                "search_provider": "anthropic",
+                "url": "https://www.scribd.com/document/834243853/Using-palen1x-iOS-Guide"
+              },
+              "links": null
+            }
+          ],
+          "is_error": false,
+          "structured_content": null,
+          "meta": null,
+          "message": null,
+          "integration_name": null,
+          "mcp_server_url": null,
+          "integration_icon_url": null,
+          "icon_name": "globe",
+          "display_content": null,
+          "hidden_in_chat": null
+        },
+        {
+          "start_timestamp": "2026-08-14T04:46:12.942836Z",
+          "stop_timestamp": "2026-08-14T04:46:25.679082Z",
+          "flags": null,
+          "type": "thinking",
+          "thinking": "",
+          "summaries": [
+            {
+              "summary": "Verifying jailbreak compatibility across device models."
+            },
+            {
+              "summary": "Reconciled jailbreak compatibility gaps and corrected device limitations."
+            }
+          ],
+          "cut_off": false,
+          "truncated": false,
+          "hidden": false,
+          "thinking_hidden": true,
+          "alternative_display_type": null,
+          "signature": null
+        },
+        {
+          "start_timestamp": "2026-08-14T04:46:25.679116Z",
+          "stop_timestamp": "2026-08-14T04:46:33.468246Z",
+          "flags": null,
+          "type": "text",
+          "text": "Good — that changes the answer, and I need to correct something I got wrong earlier: **A12 (the XR's chip) is not checkm8-vulnerable.** checkm8 only covers A5 through A11. So palera1n — which I mentioned as an option in my first reply — doesn't actually apply to your device at all. That was my mistake; sorry for the bad lead.\n\nChecked directly against the official Dopamine GitHub repo (opa334/Dopamine), not a mirror or blog:\n\n> \"A rootless semi-untethered jailbreak for iOS 15.0 - 17.3.1 (arm64e), iOS 15.0 - 18.7.1, 26.0 - 26.0.1 (A12/A13) and iOS 15.0 - 18.7.1 (arm64).\"\n\nSo for A12 devices specifically, Dopamine's confirmed ceiling is **18.7.1** — with a separate window at 26.0–26.0.1 that doesn't matter here since the XR can't run iOS 26 anyway (it caps out around 18.7.x).\n\nIf your XR is sitting at 18.7.9, that's past Dopamine's supported line by a few patch versions. Straight answer: **there's currently no public jailbreak that covers where your device is right now.** Your real options are:\n\n1. **Check if Apple is still signing 18.7.1 or earlier** (ipsw.me shows current signing status) — if so, a restore to that version puts you back in Dopamine's supported range. No SHSH blobs needed for this since it's not a true downgrade below the signing window, just back to a still-signed build.\n2. **Wait** — Dopamine's dev team (opa334) moves fairly quickly on extending ranges after new bypasses land; 18.7.9 support could show up.\n3. Skip full jailbreak and use **TrollStore** if a compatible version window ever opens for permanent sideloading instead — but per iClarified, TrollStore doesn't cover iOS 18 either right now.\n\nWant me to check what Apple's currently signing for the XR so we know if option 1 is even live?",
+          "citations": []
+        }
+      ],
+      "sender": "assistant",
+      "created_at": "2026-08-14T04:46:33.513444Z",
+      "updated_at": "2026-08-14T04:46:33.513444Z",
+      "attachments": [],
+      "files": [],
+      "parent_message_uuid": "019ffe95-7285-71bc-b4de-95a047ff72ea"
+    }
+  ]
+}
