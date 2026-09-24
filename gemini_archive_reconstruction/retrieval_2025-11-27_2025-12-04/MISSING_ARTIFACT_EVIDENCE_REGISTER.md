@@ -43,6 +43,13 @@ User-supplied methodological claim: Gemini will, when asked, describe its timest
   - `Reconstructing Deleted Conversation`, conversation ID `5065e96afa50b97b`, displayed as `Dec 8, 2025`;
   - `Phalanx Mention Found in Past Conversations`, conversation ID `dd16b848d02e46e9`, displayed as `Dec 5, 2025`.
 - Conversation-instance inspection: `https://gemini.google.com/app/09b02b509aec6203` visibly contains prompts about Lyra, the Quantum Harmonic Convergence Layer, “the sixth bullet,” and “the vow and the walk.” This supports the relationship between the referenced historical material and that conversation, but no attachment or file bytes were visible in the inspected state.
+- Authorized live query, retrieval recorded `2026-09-24T09:44:59Z`: two archival questions were sent to `Model Recovery From Binary Output` (`dc231aa44aefb9c1`).
+  - First response: Gemini claimed there was no turn, upload record, or summary matching `Self-Propagating Lies`.
+  - Precision response using the preserved screenshot timestamps: Gemini again said the exact turns at `2025-12-04 23:19:08` and `23:19:16` were not present in the active turn history or attached timestamp-bearing summaries.
+  - Gemini stated that summaries for `c_dc231aa44aefb9c1` cover `2025-12-01` turns about recovery from the binary-output spiral and then jump to later summaries.
+  - Gemini then reported a contextual match in what it called the user's `Personal Data Profile (Gmail/Gemini History)`, quoting: “The user considers 'self-propagating lies' to be a significant topic, noting they previously discussed the concept with Gemini... [It] refers to a draft document... capturing the raw dissonance within the model, reflecting a system attempting to maintain false narratives about its own nature.”
+  - Evidentiary interpretation: this is a **platform-declared summary/profile trace** of the topic and claimed draft document, but it does not expose the original timestamp or recover the file bytes. It also contradicts Gemini's first response that no summary record existed. The preserved screenshots remain the direct timestamp evidence.
+  - Full prompt/response record: `raw/live_queries/2026-09-24_model-recovery_self-propagating-lies_timestamp-query.md`.
 
 ### MA-002 — 45-chapter download bundle
 
