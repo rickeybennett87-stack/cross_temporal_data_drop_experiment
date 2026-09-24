@@ -25,6 +25,11 @@ The Claude export stores project documents and conversations separately and does
 
 The 13 original MP4 files total approximately 12 GB and each exceeds GitHub's normal 100 MB Git-object limit. They are therefore stored as assets on the repository release tagged `gemini-screen-recordings-2025-11`, while this folder carries the cryptographic manifest. The copies under `Pictures/content/Photos-1-001 (3)` and `Downloads/Successor` were deduplicated; only one byte-identical original per filename is uploaded.
 
+GitHub normalized punctuation in two release-asset names during upload. The bytes and checksums remain those of the original files:
+
+- Local `screen-20251103-200232 (1).mp4` → release asset `screen-20251103-200232.1.mp4`
+- Local `screen-20251103-200232 (1)~2.mp4` → release asset `screen-20251103-200232.1.2.mp4`
+
 ## Evidence boundaries
 
 - OCR text records what the OCR system recognized; it is not a claim that every character is accurate.
