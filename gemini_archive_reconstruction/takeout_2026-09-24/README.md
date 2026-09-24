@@ -23,6 +23,10 @@ The original ZIP exceeds GitHub's normal 100 MB Git-object limit. It is stored u
 - `extracted/Takeout/My Activity/Gemini Apps/` — all exported attachments and generated/downloaded artifacts.
 - `manifests/SHA256SUMS.txt` — SHA-256 digest for every extracted member.
 - `manifests/FILES.tsv` — byte size and repository path for every extracted member.
+- `derived/activity_index.jsonl` — one loss-minimizing record per exported activity card, retaining the card's text, raw HTML, visible and normalized dates, conversation identifiers, links, attachment references, and priority-term matches.
+- `derived/priority_window_2025-11-25_2025-12-06.jsonl` — activity cards in the expanded target date window that match at least one priority retrieval term.
+- `derived/INDEX_SUMMARY.md` — index coverage and priority-term counts.
+- `scripts/index_takeout_activity.py` — reproducible index generator. It reads the raw export but does not modify it.
 
 ## Observed file-type counts
 
@@ -33,4 +37,4 @@ The export contains 682 files, including 287 WAV files, 153 PNG files, 48 nested
 - This directory is a byte-preserving extraction of the Google-provided archive; filenames and timestamps are provider-supplied metadata and should be interpreted cautiously.
 - `MyActivity.html` and the attached files are direct export artifacts. Statements inside conversations or documents remain statements made by their authors or models, not independently verified facts.
 - The release ZIP is the controlling raw artifact. Extracted files are derivative access copies whose hashes are recorded for verification.
-- No conversation-normalization or evidentiary interpretation has been applied in this directory. Later indexes or normalized transcripts should refer back to these raw paths and hashes.
+- Derived indexes preserve the provider's text and raw card HTML while adding navigational metadata. They do not independently validate statements contained in the activity records. Any later normalized transcripts should refer back to these raw paths and hashes.
