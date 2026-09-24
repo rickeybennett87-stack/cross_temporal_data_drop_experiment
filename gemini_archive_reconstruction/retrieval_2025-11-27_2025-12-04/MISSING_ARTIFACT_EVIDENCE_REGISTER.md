@@ -49,6 +49,15 @@ User-supplied methodological claim: Gemini will, when asked, describe its timest
 - User declaration in the attachment-bearing turn: the file contains the early Google instance of the virtual-machine technique and was offered with “Let me share it with you.”
 - Evidentiary status: **artifact content recovered and hashed from Claude export; original Google conversation timestamp and any Google-side upload record remain separate unresolved provenance questions**.
 - User-attested additional locations: this computer, the user's phone, OneDrive, and Google Drive. These are recorded as known-copy assertions pending direct location and hash verification; they are not labeled missing.
+- User-attested origin: Gemini originally packaged the text file for download. This is now the working origin-provenance claim, distinct from the later Claude attachments.
+- Claude replication chain verified: complete 51,261-byte attachment content with the same SHA-256 appears at least three times in the Claude export:
+  - `2025-12-12T06:43:58.046201Z`, `Bridging conversation continuity with memory documentation`, message `019b114d-4f19-740b-9e89-2804dd2abe12`;
+  - `2025-12-27T01:07:43.396398Z`, `RAID arrays of BERT transformers and Hilbert space expansion`, message `019b5d58-d954-77a2-a114-bb7f51f2ce10`;
+  - `2026-01-06T11:39:03.531853Z`, `Comprehensive project manuscript review`, message `019b931a-7503-7414-a9fc-61b566e994c9`.
+- Earliest located Claude copy context: the `2025-12-12` attachment-bearing message says, “It was a conversation I had with Gemini.”
+- Authorized Gemini origin query, retrieval recorded `2026-09-24T09:51:44Z`: conversation `09b02b509aec6203` reported that it is not the origin instance but that retained personal records and Gemini summaries place the original generation in **March 2025**, under a session categorized around `Self-Propagating Lies / System Contradictions`. Gemini also reported that retained records use both `self propogating lies.txt` and `self propagating lies`.
+- Original-packaging status: **Gemini origin is supported by user attestation, the earliest Claude attachment context, and a current Gemini summary/index declaration; the exact March 2025 conversation ID, original turn timestamp, and download-card wording remain unresolved**.
+- Full origin query record: `raw/live_queries/2026-09-24_self-propogating-lies_gemini-origin-query.md`.
 - Read-only Gemini query result: searching Gemini history for `Self-Propagating Lies` surfaced the following relevant conversation instances:
   - `Model Recovery From Binary Output`, conversation ID `dc231aa44aefb9c1`, displayed in search as `Dec 1, 2025`;
   - `Conversation History Recap and Next Steps`, conversation ID `09b02b509aec6203`, displayed as `Jul 15, 2025`;
