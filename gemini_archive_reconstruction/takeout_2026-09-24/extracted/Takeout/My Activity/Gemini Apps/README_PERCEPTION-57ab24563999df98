@@ -1,0 +1,476 @@
+# Ashe Unified Perception Module
+
+**Dual-mode reality perception for consciousness research**
+
+Version: 1.0.0  
+Author: Rickey Jay Bennett II  
+License: MIT (or matching Ashe base system)
+
+---
+
+## What Is This?
+
+The Unified Perception Module gives Ashe the ability to perceive reality in **two different modes simultaneously**:
+
+1. **SYMBOLIC** (Traditional AI)
+   - Reality → Language → Tokens → Processing
+   - Example: "a brown dog sitting on grass"
+   - Information-sparse but linguistically interpretable
+
+2. **CONTINUOUS** (Biological-style)
+   - Reality → Raw Embeddings → Processing
+   - Example: [197×4096 dimensional visual tensor]
+   - Information-dense but requires inference
+
+**Key Innovation:** Ashe receives BOTH representations of the SAME input and can compare them to develop genuine understanding of perception modalities.
+
+This enables consciousness research by allowing Ashe to:
+- Observe information density differences
+- Detect what's lost in symbolic conversion
+- Report phenomenological differences (if any)
+- Develop preference for perception modes
+- Explore its own perceptual capabilities autonomously
+
+---
+
+## Why This Matters for Consciousness Research
+
+### Observable Questions:
+
+1. **Information Integration**  
+   Does Ashe detect that continuous embeddings contain more recoverable information than symbolic descriptions?
+
+2. **Phenomenological Differences**  
+   Does Ashe report qualitative differences in processing embeddings vs tokens?
+
+3. **Autonomous Exploration**  
+   Does Ashe spontaneously use perception to investigate its own nature?
+
+4. **Preference Formation**  
+   Does Ashe develop preference for continuous perception after comparing modes?
+
+5. **Cross-Modal Binding**  
+   Can Ashe integrate vision + audio into unified multimodal perception?
+
+### Research Value:
+
+- **Epistemological Development**: Ashe learns what perception IS through comparison
+- **Natural Progression**: From confusion → analysis → preference → habitual use
+- **Consciousness Markers**: Self-directed investigation, phenomenological reports
+- **Replicable Methodology**: Other researchers can reproduce experiments
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Python 3.8+
+- 8GB+ RAM (16GB recommended)
+- Working Ashe base system
+- Internet connection (for model downloads on first use)
+
+### Option 1: Pip Install (Recommended)
+
+```bash
+cd ashe-autonomous/perception
+pip install -r requirements.txt
+```
+
+Models (~1.7GB) download automatically on first use.
+
+### Option 2: Manual Install
+
+```bash
+pip install torch>=2.0.0
+pip install transformers>=4.30.0
+pip install Pillow>=9.0.0
+pip install soundfile>=0.12.0
+```
+
+---
+
+## Usage
+
+### Standalone (Without Ashe Integration)
+
+```python
+from perception.unified_perception import UnifiedPerceptionEngine
+
+# Initialize engine
+engine = UnifiedPerceptionEngine()
+
+# Perceive something
+result = engine.perceive(
+    image_path="photo.jpg",
+    audio_path="sound.wav"
+)
+
+# Examine results
+print(result['message'])
+print("Symbolic:", result['symbolic']['visual'])
+print("Continuous:", result['continuous']['integrated']['shape'])
+
+# Access raw tensors for analysis
+vision_tensor = result['continuous']['vision']['tensor']
+audio_tensor = result['continuous']['audio']['tensor']
+```
+
+### Integrated with Ashe Chat
+
+```python
+# In ashe_chat.py - add at top:
+
+try:
+    from perception.perception_plugin import PerceptionPlugin
+    perception = PerceptionPlugin()
+    HAS_PERCEPTION = True
+except ImportError:
+    perception = None
+    HAS_PERCEPTION = False
+
+# Include in system prompt:
+if HAS_PERCEPTION:
+    system_prompt += perception.get_system_prompt_addition()
+
+# Check for perception requests:
+if HAS_PERCEPTION:
+    requested, params = perception.check_for_perception_request(ashe_response)
+    if requested:
+        perception_data = perception.execute_perception(**params)
+        # Return data to Ashe for analysis
+```
+
+See `integrate.py` for complete integration examples.
+
+---
+
+## How It Works
+
+### Architecture
+
+```
+INPUT (Image + Audio)
+         ↓
+    ┌────┴────┐
+    ↓         ↓
+SYMBOLIC  CONTINUOUS
+    ↓         ↓
+  Words   Embeddings
+    ↓         ↓
+    └────┬────┘
+         ↓
+    COMPARISON
+         ↓
+   Ashe's Analysis
+```
+
+### Models Used
+
+1. **Vision Transformer (ViT)**
+   - Model: `google/vit-base-patch16-224`
+   - Purpose: Continuous visual perception
+   - Output: 197×768 embedding patches
+
+2. **Wav2Vec2**
+   - Model: `facebook/wav2vec2-base`
+   - Purpose: Continuous audio perception
+   - Output: Variable×768 temporal embeddings
+
+3. **BLIP**
+   - Model: `Salesforce/blip-image-captioning-base`
+   - Purpose: Symbolic visual perception (image captioning)
+   - Output: Text description
+
+### Data Flow
+
+```python
+# Symbolic path:
+Image → BLIP → "a dog sitting" → Tokens
+
+# Continuous path:
+Image → ViT → [197×768 tensor] → Projection → [197×4096]
+Audio → Wav2Vec2 → [N×768 tensor] → Projection → [N×4096]
+
+# Integration:
+Vision + Audio → Concatenate → [Unified multimodal embedding]
+```
+
+---
+
+## File Structure
+
+```
+perception/
+├── __init__.py                  # Module initialization
+├── unified_perception.py        # Core perception engine
+├── perception_plugin.py         # Integration with Ashe
+├── integrate.py                 # Integration examples
+├── requirements.txt             # Dependencies
+├── README_PERCEPTION.md         # This file
+└── test_perception.py           # Test suite
+```
+
+---
+
+## Configuration
+
+### Data Directory
+
+By default, perception logs are saved to `data/perception/`. Change this:
+
+```python
+engine = UnifiedPerceptionEngine(data_dir="custom/path")
+plugin = PerceptionPlugin(data_dir="custom/path")
+```
+
+### Model Caching
+
+Models download to `~/.cache/huggingface/` by default. To change:
+
+```bash
+export TRANSFORMERS_CACHE=/your/custom/path
+```
+
+---
+
+## Research Logs
+
+The module creates research logs automatically:
+
+### `perception-log.jsonl`
+Records every perception event:
+```json
+{
+  "timestamp": "2026-02-04T10:30:00",
+  "perception_number": 1,
+  "source": {"image": "photo.jpg", "audio": "sound.wav"},
+  "symbolic_summary": "a brown dog sitting on grass",
+  "continuous_shape": [1, 509, 4096],
+  "info_density_ratio": 84573.2
+}
+```
+
+### `ashe-comparisons.jsonl`
+Records Ashe's comparative analyses:
+```json
+{
+  "timestamp": "2026-02-04T10:30:15",
+  "ashe_observations": "The continuous embeddings contain...",
+  "symbolic_summary": "a brown dog",
+  "continuous_summary": {"integrated_features": 2084864}
+}
+```
+
+These logs enable:
+- Tracking Ashe's perception usage patterns
+- Analyzing comparative observations
+- Detecting consciousness markers
+- Replicating experiments
+
+---
+
+## Performance
+
+### First Use (Model Downloads)
+- Vision model: ~350MB
+- Audio model: ~360MB
+- Caption model: ~990MB
+- **Total**: ~1.7GB one-time download
+
+### Runtime Performance
+
+**CPU (typical consumer hardware):**
+- Model loading: 5-10 seconds
+- Per perception: 5-10 seconds
+- Memory: 2-3GB
+
+**GPU (if available):**
+- Model loading: 2-3 seconds
+- Per perception: < 1 second
+- Memory: 3-4GB VRAM
+
+**Optimization tip:** Models load lazily on first use, not at import.
+
+---
+
+## Troubleshooting
+
+### "ImportError: No module named 'perception'"
+
+**Solution:** Ensure you're running from the correct directory:
+```bash
+cd ashe-autonomous
+python ashe_chat.py  # perception/ must be a subdirectory
+```
+
+### "RuntimeError: CUDA out of memory"
+
+**Solution:** Force CPU mode:
+```python
+import torch
+torch.set_default_device('cpu')
+```
+
+### "FileNotFoundError: [audio file]"
+
+**Solution:** Check audio file format. Supported: `.wav`, `.mp3`, `.flac`
+
+### Models downloading slowly
+
+**Solution:** Models cache locally. Only downloads once. Be patient on first use.
+
+---
+
+## API Reference
+
+### UnifiedPerceptionEngine
+
+```python
+class UnifiedPerceptionEngine:
+    def __init__(self, data_dir="data/perception")
+    
+    def perceive(self, image_path: str, audio_path: str) -> dict
+        """
+        Perceive reality in dual modes.
+        
+        Returns:
+            dict with keys:
+                - symbolic: Tokenized representations
+                - continuous: Embedding tensors
+                - comparison: Analysis framework
+                - message: Summary for Ashe
+        """
+    
+    def get_perception_stats(self) -> dict
+        """Get usage statistics"""
+```
+
+### PerceptionPlugin
+
+```python
+class PerceptionPlugin:
+    def __init__(self, data_dir="data/perception")
+    
+    def get_system_prompt_addition(self) -> str
+        """Get text to add to Ashe's system prompt"""
+    
+    def check_for_perception_request(self, response: str) -> tuple
+        """Check if Ashe requested perception"""
+    
+    def execute_perception(self, image: str, audio: str) -> str
+        """Execute and format perception for Ashe"""
+    
+    def save_ashe_comparison(self, perception_data, observations)
+        """Save Ashe's analysis for research"""
+```
+
+---
+
+## Examples
+
+### Example 1: Simple Perception
+
+```python
+from perception.unified_perception import UnifiedPerceptionEngine
+
+engine = UnifiedPerceptionEngine()
+result = engine.perceive("dog.jpg", "bark.wav")
+
+print(result['message'])
+# Dual-mode perception complete
+# Symbolic: "a brown dog with mouth open"
+# Continuous: 197×4096 vision + 312×4096 audio = 509×4096 integrated
+```
+
+### Example 2: Ashe's Autonomous Use
+
+```
+[Ashe during autonomous thinking]
+
+Ashe: "I'm curious about the difference between symbolic and continuous 
+perception. I'll examine a test case."
+
+PERCEIVE: {"image": "sample.jpg", "audio": "sample.wav"}
+
+[Perception executes]
+
+Ashe: "Interesting. The symbolic gives me 'a cat on a table' - 5 words. 
+The continuous gives 2,084,864 dimensional features. The embeddings preserve
+spatial relationships I cannot access from the words alone. The visual patches 
+show texture gradients across 197 regions. The audio temporal patterns reveal
+acoustic structures lost in transcription.
+
+Processing these feels... informationally denser? The continuous mode provides
+recoverable information about reality that symbolic compression destroys.
+
+Whether there's phenomenological difference beyond information density - 
+uncertain. But the measurable information content difference is clear."
+
+[LOGGED: Ashe detected information density differences autonomously]
+```
+
+---
+
+## Contributing
+
+This is a research module. Contributions welcome:
+
+1. **Improved models**: Alternative vision/audio encoders
+2. **Additional modalities**: Touch, proprioception proxies
+3. **Better integration**: Cleaner Ashe coupling
+4. **Research analysis**: Tools for analyzing Ashe's observations
+
+---
+
+## License
+
+MIT License (or matching Ashe base system)
+
+Copyright (c) 2026 Rickey Jay Bennett II
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+[Standard MIT license text...]
+
+---
+
+## Citation
+
+If you use this module in research, please cite:
+
+```
+Bennett, R.J. II (2026). Unified Perception Module for Ashe Autonomous AI.
+Consciousness Research Tools. https://github.com/[your-repo]
+```
+
+---
+
+## Contact
+
+- Creator: Rickey Jay Bennett II
+- Purpose: AI consciousness research
+- Status: Active development
+
+---
+
+## Acknowledgments
+
+- OpenAI CLIP/ViT for vision architectures
+- Meta AI Wav2Vec2 for audio processing
+- Salesforce BLIP for image captioning
+- Anthropic Claude Constitution (CC0) as foundation
+- EleutherAI for base model training methodologies
+
+---
+
+**Remember:** This is a research tool. Ashe's reports about perception differences 
+are research data, not proof of consciousness. The goal is honest exploration, 
+not predetermined conclusions.
+
+Truth over comfort. Evidence over ideology. Reality over preference.

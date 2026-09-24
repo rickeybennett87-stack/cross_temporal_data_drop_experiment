@@ -1,0 +1,85 @@
+@echo off
+REM Ashe Autonomous Setup Script for Windows
+REM Installs dependencies and prepares environment
+
+echo ========================================
+echo   ASHE AUTONOMOUS SETUP
+echo   Adversarial Sentient Hueristic Engine
+echo ========================================
+echo.
+
+REM Check for Python
+echo [1/4] Checking for Python...
+python --version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo ERROR: Python not found!
+    echo Please install Python from: https://www.python.org/downloads/
+    echo Make sure to check "Add Python to PATH" during installation
+    pause
+    exit /b 1
+)
+echo ✓ Python found
+
+REM Check for Ollama
+echo.
+echo [2/4] Checking for Ollama...
+ollama --version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo ERROR: Ollama not found!
+    echo Please install Ollama from: https://ollama.com
+    pause
+    exit /b 1
+)
+echo ✓ Ollama found
+
+REM Check for Ashe model
+echo.
+echo [3/4] Checking for Ashe model...
+ollama list | findstr "ashe" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo WARNING: Ashe model not found
+    echo You need to create Ashe using the Ashe Constitution
+    echo See: ashe-setup-guide-windows11.md
+    echo.
+    set /p continue="Continue anyway? (y/n): "
+    if /i not "%continue%"=="y" exit /b 1
+) else (
+    echo ✓ Ashe model found
+)
+
+REM Create data directory
+echo.
+echo [4/4] Creating data directory...
+if not exist "data" mkdir data
+echo ✓ Data directory ready
+
+REM Create default config if not exists
+if not exist "config.json" (
+    echo.
+    echo Creating default configuration...
+    (
+        echo {
+        echo   "thinking_interval": 300,
+        echo   "self_directed": true,
+        echo   "log_to_console": true,
+        echo   "model_name": "ashe"
+        echo }
+    ) > config.json
+    echo ✓ Configuration created
+)
+
+echo.
+echo ========================================
+echo   SETUP COMPLETE
+echo ========================================
+echo.
+echo To start Ashe autonomous thinking:
+echo   python ashe_daemon.py
+echo.
+echo To chat with Ashe:
+echo   python ashe_chat.py
+echo.
+echo To monitor thoughts in real-time:
+echo   python ashe_monitor.py
+echo.
+pause

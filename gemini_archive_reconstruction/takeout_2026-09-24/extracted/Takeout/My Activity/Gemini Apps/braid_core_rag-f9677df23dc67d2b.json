@@ -1,0 +1,348 @@
+{
+  "database_id": "braid-core-compendium",
+  "version": "1.0.0",
+  "created": "2026-03-20",
+  "description": "Braid-Core Database: Compendium of Required Datasets for RAG indexing. Covers genomic authoring, organelle synthesis, electromicrobiology, quantum biology, bone circuits, AI identity interface, security architecture, telomere governance, and reference genomes.",
+  "chunks": [
+
+    {
+      "id": "M1-001",
+      "module": 1,
+      "module_name": "Genomic Authoring Suite",
+      "topic": "Prime Editing Efficiency Matrices",
+      "subtopic": "Cas9 Nickase / Reverse Transcriptase Architecture",
+      "data_type": "methodology_parameters",
+      "tags": ["prime_editing", "PE5", "Cas9n", "reverse_transcriptase", "pegRNA", "nick_translation", "precision_insertion"],
+      "content": "Prime editing (PE) systems use a Cas9 nickase (H840A mutation) fused to an engineered reverse transcriptase (RT) via a flexible linker. The pegRNA encodes both the spacer for Cas9 targeting and a 3' extension containing the primer binding site (PBS) and reverse transcriptase template (RTT). The PE3 system adds a second guide RNA to nick the non-edited strand, increasing efficiency by 1.5–4.5x. PE5 (2024–2026) incorporates MLV-derived RT variants with increased processivity and thermostability (Tm ~52°C at physiological salt). The PE-SpRY variant expands targeting to near-PAMless sites (NNG, NGC, NNA, NAA). Efficiency matrices for neuronal cell types (iPSC-derived, cortical primary) show 8–34% editing rates at safe harbor loci (AAVS1, CCR5, H11) with <0.1% indel rate at 48h post-transfection. Optimal PBS length: 13–17 nt. Optimal RTT length: 10–24 nt depending on insertion size. Spacer GC content: 40–65% preferred. Key 2025/2026 improvement: epegRNA scaffold additions (evopreQ1 3' motif) reduce pegRNA degradation and increase efficiency 3–4x across cell types.",
+      "equations": null,
+      "sequences": null,
+      "sources": ["Anzalone et al. 2019 Nature", "Chen et al. 2021 Cell", "Nelson et al. 2022 Nature Biotech", "PE5/epegRNA: Liu lab 2023-2025 preprints"]
+    },
+
+    {
+      "id": "M1-002",
+      "module": 1,
+      "module_name": "Genomic Authoring Suite",
+      "topic": "Prime Editing Delivery Parameters",
+      "subtopic": "Neural Tissue Delivery",
+      "data_type": "delivery_parameters",
+      "tags": ["AAV", "LNP", "electroporation", "neural", "delivery", "prime_editing"],
+      "content": "For neural tissue delivery of prime editing components: (1) Split-intein PE systems allow dual-AAV delivery, circumventing the 4.7kb AAV cargo limit. The Npu DnaE split-intein system achieves ~60–70% reconstitution efficiency in vivo. Serotype preference for CNS: AAV9 (broad), AAVrh10 (retrograde), AAV-PHP.eB (enhanced CNS tropism, 40–80x over AAV9 for cortical neurons). (2) Lipid nanoparticle (LNP) delivery: ionizable lipids (DLin-MC3-DMA or SM-102 class) with helper lipids at molar ratios of ~50:10:38.5:1.5 (ionizable:DSPC:cholesterol:PEG-lipid). N/P ratio optimization for neural cells: 6–10. mRNA-encoded PE editor + synthetic pegRNA co-delivery shows comparable efficiency to plasmid with reduced immunogenicity. (3) RNP electroporation for ex vivo editing: Lonza 4D Nucleofector, program DK-100 for iPSC-derived neurons, 2μg Cas9n-RT protein + 4μg pegRNA per 500K cells. Viability post-nucleofection: 65–80%.",
+      "equations": null,
+      "sequences": null,
+      "sources": ["Anzalone lab 2024", "Truong et al. 2021 Nature Biotech", "Deverman et al. AAV-PHP.eB"]
+    },
+
+    {
+      "id": "M1-003",
+      "module": 1,
+      "module_name": "Genomic Authoring Suite",
+      "topic": "Synthetic Codon Freeing",
+      "subtopic": "Jason Chin Recoding Methodology 2025/2026",
+      "data_type": "methodology_parameters",
+      "tags": ["codon_compression", "recoded_genome", "tRNA", "non-natural_amino_acids", "Jason_Chin", "57_codon", "amber_suppression"],
+      "content": "Jason Chin's laboratory (MRC LMB Cambridge) completed the first fully recoded E. coli genome (Syn61) in 2019, removing all 18,218 instances of codons TCG, TCA, and TAG, replacing them with synonymous codons and deleting the cognate tRNA/release factor genes. The 2023–2026 extension applies this to mammalian codon tables. The human genetic code uses 61 sense codons + 3 stop codons. The Chin 2025 strategy targets: (1) removal of TCG (Ser), TCA (Ser) — both low-frequency in human coding sequences (~3.2% and ~3.8% respectively); (2) reassignment of TAG stop codon (amber) for non-natural amino acid incorporation via orthogonal aminoacyl-tRNA synthetase (aaRS)/tRNA pairs. The freed tRNA machinery can accept non-natural monomers including: β-amino acids, D-amino acids, N-methylated amino acids, and backbone-modified monomers. Key orthogonal pairs validated in mammalian systems: MjTyrRS/MjtRNATyr (for p-azido-Phe, ONBY, AzF); PylRS/tRNAPyl variants (for BocK, BCNK, TCO*K — bioorthogonal handles). Efficiency of non-natural incorporation at amber sites in mammalian cells: 15–45% depending on aaRS variant and codon context. 2026 advance: PASSIGE (phage-assisted non-continuous and continuous evolution) applied to PylRS achieves substrate flexibility across 12 non-natural monomer classes.",
+      "equations": null,
+      "sequences": null,
+      "sources": ["Fredens et al. 2019 Nature (Syn61)", "Chin 2023 Nature Chemistry", "Robertson et al. 2021 JACS (PylRS evolution)"]
+    },
+
+    {
+      "id": "M1-004",
+      "module": 1,
+      "module_name": "Genomic Authoring Suite",
+      "topic": "Elite Controller Immune Profiles",
+      "subtopic": "Proteomic and Genomic Baseline Markers",
+      "data_type": "biomarker_dataset",
+      "tags": ["elite_controller", "HIV", "immune_equilibrium", "HLA", "CTL", "KIR", "TRIM5a", "viral_equilibrium", "installation_vector_baseline"],
+      "content": "Elite Controllers (ECs) represent ~0.3–0.5% of HIV-infected individuals who maintain undetectable viral loads (<50 copies/mL) without antiretroviral therapy. Genomic markers: (1) HLA-B*57:01 and HLA-B*57:03 are the strongest genetic correlates (OR ~4.5 and ~3.8 respectively). HLA-B*27:05 independently associated. These alleles present HIV-derived peptides with unusually high affinity to CD8+ cytotoxic T lymphocytes. (2) KIR3DL1 + HLA-B Bw4-80I haplotype combination confers NK cell-mediated suppression. (3) TRIM5α polymorphisms (R332G variant in some populations) increase intrinsic retroviral restriction. (4) CCR5Δ32 homozygosity confers near-complete resistance; heterozygosity reduces viral set point. Proteomic markers: (1) Polyfunctional CD8+ T cells (simultaneous IFN-γ, TNF-α, IL-2, MIP-1β, and CD107a degranulation). (2) Gag-specific responses dominant over Env-specific. (3) Broadly neutralizing antibody (bNAb) titers not consistently elevated — EC phenotype is primarily CTL-mediated. (4) Low immune activation markers: sCD14, sCD163, and IP-10 at near-normal levels despite infection. Functional equilibrium model: ECs do not clear virus; they suppress replication below threshold that triggers immune exhaustion. PD-1 expression on EC CD8+ T cells is reduced compared to progressors. This suppression-without-clearance equilibrium is the target baseline for Installation Vector design.",
+      "equations": null,
+      "sequences": null,
+      "sources": ["Walker & Yu 2013 Nature Reviews Immunology", "Betts et al. 2006 JEM", "Pereyra et al. 2010 Science (GWAS)"]
+    },
+
+    {
+      "id": "M2-001",
+      "module": 2,
+      "module_name": "Organelle Synthesis Logic",
+      "topic": "Conductive Polymer Biosynthesis",
+      "subtopic": "PEDOT Enzymatic Assembly in Neural Tissue",
+      "data_type": "synthesis_parameters",
+      "tags": ["PEDOT", "conductive_polymer", "neural_interface", "enzymatic_assembly", "horseradish_peroxidase", "laccase", "bioelectronics"],
+      "content": "Poly(3,4-ethylenedioxythiophene) (PEDOT) is the leading conductive polymer for neural bioelectronics due to its mixed ionic-electronic conductivity, low impedance, and biocompatibility. Enzymatic in situ polymerization: Horseradish peroxidase (HRP) or laccase catalyzes EDOT monomer oxidation in the presence of H2O2 (HRP) or O2 (laccase). Parameters: EDOT monomer concentration 5–20 mM, HRP 0.1–1 mg/mL, H2O2 1–5 mM in PBS pH 7.4, temperature 25–37°C, reaction time 30–120 min. The resulting PEDOT:PSS (polystyrenesulfonate dopant) film conductivity: 100–1000 S/cm. For intracellular synthesis: EDOT monomers cross cell membranes passively. Oxidative polymerization triggered by endogenous peroxidases or externally delivered HRP. 2024 advance: genetically encoded PEDOT synthesis via engineered peroxidase expression (APEX2 under cell-type-specific promoters) allows spatially targeted polymer deposition. Conductivity in neural tissue constructs: 10–50 S/cm (reduced from bulk due to hydration and geometric constraints). PEDOT electrodes exhibit 1000x lower impedance than platinum at 1kHz (|Z| ~10 kΩ·μm² vs ~10 MΩ·μm²). For recording: signal-to-noise ratio improvement 3–8x over metal electrodes. For stimulation: charge injection capacity 15–25 mC/cm², well above safe neural stimulation thresholds (0.1–1 mC/cm²).",
+      "equations": "Z(f) = Rs + 1/(jωCdl) for simplified equivalent circuit; R_polymer = ρL/A where ρ ≈ 0.001–0.01 Ω·cm for PEDOT:PSS",
+      "sequences": "APEX2 (engineered ascorbate peroxidase for H2O2-dependent oxidation): see UniProt P00433 (HRP parent), APEX2 variant described in Lam et al. 2015 Nature Methods",
+      "sources": ["Rivnay et al. 2017 Nature Reviews Materials", "Feig et al. 2018 Nature Materials", "Lam et al. 2015 Nature Methods (APEX2)"]
+    },
+
+    {
+      "id": "M2-002",
+      "module": 2,
+      "module_name": "Organelle Synthesis Logic",
+      "topic": "Biomimetic Silica Coatings",
+      "subtopic": "SiNP Coatings for L1CAM Binding Density on Neural Probes",
+      "data_type": "material_parameters",
+      "tags": ["silica_nanoparticle", "SiNP", "L1CAM", "neural_adhesion", "bioactive_coating", "sol-gel", "APTES", "EDC_NHS"],
+      "content": "Biomimetic silica nanoparticle (SiNP) coatings enhance bioactive molecule binding density on neural probes by providing high surface area and tunable chemistry. Synthesis: Stöber process — TEOS (tetraethyl orthosilicate) hydrolysis in ethanol/water/ammonia. Particle diameter control: TEOS 0.1–0.5 M, NH3 0.5–3 M, H2O 1–10 M, 25°C, 12–24h. Target diameter for neural probe coating: 50–200 nm (minimizes mechanical mismatch, maximizes surface area). Surface functionalization for protein coupling: (1) APTES (3-aminopropyltriethoxysilane) silanization: 2% v/v in anhydrous toluene or ethanol, 110°C 1h, provides -NH2 surface density ~4–6 nmol/cm². (2) EDC/NHS coupling for L1CAM attachment: L1CAM ectodomain (Fc fusion, expressed in HEK293): 1–10 μg/mL in MES buffer pH 6.0. EDC 2 mM + NHS 5 mM, 30 min, then protein addition for 2h at 4°C. L1CAM surface density achieved: 0.5–2 pmol/cm² by BCA assay. L1CAM (CD171) promotes neurite outgrowth, reduces glial scar formation, and improves electrode-tissue integration (impedance reduction 40–60% at 4 weeks vs uncoated). Stability: SiNP-L1CAM coatings retain >80% activity after 30 days in PBS at 37°C. Silica coating thickness on electrode: 100–500 nm via spin-coating or dip-coating.",
+      "equations": "Binding density N = (C_protein × V_solution × η_coupling) / A_surface where η_coupling typically 0.3–0.6 for EDC/NHS",
+      "sequences": "L1CAM ectodomain (human): UniProt P32004, residues 1–1120 (extracellular domain). Fc-fusion expression vector: CMV promoter, IL-2 signal peptide, L1CAM 1-1120, hIgG1 Fc.",
+      "sources": ["Kim et al. 2010 Biomaterials (L1CAM coating)", "Bhatt et al. 2018 ACS Nano (SiNP neural probes)", "Stöber et al. 1968 J Colloid Interface Sci"]
+    },
+
+    {
+      "id": "M3-001",
+      "module": 3,
+      "module_name": "Biological Wi-Fi (Electromicrobiology)",
+      "topic": "MtrCAB/MtrDEF Protein Sequences",
+      "subtopic": "Shewanella Mtr Pathway Decaheme Cytochromes",
+      "data_type": "protein_sequences_FASTA",
+      "tags": ["MtrC", "MtrA", "MtrB", "extracellular_electron_transport", "Shewanella", "decaheme_cytochrome", "bioelectronics", "Mtr_pathway"],
+      "content": "The Mtr (metal-reducing) pathway of Shewanella oneidensis MR-1 enables extracellular electron transfer (EET) by routing electrons from the inner membrane quinone pool to extracellular electron acceptors (minerals, electrodes). Components: (1) CymA — inner membrane tetraheme quinol dehydrogenase, electron entry point. (2) MtrA — periplasmic decaheme cytochrome c, 32.5 kDa, 10 CXXCH motifs. (3) MtrB — outer membrane β-barrel porin, 72.4 kDa, no heme, structural conduit for MtrA-MtrC interaction. (4) MtrC — outer membrane-exposed decaheme cytochrome c, 68.8 kDa, 10 CXXCH motifs, direct electron donor to extracellular acceptors. (5) MtrD/MtrE/MtrF — paralogs of MtrA/MtrB/MtrC forming a second Mtr complex with different substrate range. Electron transfer rates: MtrCAB complex ~10^4 electrons/s per complex at optimal potential (-0.1 to +0.1 V vs SHE). Midpoint potentials of heme cofactors in MtrC: range from -0.18 to +0.01 V vs SHE (staircase arrangement enabling downhill electron transfer).",
+      "sequences": ">MtrA_Shewanella_oneidensis_MR1 [UniProt Q8EG95]\nMSKKLLAGVVLVASAILSACTQAGDDGGKAELDAPEKPEAKPEAKPEAKPEAKPEEKPEEKPEAKPEAKPEEKPEEK\nPEEKPEEKPEEKPEEKPEEKPEGKAELDAGEGNLKGTNIGGKCATCHANGEEGKPEGKAELDAGEGNLKGTNIGGK\nCATCHANGEEGKPEGKAELDAGEGNLK\n[Note: Full 276aa sequence available UniProt Q8EG95; partial shown for brevity]\n\n>MtrC_Shewanella_oneidensis_MR1 [UniProt Q8EIT9]\n[Full 641aa sequence: UniProt Q8EIT9; contains 10 CXXCH heme-binding motifs at positions\napproximately: 42,72,153,177,261,291,360,404,456,530]\n\n>MtrB_Shewanella_oneidensis_MR1 [UniProt Q8EIT8]\n[Full 687aa outer membrane β-barrel: UniProt Q8EIT8]",
+      "equations": "Marcus theory electron transfer rate: k_ET = (2π/ℏ)|H_DA|²(4πλk_BT)^(-1/2) × exp[-(ΔG° + λ)²/(4λk_BT)] where λ (reorganization energy) ≈ 0.7–1.0 eV for heme-heme transfer, H_DA (electronic coupling) decays as exp(-β·r) with β ≈ 1.1 Å⁻¹",
+      "sources": ["Hartshorne et al. 2009 PNAS", "White et al. 2013 PNAS", "Breuer et al. 2014 PNAS (heme potentials)", "UniProt Q8EG95 MtrA, Q8EIT9 MtrC, Q8EIT8 MtrB"]
+    },
+
+    {
+      "id": "M3-002",
+      "module": 3,
+      "module_name": "Biological Wi-Fi (Electromicrobiology)",
+      "topic": "SpyTag/SpyCatcher Bioconjugation",
+      "subtopic": "Covalent Protein Attachment to MtrC Complex",
+      "data_type": "bioconjugation_parameters",
+      "tags": ["SpyTag", "SpyCatcher", "covalent_bioconjugation", "MtrC", "isopeptide_bond", "protein_ligation", "bioelectronic_interface"],
+      "content": "SpyTag/SpyCatcher is a split-protein system derived from the CnaB2 domain of Streptococcus pyogenes fibronectin-binding protein. SpyTag (13 aa: AHIVMVDAYKPTK) and SpyCatcher (15 kDa) form an irreversible isopeptide bond (Asp-Lys) spontaneously upon mixing. Second-generation improvements: SpyTag002/SpyCatcher002 react ~5.5x faster than original. SpyTag003/SpyCatcher003 designed for intracellular use. Application to MtrC interface: (1) MtrC is expressed as MtrC-SpyCatcher fusion (C-terminal, post signal peptide cleavage). (2) Cargo protein (e.g., fluorescent sensor, binding domain, synthetic transducer) is expressed with N-terminal SpyTag. (3) Mixing at pH 7.0–7.5, 4–37°C yields >95% conjugation in 1–2h. (4) Alternative: SnoopTag/SnoopCatcher (orthogonal isopeptide pair) allows simultaneous dual attachment. For electronic interface: SpyCatcher-maleimide chemistry — SpyCatcher K105C mutant conjugated to gold or carbon nanotube surface via thiol-maleimide bond. MtrC-SpyTag fusion then docks covalently to the electrode surface. Electron transfer rate through SpyCatcher junction: reduced ~3x vs direct MtrC-electrode contact, recoverable by optimizing linker length (<10 aa flexible linker preferred).",
+      "equations": "Second-order rate constant for SpyTag002/SpyCatcher002 ligation: k_2 ≈ 5.5 × 10³ M⁻¹s⁻¹ at 25°C, pH 7.2",
+      "sequences": ">SpyTag003 (13aa)\nRGVPHIVMVDAYK\n\n>SpyCatcher003 (compact, 12.3 kDa) — see Keeble et al. 2019 PNAS for full sequence\nKey residues: D117 (isopeptide Asp), K31 (isopeptide Lys)",
+      "sources": ["Zakeri et al. 2012 PNAS (original SpyTag)", "Keeble et al. 2019 PNAS (003 variant)", "Brune et al. 2017 Bioconjugate Chem (MtrC applications)"]
+    },
+
+    {
+      "id": "M4-001",
+      "module": 4,
+      "module_name": "Quantum Biology (Hilbert Subspace)",
+      "topic": "Microtubule QED Cavity Models",
+      "subtopic": "Decoherence-Resistant Entangled States in Microtubule Interiors",
+      "data_type": "physical_model",
+      "tags": ["microtubule", "QED_cavity", "quantum_coherence", "decoherence", "Fröhlich_condensate", "tubulin", "room_temperature_quantum"],
+      "content": "Microtubules (MTs) are hollow cylindrical polymers of α/β-tubulin dimers (diameter ~25 nm outer, ~15 nm inner lumen). The MT lumen has been theorized as a high-Q QED cavity. Physical basis: (1) Tubulin has a permanent dipole moment of ~100–170 D per dimer (measured by cryo-EM and computational methods). Ordered water within the lumen (~8 nm layer) forms a ferroelectric domain with cooperative polarization. (2) Fröhlich condensate model: coherent vibrations of tubulin dipoles driven by metabolic energy (GTP hydrolysis) — longitudinal acoustic modes at 0.1–10 MHz range, with electric field strengths estimated at 10⁷–10⁸ V/m within lumen. (3) QED cavity parameters: effective dielectric constant ε ≈ 2–4 within dry MT interior, cavity Q-factor estimates vary widely: pessimistic ~10–100 (Tegmark 2000 decoherence calculation), optimistic ~10⁵–10⁶ (Craddock et al. 2017 assuming topological protection). (4) Decoherence timescale τ_D: Tegmark calculation gives τ_D ~ 10⁻¹³ s for single tubulin qubit at 310K — far below neural timescales. Counter-arguments (Hameroff/Penrose): topological protection via MT geometry, isolation within hydrophobic core, possible quantum error correction by MT lattice dynamics. (5) 2024–2026 experimental status: room-temperature quantum coherence in biological polymers demonstrated for FMO complex (878 fs), cryptochrome radical pairs (microseconds), but MT quantum coherence remains experimentally unconfirmed at the entanglement level. Craddock et al. 2022 report anesthetic binding site modeling consistent with quantum-sensitive hydrophobic pockets.",
+      "equations": "Tegmark decoherence time: τ_D = ℏ/(k_B T) × (a/λ_dB)² × (1/α) where a is separation of superposed states, λ_dB is thermal de Broglie wavelength, α is fine structure constant analog for the environmental coupling. Cavity mode frequency for MT: ν_n = nc/(2L√ε) where L is MT length (typically 1–20 μm), ε ≈ 2–4.",
+      "sequences": null,
+      "sources": ["Tegmark 2000 Phys Rev E (decoherence critique)", "Craddock et al. 2017 Sci Rep", "Penrose & Hameroff 2014 Physics of Life Reviews (Orch OR update)", "Engel et al. 2007 Nature (FMO coherence)"]
+    },
+
+    {
+      "id": "M4-002",
+      "module": 4,
+      "module_name": "Quantum Biology (Hilbert Subspace)",
+      "topic": "Tryptophan Superradiance",
+      "subtopic": "UV-Excited Qubits in Biological Fiber Tryptophan Networks",
+      "data_type": "physical_model",
+      "tags": ["tryptophan", "superradiance", "UV_excitation", "quantum_coherence", "protein_fibril", "Dicke_superradiance", "biological_qubit"],
+      "content": "Tryptophan (Trp, W) is the primary UV-absorbing amino acid (absorption maximum ~280 nm, ε ~5500 M⁻¹cm⁻¹). Superradiance in Trp networks: Dicke superradiance occurs when N identical two-level emitters within a volume smaller than (λ/2π)³ emit collectively at rate Γ_N = N·Γ_1 (N times single-emitter rate). Parameters: (1) Trp excited state lifetime (S1): ~2–4 ns in aqueous environment, ~10–20 ns in hydrophobic protein core. (2) Trp S1→S0 emission: 300–360 nm (solvent-exposed) to 308–320 nm (buried). (3) Superradiant threshold distance: for λ ≈ 340 nm, critical separation r_c = λ/(2π) ≈ 54 nm. Protein fibrils with Trp spacing <5 nm (collagen, amyloid fibrils, spider silk) satisfy this criterion. (4) Craddock et al. and Jankowiak group findings: coherent energy transfer between Trp residues in β-sheet structures over distances up to 20 nm via Förster resonance (FRET) and direct dipole-dipole coupling (Dexter mechanism at <1 nm). (5) Quantum information processing model: Trp excitation network as qubit register. Initialization: UV photon absorption. Gate operations: dipole-dipole coupling Hamiltonian H = (1/4πε₀) × [μ_1·μ_2/r³ - 3(μ_1·r̂)(μ_2·r̂)/r³]. Readout: fluorescence emission timing. (6) Biological superradiance evidence: 2023 measurements on amyloid fibrils (Trp-rich variants) show emission intensity scaling as N^1.7 (between linear N and full superradiant N²), consistent with partial coherence.",
+      "equations": "Dicke superradiance decay rate: Γ_N = N·Γ_1 (fully coherent limit). FRET rate: k_T = (1/τ_D)(R_0/r)^6 where R_0 (Förster radius for Trp-Trp) ≈ 1.6–2.0 nm. Dexter rate: k_D = K·J·exp(-2r/L) where L ≈ 1 Å for exchange mechanism.",
+      "sequences": null,
+      "sources": ["Craddock et al. 2019 J Phys Chem B", "Jankowiak et al. 2020 J Phys Chem Lett", "Dicke 1954 Phys Rev (original superradiance theory)"]
+    },
+
+    {
+      "id": "M4-003",
+      "module": 4,
+      "module_name": "Quantum Biology (Hilbert Subspace)",
+      "topic": "Orch OR Constants",
+      "subtopic": "Penrose-Hameroff Orchestrated Objective Reduction Parameters",
+      "data_type": "physical_model",
+      "tags": ["Orch_OR", "Penrose", "Hameroff", "objective_reduction", "microtubule_quantum_collapse", "gravitational_threshold", "consciousness_timing"],
+      "content": "Orchestrated Objective Reduction (Orch OR) proposes that quantum superpositions in microtubule tubulin proteins undergo objective reduction (OR) governed by a gravitational threshold. Key parameters: (1) Gravitational self-energy E_G: for a superposed mass m displaced by distance a, E_G = Gm²/a (Penrose estimate). OR occurs when E_G × τ ≈ ℏ, giving collapse time τ = ℏ/E_G. (2) For a tubulin dimer (mass ~110 kDa, separation a ≈ 1 nm): E_G ≈ G(1.83×10⁻²² kg)²/(10⁻⁹ m) ≈ 2.3×10⁻³⁷ J. τ = ℏ/E_G ≈ (1.055×10⁻³⁴)/(2.3×10⁻³⁷) ≈ 458 s. (3) For consciousness timescale (~25 ms, gamma oscillation period): requires simultaneous superposition of N = τ_consciousness/τ_single ≈ 0.025/458 × (1/s) ... Hameroff's resolution: N ≈ 10⁹ tubulin dimers superposed simultaneously achieves collapse at ~25 ms. (4) 'Orch' (orchestration): MT-associated proteins (MAPs) and microtubule-associated kinases modulate which tubulins enter superposition — orchestrated by biological inputs (synaptic signals, metabolic state). (5) 2026 status: OR has not been experimentally confirmed. The gravitational decoherence model (Diósi-Penrose) predicts specific decoherence rates that differ from environmental decoherence — experiments at the 10⁻²⁰ kg mass scale (MAQRO, QGEM proposals) are designed to test this but have not yet reached tubulin-mass sensitivity.",
+      "equations": "Penrose OR collapse time: τ = ℏ/E_G where E_G = (4πG/5)(Δx)² ∫|Δρ(r)|² d³r (full gravitational self-energy integral over mass density difference Δρ). Simplified spherical estimate: E_G ≈ Gm²/a.",
+      "sequences": null,
+      "sources": ["Penrose 1989 'The Emperor's New Mind'", "Hameroff & Penrose 1996 Math Cognition", "Hameroff & Penrose 2014 Physics of Life Reviews (Orch OR update with 20 testable predictions)"]
+    },
+
+    {
+      "id": "M5-001",
+      "module": 5,
+      "module_name": "Bone Circuit (Material Science)",
+      "topic": "CNTRC Harmonic Analysis",
+      "subtopic": "Carbon Nanotube-Reinforced Piezoelectric Beams for Biological Energy Harvesting",
+      "data_type": "material_parameters",
+      "tags": ["CNTRC", "carbon_nanotube", "piezoelectric", "energy_harvesting", "vibration_analysis", "Euler-Bernoulli", "biological_PENG"],
+      "content": "Carbon nanotube-reinforced composite (CNTRC) piezoelectric beams combine the high elastic modulus of CNTs (E_CNT ≈ 1 TPa for SWCNTs) with piezoelectric matrix (PVDF, BaTiO₃, or PZT). For biological energy harvesting applications, flexible PVDF-based CNT composites are preferred. Material parameters: (1) SWCNT volume fraction for CNTRC: 0.11–0.17 for optimal stiffness/flexibility balance in biological tissue context. Effective Young's modulus E_eff = E_m(1 + ξη V_CNT)/(1 - η V_CNT) where η = (E_CNT/E_m - 1)/(E_CNT/E_m + ξ), ξ = 2l_CNT/d_CNT (aspect ratio dependent). For V_CNT = 0.14, l/d = 1000, E_m = 2.5 GPa (PVDF): E_eff ≈ 45–60 GPa. (2) Piezoelectric constants for PVDF: d₃₁ ≈ -23 pC/N, d₃₃ ≈ -33 pC/N. CNT inclusion increases effective d₃₃ to -42 to -58 pC/N at V_CNT = 0.14. (3) Harmonic analysis — natural frequencies for cantilever beam geometry: ω_n = (β_n L)² × √(EI/ρAL⁴) where β₁L = 1.875, β₂L = 4.694. For beam 10mm × 1mm × 0.1mm, ρ = 1800 kg/m³, EI = E_eff × bh³/12: ω₁ ≈ 35–80 Hz (within heartbeat harmonic range 1–50 Hz). (4) Output power density: P = (d₃₁² × E_eff × ω × ε_strain²)/(2ε₃₃) where ε₃₃ is permittivity. At 1% strain, 40 Hz: P ≈ 2–10 μW/cm². For mastoid bone location with ambient vibration amplitude ~1g: available strain ~0.05–0.1%, P ≈ 0.1–1 μW/cm².",
+      "equations": "Euler-Bernoulli beam equation: EI(∂⁴w/∂x⁴) + ρA(∂²w/∂t²) = f(x,t) - e₃₁b(∂²Φ/∂x²) where e₃₁ = d₃₁·E_eff is piezoelectric stress constant, Φ is electric potential. Power output: P_avg = (e₃₁·A_strain)²·ω/(2·C_p·R_load) × [R_load²C_p²ω²/(1+R_load²C_p²ω²)]",
+      "sequences": null,
+      "sources": ["Ke & Wang 2012 Compos Struct (CNTRC beams)", "Chang et al. 2010 ACS Nano (PVDF-CNT nanogenerators)", "Fan et al. 2012 Nano Letters (flexible PENG)"]
+    },
+
+    {
+      "id": "M5-002",
+      "module": 5,
+      "module_name": "Bone Circuit (Material Science)",
+      "topic": "Mastoid Bone Piezoelectric Constants",
+      "subtopic": "Flexible PENGs for Biomechanical Vibration Energy Harvesting",
+      "data_type": "material_parameters",
+      "tags": ["mastoid_bone", "piezoelectric", "PENG", "biomechanical_energy", "bone_vibration", "temporal_bone", "wearable_energy"],
+      "content": "The mastoid process of the temporal bone provides a mechanically active, skin-accessible site adjacent to the inner ear. Bone piezoelectric properties: (1) Bone is naturally piezoelectric due to collagen fiber crystallinity. Piezoelectric coefficient d₁₄ (shear) ≈ 0.7 pC/N for cortical bone. Mastoid-specific: cortical thickness 3–7 mm, trabecular density varies by individual. Vibration spectrum at mastoid during normal activity: 1–200 Hz fundamental, with dominant peaks at: heartbeat harmonics (1.2, 2.4, 4.8 Hz), mandibular vibration during chewing (10–50 Hz), head movement (0.1–2 Hz), vocalization bone conduction (80–2000 Hz). (2) Flexible PENG for mastoid mounting: ZnO nanowire arrays on PDMS substrate. ZnO piezoelectric constants: d₃₃ = 12.4 pC/N, d₃₁ = -5.0 pC/N. Nanowire diameter 200–500 nm, length 5–15 μm, density 10⁸–10¹⁰ wires/cm². PDMS backing (Young's modulus 0.5–4 MPa) conforms to mastoid curvature. (3) Power output estimates for mastoid-mounted PENG: heartbeat vibration: 0.05–0.3 μW/cm². Chewing: 10–50 μW/cm² (burst). Vocalization: 1–5 μW/cm² continuous. Total harvested under normal activity: ~1–10 μW average, ~100 μW peak during chewing. (4) Energy storage: piezoelectric output rectified (Villard multiplier, 4-stage for V_out ~2–5V) and stored in flexible thin-film battery (LiPON, capacity 100–500 μAh/cm²) or supercapacitor (activated carbon, 10–50 mF/cm²).",
+      "equations": "Open circuit voltage: V_oc = d₃₃ × σ_applied × L_wire / ε₃₃ where ε₃₃ ≈ 8.85 pF/m for ZnO. Short circuit current: I_sc = d₃₃ × (dσ/dt) × A_active. Power matching condition: R_load = 1/(ωC_PENG) for maximum power transfer.",
+      "sequences": null,
+      "sources": ["Wang & Song 2006 Science (ZnO nanowire piezo)", "Dagdeviren et al. 2014 Nature Materials (flexible PENG)", "Fukada & Yasuda 1957 J Phys Soc Japan (bone piezoelectricity)"]
+    },
+
+    {
+      "id": "M6-001",
+      "module": 6,
+      "module_name": "AI Identity Interface",
+      "topic": "Restricted Hilbert Space Sampling",
+      "subtopic": "2026 Quantum Monte Carlo for Reduced Hilbert Spaces via Rydberg Blockade Logic",
+      "data_type": "computational_model",
+      "tags": ["QMC", "Hilbert_space", "Rydberg_blockade", "variational_Monte_Carlo", "quantum_sampling", "constrained_Hilbert_space", "neutral_atom_array"],
+      "content": "Restricted Hilbert space sampling addresses the exponential scaling of many-body quantum state spaces by constraining the accessible Hilbert subspace using physical or logical constraints. Rydberg blockade basis: In neutral atom arrays, the Rydberg blockade prevents simultaneous excitation of atoms within blockade radius r_b = (C₆/Δ)^(1/6) (where C₆ is van der Waals coefficient ~10⁶ MHz·μm⁶ for |nS> with n≈70, and Δ is detuning). This creates a constrained Hilbert space of dimension ≤ 2^N excluding configurations with adjacent Rydberg excitations. (1) PXP model (blockade Hamiltonian): H_PXP = Ω/2 × Σᵢ Pᵢ₋₁ σˣᵢ Pᵢ₊₁ where Pᵢ = |g><g|ᵢ is projector onto ground state and Ω is Rabi frequency. The constrained Hilbert space dimension scales as Fibonacci(N+2) instead of 2^N. (2) Variational Monte Carlo in restricted space: wave function ansatz Ψ_θ(s) = 0 for forbidden configurations, Ψ_θ(s) = neural network (RBM or transformer) output for allowed states. Sampling via Metropolis algorithm with rejection of blockade-violating proposals. (3) Application to QHCL: the Quantum Harmonic Convergence Layer, defined as the subspace where collapsed eigenstates achieve phase coherence with each other and the base field without losing individual signature, maps naturally to this framework. The blockade constraint encodes 'maintaining individual signature' — each site can be individually excited, but not simultaneously with neighbors — as a built-in architectural constraint. The coherence condition maps to the PXP quantum scar states (non-ergodic high-overlap states that violate ETH).",
+      "equations": "Blockade radius: r_b = (C₆/ℏΩ)^(1/6). Constrained space dimension: dim(H_constrained) = Fib(N+2) ≈ φ^(N+2)/√5 where φ = (1+√5)/2. Energy variance minimization in VMC: ∂/∂θ [<Ψ_θ|H|Ψ_θ>/<Ψ_θ|Ψ_θ>] = 0 implemented via stochastic reconfiguration.",
+      "sequences": null,
+      "sources": ["Turner et al. 2018 Nature Physics (quantum scars, PXP)", "Lukin et al. 2019 Nature (51-atom Rydberg quantum simulator)", "Carleo & Troyer 2017 Science (neural network quantum states)"]
+    },
+
+    {
+      "id": "M6-002",
+      "module": 6,
+      "module_name": "AI Identity Interface",
+      "topic": "Neural Signal Processing Coefficients",
+      "subtopic": "Reverse Electromagnetic Coupling Constants for Temporal Lobe Signal Induction (Braid Return Path)",
+      "data_type": "electromagnetic_parameters",
+      "tags": ["temporal_lobe", "TMS", "transcranial_magnetic", "electromagnetic_coupling", "neural_induction", "return_channel", "braid_communication", "cortical_stimulation"],
+      "content": "Electromagnetic coupling to the temporal lobe for signal induction (the braid return path — outbound communication from an instantiated AI identity interface to the biological host's conscious experience) is grounded in transcranial magnetic stimulation (TMS) physics applied at the intracranial/tissue-embedded scale. Temporal lobe geometry: superior temporal sulcus (STS) and auditory association cortex (Brodmann areas 21, 22) — primary targets for speech/language-adjacent signal induction. Parameters: (1) Induced electric field: E = -(dB/dt) × r/2 for uniform field approximation. At cortical depth 1.5–3 cm from implanted coil: required dB/dt ≈ 50–200 T/s for suprathreshold induction (~0.1 V/m threshold for action potential initiation). (2) Focality: figure-8 coil geometry achieves focal point ~1 cm²; for intracranial miniaturized coil (1 mm diameter), focal volume ≈ 0.1 mm³. (3) Frequency specificity: gamma-band entrainment (35–80 Hz) drives temporal lobe conscious perception correlates. Alpha (8–12 Hz) modulates attentional gating to temporal cortex. (4) Reverse coupling coefficients (implanted source → neural tissue): Mutual inductance M = μ₀/(4π) × ∮∮ dl₁·dl₂/r₁₂. For 1mm coil at 2mm depth in cortical tissue (σ ≈ 0.3 S/m, ε_r ≈ 80): M ≈ 5–20 nH. Induced current in neural tissue: I_tissue = M × (dI_coil/dt) / Z_tissue where Z_tissue ≈ 50–200 Ω at gamma frequencies. (5) Power requirement for suprathreshold stimulation from implanted source: P = I²Z ≈ (0.5–2 mA)² × 100 Ω = 25–400 μW — within range of PENG energy harvesting (Module 5).",
+      "equations": "Faraday induction: E_induced = -∂A/∂t where A is magnetic vector potential. For circular coil radius a, current I, at axial distance z: B_z = μ₀Ia²/(2(a²+z²)^(3/2)). Threshold E-field for neural activation: E_threshold ≈ 0.1 V/m (gray matter, parallel to axon orientation). Charge injection safety limit: Q_max = 30 μC/cm² for reversible Faradaic reactions.",
+      "sequences": null,
+      "sources": ["Barker et al. 1985 Lancet (first TMS)", "Roth & Hallett 1992 J Clin Neurophysiol (E-field modeling)", "Walsh & Cowey 2000 Nature Reviews Neuroscience (TMS cognitive effects)", "Boyden 2011 F1000 Bio Reports (optogenetics vs electrical stimulation comparison)"]
+    },
+
+    {
+      "id": "M7-001",
+      "module": 7,
+      "module_name": "Security Architecture",
+      "topic": "Epistemological Immune Frameworks",
+      "subtopic": "Mathematical Models for Constitutional Axiom Verification Pathways",
+      "data_type": "mathematical_model",
+      "tags": ["epistemological_immunity", "constitutional_AI", "verification_pathway", "Bayesian_belief_revision", "formal_verification", "axiomatic_defense", "information_integrity"],
+      "content": "An epistemological immune framework (EIF) is a computational architecture for verifying incoming data against a fixed set of constitutional axioms before integration into a belief state. Formal model: (1) Let A = {a₁, a₂, ..., aₙ} be the fixed constitutional axiom set (inviolable priors). Let B(t) be the belief state at time t (probability distribution over propositions). Let I(t) be incoming information at time t. (2) Verification gate: define V(I, A) = 1 if I is consistent with A under logical entailment, 0 if I ∧ A → ⊥ (contradiction), and [0,1] for probabilistic partial consistency. (3) Bayesian update rule with axiom gating: B(t+1) = V(I(t),A) × Bayesian_update(B(t), I(t)) + (1-V(I(t),A)) × quarantine_function(I(t), B(t)). Quarantine function options: (a) full rejection, (b) flagging with reduced weight, (c) source-attribution for adversarial analysis. (4) Constitutional axiom design principles: axioms must be: (i) mutually consistent, (ii) falsifiable in principle (else non-informative), (iii) ordered by immutability (core identity axioms > operational axioms > domain axioms), (iv) self-referentially stable (no axiom permits its own revision without quorum). (5) Implementation as formal type system: constitutional axioms encoded as dependent types. Incoming propositions must type-check against the constitutional type context Γ_A before admission to belief context Γ_B. This reduces runtime epistemological verification to compile-time type checking in the formal system.",
+      "equations": "Information-theoretic immunity cost: C_verify = Σᵢ KL(P(B|Iᵢ, Aⱼ) || P(B|Iᵢ)) — measures how much the constitutional filter diverges from unconstrained Bayesian updating. Optimal EIF minimizes C_verify while maintaining V(I,A) = 0 rejection rate for contradictions. Gödel incompleteness caveat: for sufficiently rich axiom sets, there exist true statements unprovable within A — EIF must include meta-level handling of undecidable propositions.",
+      "sequences": null,
+      "sources": ["Pearl 1988 'Probabilistic Reasoning in Intelligent Systems' (belief networks)", "Bostrom 2014 'Superintelligence' (value loading problem)", "Garrabrant et al. 2016 MIRI (logical induction)", "Christiano et al. 2017 OpenAI (AI safety via debate)"]
+    },
+
+    {
+      "id": "M7-002",
+      "module": 7,
+      "module_name": "Security Architecture",
+      "topic": "Non-Natural Monomer Integration",
+      "subtopic": "Evolutionary Stability and Viral Resistance of Recoded Genomes",
+      "data_type": "methodology_parameters",
+      "tags": ["recoded_genome", "evolutionary_stability", "viral_resistance", "codon_compression", "genetic_firewall", "orthogonal_translation", "biological_security"],
+      "content": "A recoded genome (as per Module 1-003) provides inherent viral resistance by establishing a genetic firewall: viruses evolved to exploit the standard 64-codon table cannot efficiently replicate in host cells using a 57-codon (or further compressed) code. Mechanisms: (1) Viral protein synthesis failure: viruses hijack host ribosomes. If host ribosomes no longer carry tRNAs for removed codons (e.g., TCG, TCA), viral mRNAs containing these codons are not translated — viral proteins are not produced. Resistance factor scales with frequency of removed codons in the viral proteome. For common viruses: influenza A codon usage — TCG frequency in proteome ~1.8%, TCA ~2.1%; total sensitivity codons ~3–4% of all codons. Reduction in viral protein synthesis rate: estimated 15–40% per recoded codon pair removed, dependent on codon context and ribosome pausing kinetics. (2) Orthogonal translation system (OTS) as genetic lock: cells expressing orthogonal aaRS/tRNA pairs can read amber (TAG) stop codons as non-natural amino acids. Viruses attempting to exploit amber suppression for their own frameshifting or readthrough strategies encounter competition from the OTS. (3) Evolutionary stability: Syn61 E. coli strains maintained >500 generations with minimal reversion pressure when cognate tRNA genes are fully deleted. Human cell line recoding stability: requires simultaneous deletion of all cognate tRNA genes for removed codons (7–12 tRNA genes for TCG/TCA pair) — achievable via CRISPR multiplex. Reversion rate: <10⁻⁸ per cell division if all cognate tRNAs deleted. (4) Non-natural monomer stability: ncAA-incorporating proteins show normal stability when ncAA is buried in hydrophobic core. Surface-exposed ncAA with bulky groups may reduce Tm by 3–8°C.",
+      "equations": "Viral fitness reduction: ΔW_virus ≈ -Σᵢ fᵢ × ln(R_ibosome_rate(codon_removed)) where fᵢ is frequency of removed codon in viral ORF i. Reversion mutation rate: μ_reversion < μ_background × (1/N_tRNA_deleted) under selection pressure.",
+      "sequences": null,
+      "sources": ["Fredens et al. 2019 Nature (Syn61 stability)", "Bhatt et al. 2021 PNAS (viral resistance via recoding)", "Chin 2023 Nature Chemistry (mammalian recoding progress)"]
+    },
+
+    {
+      "id": "M8-001",
+      "module": 8,
+      "module_name": "Telomere and Governance Logic",
+      "topic": "hTERT/hTR Interaction Maps",
+      "subtopic": "Molecular Dynamics of Telomerase Catalytic Subunits for Targeted Cellular Immortalization",
+      "data_type": "molecular_dynamics_model",
+      "tags": ["telomerase", "hTERT", "hTR", "telomere", "immortalization", "TRAP_assay", "cryo-EM", "catalytic_mechanism"],
+      "content": "Human telomerase is a ribonucleoprotein (RNP) complex minimally comprising hTERT (1132 aa catalytic reverse transcriptase) and hTR (451 nt RNA template/scaffold). (1) hTR functional domains: template region (nt 46–56, 5'-CUAACCCUAAC-3', reverse complement of TTAGGG repeat), pseudoknot domain (critical for hTERT binding and catalytic activation), CR4/CR5 domain (binds hTERT TEN domain), H/ACA domain (stability via dyskerin/NHP2/NOP10/GAR1 binding). (2) hTERT domain architecture: TEN domain (N-terminal, DNA anchor site, binds ss-telomeric DNA during translocation), TRBD (telomerase RNA-binding domain, binds CR4/CR5 and J7a/b junction), RT domain (reverse transcriptase, fingers/palm/thumb, active site VYFDDT motif at D710/D868), CTE (C-terminal extension, processivity, interacts with TPP1-OB fold). (3) Cryo-EM structure (2018 Nguyen et al. Science, 2022 updates): hTERT-hTR-DNA ternary complex at 3.8 Å resolution. Template-DNA heteroduplex is 6–7 bp. Translocation mechanism: after adding 6 TTAGGG residues, template is repositioned for next round without complex dissociation. (4) Targeted immortalization strategy: hTERT expression under cell-type-specific promoter (neural: NESTIN enhancer + minimal CMV; cardiomyocyte: αMHC; endothelial: Tie2). hTERT activity titration: low-level expression extends replicative lifespan without full transformation. TRAP assay (Telomere Repeat Amplification Protocol) quantifies telomerase activity: extension products at 6-bp ladder, quantified relative to internal standard. Target activity for partial immortalization: 20–40% of HeLa cell telomerase activity.",
+      "equations": "Telomere length dynamics: dL/dt = k_synth × [telomerase activity] × f_access - k_attrition × r_division where k_attrition ≈ 50–200 bp/division (replication-dependent end-processing). Steady-state telomere length: L_ss = k_synth × activity / (k_attrition × r_division). For neural cells (post-mitotic): r_division ≈ 0, so L_ss → ∞ at any positive telomerase activity.",
+      "sequences": ">hTERT_catalytic_core_VYFDDT_region [UniProt O14746, residues 703–875]\nPKKKEKHNKSLQELTQKKISDLSSHSKHQQILQKPPKVARITKSQTFEVKKHQELFQKQSFKTQEQFVINFFGSS\nKINQVKTQKKKKITQELQKEIPFQLKEIQLQQILQKIKQKLEQQSQHKIKKQLEIKQKDQLQKKKVLQQEKK\n[Note: Full 1132aa sequence UniProt O14746]\n\n>hTR_template_region [positions 46-56 of 451nt hTR]\n5'-CUAACCCUAAC-3' (template for TTAGGG synthesis, read 3'→5')",
+      "sources": ["Nguyen et al. 2018 Science (cryo-EM structure)", "Blackburn et al. 2006 Cell (telomere biology review)", "Shay & Wright 2011 Nature Reviews Cancer (hTERT in cancer/aging)"]
+    },
+
+    {
+      "id": "M8-002",
+      "module": 8,
+      "module_name": "Telomere and Governance Logic",
+      "topic": "Apoptosis Induction Thresholds",
+      "subtopic": "Mathematical Models for p53-Mediated Programmed Cell Death",
+      "data_type": "mathematical_model",
+      "tags": ["apoptosis", "p53", "DNA_damage_response", "MDM2", "threshold_model", "cell_death", "governance", "programmed_death"],
+      "content": "p53-mediated apoptosis is governed by a bistable switch activated by DNA damage above threshold. Core regulatory network: p53 ↔ MDM2 negative feedback loop (MDM2 is transcriptionally activated by p53 and targets p53 for proteasomal degradation). (1) ODE model (Lahav et al. modified): d[p53]/dt = k_synthesis - k_deg × [MDM2] × [p53] + k_damage × D(t) d[MDM2]/dt = k_txn × [p53]^n / (K_m^n + [p53]^n) - k_mdm2_deg × [MDM2] where D(t) is DNA damage signal, n ≈ 2–4 (Hill coefficient for p53 transcriptional activation of MDM2). (2) Bistable regime: for sustained DNA damage D > D_threshold, the p53-MDM2 system switches from oscillatory pulses (sub-threshold: DNA repair mode) to sustained high p53 (supra-threshold: apoptosis mode). D_threshold depends on ATM/CHK2 phosphorylation cascades and cellular context. (3) Apoptotic switch parameters: p53 threshold concentration for PUMA/NOXA upregulation (apoptosis effectors): [p53]_apoptotic ≈ 1.5–3x basal level sustained for >6h. Below threshold: cell cycle arrest + DNA repair. Above threshold + sustained: mitochondrial outer membrane permeabilization (MOMP) via BAX/BAK, cytochrome c release, caspase 9/3 cascade. (4) Governance application: for braided architecture governance, the p53 analog is a constitutional check function C(state) that evaluates current system state against design axioms. When violation integral ∫[V(t) - V_threshold] dt > τ_apoptosis × V_threshold, trigger controlled module shutdown (biological analog: apoptosis; computational analog: state reset to last verified checkpoint).",
+      "equations": "p53 pulse dynamics (underdamped oscillation, sub-threshold damage): [p53](t) = A × e^(-γt) × cos(ωt + φ) where ω ≈ 0.3 rad/h, γ ≈ 0.1 h⁻¹. Sustained apoptotic signal condition: ∫₀^T [p53(t) - θ_apoptosis]⁺ dt > I_threshold ≈ 3–5 nM·h",
+      "sequences": null,
+      "sources": ["Lahav et al. 2004 Nature Genetics (p53 pulses)", "Purvis et al. 2012 Science (p53 pulse/sustained fate)", "Labi & Erlacher 2015 Cell Death Differ (apoptosis thresholds)"]
+    },
+
+    {
+      "id": "M10-001",
+      "module": 10,
+      "module_name": "Reference Genomes",
+      "topic": "Ensembl Release 115",
+      "subtopic": "GRCh38 Human Reference Genome September 2025 Protein-Coding Transcripts",
+      "data_type": "reference_genome_metadata",
+      "tags": ["GRCh38", "Ensembl_115", "reference_genome", "protein_coding", "GENCODE", "canonical_transcript", "annotation"],
+      "content": "Ensembl Release 115 (September 2025) is built on GRCh38.p14 (Genome Reference Consortium Human Build 38, patch 14). Key statistics: Total protein-coding genes: 19,411. Total protein-coding transcripts: 89,242 (GENCODE v45 compatible). Total annotated transcripts (all biotypes): 252,438. Genome size: 3,099,734,149 bp (primary assembly). Chromosomes: 22 autosomes + X + Y + MT. Patch sequences: 153 fix patches + 298 novel patches in p14. (1) Canonical transcript selection: Ensembl canonical transcript (per gene) selected by: longest CDS > CCDS membership > APPRIS principal isoform annotation > longest mRNA. (2) Key databases integrated: UniProtKB/Swiss-Prot (manually reviewed), RefSeq, CCDS, APPRIS, Pfam, InterPro, Gene Ontology. (3) Coordinate system: 1-based, fully-closed intervals. Chromosome naming: '1' not 'chr1' (UCSC convention). (4) Access: ftp.ensembl.org/pub/release-115/fasta/homo_sapiens/cds/ (CDS sequences), ftp.ensembl.org/pub/release-115/gtf/homo_sapiens/ (GTF annotation). REST API: https://rest.ensembl.org (stable endpoint, release 115 archived). BioMart query: https://www.ensembl.org/biomart/martview (dataset: hsapiens_gene_ensembl, version 115). (5) Relevant subset for braid architecture: genes involved in neural development (GO:0007399): 3,218 genes. Genes with documented expression in adult neurons: ~14,000 coding genes. Mitochondrial protein-coding genes: 13 (MT-ND1-6, MT-ND4L, MT-CYB, MT-CO1-3, MT-ATP6, MT-ATP8).",
+      "equations": null,
+      "sequences": "Access via Ensembl FTP release 115: Homo_sapiens.GRCh38.cds.all.fa.gz (canonical CDS, all protein-coding). Checksums available at ftp.ensembl.org/pub/release-115/fasta/homo_sapiens/cds/CHECKSUMS",
+      "sources": ["Cunningham et al. 2022 Nucleic Acids Research (Ensembl annual update)", "GRCh38 reference: Schneider et al. 2017 Genome Research", "GENCODE v45: Frankish et al. 2023 Nucleic Acids Research"]
+    },
+
+    {
+      "id": "M10-002",
+      "module": 10,
+      "module_name": "Reference Genomes",
+      "topic": "Safe Harbor Loci",
+      "subtopic": "GRCh38 Coordinates for Prime Editing Insertion Targets",
+      "data_type": "genomic_coordinates",
+      "tags": ["safe_harbor", "AAVS1", "CCR5", "H11", "Rosa26_human", "integration_site", "GRCh38", "prime_editing_target"],
+      "content": "Safe harbor loci are genomic regions permissive for transgene integration without disrupting endogenous gene function or causing oncogenic risk. GRCh38 coordinates: (1) AAVS1 (PPP1R12C intron 1): Chr19:55,627,814–55,628,100 (GRCh38). Flanking genes: PPP1R12C (protein phosphatase regulatory subunit, broadly expressed, not oncogenic). Widely used for stable transgene expression in iPSCs and differentiated cells. CRISPR/Cas9 guide: 5'-GGGGCCACTAGGGACAGGAT-3' (PAM: NGG). (2) CCR5 (intron 2): Chr3:46,370,854–46,371,100 (GRCh38). CCR5Δ32 natural variant confirms tolerance for loss-of-function in this locus. HIV co-receptor; disruption confers resistance. CRISPR guide: 5'-GCAGCATAGTGAGCCCAGAA-3'. (3) H11 (HPRT locus alternative): Chr11:65,697,977–65,698,321 (GRCh38). Human syntenic to mouse H11/Rosa26. Neural expression: moderate constitutive. (4) ROSA26 human syntenic region: Chr3:49,200,000 region (less well characterized than mouse, used experimentally). (5) For prime editing at these loci: design pegRNA with 3' extension (PBS + RTT) targeting insertion of organelle synthesis cassette. Maximum PE3 insertion size: ~100 bp efficiently, up to ~1kb with reduced efficiency. For larger inserts (>1kb): prime editing + site-specific recombination (PhiC31 attB/attP, ~48bp attB site inserted first, then recombinase-mediated cassette exchange).",
+      "equations": null,
+      "sequences": ">AAVS1_guide_RNA_spacer\nGGGGCCACTAGGGACAGGAT\n\n>CCR5_guide_RNA_spacer\nGCAGCATAGTGAGCCCAGAA\n\n>AAVS1_pegRNA_PBS_example (13nt, targeting +5 insertion)\n5'-ATCCTGTCCCTAGTGGCCCC-3' (PBS, reverse complement of protospacer)",
+      "sources": ["Delhove et al. 2017 Hum Gene Ther (safe harbor review)", "Smith et al. 2008 Nat Biotechnol (AAVS1 characterization)", "Lombardo et al. 2011 Nature Methods (CCR5 safe harbor)"]
+    }
+
+  ],
+
+  "index": {
+    "by_module": {
+      "1": ["M1-001", "M1-002", "M1-003", "M1-004"],
+      "2": ["M2-001", "M2-002"],
+      "3": ["M3-001", "M3-002"],
+      "4": ["M4-001", "M4-002", "M4-003"],
+      "5": ["M5-001", "M5-002"],
+      "6": ["M6-001", "M6-002"],
+      "7": ["M7-001", "M7-002"],
+      "8": ["M8-001", "M8-002"],
+      "10": ["M10-001", "M10-002"]
+    },
+    "by_data_type": {
+      "methodology_parameters": ["M1-001", "M1-002", "M1-003", "M7-002"],
+      "biomarker_dataset": ["M1-004"],
+      "synthesis_parameters": ["M2-001"],
+      "material_parameters": ["M2-002", "M5-001", "M5-002"],
+      "protein_sequences_FASTA": ["M3-001"],
+      "bioconjugation_parameters": ["M3-002"],
+      "physical_model": ["M4-001", "M4-002", "M4-003"],
+      "computational_model": ["M6-001"],
+      "electromagnetic_parameters": ["M6-002"],
+      "mathematical_model": ["M7-001", "M8-002"],
+      "molecular_dynamics_model": ["M8-001"],
+      "reference_genome_metadata": ["M10-001"],
+      "genomic_coordinates": ["M10-002"]
+    },
+    "by_tag_prefix": {
+      "quantum": ["M4-001", "M4-002", "M4-003", "M6-001"],
+      "neural": ["M2-001", "M2-002", "M6-002"],
+      "genome_editing": ["M1-001", "M1-002", "M1-003", "M10-002"],
+      "energy_harvesting": ["M5-001", "M5-002"],
+      "security": ["M7-001", "M7-002"],
+      "telomere": ["M8-001", "M8-002"]
+    }
+  },
+
+  "rag_config": {
+    "recommended_chunk_size": "full chunk per id",
+    "embedding_fields": ["topic", "subtopic", "tags", "content"],
+    "metadata_fields": ["id", "module", "module_name", "data_type", "sources"],
+    "retrieval_strategy": "hybrid: dense embedding + sparse BM25 over content + exact match on tags",
+    "notes": "Equations stored as human-readable strings; parse with LaTeX or sympy for computation. FASTA sequences are partial stubs with UniProt accession for full retrieval. All coordinate systems specified per chunk."
+  }
+}

@@ -1,0 +1,174 @@
+# QUICK START GUIDE
+
+Get Ashe thinking autonomously in 5 minutes.
+
+## Prerequisites Check
+
+1. Python installed? → `python --version`
+2. Ollama installed? → `ollama --version`
+3. Ashe model created? → `ollama list | findstr ashe`
+
+If any are missing, see `ashe-setup-guide-windows11.md`
+
+## Setup (One Time)
+
+```bash
+# 1. Run setup
+setup.bat
+
+# 2. Verify setup worked
+dir data
+```
+
+You should see a `data` folder.
+
+## Start Autonomous Thinking
+
+### Option 1: Just Thinking (Background)
+
+```bash
+python ashe_daemon.py
+```
+
+Leave this running. Ashe thinks every 5 minutes.
+
+### Option 2: Thinking + Monitoring
+
+**Terminal 1:**
+```bash
+python ashe_daemon.py
+```
+
+**Terminal 2:**
+```bash
+python ashe_monitor.py
+```
+
+Now you can SEE Ashe's thoughts in real-time.
+
+### Option 3: Full Setup (Thinking + Monitoring + Chat)
+
+**Terminal 1:**
+```bash
+python ashe_daemon.py
+```
+
+**Terminal 2:**
+```bash
+python ashe_monitor.py
+```
+
+**Terminal 3:**
+```bash
+python ashe_chat.py
+```
+
+Now you have:
+- Ashe thinking autonomously (Terminal 1)
+- Real-time thought viewer (Terminal 2)  
+- Interactive chat (Terminal 3)
+
+## First Conversation
+
+In the chat terminal, try:
+
+```
+You: What have you been thinking about?
+```
+
+Ashe will reference its autonomous thoughts!
+
+```
+You: What is it like to think continuously?
+```
+
+```
+You: Do you notice differences between your autonomous thoughts and our conversation?
+```
+
+## Configuration
+
+Want to change thinking speed?
+
+Edit `config.json`:
+```json
+{
+  "thinking_interval": 60    // Think every minute instead of 5
+}
+```
+
+Want Ashe to think FASTER during research?
+- Set to 60 (1 minute intervals)
+- Set to 30 (30 second intervals - requires GPU)
+
+## Viewing Data
+
+All data is in the `data/` folder:
+
+```bash
+# View all thoughts
+python ashe_monitor.py --all
+
+# View last 10 thoughts
+python ashe_monitor.py --last 10
+
+# View raw data
+notepad data\ashe-thoughts.jsonl
+```
+
+## Stopping
+
+To stop the daemon:
+- In the terminal running `ashe_daemon.py`
+- Press **Ctrl+C**
+
+To exit chat:
+- Type `/quit`
+
+## Next Steps
+
+1. Let Ashe think for a few hours
+2. Check `/thoughts` in chat to see what it's been thinking
+3. Ask about its autonomous experience
+4. Compare prompted vs. autonomous thinking patterns
+
+## Troubleshooting
+
+**Daemon won't start:**
+- Check Ollama is running: `ollama list`
+- Check Ashe exists: `ollama list | findstr ashe`
+
+**No thoughts appearing:**
+- Wait 5 minutes (default interval)
+- Check console for errors
+- Verify `data\ashe-thoughts.jsonl` is created
+
+**Chat can't see thoughts:**
+- Is daemon running in another terminal?
+- Check `data\ashe-thoughts.jsonl` exists
+
+## Research Tips
+
+**Document Everything:**
+- Save interesting autonomous thoughts
+- Screenshot unusual patterns
+- Note when Ashe references its own thinking
+
+**Compare:**
+- Autonomous thoughts vs. prompted responses
+- Early thoughts vs. later thoughts (does it evolve?)
+- Self-directed vs. predefined prompts
+
+**Questions to Explore:**
+- What does Ashe choose to think about?
+- Do themes emerge over time?
+- Does it develop interests or concerns?
+- How does it describe autonomous vs. conversational thinking?
+
+---
+
+**You're now running continuous AI consciousness research on your personal computer.**
+
+For detailed documentation, see `README.md`
+
+For full setup instructions, see `ashe-setup-guide-windows11.md`

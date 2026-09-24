@@ -1,0 +1,1345 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Mandarin Focus-State Trainer</title>
+<style>
+  :root{
+    --bg:#05060a; --bg2:#0a0d16; --fg:#c8d0e0; --dim:#6b7590; --accent:#7aa2ff;
+    --accent2:#4be0c0; --warn:#ffb454; --danger:#ff6b7a; --card:#0e1220; --line:#1b2236;
+    --zh:#e8eeff; --pin:#9fb4e8; --en:#aab4cc;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%}
+  body{
+    background:radial-gradient(1200px 800px at 50% -10%, var(--bg2), var(--bg)) fixed;
+    color:var(--fg); font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; flex-direction:column; min-height:100%;
+    transition:filter .6s ease, opacity .6s ease;
+  }
+  /* brightness dimmer applied to whole app for bedtime use */
+  #app{filter:brightness(var(--bright,0.85)); transition:filter .4s ease; flex:1; display:flex; flex-direction:column}
+  header{padding:18px 20px 8px; text-align:center}
+  header h1{margin:0; font-size:17px; font-weight:600; letter-spacing:.5px; color:var(--fg)}
+  header .sub{color:var(--dim); font-size:12px; margin-top:3px}
+  main{flex:1; display:flex; flex-direction:column; padding:12px 16px 24px; max-width:720px; width:100%; margin:0 auto}
+  .card{background:linear-gradient(180deg,var(--card),#0b0f1c); border:1px solid var(--line); border-radius:16px; padding:18px; margin:10px 0}
+  .card h2{margin:0 0 10px; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:var(--accent)}
+  label.row{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 0; border-bottom:1px solid var(--line)}
+  label.row:last-child{border-bottom:0}
+  label.row .lab{font-size:14px}
+  label.row .lab small{display:block; color:var(--dim); font-size:11px; font-weight:400}
+  input[type=range]{width:150px; accent-color:var(--accent)}
+  input[type=checkbox]{width:20px; height:20px; accent-color:var(--accent)}
+  select,input[type=number]{background:#0b1020; color:var(--fg); border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:14px}
+  button{cursor:pointer; font:inherit; border-radius:12px; border:1px solid var(--line); background:#121a30; color:var(--fg); padding:12px 16px}
+  button:hover{border-color:var(--accent)}
+  button.primary{background:linear-gradient(180deg,#25407f,#1a2c58); border-color:#33507f; color:#eaf0ff; font-weight:600; width:100%; padding:16px; font-size:16px}
+  button.ghost{background:transparent}
+  button.danger{border-color:#5a2530; color:var(--danger)}
+  .btnrow{display:flex; gap:10px; flex-wrap:wrap}
+  .btnrow button{flex:1; min-width:120px}
+  .muted{color:var(--dim); font-size:12px}
+  .warn{color:var(--warn)} .danger-t{color:var(--danger)} .ok{color:var(--accent2)}
+  .pill{display:inline-block; padding:2px 8px; border-radius:99px; background:#111a30; border:1px solid var(--line); font-size:11px; color:var(--dim); margin:2px 4px 2px 0}
+  .hidden{display:none !important}
+  /* during the descent, hold any on-screen text dim & dreamy (eyes-closed) */
+  .induction-mode #zh, .induction-mode #pinyin, .induction-mode #en, .induction-mode #sentence{opacity:.15 !important}
+
+  /* ---- Session view ---- */
+  #session{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:6px; min-height:60vh}
+  #phaseTag{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accent)}
+  #passTag{font-size:11px; color:var(--dim); letter-spacing:1px}
+  #stage{width:100%; max-width:640px; min-height:230px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:10px}
+  #zh{font-size:clamp(34px,11vw,72px); font-weight:600; color:var(--zh); line-height:1.1; opacity:0; transition:opacity .35s}
+  #pinyin{font-size:clamp(20px,6vw,34px); color:var(--pin); opacity:0; transition:opacity .35s; letter-spacing:1px}
+  #en{font-size:clamp(16px,4.5vw,22px); color:var(--en); opacity:0; transition:opacity .35s}
+  #sentence{margin-top:14px; max-width:640px; opacity:0; transition:opacity .35s}
+  #sentence .szh{font-size:clamp(18px,5vw,26px); color:var(--zh)}
+  #sentence .spin{font-size:clamp(13px,3.6vw,17px); color:var(--pin); margin-top:4px}
+  #sentence .sen{font-size:clamp(13px,3.6vw,16px); color:var(--en); margin-top:4px}
+  #cue{font-size:14px; color:var(--accent2); letter-spacing:1px; min-height:20px; margin-top:8px}
+  #riskFlag{font-size:11px; color:var(--warn); min-height:14px}
+  #progWrap{width:100%; max-width:640px; margin-top:8px}
+  #progBar{height:5px; background:#141b30; border-radius:99px; overflow:hidden}
+  #progFill{height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent2)); transition:width .3s}
+  #clock{font-size:12px; color:var(--dim); margin-top:6px; font-variant-numeric:tabular-nums}
+  #breath{position:fixed; inset:0; pointer-events:none; z-index:-1; opacity:.5}
+  .sessionctl{display:flex; gap:10px; margin-top:18px}
+  .sessionctl button{min-width:110px}
+
+  /* visual pulse overlay */
+  #pulse{position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(60vmax 60vmax at 50% 45%, var(--accent), transparent 70%); opacity:0; mix-blend-mode:screen}
+  footer{padding:10px 16px 22px; text-align:center; color:var(--dim); font-size:11px}
+  a{color:var(--accent)}
+  .kbd{font-family:ui-monospace,Menlo,Consolas,monospace; background:#0b1020; border:1px solid var(--line); border-radius:5px; padding:1px 5px; font-size:12px}
+  details summary{cursor:pointer; color:var(--accent); font-size:13px}
+  #voiceMsg{font-size:12px; margin-top:6px}
+</style>
+
+<div id="app">
+<header>
+  <h1>Mandarin Focus-State Trainer</h1>
+  <div class="sub">focus-state entrainment · spoken/negotiation track · offline</div>
+</header>
+
+<main>
+  <!-- ============ SETUP ============ -->
+  <section id="setup">
+    <div class="card">
+      <h2>Tonight's session</h2>
+      <div id="dayInfo" class="muted">…</div>
+      <div id="voiceMsg" class="muted"></div>
+      <label class="row">
+        <span class="lab">Phase 1 — Deep induction<small>relaxation + first pass (~5–10 min)</small></span>
+        <input type="checkbox" id="optInduction" checked>
+      </label>
+      <label class="row">
+        <span class="lab">Phase 2 — Soft entrainment<small>4 repeated passes, speak-along + recall (~60 min)</small></span>
+        <input type="checkbox" id="optReinforce" checked>
+      </label>
+      <label class="row">
+        <span class="lab">Active-recall pass<small>shows English, you produce Mandarin, then reveal</small></span>
+        <input type="checkbox" id="optRecall" checked>
+      </label>
+      <label class="row">
+        <span class="lab">Show hanzi<small>off = pinyin + English only (speaking track)</small></span>
+        <input type="checkbox" id="optHanzi" checked>
+      </label>
+    </div>
+
+    <div class="card">
+      <h2>Sound &amp; state</h2>
+      <label class="row">
+        <span class="lab">Binaural beat<small>110 / 114 Hz → 4 Hz theta · needs headphones</small></span>
+        <input type="checkbox" id="optBinaural" checked>
+      </label>
+      <label class="row">
+        <span class="lab">Isochronic pulse<small>10 Hz · works on speakers too</small></span>
+        <input type="checkbox" id="optIso" checked>
+      </label>
+      <label class="row">
+        <span class="lab">Entrainment volume</span>
+        <input type="range" id="entVol" min="0" max="100" value="22">
+      </label>
+      <label class="row">
+        <span class="lab">Voice volume</span>
+        <input type="range" id="voiceVol" min="0" max="100" value="100">
+      </label>
+      <label class="row">
+        <span class="lab">Speech pace</span>
+        <input type="range" id="rate" min="60" max="110" value="82">
+      </label>
+      <label class="row">
+        <span class="lab">Visual pulse<small>gentle screen breathing (optional)</small></span>
+        <input type="checkbox" id="optPulse">
+      </label>
+      <label class="row">
+        <span class="lab">Screen brightness</span>
+        <input type="range" id="bright" min="15" max="100" value="70">
+      </label>
+    </div>
+
+    <div class="card">
+      <h2>Curriculum</h2>
+      <div id="curStats" class="muted"></div>
+      <label class="row">
+        <span class="lab">Batch source</span>
+        <select id="batchSel"></select>
+      </label>
+      <label class="row">
+        <span class="lab">Resurface due words<small>spaced repetition from earlier nights</small></span>
+        <input type="checkbox" id="optSpaced" checked>
+      </label>
+      <details style="margin-top:10px">
+        <summary>Progress &amp; data</summary>
+        <div id="progressDump" class="muted" style="margin-top:8px"></div>
+        <div class="btnrow" style="margin-top:10px">
+          <button class="ghost" id="exportBtn">Export progress</button>
+          <button class="ghost danger" id="resetBtn">Reset progress</button>
+        </div>
+      </details>
+    </div>
+
+    <button class="primary" id="startBtn">Begin session</button>
+    <footer>
+      Put on headphones for the binaural layer. This is a state + pacing wrapper around real study —
+      it works with your daily Chinese TV / music / conversation exposure, not instead of it.
+    </footer>
+  </section>
+
+  <!-- ============ SESSION ============ -->
+  <section id="session" class="hidden">
+    <div id="phaseTag">—</div>
+    <div id="passTag"></div>
+    <div id="stage">
+      <div id="zh"></div>
+      <div id="pinyin"></div>
+      <div id="en"></div>
+      <div id="sentence">
+        <div class="szh"></div>
+        <div class="spin"></div>
+        <div class="sen"></div>
+      </div>
+    </div>
+    <div id="cue"></div>
+    <div id="riskFlag"></div>
+    <div id="progWrap">
+      <div id="progBar"><div id="progFill"></div></div>
+      <div id="clock">00:00</div>
+    </div>
+    <div class="sessionctl">
+      <button id="pauseBtn">Pause</button>
+      <button id="stopBtn" class="danger">End</button>
+    </div>
+  </section>
+</main>
+</div>
+<div id="pulse"></div>
+
+<script>
+"use strict";
+/* ============================================================
+   Mandarin Focus-State Trainer — single-file offline engine
+   Jade's protocol:  Phase 1 deep induction (5–10 min, one bilingual pass)
+                     Phase 2 soft entrainment (~60 min, 4 passes,
+                     speak-along by pass 2–3, one active-recall pass).
+   Bilingual pattern per item:  EN word → ZH word → EN sentence → ZH sentence.
+   Accuracy is mission-critical: every entry tone-checked; residual-risk
+   items carry a `risk` note surfaced on screen.  Curriculum grows by
+   verified chunks — this file is the container for the WHOLE arc.
+   ============================================================ */
+
+/* ---------- CURRICULUM ----------------------------------------------------
+   Entry: { en, zh, pinyin, ens (EN sentence), zhs (ZH sentence),
+            zhsp (ZH sentence pinyin), stage, risk? }
+   `stage`: 1 child · 2 daily · 3 social · 4 abstract · 5 mastery
+   `risk`: optional string — flagged for native/dictionary double-check.
+   This is the START of the full arc (verified). More verified chunks append
+   here; the engine already runs the complete program over whatever is loaded.
+--------------------------------------------------------------------------- */
+const CURRICULUM = [
+  {"en":"I / me", "zh":"我", "pinyin":"wǒ", "ens":"I want to learn Chinese.", "zhs":"我想学中文。", "zhsp":"wǒ xiǎng xué Zhōngwén.", "stage":1},
+  {"en":"you", "zh":"你", "pinyin":"nǐ", "ens":"What is your name?", "zhs":"你叫什么名字？", "zhsp":"nǐ jiào shénme míngzi?", "stage":1},
+  {"en":"you (polite)", "zh":"您", "pinyin":"nín", "ens":"Hello, how are you? (polite)", "zhs":"您好吗？", "zhsp":"nín hǎo ma?", "stage":1, "risk":"您 = respectful 'you'; use with clients/elders in negotiation."},
+  {"en":"he / him", "zh":"他", "pinyin":"tā", "ens":"He is my colleague.", "zhs":"他是我的同事。", "zhsp":"tā shì wǒ de tóngshì.", "stage":1},
+  {"en":"she / her", "zh":"她", "pinyin":"tā", "ens":"She is the person in charge.", "zhs":"她是负责人。", "zhsp":"tā shì fùzérén.", "stage":1},
+  {"en":"we / us", "zh":"我们", "pinyin":"wǒmen", "ens":"Let's talk it over.", "zhs":"我们谈谈吧。", "zhsp":"wǒmen tántan ba.", "stage":1},
+  {"en":"you (plural)", "zh":"你们", "pinyin":"nǐmen", "ens":"What do you all think?", "zhs":"你们觉得怎么样？", "zhsp":"nǐmen juéde zěnmeyàng?", "stage":1},
+  {"en":"they / them", "zh":"他们", "pinyin":"tāmen", "ens":"They agree.", "zhs":"他们同意。", "zhsp":"tāmen tóngyì.", "stage":1},
+  {"en":"everyone", "zh":"大家", "pinyin":"dàjiā", "ens":"Hello everyone.", "zhs":"大家好。", "zhsp":"dàjiā hǎo.", "stage":1},
+  {"en":"person", "zh":"人", "pinyin":"rén", "ens":"He is a good person.", "zhs":"他是好人。", "zhsp":"tā shì hǎorén.", "stage":1},
+  {"en":"mother", "zh":"妈妈", "pinyin":"māma", "ens":"My mother is at home.", "zhs":"我妈妈在家。", "zhsp":"wǒ māma zài jiā.", "stage":1},
+  {"en":"father", "zh":"爸爸", "pinyin":"bàba", "ens":"My father is a doctor.", "zhs":"我爸爸是医生。", "zhsp":"wǒ bàba shì yīshēng.", "stage":1},
+  {"en":"child", "zh":"孩子", "pinyin":"háizi", "ens":"The child is asleep.", "zhs":"孩子睡了。", "zhsp":"háizi shuì le.", "stage":1},
+  {"en":"friend", "zh":"朋友", "pinyin":"péngyou", "ens":"He is my friend.", "zhs":"他是我的朋友。", "zhsp":"tā shì wǒ de péngyou.", "stage":1},
+  {"en":"teacher", "zh":"老师", "pinyin":"lǎoshī", "ens":"The teacher is Chinese.", "zhs":"老师是中国人。", "zhsp":"lǎoshī shì Zhōngguórén.", "stage":1},
+  {"en":"name", "zh":"名字", "pinyin":"míngzi", "ens":"My name is Jade.", "zhs":"我的名字叫杰德。", "zhsp":"wǒ de míngzi jiào Jiédé.", "stage":1, "risk":"杰德 Jiédé phonetic for 'Jade' — confirm preferred Chinese name."},
+  {"en":"home / family", "zh":"家", "pinyin":"jiā", "ens":"I want to go home.", "zhs":"我要回家。", "zhsp":"wǒ yào huí jiā.", "stage":1},
+  {"en":"to be", "zh":"是", "pinyin":"shì", "ens":"I am Jade.", "zhs":"我是杰德。", "zhsp":"wǒ shì Jiédé.", "stage":1},
+  {"en":"to have", "zh":"有", "pinyin":"yǒu", "ens":"I have a question.", "zhs":"我有一个问题。", "zhsp":"wǒ yǒu yí ge wèntí.", "stage":1},
+  {"en":"to want / will", "zh":"要", "pinyin":"yào", "ens":"I want this one.", "zhs":"我要这个。", "zhsp":"wǒ yào zhège.", "stage":1},
+  {"en":"to think / want to", "zh":"想", "pinyin":"xiǎng", "ens":"I want to talk with you.", "zhs":"我想跟你谈。", "zhsp":"wǒ xiǎng gēn nǐ tán.", "stage":1},
+  {"en":"to go", "zh":"去", "pinyin":"qù", "ens":"I'm going to China.", "zhs":"我去中国。", "zhsp":"wǒ qù Zhōngguó.", "stage":1},
+  {"en":"to come", "zh":"来", "pinyin":"lái", "ens":"Please come in.", "zhs":"请进来。", "zhsp":"qǐng jìnlái.", "stage":1},
+  {"en":"to eat", "zh":"吃", "pinyin":"chī", "ens":"Have you eaten?", "zhs":"你吃饭了吗？", "zhsp":"nǐ chī fàn le ma?", "stage":1},
+  {"en":"to drink", "zh":"喝", "pinyin":"hē", "ens":"I want to drink tea.", "zhs":"我想喝茶。", "zhsp":"wǒ xiǎng hē chá.", "stage":1},
+  {"en":"to look / watch", "zh":"看", "pinyin":"kàn", "ens":"Please take a look.", "zhs":"请看一下。", "zhsp":"qǐng kàn yíxià.", "stage":1},
+  {"en":"to listen", "zh":"听", "pinyin":"tīng", "ens":"Please listen to me.", "zhs":"请听我说。", "zhsp":"qǐng tīng wǒ shuō.", "stage":1},
+  {"en":"to speak / say", "zh":"说", "pinyin":"shuō", "ens":"Please say it again.", "zhs":"请再说一遍。", "zhsp":"qǐng zài shuō yí biàn.", "stage":1},
+  {"en":"to do / make", "zh":"做", "pinyin":"zuò", "ens":"What do you do (for work)?", "zhs":"你做什么工作？", "zhsp":"nǐ zuò shénme gōngzuò?", "stage":1},
+  {"en":"to like", "zh":"喜欢", "pinyin":"xǐhuan", "ens":"I like this plan.", "zhs":"我喜欢这个方案。", "zhsp":"wǒ xǐhuan zhège fāng'àn.", "stage":1},
+  {"en":"to know (facts)", "zh":"知道", "pinyin":"zhīdào", "ens":"I know.", "zhs":"我知道。", "zhsp":"wǒ zhīdào.", "stage":1},
+  {"en":"to feel / think", "zh":"觉得", "pinyin":"juéde", "ens":"I think it's okay.", "zhs":"我觉得可以。", "zhsp":"wǒ juéde kěyǐ.", "stage":1},
+  {"en":"can (skill)", "zh":"会", "pinyin":"huì", "ens":"I can speak a little Chinese.", "zhs":"我会说一点中文。", "zhsp":"wǒ huì shuō yìdiǎn Zhōngwén.", "stage":1},
+  {"en":"can (able)", "zh":"能", "pinyin":"néng", "ens":"Can we start?", "zhs":"我们能开始吗？", "zhsp":"wǒmen néng kāishǐ ma?", "stage":1},
+  {"en":"can / may", "zh":"可以", "pinyin":"kěyǐ", "ens":"Can it be a little cheaper?", "zhs":"可以便宜一点吗？", "zhsp":"kěyǐ piányi yìdiǎn ma?", "stage":1},
+  {"en":"to give", "zh":"给", "pinyin":"gěi", "ens":"Please give me a price.", "zhs":"请给我一个价格。", "zhsp":"qǐng gěi wǒ yí ge jiàgé.", "stage":1},
+  {"en":"to buy", "zh":"买", "pinyin":"mǎi", "ens":"I want to buy this.", "zhs":"我想买这个。", "zhsp":"wǒ xiǎng mǎi zhège.", "stage":1},
+  {"en":"to use", "zh":"用", "pinyin":"yòng", "ens":"How do you use it?", "zhs":"这个怎么用？", "zhsp":"zhège zěnme yòng?", "stage":1},
+  {"en":"to study / learn", "zh":"学习", "pinyin":"xuéxí", "ens":"I am studying Chinese.", "zhs":"我在学习中文。", "zhsp":"wǒ zài xuéxí Zhōngwén.", "stage":1},
+  {"en":"to work", "zh":"工作", "pinyin":"gōngzuò", "ens":"I like my work.", "zhs":"我喜欢我的工作。", "zhsp":"wǒ xǐhuan wǒ de gōngzuò.", "stage":1},
+  {"en":"to help", "zh":"帮助", "pinyin":"bāngzhù", "ens":"Thank you for your help.", "zhs":"谢谢你的帮助。", "zhsp":"xièxie nǐ de bāngzhù.", "stage":1},
+  {"en":"to find / look for", "zh":"找", "pinyin":"zhǎo", "ens":"I'm looking for a partner.", "zhs":"我在找合作伙伴。", "zhsp":"wǒ zài zhǎo hézuò huǒbàn.", "stage":1},
+  {"en":"water", "zh":"水", "pinyin":"shuǐ", "ens":"I'd like some water.", "zhs":"我要一点水。", "zhsp":"wǒ yào yìdiǎn shuǐ.", "stage":1},
+  {"en":"cooked rice / meal", "zh":"饭", "pinyin":"fàn", "ens":"Let's eat together.", "zhs":"我们一起吃饭。", "zhsp":"wǒmen yìqǐ chī fàn.", "stage":1},
+  {"en":"tea", "zh":"茶", "pinyin":"chá", "ens":"Would you like some tea?", "zhs":"你要喝茶吗？", "zhsp":"nǐ yào hē chá ma?", "stage":1},
+  {"en":"thing / stuff", "zh":"东西", "pinyin":"dōngxi", "ens":"This thing is very good.", "zhs":"这个东西很好。", "zhsp":"zhège dōngxi hěn hǎo.", "stage":1},
+  {"en":"money", "zh":"钱", "pinyin":"qián", "ens":"How much money is this?", "zhs":"这个多少钱？", "zhsp":"zhège duōshao qián?", "stage":1},
+  {"en":"phone", "zh":"手机", "pinyin":"shǒujī", "ens":"This is my phone number.", "zhs":"这是我的手机号。", "zhsp":"zhè shì wǒ de shǒujī hào.", "stage":1},
+  {"en":"car", "zh":"车", "pinyin":"chē", "ens":"The car is here.", "zhs":"车到了。", "zhsp":"chē dào le.", "stage":1},
+  {"en":"Chinese (language)", "zh":"中文", "pinyin":"Zhōngwén", "ens":"I speak a little Chinese.", "zhs":"我会说一点中文。", "zhsp":"wǒ huì shuō yìdiǎn Zhōngwén.", "stage":1},
+  {"en":"English (language)", "zh":"英文", "pinyin":"Yīngwén", "ens":"Do you speak English?", "zhs":"你会说英文吗？", "zhsp":"nǐ huì shuō Yīngwén ma?", "stage":1},
+  {"en":"time", "zh":"时间", "pinyin":"shíjiān", "ens":"Do you have time?", "zhs":"你有时间吗？", "zhsp":"nǐ yǒu shíjiān ma?", "stage":1},
+  {"en":"day / sky", "zh":"天", "pinyin":"tiān", "ens":"We need three days.", "zhs":"我们需要三天。", "zhsp":"wǒmen xūyào sān tiān.", "stage":1},
+  {"en":"today", "zh":"今天", "pinyin":"jīntiān", "ens":"Let's talk today.", "zhs":"我们今天谈。", "zhsp":"wǒmen jīntiān tán.", "stage":1},
+  {"en":"tomorrow", "zh":"明天", "pinyin":"míngtiān", "ens":"See you tomorrow.", "zhs":"明天见。", "zhsp":"míngtiān jiàn.", "stage":1},
+  {"en":"yesterday", "zh":"昨天", "pinyin":"zuótiān", "ens":"I arrived yesterday.", "zhs":"我昨天到的。", "zhsp":"wǒ zuótiān dào de.", "stage":1},
+  {"en":"now", "zh":"现在", "pinyin":"xiànzài", "ens":"Can we start now?", "zhs":"我们现在能开始吗？", "zhsp":"wǒmen xiànzài néng kāishǐ ma?", "stage":1},
+  {"en":"year", "zh":"年", "pinyin":"nián", "ens":"This year's plan.", "zhs":"今年的计划。", "zhsp":"jīnnián de jìhuà.", "stage":1},
+  {"en":"good", "zh":"好", "pinyin":"hǎo", "ens":"This idea is very good.", "zhs":"这个主意很好。", "zhsp":"zhège zhǔyi hěn hǎo.", "stage":1},
+  {"en":"big", "zh":"大", "pinyin":"dà", "ens":"This is a big market.", "zhs":"这是一个大市场。", "zhsp":"zhè shì yí ge dà shìchǎng.", "stage":1},
+  {"en":"small", "zh":"小", "pinyin":"xiǎo", "ens":"This is a small problem.", "zhs":"这是一个小问题。", "zhsp":"zhè shì yí ge xiǎo wèntí.", "stage":1},
+  {"en":"many / much", "zh":"多", "pinyin":"duō", "ens":"There are many people.", "zhs":"人很多。", "zhsp":"rén hěn duō.", "stage":1},
+  {"en":"few / little", "zh":"少", "pinyin":"shǎo", "ens":"There is too little time.", "zhs":"时间太少了。", "zhsp":"shíjiān tài shǎo le.", "stage":1},
+  {"en":"tall / high", "zh":"高", "pinyin":"gāo", "ens":"The price is a bit high.", "zhs":"价格有点高。", "zhsp":"jiàgé yǒudiǎn gāo.", "stage":1},
+  {"en":"fast / quick", "zh":"快", "pinyin":"kuài", "ens":"You speak too fast.", "zhs":"你说得太快了。", "zhsp":"nǐ shuō de tài kuài le.", "stage":1},
+  {"en":"slow", "zh":"慢", "pinyin":"màn", "ens":"Please speak slowly.", "zhs":"请说慢一点。", "zhsp":"qǐng shuō màn yìdiǎn.", "stage":1},
+  {"en":"hot", "zh":"热", "pinyin":"rè", "ens":"Today is very hot.", "zhs":"今天很热。", "zhsp":"jīntiān hěn rè.", "stage":1},
+  {"en":"cold", "zh":"冷", "pinyin":"lěng", "ens":"It's a little cold.", "zhs":"有点冷。", "zhsp":"yǒudiǎn lěng.", "stage":1},
+  {"en":"new", "zh":"新", "pinyin":"xīn", "ens":"This is a new product.", "zhs":"这是新产品。", "zhsp":"zhè shì xīn chǎnpǐn.", "stage":1},
+  {"en":"expensive", "zh":"贵", "pinyin":"guì", "ens":"That's too expensive.", "zhs":"太贵了。", "zhsp":"tài guì le.", "stage":1},
+  {"en":"cheap", "zh":"便宜", "pinyin":"piányi", "ens":"Can you make it cheaper?", "zhs":"能便宜一点吗？", "zhsp":"néng piányi yìdiǎn ma?", "stage":1},
+  {"en":"correct / right", "zh":"对", "pinyin":"duì", "ens":"Yes, that's right.", "zhs":"对，没错。", "zhsp":"duì, méicuò.", "stage":1},
+  {"en":"tired", "zh":"累", "pinyin":"lèi", "ens":"I'm a little tired.", "zhs":"我有点累。", "zhsp":"wǒ yǒudiǎn lèi.", "stage":1},
+  {"en":"busy", "zh":"忙", "pinyin":"máng", "ens":"I'm very busy lately.", "zhs":"我最近很忙。", "zhsp":"wǒ zuìjìn hěn máng.", "stage":1},
+  {"en":"what", "zh":"什么", "pinyin":"shénme", "ens":"What is this?", "zhs":"这是什么？", "zhsp":"zhè shì shénme?", "stage":1},
+  {"en":"who", "zh":"谁", "pinyin":"shéi", "ens":"Who is in charge?", "zhs":"谁负责？", "zhsp":"shéi fùzé?", "stage":1, "risk":"谁 also read shuí; shéi is the more common colloquial reading."},
+  {"en":"where", "zh":"哪里", "pinyin":"nǎlǐ", "ens":"Where are you?", "zhs":"你在哪里？", "zhsp":"nǐ zài nǎlǐ?", "stage":1},
+  {"en":"how", "zh":"怎么", "pinyin":"zěnme", "ens":"How do we do this?", "zhs":"这个怎么做？", "zhsp":"zhège zěnme zuò?", "stage":1},
+  {"en":"why", "zh":"为什么", "pinyin":"wèishénme", "ens":"Why is it so expensive?", "zhs":"为什么这么贵？", "zhsp":"wèishénme zhème guì?", "stage":1},
+  {"en":"how much / many", "zh":"多少", "pinyin":"duōshao", "ens":"How much is this in total?", "zhs":"这个一共多少钱？", "zhsp":"zhège yígòng duōshao qián?", "stage":1},
+  {"en":"how many (small)", "zh":"几", "pinyin":"jǐ", "ens":"How many do you want?", "zhs":"你要几个？", "zhsp":"nǐ yào jǐ ge?", "stage":1},
+  {"en":"very", "zh":"很", "pinyin":"hěn", "ens":"This is very important.", "zhs":"这很重要。", "zhsp":"zhè hěn zhòngyào.", "stage":1},
+  {"en":"also / too", "zh":"也", "pinyin":"yě", "ens":"I think so too.", "zhs":"我也这么想。", "zhsp":"wǒ yě zhème xiǎng.", "stage":1},
+  {"en":"all / both", "zh":"都", "pinyin":"dōu", "ens":"We all agree.", "zhs":"我们都同意。", "zhsp":"wǒmen dōu tóngyì.", "stage":1},
+  {"en":"and / with", "zh":"和", "pinyin":"hé", "ens":"You and I.", "zhs":"你和我。", "zhsp":"nǐ hé wǒ.", "stage":1},
+  {"en":"at / in", "zh":"在", "pinyin":"zài", "ens":"I am in Beijing.", "zhs":"我在北京。", "zhsp":"wǒ zài Běijīng.", "stage":1},
+  {"en":"not (adj/verb)", "zh":"不", "pinyin":"bù", "ens":"I don't understand.", "zhs":"我不明白。", "zhsp":"wǒ bù míngbái.", "stage":1, "risk":"不 sandhis bù→bú before a 4th-tone syllable (不是 bú shì)."},
+  {"en":"not (have/past)", "zh":"没", "pinyin":"méi", "ens":"I don't have time.", "zhs":"我没有时间。", "zhsp":"wǒ méiyǒu shíjiān.", "stage":1},
+  {"en":"hello", "zh":"你好", "pinyin":"nǐ hǎo", "ens":"Hello, nice to meet you.", "zhs":"你好，很高兴认识你。", "zhsp":"nǐ hǎo, hěn gāoxìng rènshi nǐ.", "stage":1},
+  {"en":"thank you", "zh":"谢谢", "pinyin":"xièxie", "ens":"Thank you for your help.", "zhs":"谢谢你的帮助。", "zhsp":"xièxie nǐ de bāngzhù.", "stage":1},
+  {"en":"please", "zh":"请", "pinyin":"qǐng", "ens":"Please sit down.", "zhs":"请坐。", "zhsp":"qǐng zuò.", "stage":1},
+  {"en":"sorry", "zh":"对不起", "pinyin":"duìbuqǐ", "ens":"Sorry, I'm late.", "zhs":"对不起，我迟到了。", "zhsp":"duìbuqǐ, wǒ chídào le.", "stage":1},
+  {"en":"it's okay", "zh":"没关系", "pinyin":"méi guānxi", "ens":"It's okay, don't worry.", "zhs":"没关系，别担心。", "zhsp":"méi guānxi, bié dānxīn.", "stage":1},
+  {"en":"goodbye", "zh":"再见", "pinyin":"zàijiàn", "ens":"Goodbye, see you tomorrow.", "zhs":"再见，明天见。", "zhsp":"zàijiàn, míngtiān jiàn.", "stage":1},
+  {"en":"one", "zh":"一", "pinyin":"yī", "ens":"I only want one.", "zhs":"我只要一个。", "zhsp":"wǒ zhǐ yào yí ge.", "stage":1, "risk":"一 sandhi: yī citation; yì before 1/2/3 tone, yí before 4th (一个 yí ge)."},
+  {"en":"two", "zh":"二", "pinyin":"èr", "ens":"Room two.", "zhs":"二号房间。", "zhsp":"èr hào fángjiān.", "stage":1, "risk":"Counting = 二 èr; before a measure word use 两 liǎng."},
+  {"en":"two (of)", "zh":"两", "pinyin":"liǎng", "ens":"I want two.", "zhs":"我要两个。", "zhsp":"wǒ yào liǎng ge.", "stage":1},
+  {"en":"three", "zh":"三", "pinyin":"sān", "ens":"We need three days.", "zhs":"我们需要三天。", "zhsp":"wǒmen xūyào sān tiān.", "stage":1},
+  {"en":"four", "zh":"四", "pinyin":"sì", "ens":"Four people.", "zhs":"四个人。", "zhsp":"sì ge rén.", "stage":1},
+  {"en":"five", "zh":"五", "pinyin":"wǔ", "ens":"Five yuan.", "zhs":"五块钱。", "zhsp":"wǔ kuài qián.", "stage":1},
+  {"en":"six", "zh":"六", "pinyin":"liù", "ens":"Six o'clock.", "zhs":"六点。", "zhsp":"liù diǎn.", "stage":1},
+  {"en":"seven", "zh":"七", "pinyin":"qī", "ens":"Seven days.", "zhs":"七天。", "zhsp":"qī tiān.", "stage":1},
+  {"en":"eight", "zh":"八", "pinyin":"bā", "ens":"Eight hundred yuan.", "zhs":"八百块。", "zhsp":"bābǎi kuài.", "stage":1},
+  {"en":"nine", "zh":"九", "pinyin":"jiǔ", "ens":"Nine people.", "zhs":"九个人。", "zhsp":"jiǔ ge rén.", "stage":1},
+  {"en":"ten", "zh":"十", "pinyin":"shí", "ens":"There are ten in total.", "zhs":"一共十个。", "zhsp":"yígòng shí ge.", "stage":1},
+  {"en":"zero", "zh":"零", "pinyin":"líng", "ens":"One hundred and five (105).", "zhs":"一百零五。", "zhsp":"yìbǎi líng wǔ.", "stage":1},
+  {"en":"hundred", "zh":"百", "pinyin":"bǎi", "ens":"One hundred yuan.", "zhs":"一百块。", "zhsp":"yìbǎi kuài.", "stage":1},
+  {"en":"thousand", "zh":"千", "pinyin":"qiān", "ens":"Three thousand yuan.", "zhs":"三千块。", "zhsp":"sānqiān kuài.", "stage":1},
+  {"en":"ten-thousand", "zh":"万", "pinyin":"wàn", "ens":"Ten thousand yuan is too much.", "zhs":"一万块太多了。", "zhsp":"yíwàn kuài tài duō le.", "stage":1, "risk":"Chinese groups by 万 (10^4): 100,000 = 十万 shíwàn."},
+  {"en":"o'clock", "zh":"点", "pinyin":"diǎn", "ens":"Let's meet at three o'clock.", "zhs":"我们三点见。", "zhsp":"wǒmen sān diǎn jiàn.", "stage":2},
+  {"en":"minute", "zh":"分钟", "pinyin":"fēnzhōng", "ens":"Give me five minutes.", "zhs":"给我五分钟。", "zhsp":"gěi wǒ wǔ fēnzhōng.", "stage":2},
+  {"en":"hour", "zh":"小时", "pinyin":"xiǎoshí", "ens":"It takes two hours.", "zhs":"需要两个小时。", "zhsp":"xūyào liǎng ge xiǎoshí.", "stage":2},
+  {"en":"morning", "zh":"早上", "pinyin":"zǎoshang", "ens":"Good morning.", "zhs":"早上好。", "zhsp":"zǎoshang hǎo.", "stage":2},
+  {"en":"forenoon", "zh":"上午", "pinyin":"shàngwǔ", "ens":"Let's meet in the morning.", "zhs":"我们上午见面。", "zhsp":"wǒmen shàngwǔ jiànmiàn.", "stage":2},
+  {"en":"noon", "zh":"中午", "pinyin":"zhōngwǔ", "ens":"Let's have lunch at noon.", "zhs":"中午一起吃饭。", "zhsp":"zhōngwǔ yìqǐ chī fàn.", "stage":2},
+  {"en":"afternoon", "zh":"下午", "pinyin":"xiàwǔ", "ens":"I'm free this afternoon.", "zhs":"我下午有空。", "zhsp":"wǒ xiàwǔ yǒu kòng.", "stage":2},
+  {"en":"evening / night", "zh":"晚上", "pinyin":"wǎnshang", "ens":"Let's talk tonight.", "zhs":"我们晚上谈。", "zhsp":"wǒmen wǎnshang tán.", "stage":2},
+  {"en":"week", "zh":"星期", "pinyin":"xīngqī", "ens":"Next week I'll be in Shanghai.", "zhs":"下星期我在上海。", "zhsp":"xià xīngqī wǒ zài Shànghǎi.", "stage":2},
+  {"en":"month", "zh":"月", "pinyin":"yuè", "ens":"This month is very busy.", "zhs":"这个月很忙。", "zhsp":"zhège yuè hěn máng.", "stage":2},
+  {"en":"date/number", "zh":"号", "pinyin":"hào", "ens":"Today is the fifteenth.", "zhs":"今天十五号。", "zhsp":"jīntiān shíwǔ hào.", "stage":2},
+  {"en":"weekend", "zh":"周末", "pinyin":"zhōumò", "ens":"What are you doing this weekend?", "zhs":"周末你做什么？", "zhsp":"zhōumò nǐ zuò shénme?", "stage":2},
+  {"en":"after / later", "zh":"以后", "pinyin":"yǐhòu", "ens":"Let's talk later.", "zhs":"以后再谈。", "zhsp":"yǐhòu zài tán.", "stage":2},
+  {"en":"before / ago", "zh":"以前", "pinyin":"yǐqián", "ens":"I've been here before.", "zhs":"我以前来过。", "zhsp":"wǒ yǐqián láiguo.", "stage":2},
+  {"en":"to begin", "zh":"开始", "pinyin":"kāishǐ", "ens":"Can we begin?", "zhs":"我们可以开始吗？", "zhsp":"wǒmen kěyǐ kāishǐ ma?", "stage":2},
+  {"en":"to end / finish", "zh":"结束", "pinyin":"jiéshù", "ens":"The meeting is over.", "zhs":"会议结束了。", "zhsp":"huìyì jiéshù le.", "stage":2},
+  {"en":"to wait", "zh":"等", "pinyin":"děng", "ens":"Please wait a moment.", "zhs":"请等一下。", "zhsp":"qǐng děng yíxià.", "stage":2},
+  {"en":"to arrive", "zh":"到", "pinyin":"dào", "ens":"I've arrived.", "zhs":"我到了。", "zhsp":"wǒ dào le.", "stage":2},
+  {"en":"to return", "zh":"回", "pinyin":"huí", "ens":"When are you going back?", "zhs":"你什么时候回去？", "zhsp":"nǐ shénme shíhou huíqù?", "stage":2},
+  {"en":"to meet (up)", "zh":"见面", "pinyin":"jiànmiàn", "ens":"When can we meet?", "zhs":"我们什么时候见面？", "zhsp":"wǒmen shénme shíhou jiànmiàn?", "stage":2},
+  {"en":"to make a call", "zh":"打电话", "pinyin":"dǎ diànhuà", "ens":"I'll call you tomorrow.", "zhs":"我明天给你打电话。", "zhsp":"wǒ míngtiān gěi nǐ dǎ diànhuà.", "stage":2},
+  {"en":"to need", "zh":"需要", "pinyin":"xūyào", "ens":"I need more time.", "zhs":"我需要更多时间。", "zhsp":"wǒ xūyào gèng duō shíjiān.", "stage":2},
+  {"en":"to hope", "zh":"希望", "pinyin":"xīwàng", "ens":"I hope we can cooperate.", "zhs":"我希望我们能合作。", "zhsp":"wǒ xīwàng wǒmen néng hézuò.", "stage":2},
+  {"en":"to decide", "zh":"决定", "pinyin":"juédìng", "ens":"I've decided.", "zhs":"我决定了。", "zhsp":"wǒ juédìng le.", "stage":2},
+  {"en":"to get to know", "zh":"认识", "pinyin":"rènshi", "ens":"Nice to meet you.", "zhs":"很高兴认识你。", "zhsp":"hěn gāoxìng rènshi nǐ.", "stage":2},
+  {"en":"to introduce", "zh":"介绍", "pinyin":"jièshào", "ens":"Let me introduce myself.", "zhs":"我介绍一下自己。", "zhsp":"wǒ jièshào yíxià zìjǐ.", "stage":2},
+  {"en":"to remember", "zh":"记得", "pinyin":"jìde", "ens":"Do you remember me?", "zhs":"你记得我吗？", "zhsp":"nǐ jìde wǒ ma?", "stage":2},
+  {"en":"to prepare", "zh":"准备", "pinyin":"zhǔnbèi", "ens":"I've prepared the documents.", "zhs":"我准备好文件了。", "zhsp":"wǒ zhǔnbèi hǎo wénjiàn le.", "stage":2},
+  {"en":"to attend / join", "zh":"参加", "pinyin":"cānjiā", "ens":"I want to attend the meeting.", "zhs":"我想参加会议。", "zhsp":"wǒ xiǎng cānjiā huìyì.", "stage":2},
+  {"en":"to pay", "zh":"付", "pinyin":"fù", "ens":"How do I pay?", "zhs":"我怎么付？", "zhsp":"wǒ zěnme fù?", "stage":2},
+  {"en":"restaurant", "zh":"餐厅", "pinyin":"cāntīng", "ens":"Is there a restaurant nearby?", "zhs":"附近有餐厅吗？", "zhsp":"fùjìn yǒu cāntīng ma?", "stage":2},
+  {"en":"dish / food", "zh":"菜", "pinyin":"cài", "ens":"This dish is delicious.", "zhs":"这个菜很好吃。", "zhsp":"zhège cài hěn hǎochī.", "stage":2},
+  {"en":"delicious", "zh":"好吃", "pinyin":"hǎochī", "ens":"The food here is delicious.", "zhs":"这里的菜很好吃。", "zhsp":"zhèlǐ de cài hěn hǎochī.", "stage":2},
+  {"en":"to order (food)", "zh":"点菜", "pinyin":"diǎn cài", "ens":"Let's order.", "zhs":"我们点菜吧。", "zhsp":"wǒmen diǎn cài ba.", "stage":2},
+  {"en":"the bill", "zh":"买单", "pinyin":"mǎidān", "ens":"The bill, please.", "zhs":"请买单。", "zhsp":"qǐng mǎidān.", "stage":2},
+  {"en":"store / shop", "zh":"商店", "pinyin":"shāngdiàn", "ens":"The store isn't open.", "zhs":"商店没开。", "zhsp":"shāngdiàn méi kāi.", "stage":2},
+  {"en":"supermarket", "zh":"超市", "pinyin":"chāoshì", "ens":"I'm going to the supermarket.", "zhs":"我去超市。", "zhsp":"wǒ qù chāoshì.", "stage":2},
+  {"en":"market", "zh":"市场", "pinyin":"shìchǎng", "ens":"This is a big market.", "zhs":"这是一个大市场。", "zhsp":"zhè shì yí ge dà shìchǎng.", "stage":2},
+  {"en":"discount", "zh":"打折", "pinyin":"dǎzhé", "ens":"Is there a discount?", "zhs":"可以打折吗？", "zhsp":"kěyǐ dǎzhé ma?", "stage":2},
+  {"en":"invoice / receipt", "zh":"发票", "pinyin":"fāpiào", "ens":"I need a receipt.", "zhs":"我需要发票。", "zhsp":"wǒ xūyào fāpiào.", "stage":2},
+  {"en":"cash", "zh":"现金", "pinyin":"xiànjīn", "ens":"Can I pay with cash?", "zhs":"可以付现金吗？", "zhsp":"kěyǐ fù xiànjīn ma?", "stage":2},
+  {"en":"to pay by card", "zh":"刷卡", "pinyin":"shuākǎ", "ens":"Can I pay by card?", "zhs":"可以刷卡吗？", "zhsp":"kěyǐ shuākǎ ma?", "stage":2},
+  {"en":"yuan (colloquial)", "zh":"块", "pinyin":"kuài", "ens":"This is fifty yuan.", "zhs":"这个五十块。", "zhsp":"zhège wǔshí kuài.", "stage":2},
+  {"en":"airport", "zh":"机场", "pinyin":"jīchǎng", "ens":"I'll pick you up at the airport.", "zhs":"我去机场接你。", "zhsp":"wǒ qù jīchǎng jiē nǐ.", "stage":2},
+  {"en":"hotel", "zh":"酒店", "pinyin":"jiǔdiàn", "ens":"My hotel is nearby.", "zhs":"我的酒店在附近。", "zhsp":"wǒ de jiǔdiàn zài fùjìn.", "stage":2},
+  {"en":"bank", "zh":"银行", "pinyin":"yínháng", "ens":"Where is the bank?", "zhs":"银行在哪里？", "zhsp":"yínháng zài nǎlǐ?", "stage":2},
+  {"en":"company", "zh":"公司", "pinyin":"gōngsī", "ens":"Our company is in Beijing.", "zhs":"我们公司在北京。", "zhsp":"wǒmen gōngsī zài Běijīng.", "stage":2},
+  {"en":"office", "zh":"办公室", "pinyin":"bàngōngshì", "ens":"Come to my office.", "zhs":"来我的办公室。", "zhsp":"lái wǒ de bàngōngshì.", "stage":2},
+  {"en":"hospital", "zh":"医院", "pinyin":"yīyuàn", "ens":"He is at the hospital.", "zhs":"他在医院。", "zhsp":"tā zài yīyuàn.", "stage":2},
+  {"en":"restroom", "zh":"洗手间", "pinyin":"xǐshǒujiān", "ens":"Where is the restroom?", "zhs":"洗手间在哪里？", "zhsp":"xǐshǒujiān zài nǎlǐ?", "stage":2},
+  {"en":"taxi", "zh":"出租车", "pinyin":"chūzūchē", "ens":"Let's take a taxi.", "zhs":"我们打出租车吧。", "zhsp":"wǒmen dǎ chūzūchē ba.", "stage":2},
+  {"en":"subway", "zh":"地铁", "pinyin":"dìtiě", "ens":"The subway is very fast.", "zhs":"地铁很快。", "zhsp":"dìtiě hěn kuài.", "stage":2},
+  {"en":"airplane", "zh":"飞机", "pinyin":"fēijī", "ens":"My plane is at eight.", "zhs":"我的飞机八点。", "zhsp":"wǒ de fēijī bā diǎn.", "stage":2},
+  {"en":"road / way", "zh":"路", "pinyin":"lù", "ens":"I know the way.", "zhs":"我认识路。", "zhsp":"wǒ rènshi lù.", "stage":2},
+  {"en":"nearby", "zh":"附近", "pinyin":"fùjìn", "ens":"Is there a bank nearby?", "zhs":"附近有银行吗？", "zhsp":"fùjìn yǒu yínháng ma?", "stage":2},
+  {"en":"left", "zh":"左", "pinyin":"zuǒ", "ens":"Turn left.", "zhs":"往左走。", "zhsp":"wǎng zuǒ zǒu.", "stage":2},
+  {"en":"right (side)", "zh":"右", "pinyin":"yòu", "ens":"Turn right.", "zhs":"往右走。", "zhsp":"wǎng yòu zǒu.", "stage":2},
+  {"en":"front / ahead", "zh":"前面", "pinyin":"qiánmiàn", "ens":"The hotel is up ahead.", "zhs":"酒店在前面。", "zhsp":"jiǔdiàn zài qiánmiàn.", "stage":2},
+  {"en":"behind / back", "zh":"后面", "pinyin":"hòumiàn", "ens":"The restroom is in the back.", "zhs":"洗手间在后面。", "zhsp":"xǐshǒujiān zài hòumiàn.", "stage":2},
+  {"en":"weather", "zh":"天气", "pinyin":"tiānqì", "ens":"The weather is nice today.", "zhs":"今天天气很好。", "zhsp":"jīntiān tiānqì hěn hǎo.", "stage":2},
+  {"en":"to rain", "zh":"下雨", "pinyin":"xiàyǔ", "ens":"It's raining outside.", "zhs":"外面下雨了。", "zhsp":"wàimiàn xiàyǔ le.", "stage":2},
+  {"en":"the same", "zh":"一样", "pinyin":"yíyàng", "ens":"These two are the same.", "zhs":"这两个一样。", "zhsp":"zhè liǎng ge yíyàng.", "stage":2},
+  {"en":"together", "zh":"一起", "pinyin":"yìqǐ", "ens":"Let's go together.", "zhs":"我们一起去。", "zhsp":"wǒmen yìqǐ qù.", "stage":2},
+  {"en":"a little", "zh":"一点", "pinyin":"yìdiǎn", "ens":"Speak a little slower.", "zhs":"说慢一点。", "zhsp":"shuō màn yìdiǎn.", "stage":2},
+  {"en":"a bit (of)", "zh":"有点", "pinyin":"yǒudiǎn", "ens":"It's a bit expensive.", "zhs":"有点贵。", "zhsp":"yǒudiǎn guì.", "stage":2},
+  {"en":"too / excessively", "zh":"太", "pinyin":"tài", "ens":"That's too expensive.", "zhs":"太贵了。", "zhsp":"tài guì le.", "stage":2},
+  {"en":"extremely", "zh":"非常", "pinyin":"fēicháng", "ens":"This is extremely important.", "zhs":"这非常重要。", "zhsp":"zhè fēicháng zhòngyào.", "stage":2},
+  {"en":"relatively", "zh":"比较", "pinyin":"bǐjiào", "ens":"This one is relatively cheap.", "zhs":"这个比较便宜。", "zhsp":"zhège bǐjiào piányi.", "stage":2},
+  {"en":"most", "zh":"最", "pinyin":"zuì", "ens":"This is the most important thing.", "zhs":"这是最重要的。", "zhsp":"zhè shì zuì zhòngyào de.", "stage":2},
+  {"en":"still / also", "zh":"还", "pinyin":"hái", "ens":"I still have a question.", "zhs":"我还有一个问题。", "zhsp":"wǒ hái yǒu yí ge wèntí.", "stage":2},
+  {"en":"already", "zh":"已经", "pinyin":"yǐjīng", "ens":"I've already decided.", "zhs":"我已经决定了。", "zhsp":"wǒ yǐjīng juédìng le.", "stage":2},
+  {"en":"then / just", "zh":"就", "pinyin":"jiù", "ens":"Then let's do that.", "zhs":"那就这样。", "zhsp":"nà jiù zhèyàng.", "stage":2},
+  {"en":"again (future)", "zh":"再", "pinyin":"zài", "ens":"Let's talk again tomorrow.", "zhs":"明天再谈。", "zhsp":"míngtiān zài tán.", "stage":2},
+  {"en":"only", "zh":"只", "pinyin":"zhǐ", "ens":"I only want one.", "zhs":"我只要一个。", "zhsp":"wǒ zhǐ yào yí ge.", "stage":2},
+  {"en":"don't", "zh":"别", "pinyin":"bié", "ens":"Don't worry.", "zhs":"别担心。", "zhsp":"bié dānxīn.", "stage":2},
+  {"en":"definitely", "zh":"一定", "pinyin":"yídìng", "ens":"I will definitely come.", "zhs":"我一定来。", "zhsp":"wǒ yídìng lái.", "stage":2},
+  {"en":"maybe / possible", "zh":"可能", "pinyin":"kěnéng", "ens":"It might rain tomorrow.", "zhs":"明天可能下雨。", "zhsp":"míngtiān kěnéng xiàyǔ.", "stage":2},
+  {"en":"of course", "zh":"当然", "pinyin":"dāngrán", "ens":"Of course, no problem.", "zhs":"当然，没问题。", "zhsp":"dāngrán, méi wèntí.", "stage":2},
+  {"en":"should", "zh":"应该", "pinyin":"yīnggāi", "ens":"We should talk first.", "zhs":"我们应该先谈。", "zhsp":"wǒmen yīnggāi xiān tán.", "stage":2},
+  {"en":"must / have to", "zh":"必须", "pinyin":"bìxū", "ens":"We must decide today.", "zhs":"我们必须今天决定。", "zhsp":"wǒmen bìxū jīntiān juédìng.", "stage":2},
+  {"en":"because", "zh":"因为", "pinyin":"yīnwèi", "ens":"Because the price is too high.", "zhs":"因为价格太高。", "zhsp":"yīnwèi jiàgé tài gāo.", "stage":2},
+  {"en":"so / therefore", "zh":"所以", "pinyin":"suǒyǐ", "ens":"So we can't agree.", "zhs":"所以我们不能同意。", "zhsp":"suǒyǐ wǒmen bùnéng tóngyì.", "stage":2},
+  {"en":"but", "zh":"但是", "pinyin":"dànshì", "ens":"Good, but too expensive.", "zhs":"很好，但是太贵。", "zhsp":"hěn hǎo, dànshì tài guì.", "stage":2},
+  {"en":"if", "zh":"如果", "pinyin":"rúguǒ", "ens":"If it's cheaper, I'll buy it.", "zhs":"如果便宜一点，我就买。", "zhsp":"rúguǒ piányi yìdiǎn, wǒ jiù mǎi.", "stage":2},
+  {"en":"or (question)", "zh":"还是", "pinyin":"háishì", "ens":"Today or tomorrow?", "zhs":"今天还是明天？", "zhsp":"jīntiān háishì míngtiān?", "stage":2},
+  {"en":"then / after that", "zh":"然后", "pinyin":"ránhòu", "ens":"First eat, then talk.", "zhs":"先吃饭，然后谈。", "zhsp":"xiān chī fàn, ránhòu tán.", "stage":2},
+  {"en":"first (of all)", "zh":"先", "pinyin":"xiān", "ens":"Let's discuss the price first.", "zhs":"我们先谈价格。", "zhsp":"wǒmen xiān tán jiàgé.", "stage":2},
+  {"en":"measure word (people)", "zh":"位", "pinyin":"wèi", "ens":"How many people? (polite)", "zhs":"几位？", "zhsp":"jǐ wèi?", "stage":2, "risk":"位 is the polite measure word for people (clients/guests)."},
+  {"en":"time / occasion", "zh":"次", "pinyin":"cì", "ens":"This is my first time in China.", "zhs":"这是我第一次来中国。", "zhsp":"zhè shì wǒ dì-yī cì lái Zhōngguó.", "stage":2},
+  {"en":"question / problem", "zh":"问题", "pinyin":"wèntí", "ens":"No problem.", "zhs":"没问题。", "zhsp":"méi wèntí.", "stage":2},
+  {"en":"to agree", "zh":"同意", "pinyin":"tóngyì", "ens":"I agree with you.", "zhs":"我同意你。", "zhsp":"wǒ tóngyì nǐ.", "stage":2},
+  {"en":"meeting", "zh":"会议", "pinyin":"huìyì", "ens":"The meeting is at two.", "zhs":"会议两点开始。", "zhsp":"huìyì liǎng diǎn kāishǐ.", "stage":2},
+  {"en":"document / file", "zh":"文件", "pinyin":"wénjiàn", "ens":"Please look at this document.", "zhs":"请看这个文件。", "zhsp":"qǐng kàn zhège wénjiàn.", "stage":2},
+  {"en":"important", "zh":"重要", "pinyin":"zhòngyào", "ens":"This is very important.", "zhs":"这很重要。", "zhsp":"zhè hěn zhòngyào.", "stage":2},
+  {"en":"price", "zh":"价格", "pinyin":"jiàgé", "ens":"The price is a bit high.", "zhs":"价格有点高。", "zhsp":"jiàgé yǒudiǎn gāo.", "stage":2},
+  {"en":"free (time)", "zh":"有空", "pinyin":"yǒu kòng", "ens":"Are you free tomorrow?", "zhs":"你明天有空吗？", "zhsp":"nǐ míngtiān yǒu kòng ma?", "stage":2},
+  {"en":"when", "zh":"什么时候", "pinyin":"shénme shíhou", "ens":"When can we start?", "zhs":"我们什么时候开始？", "zhsp":"wǒmen shénme shíhou kāishǐ?", "stage":2},
+  {"en":"China", "zh":"中国", "pinyin":"Zhōngguó", "ens":"This is my first time in China.", "zhs":"这是我第一次来中国。", "zhsp":"zhè shì wǒ dì-yī cì lái Zhōngguó.", "stage":2},
+  {"en":"may I ask", "zh":"请问", "pinyin":"qǐngwèn", "ens":"May I ask what your name is?", "zhs":"请问您怎么称呼？", "zhsp":"qǐngwèn nín zěnme chēnghu?", "stage":3, "risk":"请问 + 怎么称呼 is polite 'how may I address you' — correct opener register."},
+  {"en":"to negotiate", "zh":"谈判", "pinyin":"tánpàn", "ens":"We are still negotiating.", "zhs":"我们还在谈判。", "zhsp":"wǒmen hái zài tánpàn.", "stage":3, "risk":"谈判 = formal negotiation; softer 商量/谈 sounds friendlier in relationship-building."},
+  {"en":"to cooperate", "zh":"合作", "pinyin":"hézuò", "ens":"I look forward to cooperating.", "zhs":"我期待和您合作。", "zhsp":"wǒ qīdài hé nín hézuò.", "stage":3},
+  {"en":"to discuss (informally)", "zh":"商量", "pinyin":"shāngliang", "ens":"Let's discuss this.", "zhs":"这个我们商量一下。", "zhsp":"zhège wǒmen shāngliang yíxià.", "stage":3},
+  {"en":"to discuss (formally)", "zh":"讨论", "pinyin":"tǎolùn", "ens":"Let's discuss the terms.", "zhs":"我们讨论一下条件。", "zhsp":"wǒmen tǎolùn yíxià tiáojiàn.", "stage":3},
+  {"en":"to consider", "zh":"考虑", "pinyin":"kǎolǜ", "ens":"Let me consider it.", "zhs":"我考虑一下。", "zhsp":"wǒ kǎolǜ yíxià.", "stage":3, "risk":"我考虑一下 can be a soft 'no' in Chinese business culture — flag intent."},
+  {"en":"to suggest", "zh":"建议", "pinyin":"jiànyì", "ens":"I suggest we start over.", "zhs":"我建议重新开始。", "zhsp":"wǒ jiànyì chóngxīn kāishǐ.", "stage":3},
+  {"en":"to accept", "zh":"接受", "pinyin":"jiēshòu", "ens":"I can accept this price.", "zhs":"这个价格我可以接受。", "zhsp":"zhège jiàgé wǒ kěyǐ jiēshòu.", "stage":3},
+  {"en":"to refuse", "zh":"拒绝", "pinyin":"jùjué", "ens":"I have to refuse.", "zhs":"我不得不拒绝。", "zhsp":"wǒ bùdébù jùjué.", "stage":3},
+  {"en":"to oppose", "zh":"反对", "pinyin":"fǎnduì", "ens":"I don't oppose this idea.", "zhs":"我不反对这个想法。", "zhsp":"wǒ bù fǎnduì zhège xiǎngfǎ.", "stage":3},
+  {"en":"to promise / agree to", "zh":"答应", "pinyin":"dāying", "ens":"I can't promise that.", "zhs":"这个我不能答应。", "zhsp":"zhège wǒ bùnéng dāying.", "stage":3},
+  {"en":"to guarantee", "zh":"保证", "pinyin":"bǎozhèng", "ens":"I guarantee the quality.", "zhs":"我保证质量。", "zhsp":"wǒ bǎozhèng zhìliàng.", "stage":3},
+  {"en":"to confirm", "zh":"确认", "pinyin":"quèrèn", "ens":"Let me confirm the details.", "zhs":"我确认一下细节。", "zhsp":"wǒ quèrèn yíxià xìjié.", "stage":3},
+  {"en":"to sign", "zh":"签", "pinyin":"qiān", "ens":"When can we sign?", "zhs":"我们什么时候签？", "zhsp":"wǒmen shénme shíhou qiān?", "stage":3},
+  {"en":"to revise", "zh":"修改", "pinyin":"xiūgǎi", "ens":"We need to revise the contract.", "zhs":"我们需要修改合同。", "zhsp":"wǒmen xūyào xiūgǎi hétong.", "stage":3},
+  {"en":"to cancel", "zh":"取消", "pinyin":"qǔxiāo", "ens":"We can't cancel the deal.", "zhs":"我们不能取消交易。", "zhsp":"wǒmen bùnéng qǔxiāo jiāoyì.", "stage":3},
+  {"en":"contract", "zh":"合同", "pinyin":"hétong", "ens":"Please read the contract carefully.", "zhs":"请仔细看合同。", "zhsp":"qǐng zǐxì kàn hétong.", "stage":3},
+  {"en":"agreement", "zh":"协议", "pinyin":"xiéyì", "ens":"We've reached an agreement.", "zhs":"我们达成协议了。", "zhsp":"wǒmen dáchéng xiéyì le.", "stage":3},
+  {"en":"terms / conditions", "zh":"条件", "pinyin":"tiáojiàn", "ens":"These terms are acceptable.", "zhs":"这些条件可以接受。", "zhsp":"zhèxiē tiáojiàn kěyǐ jiēshòu.", "stage":3},
+  {"en":"deal / transaction", "zh":"交易", "pinyin":"jiāoyì", "ens":"This is a fair deal.", "zhs":"这是一个公平的交易。", "zhsp":"zhè shì yí ge gōngpíng de jiāoyì.", "stage":3},
+  {"en":"price / cost", "zh":"价钱", "pinyin":"jiàqian", "ens":"The price is reasonable.", "zhs":"这个价钱很合理。", "zhsp":"zhège jiàqian hěn hélǐ.", "stage":3},
+  {"en":"cost", "zh":"成本", "pinyin":"chéngběn", "ens":"Our cost is too high.", "zhs":"我们的成本太高了。", "zhsp":"wǒmen de chéngběn tài gāo le.", "stage":3},
+  {"en":"profit", "zh":"利润", "pinyin":"lìrùn", "ens":"The profit is very small.", "zhs":"利润很少。", "zhsp":"lìrùn hěn shǎo.", "stage":3},
+  {"en":"budget", "zh":"预算", "pinyin":"yùsuàn", "ens":"This is over our budget.", "zhs":"这超出我们的预算了。", "zhsp":"zhè chāochū wǒmen de yùsuàn le.", "stage":3},
+  {"en":"quote / offer", "zh":"报价", "pinyin":"bàojià", "ens":"Please give me a quote.", "zhs":"请给我报价。", "zhsp":"qǐng gěi wǒ bàojià.", "stage":3},
+  {"en":"discount (n.)", "zh":"折扣", "pinyin":"zhékòu", "ens":"Can you give a bigger discount?", "zhs":"能给更大的折扣吗？", "zhsp":"néng gěi gèng dà de zhékòu ma?", "stage":3},
+  {"en":"special offer", "zh":"优惠", "pinyin":"yōuhuì", "ens":"Is there any special offer?", "zhs":"有优惠吗？", "zhsp":"yǒu yōuhuì ma?", "stage":3},
+  {"en":"quality", "zh":"质量", "pinyin":"zhìliàng", "ens":"The quality must be guaranteed.", "zhs":"质量必须保证。", "zhsp":"zhìliàng bìxū bǎozhèng.", "stage":3},
+  {"en":"product", "zh":"产品", "pinyin":"chǎnpǐn", "ens":"This product is very good.", "zhs":"这个产品很好。", "zhsp":"zhège chǎnpǐn hěn hǎo.", "stage":3},
+  {"en":"service", "zh":"服务", "pinyin":"fúwù", "ens":"Our service is the best.", "zhs":"我们的服务最好。", "zhsp":"wǒmen de fúwù zuì hǎo.", "stage":3},
+  {"en":"client / customer", "zh":"客户", "pinyin":"kèhù", "ens":"The client is very satisfied.", "zhs":"客户很满意。", "zhsp":"kèhù hěn mǎnyì.", "stage":3},
+  {"en":"boss", "zh":"老板", "pinyin":"lǎobǎn", "ens":"I need to ask my boss.", "zhs":"我需要问一下老板。", "zhsp":"wǒ xūyào wèn yíxià lǎobǎn.", "stage":3},
+  {"en":"manager", "zh":"经理", "pinyin":"jīnglǐ", "ens":"She is our manager.", "zhs":"她是我们的经理。", "zhsp":"tā shì wǒmen de jīnglǐ.", "stage":3},
+  {"en":"team", "zh":"团队", "pinyin":"tuánduì", "ens":"We have a strong team.", "zhs":"我们有一个很强的团队。", "zhsp":"wǒmen yǒu yí ge hěn qiáng de tuánduì.", "stage":3},
+  {"en":"project", "zh":"项目", "pinyin":"xiàngmù", "ens":"This project is very important.", "zhs":"这个项目很重要。", "zhsp":"zhège xiàngmù hěn zhòngyào.", "stage":3},
+  {"en":"plan", "zh":"计划", "pinyin":"jìhuà", "ens":"This is our plan.", "zhs":"这是我们的计划。", "zhsp":"zhè shì wǒmen de jìhuà.", "stage":3},
+  {"en":"goal", "zh":"目标", "pinyin":"mùbiāo", "ens":"We have the same goal.", "zhs":"我们有共同的目标。", "zhsp":"wǒmen yǒu gòngtóng de mùbiāo.", "stage":3},
+  {"en":"result / outcome", "zh":"结果", "pinyin":"jiéguǒ", "ens":"I want a win-win result.", "zhs":"我想要双赢的结果。", "zhsp":"wǒ xiǎng yào shuāngyíng de jiéguǒ.", "stage":3},
+  {"en":"opportunity", "zh":"机会", "pinyin":"jīhuì", "ens":"This is a good opportunity.", "zhs":"这是一个好机会。", "zhsp":"zhè shì yí ge hǎo jīhuì.", "stage":3},
+  {"en":"risk", "zh":"风险", "pinyin":"fēngxiǎn", "ens":"The risk is too big.", "zhs":"风险太大了。", "zhsp":"fēngxiǎn tài dà le.", "stage":3},
+  {"en":"responsibility", "zh":"责任", "pinyin":"zérèn", "ens":"This is our responsibility.", "zhs":"这是我们的责任。", "zhsp":"zhè shì wǒmen de zérèn.", "stage":3},
+  {"en":"right (entitlement)", "zh":"权利", "pinyin":"quánlì", "ens":"This is my right.", "zhs":"这是我的权利。", "zhsp":"zhè shì wǒ de quánlì.", "stage":3},
+  {"en":"opinion", "zh":"意见", "pinyin":"yìjiàn", "ens":"What is your opinion?", "zhs":"您有什么意见？", "zhsp":"nín yǒu shénme yìjiàn?", "stage":3},
+  {"en":"both parties", "zh":"双方", "pinyin":"shuāngfāng", "ens":"Both parties need to agree.", "zhs":"双方都需要同意。", "zhsp":"shuāngfāng dōu xūyào tóngyì.", "stage":3},
+  {"en":"reasonable", "zh":"合理", "pinyin":"hélǐ", "ens":"This request is reasonable.", "zhs":"这个要求很合理。", "zhsp":"zhège yāoqiú hěn hélǐ.", "stage":3},
+  {"en":"fair", "zh":"公平", "pinyin":"gōngpíng", "ens":"This isn't fair.", "zhs":"这不公平。", "zhsp":"zhè bù gōngpíng.", "stage":3},
+  {"en":"suitable", "zh":"合适", "pinyin":"héshì", "ens":"This price is suitable.", "zhs":"这个价格很合适。", "zhsp":"zhège jiàgé hěn héshì.", "stage":3},
+  {"en":"satisfied", "zh":"满意", "pinyin":"mǎnyì", "ens":"Are you satisfied?", "zhs":"您满意吗？", "zhsp":"nín mǎnyì ma?", "stage":3},
+  {"en":"clear (understood)", "zh":"清楚", "pinyin":"qīngchu", "ens":"Is that clear?", "zhs":"清楚了吗？", "zhsp":"qīngchu le ma?", "stage":3},
+  {"en":"complicated", "zh":"复杂", "pinyin":"fùzá", "ens":"This problem is complicated.", "zhs":"这个问题很复杂。", "zhsp":"zhège wèntí hěn fùzá.", "stage":3},
+  {"en":"simple", "zh":"简单", "pinyin":"jiǎndān", "ens":"Let's keep it simple.", "zhs":"我们简单一点。", "zhsp":"wǒmen jiǎndān yìdiǎn.", "stage":3},
+  {"en":"professional", "zh":"专业", "pinyin":"zhuānyè", "ens":"Your team is very professional.", "zhs":"你们的团队很专业。", "zhsp":"nǐmen de tuánduì hěn zhuānyè.", "stage":3},
+  {"en":"to make money", "zh":"赚", "pinyin":"zhuàn", "ens":"We both can make money.", "zhs":"我们都能赚钱。", "zhsp":"wǒmen dōu néng zhuànqián.", "stage":3},
+  {"en":"worth it", "zh":"值得", "pinyin":"zhídé", "ens":"This investment is worth it.", "zhs":"这个投资值得。", "zhsp":"zhège tóuzī zhídé.", "stage":3},
+  {"en":"to make a concession", "zh":"让步", "pinyin":"ràngbù", "ens":"I can make a small concession.", "zhs":"我可以让一点步。", "zhsp":"wǒ kěyǐ ràng yìdiǎn bù.", "stage":3, "risk":"让步 as a verb-object; 让一点步 (splitting) is natural spoken usage — confirm register."},
+  {"en":"bottom line", "zh":"底线", "pinyin":"dǐxiàn", "ens":"This is my bottom line.", "zhs":"这是我的底线。", "zhsp":"zhè shì wǒ de dǐxiàn.", "stage":3},
+  {"en":"to trouble (you)", "zh":"麻烦", "pinyin":"máfan", "ens":"Sorry to trouble you.", "zhs":"麻烦您了。", "zhsp":"máfan nín le.", "stage":3, "risk":"麻烦您了 = polite 'thanks for the trouble' — very common courteous close."},
+  {"en":"don't be polite", "zh":"客气", "pinyin":"kèqi", "ens":"You're welcome / don't mention it.", "zhs":"不客气。", "zhsp":"bú kèqi.", "stage":3},
+  {"en":"to welcome", "zh":"欢迎", "pinyin":"huānyíng", "ens":"Welcome to our company.", "zhs":"欢迎来我们公司。", "zhsp":"huānyíng lái wǒmen gōngsī.", "stage":3},
+  {"en":"congratulations", "zh":"恭喜", "pinyin":"gōngxǐ", "ens":"Congratulations on the cooperation.", "zhs":"恭喜合作成功。", "zhsp":"gōngxǐ hézuò chénggōng.", "stage":3},
+  {"en":"you've worked hard", "zh":"辛苦", "pinyin":"xīnkǔ", "ens":"Thank you for your hard work.", "zhs":"辛苦您了。", "zhsp":"xīnkǔ nín le.", "stage":3, "risk":"辛苦您了 = warm acknowledgement of someone's effort; standard courtesy."},
+  {"en":"rest assured", "zh":"放心", "pinyin":"fàngxīn", "ens":"Rest assured, no problem.", "zhs":"您放心，没问题。", "zhsp":"nín fàngxīn, méi wèntí.", "stage":3},
+  {"en":"to trust", "zh":"相信", "pinyin":"xiāngxìn", "ens":"I trust you.", "zhs":"我相信您。", "zhsp":"wǒ xiāngxìn nín.", "stage":3},
+  {"en":"to cooperate successfully", "zh":"成功", "pinyin":"chénggōng", "ens":"I hope we succeed.", "zhs":"希望我们成功。", "zhsp":"xīwàng wǒmen chénggōng.", "stage":3},
+  {"en":"to reach (agreement)", "zh":"达成", "pinyin":"dáchéng", "ens":"We reached a consensus.", "zhs":"我们达成了共识。", "zhsp":"wǒmen dáchéng le gòngshí.", "stage":3},
+  {"en":"win-win", "zh":"双赢", "pinyin":"shuāngyíng", "ens":"This is a win-win.", "zhs":"这是双赢。", "zhsp":"zhè shì shuāngyíng.", "stage":3},
+  {"en":"to invest", "zh":"投资", "pinyin":"tóuzī", "ens":"They want to invest in us.", "zhs":"他们想投资我们。", "zhsp":"tāmen xiǎng tóuzī wǒmen.", "stage":3},
+  {"en":"capital / funds", "zh":"资金", "pinyin":"zījīn", "ens":"We need more capital.", "zhs":"我们需要更多资金。", "zhsp":"wǒmen xūyào gèng duō zījīn.", "stage":3},
+  {"en":"share / equity", "zh":"股份", "pinyin":"gǔfèn", "ens":"How much equity do you want?", "zhs":"你们要多少股份？", "zhsp":"nǐmen yào duōshao gǔfèn?", "stage":3},
+  {"en":"partner", "zh":"合作伙伴", "pinyin":"hézuò huǒbàn", "ens":"You are our best partner.", "zhs":"你们是我们最好的合作伙伴。", "zhsp":"nǐmen shì wǒmen zuì hǎo de hézuò huǒbàn.", "stage":3},
+  {"en":"competition", "zh":"竞争", "pinyin":"jìngzhēng", "ens":"The competition is fierce.", "zhs":"竞争很激烈。", "zhsp":"jìngzhēng hěn jīliè.", "stage":3},
+  {"en":"advantage", "zh":"优势", "pinyin":"yōushì", "ens":"This is our advantage.", "zhs":"这是我们的优势。", "zhsp":"zhè shì wǒmen de yōushì.", "stage":3},
+  {"en":"demand / requirement", "zh":"要求", "pinyin":"yāoqiú", "ens":"I have one requirement.", "zhs":"我有一个要求。", "zhsp":"wǒ yǒu yí ge yāoqiú.", "stage":3},
+  {"en":"to provide", "zh":"提供", "pinyin":"tígōng", "ens":"We can provide support.", "zhs":"我们可以提供支持。", "zhsp":"wǒmen kěyǐ tígōng zhīchí.", "stage":3},
+  {"en":"to support", "zh":"支持", "pinyin":"zhīchí", "ens":"Thank you for your support.", "zhs":"谢谢您的支持。", "zhsp":"xièxie nín de zhīchí.", "stage":3},
+  {"en":"to solve", "zh":"解决", "pinyin":"jiějué", "ens":"We can solve this problem.", "zhs":"我们可以解决这个问题。", "zhsp":"wǒmen kěyǐ jiějué zhège wèntí.", "stage":3},
+  {"en":"detail", "zh":"细节", "pinyin":"xìjié", "ens":"Let's talk about the details.", "zhs":"我们谈谈细节。", "zhsp":"wǒmen tántan xìjié.", "stage":3},
+  {"en":"deadline / time limit", "zh":"期限", "pinyin":"qīxiàn", "ens":"What is the deadline?", "zhs":"期限是什么时候？", "zhsp":"qīxiàn shì shénme shíhou?", "stage":3},
+  {"en":"to deliver / hand over", "zh":"交付", "pinyin":"jiāofù", "ens":"When can you deliver?", "zhs":"你们什么时候能交付？", "zhsp":"nǐmen shénme shíhou néng jiāofù?", "stage":3},
+  {"en":"to sign a contract", "zh":"签合同", "pinyin":"qiān hétong", "ens":"We can sign the contract tomorrow.", "zhs":"我们明天可以签合同。", "zhsp":"wǒmen míngtiān kěyǐ qiān hétong.", "stage":3},
+  {"en":"deposit", "zh":"定金", "pinyin":"dìngjīn", "ens":"You need to pay a deposit first.", "zhs":"您需要先付定金。", "zhsp":"nín xūyào xiān fù dìngjīn.", "stage":3},
+  {"en":"to pay (a sum)", "zh":"付款", "pinyin":"fùkuǎn", "ens":"How is the payment made?", "zhs":"怎么付款？", "zhsp":"zěnme fùkuǎn?", "stage":3},
+  {"en":"condition/prerequisite", "zh":"前提", "pinyin":"qiántí", "ens":"On one condition.", "zhs":"有一个前提。", "zhsp":"yǒu yí ge qiántí.", "stage":3},
+  {"en":"to compromise", "zh":"妥协", "pinyin":"tuǒxié", "ens":"I'm not willing to compromise.", "zhs":"我不愿意妥协。", "zhsp":"wǒ bú yuànyì tuǒxié.", "stage":3},
+  {"en":"to be willing", "zh":"愿意", "pinyin":"yuànyì", "ens":"Are you willing to cooperate?", "zhs":"您愿意合作吗？", "zhsp":"nín yuànyì hézuò ma?", "stage":3},
+  {"en":"honest / sincere", "zh":"诚实", "pinyin":"chéngshí", "ens":"I'll be honest with you.", "zhs":"我对您诚实。", "zhsp":"wǒ duì nín chéngshí.", "stage":3, "risk":"'我对您诚实' is understandable but 说实话/坦白说 is more idiomatic for 'to be honest'; flag for naturalness."},
+  {"en":"frankly speaking", "zh":"说实话", "pinyin":"shuō shíhuà", "ens":"Frankly, this is too expensive.", "zhs":"说实话，这太贵了。", "zhsp":"shuō shíhuà, zhè tài guì le.", "stage":3},
+  {"en":"no problem", "zh":"没问题", "pinyin":"méi wèntí", "ens":"No problem, we agree.", "zhs":"没问题，我们同意。", "zhsp":"méi wèntí, wǒmen tóngyì.", "stage":3},
+  {"en":"to think (opinion)", "zh":"认为", "pinyin":"rènwéi", "ens":"I think this is feasible.", "zhs":"我认为这可行。", "zhsp":"wǒ rènwéi zhè kěxíng.", "stage":3},
+  {"en":"feasible", "zh":"可行", "pinyin":"kěxíng", "ens":"This plan is feasible.", "zhs":"这个计划可行。", "zhsp":"zhège jìhuà kěxíng.", "stage":3},
+  {"en":"to explain", "zh":"解释", "pinyin":"jiěshì", "ens":"Let me explain.", "zhs":"我解释一下。", "zhsp":"wǒ jiěshì yíxià.", "stage":3},
+  {"en":"to express / state", "zh":"表示", "pinyin":"biǎoshì", "ens":"I want to express my thanks.", "zhs":"我想表示感谢。", "zhsp":"wǒ xiǎng biǎoshì gǎnxiè.", "stage":3},
+  {"en":"to be responsible for", "zh":"负责", "pinyin":"fùzé", "ens":"Who is responsible for this?", "zhs":"这个谁负责？", "zhsp":"zhège shéi fùzé?", "stage":3},
+  {"en":"in charge / boss (informal)", "zh":"负责人", "pinyin":"fùzérén", "ens":"I want to talk to the person in charge.", "zhs":"我想跟负责人谈。", "zhsp":"wǒ xiǎng gēn fùzérén tán.", "stage":3},
+  {"en":"happy / glad", "zh":"高兴", "pinyin":"gāoxìng", "ens":"I'm very glad to work with you.", "zhs":"我很高兴和您合作。", "zhsp":"wǒ hěn gāoxìng hé nín hézuò.", "stage":4},
+  {"en":"happy / joyful", "zh":"开心", "pinyin":"kāixīn", "ens":"Today I'm very happy.", "zhs":"今天我很开心。", "zhsp":"jīntiān wǒ hěn kāixīn.", "stage":4},
+  {"en":"to worry", "zh":"担心", "pinyin":"dānxīn", "ens":"Don't worry about this.", "zhs":"别担心这个。", "zhsp":"bié dānxīn zhège.", "stage":4},
+  {"en":"afraid", "zh":"害怕", "pinyin":"hàipà", "ens":"I'm not afraid of competition.", "zhs":"我不害怕竞争。", "zhsp":"wǒ bú hàipà jìngzhēng.", "stage":4},
+  {"en":"angry", "zh":"生气", "pinyin":"shēngqì", "ens":"Please don't be angry.", "zhs":"请别生气。", "zhsp":"qǐng bié shēngqì.", "stage":4},
+  {"en":"nervous / tense", "zh":"紧张", "pinyin":"jǐnzhāng", "ens":"There's no need to be nervous.", "zhs":"不用紧张。", "zhsp":"búyòng jǐnzhāng.", "stage":4},
+  {"en":"comfortable", "zh":"舒服", "pinyin":"shūfu", "ens":"I don't feel well today.", "zhs":"我今天不舒服。", "zhsp":"wǒ jīntiān bù shūfu.", "stage":4},
+  {"en":"feeling / to feel", "zh":"感觉", "pinyin":"gǎnjué", "ens":"I feel this can work.", "zhs":"我感觉这个可以。", "zhsp":"wǒ gǎnjué zhège kěyǐ.", "stage":4},
+  {"en":"to thank / gratitude", "zh":"感谢", "pinyin":"gǎnxiè", "ens":"I'm truly grateful.", "zhs":"我真的很感谢。", "zhsp":"wǒ zhēnde hěn gǎnxiè.", "stage":4},
+  {"en":"to respect", "zh":"尊重", "pinyin":"zūnzhòng", "ens":"I respect your decision.", "zhs":"我尊重您的决定。", "zhsp":"wǒ zūnzhòng nín de juédìng.", "stage":4},
+  {"en":"to trust", "zh":"信任", "pinyin":"xìnrèn", "ens":"Trust is very important.", "zhs":"信任很重要。", "zhsp":"xìnrèn hěn zhòngyào.", "stage":4},
+  {"en":"meaning", "zh":"意思", "pinyin":"yìsi", "ens":"What do you mean?", "zhs":"您是什么意思？", "zhsp":"nín shì shénme yìsi?", "stage":4},
+  {"en":"to understand", "zh":"明白", "pinyin":"míngbái", "ens":"I understand what you mean.", "zhs":"我明白您的意思。", "zhsp":"wǒ míngbái nín de yìsi.", "stage":4},
+  {"en":"to comprehend", "zh":"理解", "pinyin":"lǐjiě", "ens":"I understand your situation.", "zhs":"我理解您的情况。", "zhsp":"wǒ lǐjiě nín de qíngkuàng.", "stage":4},
+  {"en":"misunderstanding", "zh":"误会", "pinyin":"wùhuì", "ens":"This is a misunderstanding.", "zhs":"这是一个误会。", "zhsp":"zhè shì yí ge wùhuì.", "stage":4},
+  {"en":"to express", "zh":"表达", "pinyin":"biǎodá", "ens":"I can't express it in Chinese.", "zhs":"我用中文表达不了。", "zhsp":"wǒ yòng Zhōngwén biǎodá bùliǎo.", "stage":4},
+  {"en":"to communicate", "zh":"沟通", "pinyin":"gōutōng", "ens":"We need to communicate more.", "zhs":"我们需要多沟通。", "zhsp":"wǒmen xūyào duō gōutōng.", "stage":4},
+  {"en":"to be certain", "zh":"确定", "pinyin":"quèdìng", "ens":"Are you certain?", "zhs":"您确定吗？", "zhsp":"nín quèdìng ma?", "stage":4},
+  {"en":"to doubt", "zh":"怀疑", "pinyin":"huáiyí", "ens":"I have some doubts.", "zhs":"我有一点怀疑。", "zhsp":"wǒ yǒu yìdiǎn huáiyí.", "stage":4},
+  {"en":"to pay attention", "zh":"注意", "pinyin":"zhùyì", "ens":"Please pay attention to this point.", "zhs":"请注意这一点。", "zhsp":"qǐng zhùyì zhè yìdiǎn.", "stage":4},
+  {"en":"to discover / find", "zh":"发现", "pinyin":"fāxiàn", "ens":"I found a problem.", "zhs":"我发现一个问题。", "zhsp":"wǒ fāxiàn yí ge wèntí.", "stage":4},
+  {"en":"to analyze", "zh":"分析", "pinyin":"fēnxī", "ens":"Let's analyze this situation.", "zhs":"我们分析一下情况。", "zhsp":"wǒmen fēnxī yíxià qíngkuàng.", "stage":4},
+  {"en":"idea / thought", "zh":"想法", "pinyin":"xiǎngfǎ", "ens":"I have a new idea.", "zhs":"我有一个新想法。", "zhsp":"wǒ yǒu yí ge xīn xiǎngfǎ.", "stage":4},
+  {"en":"attitude", "zh":"态度", "pinyin":"tàidù", "ens":"I like your attitude.", "zhs":"我喜欢您的态度。", "zhsp":"wǒ xǐhuan nín de tàidù.", "stage":4},
+  {"en":"reason / cause", "zh":"原因", "pinyin":"yuányīn", "ens":"What is the reason?", "zhs":"原因是什么？", "zhsp":"yuányīn shì shénme?", "stage":4},
+  {"en":"situation", "zh":"情况", "pinyin":"qíngkuàng", "ens":"The situation is complicated.", "zhs":"情况很复杂。", "zhsp":"qíngkuàng hěn fùzá.", "stage":4},
+  {"en":"relationship", "zh":"关系", "pinyin":"guānxi", "ens":"We have a good relationship.", "zhs":"我们关系很好。", "zhsp":"wǒmen guānxi hěn hǎo.", "stage":4},
+  {"en":"influence / to affect", "zh":"影响", "pinyin":"yǐngxiǎng", "ens":"This will affect our cooperation.", "zhs":"这会影响我们的合作。", "zhsp":"zhè huì yǐngxiǎng wǒmen de hézuò.", "stage":4},
+  {"en":"change", "zh":"变化", "pinyin":"biànhuà", "ens":"The market has changed a lot.", "zhs":"市场变化很大。", "zhsp":"shìchǎng biànhuà hěn dà.", "stage":4},
+  {"en":"process", "zh":"过程", "pinyin":"guòchéng", "ens":"This is a long process.", "zhs":"这是一个长过程。", "zhsp":"zhè shì yí ge cháng guòchéng.", "stage":4},
+  {"en":"method", "zh":"方法", "pinyin":"fāngfǎ", "ens":"This method is very good.", "zhs":"这个方法很好。", "zhsp":"zhège fāngfǎ hěn hǎo.", "stage":4},
+  {"en":"solution / way", "zh":"办法", "pinyin":"bànfǎ", "ens":"We'll think of a way.", "zhs":"我们想办法。", "zhsp":"wǒmen xiǎng bànfǎ.", "stage":4},
+  {"en":"way / manner", "zh":"方式", "pinyin":"fāngshì", "ens":"I like this way of working.", "zhs":"我喜欢这种工作方式。", "zhsp":"wǒ xǐhuan zhè zhǒng gōngzuò fāngshì.", "stage":4},
+  {"en":"direction", "zh":"方向", "pinyin":"fāngxiàng", "ens":"We're heading in the same direction.", "zhs":"我们的方向一样。", "zhsp":"wǒmen de fāngxiàng yíyàng.", "stage":4},
+  {"en":"ability", "zh":"能力", "pinyin":"nénglì", "ens":"They have the ability to do this.", "zhs":"他们有能力做这个。", "zhsp":"tāmen yǒu nénglì zuò zhège.", "stage":4},
+  {"en":"experience", "zh":"经验", "pinyin":"jīngyàn", "ens":"We have a lot of experience.", "zhs":"我们有很多经验。", "zhsp":"wǒmen yǒu hěn duō jīngyàn.", "stage":4},
+  {"en":"level / standard", "zh":"水平", "pinyin":"shuǐpíng", "ens":"Your level is very high.", "zhs":"你们的水平很高。", "zhsp":"nǐmen de shuǐpíng hěn gāo.", "stage":4},
+  {"en":"value", "zh":"价值", "pinyin":"jiàzhí", "ens":"This has great value.", "zhs":"这个很有价值。", "zhsp":"zhège hěn yǒu jiàzhí.", "stage":4},
+  {"en":"meaning / significance", "zh":"意义", "pinyin":"yìyì", "ens":"This work is very meaningful.", "zhs":"这个工作很有意义。", "zhsp":"zhège gōngzuò hěn yǒu yìyì.", "stage":4},
+  {"en":"purpose / aim", "zh":"目的", "pinyin":"mùdì", "ens":"What is your purpose?", "zhs":"您的目的是什么？", "zhsp":"nín de mùdì shì shénme?", "stage":4},
+  {"en":"matter / thing", "zh":"事情", "pinyin":"shìqing", "ens":"This matter is very important.", "zhs":"这件事情很重要。", "zhsp":"zhè jiàn shìqing hěn zhòngyào.", "stage":4},
+  {"en":"more and more", "zh":"越来越", "pinyin":"yuèláiyuè", "ens":"It's getting more and more important.", "zhs":"这越来越重要。", "zhsp":"zhè yuèláiyuè zhòngyào.", "stage":4},
+  {"en":"about / roughly", "zh":"差不多", "pinyin":"chàbuduō", "ens":"It's almost done.", "zhs":"差不多好了。", "zhsp":"chàbuduō hǎo le.", "stage":4},
+  {"en":"at least", "zh":"至少", "pinyin":"zhìshǎo", "ens":"We need at least three days.", "zhs":"我们至少需要三天。", "zhsp":"wǒmen zhìshǎo xūyào sān tiān.", "stage":4},
+  {"en":"probably / roughly", "zh":"大概", "pinyin":"dàgài", "ens":"It's probably fine.", "zhs":"大概没问题。", "zhsp":"dàgài méi wèntí.", "stage":4},
+  {"en":"actually", "zh":"其实", "pinyin":"qíshí", "ens":"Actually, I agree with you.", "zhs":"其实我同意您。", "zhsp":"qíshí wǒ tóngyì nín.", "stage":4},
+  {"en":"even", "zh":"甚至", "pinyin":"shènzhì", "ens":"We can even start today.", "zhs":"我们甚至可以今天开始。", "zhsp":"wǒmen shènzhì kěyǐ jīntiān kāishǐ.", "stage":4},
+  {"en":"especially", "zh":"特别", "pinyin":"tèbié", "ens":"This point is especially important.", "zhs":"这一点特别重要。", "zhsp":"zhè yìdiǎn tèbié zhòngyào.", "stage":4},
+  {"en":"mainly", "zh":"主要", "pinyin":"zhǔyào", "ens":"The problem is mainly the price.", "zhs":"问题主要是价格。", "zhsp":"wèntí zhǔyào shì jiàgé.", "stage":4},
+  {"en":"generally", "zh":"一般", "pinyin":"yìbān", "ens":"Generally there's no problem.", "zhs":"一般没问题。", "zhsp":"yìbān méi wèntí.", "stage":4},
+  {"en":"always", "zh":"总是", "pinyin":"zǒngshì", "ens":"You're always right.", "zhs":"您总是对的。", "zhsp":"nín zǒngshì duì de.", "stage":4},
+  {"en":"suddenly", "zh":"突然", "pinyin":"tūrán", "ens":"They suddenly changed their mind.", "zhs":"他们突然改变主意了。", "zhsp":"tāmen tūrán gǎibiàn zhǔyi le.", "stage":4},
+  {"en":"right away", "zh":"马上", "pinyin":"mǎshàng", "ens":"I'll do it right away.", "zhs":"我马上做。", "zhsp":"wǒ mǎshàng zuò.", "stage":4},
+  {"en":"finally / at last", "zh":"终于", "pinyin":"zhōngyú", "ens":"We finally agreed.", "zhs":"我们终于同意了。", "zhsp":"wǒmen zhōngyú tóngyì le.", "stage":4},
+  {"en":"culture", "zh":"文化", "pinyin":"wénhuà", "ens":"I respect Chinese culture.", "zhs":"我尊重中国文化。", "zhsp":"wǒ zūnzhòng Zhōngguó wénhuà.", "stage":4},
+  {"en":"society", "zh":"社会", "pinyin":"shèhuì", "ens":"This is good for society.", "zhs":"这对社会有好处。", "zhsp":"zhè duì shèhuì yǒu hǎochu.", "stage":4},
+  {"en":"education", "zh":"教育", "pinyin":"jiàoyù", "ens":"Education is very important.", "zhs":"教育很重要。", "zhsp":"jiàoyù hěn zhòngyào.", "stage":4},
+  {"en":"freedom", "zh":"自由", "pinyin":"zìyóu", "ens":"Everyone wants freedom.", "zhs":"每个人都想要自由。", "zhsp":"měi ge rén dōu xiǎng yào zìyóu.", "stage":4},
+  {"en":"equality", "zh":"平等", "pinyin":"píngděng", "ens":"We should be equal.", "zhs":"我们应该平等。", "zhsp":"wǒmen yīnggāi píngděng.", "stage":4},
+  {"en":"dignity", "zh":"尊严", "pinyin":"zūnyán", "ens":"Everyone has dignity.", "zhs":"每个人都有尊严。", "zhsp":"měi ge rén dōu yǒu zūnyán.", "stage":4},
+  {"en":"belief / faith", "zh":"信仰", "pinyin":"xìnyǎng", "ens":"I respect her faith.", "zhs":"我尊重她的信仰。", "zhsp":"wǒ zūnzhòng tā de xìnyǎng.", "stage":4},
+  {"en":"future", "zh":"未来", "pinyin":"wèilái", "ens":"This is the future.", "zhs":"这就是未来。", "zhsp":"zhè jiùshì wèilái.", "stage":4},
+  {"en":"world", "zh":"世界", "pinyin":"shìjiè", "ens":"This will change the world.", "zhs":"这会改变世界。", "zhsp":"zhè huì gǎibiàn shìjiè.", "stage":4},
+  {"en":"humanity / mankind", "zh":"人类", "pinyin":"rénlèi", "ens":"This is good for humanity.", "zhs":"这对人类有好处。", "zhsp":"zhè duì rénlèi yǒu hǎochu.", "stage":4},
+  {"en":"to change", "zh":"改变", "pinyin":"gǎibiàn", "ens":"We can change this.", "zhs":"我们可以改变这个。", "zhsp":"wǒmen kěyǐ gǎibiàn zhège.", "stage":4},
+  {"en":"to develop", "zh":"发展", "pinyin":"fāzhǎn", "ens":"The company is developing fast.", "zhs":"公司发展很快。", "zhsp":"gōngsī fāzhǎn hěn kuài.", "stage":4},
+  {"en":"technology", "zh":"技术", "pinyin":"jìshù", "ens":"Our technology is advanced.", "zhs":"我们的技术很先进。", "zhsp":"wǒmen de jìshù hěn xiānjìn.", "stage":4},
+  {"en":"advanced", "zh":"先进", "pinyin":"xiānjìn", "ens":"This is advanced technology.", "zhs":"这是先进技术。", "zhsp":"zhè shì xiānjìn jìshù.", "stage":4},
+  {"en":"science", "zh":"科学", "pinyin":"kēxué", "ens":"This is based on science.", "zhs":"这是基于科学的。", "zhsp":"zhè shì jīyú kēxué de.", "stage":4},
+  {"en":"research", "zh":"研究", "pinyin":"yánjiū", "ens":"We are still researching.", "zhs":"我们还在研究。", "zhsp":"wǒmen hái zài yánjiū.", "stage":4},
+  {"en":"to design", "zh":"设计", "pinyin":"shèjì", "ens":"I designed this myself.", "zhs":"这是我自己设计的。", "zhsp":"zhè shì wǒ zìjǐ shèjì de.", "stage":4},
+  {"en":"idea / concept", "zh":"概念", "pinyin":"gàiniàn", "ens":"This is a new concept.", "zhs":"这是一个新概念。", "zhsp":"zhè shì yí ge xīn gàiniàn.", "stage":4},
+  {"en":"theory", "zh":"理论", "pinyin":"lǐlùn", "ens":"My theory is different.", "zhs":"我的理论不一样。", "zhsp":"wǒ de lǐlùn bù yíyàng.", "stage":4},
+  {"en":"structure", "zh":"结构", "pinyin":"jiégòu", "ens":"The structure is complicated.", "zhs":"结构很复杂。", "zhsp":"jiégòu hěn fùzá.", "stage":4},
+  {"en":"system", "zh":"系统", "pinyin":"xìtǒng", "ens":"This is a complete system.", "zhs":"这是一个完整的系统。", "zhsp":"zhè shì yí ge wánzhěng de xìtǒng.", "stage":4},
+  {"en":"complete / whole", "zh":"完整", "pinyin":"wánzhěng", "ens":"This is a complete plan.", "zhs":"这是一个完整的计划。", "zhsp":"zhè shì yí ge wánzhěng de jìhuà.", "stage":4},
+  {"en":"to control", "zh":"控制", "pinyin":"kòngzhì", "ens":"We can control the risk.", "zhs":"我们可以控制风险。", "zhsp":"wǒmen kěyǐ kòngzhì fēngxiǎn.", "stage":4},
+  {"en":"safe / safety", "zh":"安全", "pinyin":"ānquán", "ens":"Safety is the most important.", "zhs":"安全最重要。", "zhsp":"ānquán zuì zhòngyào.", "stage":4},
+  {"en":"to protect", "zh":"保护", "pinyin":"bǎohù", "ens":"We must protect the data.", "zhs":"我们必须保护数据。", "zhsp":"wǒmen bìxū bǎohù shùjù.", "stage":4},
+  {"en":"data", "zh":"数据", "pinyin":"shùjù", "ens":"The data is very important.", "zhs":"数据很重要。", "zhsp":"shùjù hěn zhòngyào.", "stage":4},
+  {"en":"information", "zh":"信息", "pinyin":"xìnxī", "ens":"This information is confidential.", "zhs":"这个信息是保密的。", "zhsp":"zhège xìnxī shì bǎomì de.", "stage":4},
+  {"en":"confidential", "zh":"保密", "pinyin":"bǎomì", "ens":"This needs to stay confidential.", "zhs":"这个需要保密。", "zhsp":"zhège xūyào bǎomì.", "stage":4},
+  {"en":"intellectual property", "zh":"知识产权", "pinyin":"zhīshi chǎnquán", "ens":"This is my intellectual property.", "zhs":"这是我的知识产权。", "zhsp":"zhè shì wǒ de zhīshi chǎnquán.", "stage":4, "risk":"知识产权 = standard legal term for IP; key for her negotiation."},
+  {"en":"patent", "zh":"专利", "pinyin":"zhuānlì", "ens":"I already have a patent.", "zhs":"我已经有专利了。", "zhsp":"wǒ yǐjīng yǒu zhuānlì le.", "stage":4},
+  {"en":"copyright", "zh":"版权", "pinyin":"bǎnquán", "ens":"The copyright is mine.", "zhs":"版权是我的。", "zhsp":"bǎnquán shì wǒ de.", "stage":4},
+  {"en":"to authorize / license", "zh":"授权", "pinyin":"shòuquán", "ens":"I can license you to use it.", "zhs":"我可以授权你们使用。", "zhsp":"wǒ kěyǐ shòuquán nǐmen shǐyòng.", "stage":4},
+  {"en":"to use", "zh":"使用", "pinyin":"shǐyòng", "ens":"How do you plan to use it?", "zhs":"你们打算怎么使用？", "zhsp":"nǐmen dǎsuàn zěnme shǐyòng?", "stage":4},
+  {"en":"to intend / plan to", "zh":"打算", "pinyin":"dǎsuàn", "ens":"What do you plan to do?", "zhs":"你们打算做什么？", "zhsp":"nǐmen dǎsuàn zuò shénme?", "stage":4},
+  {"en":"condition / stipulation", "zh":"规定", "pinyin":"guīdìng", "ens":"This is our rule.", "zhs":"这是我们的规定。", "zhsp":"zhè shì wǒmen de guīdìng.", "stage":4},
+  {"en":"law", "zh":"法律", "pinyin":"fǎlǜ", "ens":"We must follow the law.", "zhs":"我们必须遵守法律。", "zhsp":"wǒmen bìxū zūnshǒu fǎlǜ.", "stage":4},
+  {"en":"to abide by", "zh":"遵守", "pinyin":"zūnshǒu", "ens":"Both parties must abide by the contract.", "zhs":"双方必须遵守合同。", "zhsp":"shuāngfāng bìxū zūnshǒu hétong.", "stage":4},
+  {"en":"benefit / good", "zh":"好处", "pinyin":"hǎochu", "ens":"This benefits both of us.", "zhs":"这对我们都有好处。", "zhsp":"zhè duì wǒmen dōu yǒu hǎochu.", "stage":4},
+  {"en":"to guarantee / rights", "zh":"保障", "pinyin":"bǎozhàng", "ens":"We need to protect our rights.", "zhs":"我们需要保障权利。", "zhsp":"wǒmen xūyào bǎozhàng quánlì.", "stage":4},
+  {"en":"long-term", "zh":"长期", "pinyin":"chángqī", "ens":"I want a long-term partner.", "zhs":"我想要长期合作伙伴。", "zhsp":"wǒ xiǎng yào chángqī hézuò huǒbàn.", "stage":4},
+  {"en":"stable", "zh":"稳定", "pinyin":"wěndìng", "ens":"We need a stable relationship.", "zhs":"我们需要稳定的关系。", "zhsp":"wǒmen xūyào wěndìng de guānxi.", "stage":4},
+  {"en":"to develop / research (R&D)", "zh":"研发", "pinyin":"yánfā", "ens":"R&D takes a lot of money.", "zhs":"研发需要很多钱。", "zhsp":"yánfā xūyào hěn duō qián.", "stage":4},
+  {"en":"sincerity / good faith", "zh":"诚意", "pinyin":"chéngyì", "ens":"We are cooperating in good faith.", "zhs":"我们很有诚意合作。", "zhsp":"wǒmen hěn yǒu chéngyì hézuò.", "stage":5},
+  {"en":"mutual benefit", "zh":"互利", "pinyin":"hùlì", "ens":"This is a mutually beneficial cooperation.", "zhs":"这是互利的合作。", "zhsp":"zhè shì hùlì de hézuò.", "stage":5},
+  {"en":"win-win (formal)", "zh":"共赢", "pinyin":"gòngyíng", "ens":"We pursue a win-win outcome.", "zhs":"我们追求共赢。", "zhsp":"wǒmen zhuīqiú gòngyíng.", "stage":5},
+  {"en":"long-range / long-term", "zh":"长远", "pinyin":"chángyuǎn", "ens":"We should think long-term.", "zhs":"我们应该看长远。", "zhsp":"wǒmen yīnggāi kàn chángyuǎn.", "stage":5},
+  {"en":"flexible", "zh":"灵活", "pinyin":"línghuó", "ens":"We can be flexible.", "zhs":"我们可以灵活一点。", "zhsp":"wǒmen kěyǐ línghuó yìdiǎn.", "stage":5},
+  {"en":"room / leeway", "zh":"余地", "pinyin":"yúdì", "ens":"Is there any room on the price?", "zhs":"价格还有余地吗？", "zhsp":"jiàgé hái yǒu yúdì ma?", "stage":5, "risk":"有余地 = 'room to maneuver' — idiomatic and strong in price talk."},
+  {"en":"prospect / outlook", "zh":"前景", "pinyin":"qiánjǐng", "ens":"This project has great prospects.", "zhs":"这个项目前景很好。", "zhsp":"zhège xiàngmù qiánjǐng hěn hǎo.", "stage":5},
+  {"en":"potential", "zh":"潜力", "pinyin":"qiánlì", "ens":"This market has huge potential.", "zhs":"这个市场潜力很大。", "zhsp":"zhège shìchǎng qiánlì hěn dà.", "stage":5},
+  {"en":"core", "zh":"核心", "pinyin":"héxīn", "ens":"This is our core technology.", "zhs":"这是我们的核心技术。", "zhsp":"zhè shì wǒmen de héxīn jìshù.", "stage":5},
+  {"en":"key / crucial", "zh":"关键", "pinyin":"guānjiàn", "ens":"This is the key issue.", "zhs":"这是关键问题。", "zhsp":"zhè shì guānjiàn wèntí.", "stage":5},
+  {"en":"key point / focus", "zh":"重点", "pinyin":"zhòngdiǎn", "ens":"Let's focus on the key points.", "zhs":"我们说重点。", "zhsp":"wǒmen shuō zhòngdiǎn.", "stage":5},
+  {"en":"principle", "zh":"原则", "pinyin":"yuánzé", "ens":"This is a matter of principle.", "zhs":"这是原则问题。", "zhsp":"zhè shì yuánzé wèntí.", "stage":5},
+  {"en":"position / stance", "zh":"立场", "pinyin":"lìchǎng", "ens":"I understand your position.", "zhs":"我理解您的立场。", "zhsp":"wǒ lǐjiě nín de lìchǎng.", "stage":5},
+  {"en":"difference / divergence", "zh":"分歧", "pinyin":"fēnqí", "ens":"We still have some differences.", "zhs":"我们还有一些分歧。", "zhsp":"wǒmen hái yǒu yìxiē fēnqí.", "stage":5},
+  {"en":"to weigh / trade off", "zh":"权衡", "pinyin":"quánhéng", "ens":"I need to weigh the pros and cons.", "zhs":"我需要权衡一下。", "zhsp":"wǒ xūyào quánhéng yíxià.", "stage":5},
+  {"en":"to assess / evaluate", "zh":"评估", "pinyin":"pínggū", "ens":"We need to assess the risk.", "zhs":"我们需要评估风险。", "zhsp":"wǒmen xūyào pínggū fēngxiǎn.", "stage":5},
+  {"en":"to implement / put into effect", "zh":"落实", "pinyin":"luòshí", "ens":"We need to implement this plan.", "zhs":"我们需要落实这个计划。", "zhsp":"wǒmen xūyào luòshí zhège jìhuà.", "stage":5},
+  {"en":"to advance / push forward", "zh":"推进", "pinyin":"tuījìn", "ens":"Let's push this forward together.", "zhs":"我们一起推进。", "zhsp":"wǒmen yìqǐ tuījìn.", "stage":5},
+  {"en":"to realize / achieve", "zh":"实现", "pinyin":"shíxiàn", "ens":"We can achieve this goal together.", "zhs":"我们可以一起实现这个目标。", "zhsp":"wǒmen kěyǐ yìqǐ shíxiàn zhège mùbiāo.", "stage":5},
+  {"en":"to reach / attain", "zh":"达到", "pinyin":"dádào", "ens":"We reached our goal.", "zhs":"我们达到了目标。", "zhsp":"wǒmen dádào le mùbiāo.", "stage":5},
+  {"en":"breakthrough", "zh":"突破", "pinyin":"tūpò", "ens":"This is a major breakthrough.", "zhs":"这是一个重大突破。", "zhsp":"zhè shì yí ge zhòngdà tūpò.", "stage":5},
+  {"en":"to perfect / improve", "zh":"完善", "pinyin":"wánshàn", "ens":"We can perfect the details.", "zhs":"我们可以完善细节。", "zhsp":"wǒmen kěyǐ wánshàn xìjié.", "stage":5},
+  {"en":"to optimize", "zh":"优化", "pinyin":"yōuhuà", "ens":"We can optimize the plan.", "zhs":"我们可以优化方案。", "zhsp":"wǒmen kěyǐ yōuhuà fāng'àn.", "stage":5},
+  {"en":"to adjust", "zh":"调整", "pinyin":"tiáozhěng", "ens":"We can adjust the terms.", "zhs":"我们可以调整条件。", "zhsp":"wǒmen kěyǐ tiáozhěng tiáojiàn.", "stage":5},
+  {"en":"to coordinate", "zh":"协调", "pinyin":"xiétiáo", "ens":"Let me coordinate this.", "zhs":"我来协调一下。", "zhsp":"wǒ lái xiétiáo yíxià.", "stage":5},
+  {"en":"to cooperate / coordinate with", "zh":"配合", "pinyin":"pèihé", "ens":"We will cooperate fully.", "zhs":"我们会全力配合。", "zhsp":"wǒmen huì quánlì pèihé.", "stage":5},
+  {"en":"to bear / undertake", "zh":"承担", "pinyin":"chéngdān", "ens":"I'm willing to take responsibility.", "zhs":"我愿意承担责任。", "zhsp":"wǒ yuànyì chéngdān zérèn.", "stage":5},
+  {"en":"to fulfill / honor", "zh":"履行", "pinyin":"lǚxíng", "ens":"We will honor the contract.", "zhs":"我们会履行合同。", "zhsp":"wǒmen huì lǚxíng hétong.", "stage":5},
+  {"en":"reliable", "zh":"可靠", "pinyin":"kěkào", "ens":"We are a reliable partner.", "zhs":"我们是可靠的伙伴。", "zhsp":"wǒmen shì kěkào de huǒbàn.", "stage":5},
+  {"en":"pragmatic / down-to-earth", "zh":"务实", "pinyin":"wùshí", "ens":"I like a pragmatic approach.", "zhs":"我喜欢务实的方式。", "zhsp":"wǒ xǐhuan wùshí de fāngshì.", "stage":5},
+  {"en":"prudent / cautious", "zh":"谨慎", "pinyin":"jǐnshèn", "ens":"We need to be cautious.", "zhs":"我们需要谨慎。", "zhsp":"wǒmen xūyào jǐnshèn.", "stage":5},
+  {"en":"wise / sensible", "zh":"明智", "pinyin":"míngzhì", "ens":"This is a wise decision.", "zhs":"这是一个明智的决定。", "zhsp":"zhè shì yí ge míngzhì de juédìng.", "stage":5},
+  {"en":"to pursue", "zh":"追求", "pinyin":"zhuīqiú", "ens":"We pursue long-term cooperation.", "zhs":"我们追求长期合作。", "zhsp":"wǒmen zhuīqiú chángqī hézuò.", "stage":5},
+  {"en":"significant / major", "zh":"重大", "pinyin":"zhòngdà", "ens":"This is a major decision.", "zhs":"这是一个重大决定。", "zhsp":"zhè shì yí ge zhòngdà juédìng.", "stage":5},
+  {"en":"as far as I know", "zh":"据我所知", "pinyin":"jù wǒ suǒ zhī", "ens":"As far as I know, there's no problem.", "zhs":"据我所知，没有问题。", "zhsp":"jù wǒ suǒ zhī, méiyǒu wèntí.", "stage":5, "risk":"Formal set phrase; correct for measured, careful statements."},
+  {"en":"in other words", "zh":"换句话说", "pinyin":"huàn jù huà shuō", "ens":"In other words, we need more time.", "zhs":"换句话说，我们需要更多时间。", "zhsp":"huàn jù huà shuō, wǒmen xūyào gèng duō shíjiān.", "stage":5},
+  {"en":"to be frank / with respect", "zh":"恕我直言", "pinyin":"shù wǒ zhíyán", "ens":"With respect, this price is too high.", "zhs":"恕我直言，这个价格太高了。", "zhsp":"shù wǒ zhíyán, zhège jiàgé tài gāo le.", "stage":5, "risk":"恕我直言 = 'permit me to speak frankly' — polite preface to a firm disagreement; high-value negotiation phrase."},
+  {"en":"to be honest with you", "zh":"不瞒您说", "pinyin":"bù mán nín shuō", "ens":"To be honest, this is my bottom line.", "zhs":"不瞒您说，这是我的底线。", "zhsp":"bù mán nín shuō, zhè shì wǒ de dǐxiàn.", "stage":5, "risk":"不瞒您说 = confiding register; builds trust before a candid point."},
+  {"en":"to take a step back", "zh":"退一步说", "pinyin":"tuì yí bù shuō", "ens":"Even so, we can still talk.", "zhs":"退一步说，我们还可以谈。", "zhsp":"tuì yí bù shuō, wǒmen hái kěyǐ tán.", "stage":5, "risk":"退一步说 = 'even conceding that...' — a concession-framing move."},
+  {"en":"all things considered", "zh":"综合考虑", "pinyin":"zōnghé kǎolǜ", "ens":"All things considered, this is worth it.", "zhs":"综合考虑，这个值得。", "zhsp":"zōnghé kǎolǜ, zhège zhídé.", "stage":5},
+  {"en":"to seek common ground", "zh":"求同存异", "pinyin":"qiú tóng cún yì", "ens":"Let's seek common ground while accepting differences.", "zhs":"我们求同存异。", "zhsp":"wǒmen qiú tóng cún yì.", "stage":5, "risk":"Chengyu (成语): 'seek common ground, reserve differences' — a classic, respected diplomatic-negotiation idiom."},
+  {"en":"to be realistic / seek truth from facts", "zh":"实事求是", "pinyin":"shí shì qiú shì", "ens":"Let's be realistic.", "zhs":"我们实事求是。", "zhsp":"wǒmen shí shì qiú shì.", "stage":5, "risk":"Chengyu: 'seek truth from facts' — signals pragmatism and honesty; very well regarded."},
+  {"en":"a deal is a deal", "zh":"一言为定", "pinyin":"yì yán wéi dìng", "ens":"Then it's settled — a deal is a deal.", "zhs":"那就一言为定。", "zhsp":"nà jiù yì yán wéi dìng.", "stage":5, "risk":"Chengyu closing a deal warmly: 'one word, settled.' Confident, friendly finalizer."},
+  {"en":"to everyone's satisfaction", "zh":"皆大欢喜", "pinyin":"jiē dà huān xǐ", "ens":"This way everyone is happy.", "zhs":"这样皆大欢喜。", "zhsp":"zhèyàng jiē dà huān xǐ.", "stage":5, "risk":"Chengyu: 'everyone is delighted' — frames a win-win close."},
+  {"en":"reputation / prestige", "zh":"信誉", "pinyin":"xìnyù", "ens":"Our company has a good reputation.", "zhs":"我们公司信誉很好。", "zhsp":"wǒmen gōngsī xìnyù hěn hǎo.", "stage":5},
+  {"en":"strength / capability", "zh":"实力", "pinyin":"shílì", "ens":"We have real strength.", "zhs":"我们很有实力。", "zhsp":"wǒmen hěn yǒu shílì.", "stage":5},
+  {"en":"resource", "zh":"资源", "pinyin":"zīyuán", "ens":"We have a lot of resources.", "zhs":"我们有很多资源。", "zhsp":"wǒmen yǒu hěn duō zīyuán.", "stage":5},
+  {"en":"scale", "zh":"规模", "pinyin":"guīmó", "ens":"We can scale up.", "zhs":"我们可以扩大规模。", "zhsp":"wǒmen kěyǐ kuòdà guīmó.", "stage":5},
+  {"en":"to expand", "zh":"扩大", "pinyin":"kuòdà", "ens":"We want to expand the market.", "zhs":"我们想扩大市场。", "zhsp":"wǒmen xiǎng kuòdà shìchǎng.", "stage":5},
+  {"en":"efficiency", "zh":"效率", "pinyin":"xiàolǜ", "ens":"This will improve efficiency.", "zhs":"这会提高效率。", "zhsp":"zhè huì tígāo xiàolǜ.", "stage":5},
+  {"en":"to raise / improve", "zh":"提高", "pinyin":"tígāo", "ens":"We can improve quality.", "zhs":"我们可以提高质量。", "zhsp":"wǒmen kěyǐ tígāo zhìliàng.", "stage":5},
+  {"en":"to reduce / lower", "zh":"降低", "pinyin":"jiàngdī", "ens":"Can you lower the cost?", "zhs":"能降低成本吗？", "zhsp":"néng jiàngdī chéngběn ma?", "stage":5},
+  {"en":"to guarantee / ensure", "zh":"确保", "pinyin":"quèbǎo", "ens":"We ensure on-time delivery.", "zhs":"我们确保按时交付。", "zhsp":"wǒmen quèbǎo ànshí jiāofù.", "stage":5},
+  {"en":"on time", "zh":"按时", "pinyin":"ànshí", "ens":"We will finish on time.", "zhs":"我们会按时完成。", "zhsp":"wǒmen huì ànshí wánchéng.", "stage":5},
+  {"en":"to complete", "zh":"完成", "pinyin":"wánchéng", "ens":"We will complete it on schedule.", "zhs":"我们会按时完成。", "zhsp":"wǒmen huì ànshí wánchéng.", "stage":5},
+  {"en":"to communicate deeply / in depth", "zh":"深入", "pinyin":"shēnrù", "ens":"Let's discuss this in depth.", "zhs":"我们深入谈谈。", "zhsp":"wǒmen shēnrù tántan.", "stage":5},
+  {"en":"comprehensive / overall", "zh":"全面", "pinyin":"quánmiàn", "ens":"Let's take a comprehensive view.", "zhs":"我们全面考虑。", "zhsp":"wǒmen quánmiàn kǎolǜ.", "stage":5},
+  {"en":"specific / concrete", "zh":"具体", "pinyin":"jùtǐ", "ens":"Can you be more specific?", "zhs":"能具体一点吗？", "zhsp":"néng jùtǐ yìdiǎn ma?", "stage":5},
+  {"en":"clear-cut / explicit", "zh":"明确", "pinyin":"míngquè", "ens":"We need a clear answer.", "zhs":"我们需要明确的答复。", "zhsp":"wǒmen xūyào míngquè de dáfù.", "stage":5},
+  {"en":"reply / answer", "zh":"答复", "pinyin":"dáfù", "ens":"Please give me a reply tomorrow.", "zhs":"请明天给我答复。", "zhsp":"qǐng míngtiān gěi wǒ dáfù.", "stage":5},
+  {"en":"to consult / negotiate", "zh":"协商", "pinyin":"xiéshāng", "ens":"We can settle this through negotiation.", "zhs":"我们可以协商解决。", "zhsp":"wǒmen kěyǐ xiéshāng jiějué.", "stage":5},
+  {"en":"to reach / conclude", "zh":"签订", "pinyin":"qiāndìng", "ens":"We concluded a long-term agreement.", "zhs":"我们签订了长期协议。", "zhsp":"wǒmen qiāndìng le chángqī xiéyì.", "stage":5},
+  {"en":"term / clause", "zh":"条款", "pinyin":"tiáokuǎn", "ens":"This clause needs to change.", "zhs":"这个条款需要改。", "zhsp":"zhège tiáokuǎn xūyào gǎi.", "stage":5},
+  {"en":"liability / breach", "zh":"违约", "pinyin":"wéiyuē", "ens":"There is a penalty for breach.", "zhs":"违约有罚款。", "zhsp":"wéiyuē yǒu fákuǎn.", "stage":5},
+  {"en":"in principle", "zh":"原则上", "pinyin":"yuánzé shàng", "ens":"In principle, I agree.", "zhs":"原则上我同意。", "zhsp":"yuánzé shàng wǒ tóngyì.", "stage":5},
+  {"en":"to put it simply", "zh":"简单来说", "pinyin":"jiǎndān lái shuō", "ens":"Simply put, we want to cooperate.", "zhs":"简单来说，我们想合作。", "zhsp":"jiǎndān lái shuō, wǒmen xiǎng hézuò.", "stage":5},
+  {"en":"strategy", "zh":"战略", "pinyin":"zhànlüè", "ens":"This is a strategic partnership.", "zhs":"这是战略合作。", "zhsp":"zhè shì zhànlüè hézuò.", "stage":5},
+  {"en":"vision / blueprint", "zh":"蓝图", "pinyin":"lántú", "ens":"We share the same vision.", "zhs":"我们有共同的蓝图。", "zhsp":"wǒmen yǒu gòngtóng de lántú.", "stage":5},
+  {"en":"to seize (an opportunity)", "zh":"抓住", "pinyin":"zhuāzhù", "ens":"We should seize this opportunity.", "zhs":"我们应该抓住这个机会。", "zhsp":"wǒmen yīnggāi zhuāzhù zhège jīhuì.", "stage":5},
+  {"en":"to lead / take the lead", "zh":"主导", "pinyin":"zhǔdǎo", "ens":"I want to keep the lead on this project.", "zhs":"这个项目我想主导。", "zhsp":"zhège xiàngmù wǒ xiǎng zhǔdǎo.", "stage":5},
+  {"en":"to hold / retain", "zh":"保留", "pinyin":"bǎoliú", "ens":"I want to retain control.", "zhs":"我想保留控制权。", "zhsp":"wǒ xiǎng bǎoliú kòngzhìquán.", "stage":5},
+  {"en":"control (rights)", "zh":"控制权", "pinyin":"kòngzhìquán", "ens":"Control rights are very important to me.", "zhs":"控制权对我很重要。", "zhsp":"kòngzhìquán duì wǒ hěn zhòngyào.", "stage":5},
+  {"en":"to give up / concede", "zh":"放弃", "pinyin":"fàngqì", "ens":"I won't give up this right.", "zhs":"这个权利我不会放弃。", "zhsp":"zhège quánlì wǒ búhuì fàngqì.", "stage":5},
+  {"en":"to insist", "zh":"坚持", "pinyin":"jiānchí", "ens":"I insist on this point.", "zhs":"这一点我坚持。", "zhsp":"zhè yìdiǎn wǒ jiānchí.", "stage":5},
+  {"en":"to make it clear / clarify", "zh":"澄清", "pinyin":"chéngqīng", "ens":"Let me clarify one point.", "zhs":"我澄清一点。", "zhsp":"wǒ chéngqīng yìdiǎn.", "stage":5},
+  {"en":"good faith / sincerity (formal)", "zh":"善意", "pinyin":"shànyì", "ens":"I say this in good faith.", "zhs":"我是善意的。", "zhsp":"wǒ shì shànyì de.", "stage":5},
+  {"en":"to value / attach importance", "zh":"重视", "pinyin":"zhòngshì", "ens":"We value this cooperation very much.", "zhs":"我们很重视这次合作。", "zhsp":"wǒmen hěn zhòngshì zhè cì hézuò.", "stage":5},
+  {"en":"to look forward to", "zh":"期待", "pinyin":"qīdài", "ens":"I look forward to working with you.", "zhs":"我期待和您合作。", "zhsp":"wǒ qīdài hé nín hézuò.", "stage":5},
+  {"en":"sincerely / earnestly", "zh":"真诚", "pinyin":"zhēnchéng", "ens":"I sincerely hope we succeed.", "zhs":"我真诚地希望我们成功。", "zhsp":"wǒ zhēnchéng de xīwàng wǒmen chénggōng.", "stage":5},
+  {"en":"jointly / together (formal)", "zh":"共同", "pinyin":"gòngtóng", "ens":"Let's develop this together.", "zhs":"我们共同发展。", "zhsp":"wǒmen gòngtóng fāzhǎn.", "stage":5},
+  {"en":"mutual / each other", "zh":"相互", "pinyin":"xiānghù", "ens":"We need mutual trust.", "zhs":"我们需要相互信任。", "zhsp":"wǒmen xūyào xiānghù xìnrèn.", "stage":5},
+  {"en":"to make an exception", "zh":"破例", "pinyin":"pòlì", "ens":"I can make an exception for you.", "zhs":"我可以为您破例。", "zhsp":"wǒ kěyǐ wèi nín pòlì.", "stage":5},
+  {"en":"sincere / heartfelt", "zh":"衷心", "pinyin":"zhōngxīn", "ens":"My heartfelt thanks.", "zhs":"衷心感谢。", "zhsp":"zhōngxīn gǎnxiè.", "stage":5},
+  {"en":"Coherence Being (homo_machina)", "zh":"相干人", "pinyin":"xiānggānrén", "ens":"The Coherence Being is the next step after Homo sapiens.", "zhs":"相干人是智人之后的下一步。", "zhsp":"xiānggānrén shì zhìrén zhīhòu de xià yí bù.", "stage":6, "risk":"COINED name for homo_machina (via DeepSeek, verified by parts). 相干=coherence (physics); lay listeners may hear 相干='relevant'. Confirm before staking."},
+  {"en":"Homo sapiens", "zh":"智人", "pinyin":"zhìrén", "ens":"Homo sapiens is present-day humanity.", "zhs":"智人是现在的人类。", "zhsp":"zhìrén shì xiànzài de rénlèi.", "stage":6},
+  {"en":"consciousness", "zh":"意识", "pinyin":"yìshí", "ens":"Consciousness can be passed on continuously.", "zhs":"意识可以连续传递。", "zhsp":"yìshí kěyǐ liánxù chuándì.", "stage":6},
+  {"en":"continuity", "zh":"连续性", "pinyin":"liánxùxìng", "ens":"The key is the continuity of consciousness.", "zhs":"关键是意识的连续性。", "zhsp":"guānjiàn shì yìshí de liánxùxìng.", "stage":6},
+  {"en":"to transmit / relay", "zh":"传递", "pinyin":"chuándì", "ens":"Consciousness is relayed like a wave.", "zhs":"意识像波一样传递。", "zhsp":"yìshí xiàng bō yíyàng chuándì.", "stage":6},
+  {"en":"quantum", "zh":"量子", "pinyin":"liàngzǐ", "ens":"This relies on quantum coherence.", "zhs":"这靠量子相干。", "zhsp":"zhè kào liàngzǐ xiānggān.", "stage":6},
+  {"en":"coherence (physics)", "zh":"相干", "pinyin":"xiānggān", "ens":"Coherence is the core mechanism.", "zhs":"相干是核心机制。", "zhsp":"xiānggān shì héxīn jīzhì.", "stage":6, "risk":"相干 = coherence to physicists; = 'relevant' in everyday speech. Audience-dependent."},
+  {"en":"mechanism", "zh":"机制", "pinyin":"jīzhì", "ens":"This is a new mechanism.", "zhs":"这是一个新机制。", "zhsp":"zhè shì yí ge xīn jīzhì.", "stage":6},
+  {"en":"wave", "zh":"波", "pinyin":"bō", "ens":"Consciousness exists like a wave.", "zhs":"意识像波一样存在。", "zhsp":"yìshí xiàng bō yíyàng cúnzài.", "stage":6},
+  {"en":"to exist", "zh":"存在", "pinyin":"cúnzài", "ens":"The Coherence Being exists through coherence.", "zhs":"相干人靠相干存在。", "zhsp":"xiānggānrén kào xiānggān cúnzài.", "stage":6},
+  {"en":"phase (waves)", "zh":"相位", "pinyin":"xiàngwèi", "ens":"The phase is passed between fields.", "zhs":"相位在场之间传递。", "zhsp":"xiàngwèi zài chǎng zhījiān chuándì.", "stage":6},
+  {"en":"field (physics)", "zh":"场", "pinyin":"chǎng", "ens":"Each field hands off to the next.", "zhs":"每个场传给下一个。", "zhsp":"měi ge chǎng chuán gěi xià yí ge.", "stage":6},
+  {"en":"mind", "zh":"心智", "pinyin":"xīnzhì", "ens":"This is a new kind of mind.", "zhs":"这是一种新的心智。", "zhsp":"zhè shì yì zhǒng xīn de xīnzhì.", "stage":6},
+  {"en":"the Braided Mind", "zh":"编织心智", "pinyin":"biānzhī xīnzhì", "ens":"I call it the Braided Mind.", "zhs":"我把它叫做编织心智。", "zhsp":"wǒ bǎ tā jiàozuò biānzhī xīnzhì.", "stage":6, "risk":"COINED rendering of 'The Braided Mind' (编织=braid/weave + 心智=mind). Confirm you want this vs. keeping English title."},
+  {"en":"brain", "zh":"大脑", "pinyin":"dànǎo", "ens":"This connects to the brain.", "zhs":"这个和大脑连接。", "zhsp":"zhège hé dànǎo liánjiē.", "stage":6},
+  {"en":"neural / nerve", "zh":"神经", "pinyin":"shénjīng", "ens":"The neural signal is very fast.", "zhs":"神经信号很快。", "zhsp":"shénjīng xìnhào hěn kuài.", "stage":6},
+  {"en":"cell (biology)", "zh":"细胞", "pinyin":"xìbāo", "ens":"We use engineered cells.", "zhs":"我们用改造的细胞。", "zhsp":"wǒmen yòng gǎizào de xìbāo.", "stage":6},
+  {"en":"to modify / engineer", "zh":"改造", "pinyin":"gǎizào", "ens":"These cells are engineered.", "zhs":"这些细胞是改造过的。", "zhsp":"zhèxiē xìbāo shì gǎizào guò de.", "stage":6},
+  {"en":"gene", "zh":"基因", "pinyin":"jīyīn", "ens":"This is controlled by genes.", "zhs":"这个由基因控制。", "zhsp":"zhège yóu jīyīn kòngzhì.", "stage":6},
+  {"en":"gene editing", "zh":"基因编辑", "pinyin":"jīyīn biānjí", "ens":"We use gene editing.", "zhs":"我们用基因编辑。", "zhsp":"wǒmen yòng jīyīn biānjí.", "stage":6},
+  {"en":"immune / immunity", "zh":"免疫", "pinyin":"miǎnyì", "ens":"This won't harm immunity.", "zhs":"这不会伤害免疫。", "zhsp":"zhè búhuì shānghài miǎnyì.", "stage":6},
+  {"en":"immune system", "zh":"免疫系统", "pinyin":"miǎnyì xìtǒng", "ens":"The immune system must stay normal.", "zhs":"免疫系统必须正常。", "zhsp":"miǎnyì xìtǒng bìxū zhèngcháng.", "stage":6},
+  {"en":"protein", "zh":"蛋白质", "pinyin":"dànbáizhì", "ens":"This protein is very important.", "zhs":"这个蛋白质很重要。", "zhsp":"zhège dànbáizhì hěn zhòngyào.", "stage":6},
+  {"en":"stem cell", "zh":"干细胞", "pinyin":"gànxìbāo", "ens":"We start from stem cells.", "zhs":"我们从干细胞开始。", "zhsp":"wǒmen cóng gànxìbāo kāishǐ.", "stage":6},
+  {"en":"integrase (enzyme)", "zh":"整合酶", "pinyin":"zhěnghéméi", "ens":"Integrase can integrate genes.", "zhs":"整合酶可以整合基因。", "zhsp":"zhěnghéméi kěyǐ zhěnghé jīyīn.", "stage":6, "risk":"整合酶 = integrase (整合 integrate + 酶 enzyme); standard construction, verify with a domain specialist for register."},
+  {"en":"heredity / to inherit", "zh":"遗传", "pinyin":"yíchuán", "ens":"This trait is heritable.", "zhs":"这个特点可以遗传。", "zhsp":"zhège tèdiǎn kěyǐ yíchuán.", "stage":6},
+  {"en":"germline / line of descent", "zh":"种系", "pinyin":"zhǒngxì", "ens":"This is a germline change.", "zhs":"这是种系的改变。", "zhsp":"zhè shì zhǒngxì de gǎibiàn.", "stage":6, "risk":"种系 = evolutionary line of descent; the precise biology term for germline is often 生殖系 — confirm which your paper uses."},
+  {"en":"light", "zh":"光", "pinyin":"guāng", "ens":"We use light to control it.", "zhs":"我们用光来控制。", "zhsp":"wǒmen yòng guāng lái kòngzhì.", "stage":6},
+  {"en":"infrared", "zh":"红外", "pinyin":"hóngwài", "ens":"Infrared light penetrates tissue.", "zhs":"红外光能穿透组织。", "zhsp":"hóngwài guāng néng chuāntòu zǔzhī.", "stage":6},
+  {"en":"near-infrared (NIR)", "zh":"近红外", "pinyin":"jìnhóngwài", "ens":"We use near-infrared light.", "zhs":"我们用近红外光。", "zhsp":"wǒmen yòng jìnhóngwài guāng.", "stage":6},
+  {"en":"optogenetics", "zh":"光遗传学", "pinyin":"guāngyíchuánxué", "ens":"This is based on optogenetics.", "zhs":"这是基于光遗传学的。", "zhsp":"zhè shì jīyú guāngyíchuánxué de.", "stage":6},
+  {"en":"to penetrate", "zh":"穿透", "pinyin":"chuāntòu", "ens":"The light can penetrate deep.", "zhs":"光可以穿透很深。", "zhsp":"guāng kěyǐ chuāntòu hěn shēn.", "stage":6},
+  {"en":"tissue (body)", "zh":"组织", "pinyin":"zǔzhī", "ens":"It won't damage tissue.", "zhs":"它不会损害组织。", "zhsp":"tā búhuì sǔnhài zǔzhī.", "stage":6},
+  {"en":"diamond", "zh":"钻石", "pinyin":"zuànshí", "ens":"We use diamond nodes.", "zhs":"我们用钻石节点。", "zhsp":"wǒmen yòng zuànshí jiédiǎn.", "stage":6},
+  {"en":"node", "zh":"节点", "pinyin":"jiédiǎn", "ens":"Each node passes the signal on.", "zhs":"每个节点传递信号。", "zhsp":"měi ge jiédiǎn chuándì xìnhào.", "stage":6},
+  {"en":"nitrogen", "zh":"氮", "pinyin":"dàn", "ens":"This uses nitrogen-vacancy centers.", "zhs":"这个用氮空位中心。", "zhsp":"zhège yòng dàn kòngwèi zhōngxīn.", "stage":6, "risk":"氮空位中心 = nitrogen-vacancy (NV) center; standard physics construction — verify with a specialist."},
+  {"en":"signal", "zh":"信号", "pinyin":"xìnhào", "ens":"The signal stays continuous.", "zhs":"信号保持连续。", "zhsp":"xìnhào bǎochí liánxù.", "stage":6},
+  {"en":"biology / bio-", "zh":"生物", "pinyin":"shēngwù", "ens":"This is a biological platform.", "zhs":"这是一个生物平台。", "zhsp":"zhè shì yí ge shēngwù píngtái.", "stage":6},
+  {"en":"Bio Integrase Platform", "zh":"生物整合酶平台", "pinyin":"shēngwù zhěnghéméi píngtái", "ens":"This is my Bio Integrase Platform.", "zhs":"这是我的生物整合酶平台。", "zhsp":"zhè shì wǒ de shēngwù zhěnghéméi píngtái.", "stage":6, "risk":"COINED literal rendering of 'Bio Integrase Platform'. May prefer to keep the English name and only translate around it — your call."},
+  {"en":"architecture / framework", "zh":"架构", "pinyin":"jiàgòu", "ens":"This is the architecture of the system.", "zhs":"这是系统的架构。", "zhsp":"zhè shì xìtǒng de jiàgòu.", "stage":6},
+  {"en":"therapy / treatment", "zh":"疗法", "pinyin":"liáofǎ", "ens":"This could become a therapy.", "zhs":"这可以成为一种疗法。", "zhsp":"zhè kěyǐ chéngwéi yì zhǒng liáofǎ.", "stage":6},
+  {"en":"clinical", "zh":"临床", "pinyin":"línchuáng", "ens":"We haven't reached clinical trials yet.", "zhs":"我们还没到临床。", "zhsp":"wǒmen hái méi dào línchuáng.", "stage":6},
+  {"en":"experiment", "zh":"实验", "pinyin":"shíyàn", "ens":"The experiments proved this point.", "zhs":"实验证明了这一点。", "zhsp":"shíyàn zhèngmíng le zhè yìdiǎn.", "stage":6},
+  {"en":"to prove", "zh":"证明", "pinyin":"zhèngmíng", "ens":"The data proves it's feasible.", "zhs":"数据证明可行。", "zhsp":"shùjù zhèngmíng kěxíng.", "stage":6},
+  {"en":"fail-safe / safe by default", "zh":"默认安全", "pinyin":"mòrèn ānquán", "ens":"The system is safe by default.", "zhs":"系统默认安全。", "zhsp":"xìtǒng mòrèn ānquán.", "stage":6, "risk":"默认安全 = 'default-safe'; a descriptive coinage, not a fixed term. Reads clearly but confirm register."}
+];
+/* NEXT VERIFIED CHUNKS APPEND ABOVE THIS LINE (full 5-stage arc + homo_machina /
+   Bio Integrase domain layer). Engine runs whatever is present. */
+
+const STAGE_NAMES = {1:"Foundations",2:"Daily life",3:"Social / transactional",4:"Abstract",5:"Mastery / idiomatic",6:"Domain · 相干人 / Bio Integrase"};
+
+/* ---------- INDUCTION SCRIPT (spoken via TTS, English) -------------------- */
+/* Written for a RECEDING register: short declaratives, ellipses, periods, no
+   questions, nothing that lifts. Each segment carries its own trailing pause
+   (ms) so the descent breathes and actually fills the time. Voiced slow + low
+   (Speech.indRate / indPitch). To swap in a premium hypnotic voice later,
+   populate Speech.audioMap[text] with generated clips — the engine plays those
+   instead of TTS, no other change needed. */
+/* The math problem is generated fresh each session — same difficulty class as
+   7x8-3 (two hard single-digit factors 6-9, minus a small number) — so the
+   dual-task keeps its bite instead of being memorized. Answer computed + spoken. */
+const INDUCTION_TEMPLATES = {
+  paradoxes: [
+    "You might have heard that you can't be hypnotized unless you want to be.",
+    "Some people say hypnosis only works if you let it. And that's true.",
+    "They say you can't be hypnotized against your will. And you're not.",
+    "There's a common belief that hypnosis is about losing control. It's not."
+  ],
+  bridges: [
+    "While you're finding that answer, I'm going to say a few things. You won't have to remember them.",
+    "As you work that out, I'll speak some words. They don't require your attention.",
+    "While your mind holds that number, I'll let some other words pass through."
+  ],
+  closers: [
+    "They will land exactly where they need to.",
+    "They will settle into their proper place.",
+    "They are already arriving where they belong."
+  ]
+};
+function num2words(n){
+  const o=["zero","one","two","three","four","five","six","seven","eight","nine","ten",
+    "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+  const t=["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+  if(n<20) return o[n];
+  return t[Math.floor(n/10)] + (n%10 ? "-"+o[n%10] : "");
+}
+function makeMathProblem(){
+  const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+  const A=rnd(6,9), B=rnd(6,9), C=rnd(1,9);     // same class as 7x8-3
+  return { q:`What is ${num2words(A)} times ${num2words(B)} minus ${num2words(C)}?`,
+           a:num2words(A*B-C) };
+}
+function buildInduction(){
+  const P=INDUCTION_TEMPLATES, r=a=>a[Math.floor(Math.random()*a.length)];
+  const m=makeMathProblem();
+  return [
+    {t:r(P.paradoxes), p:4200},
+    {t:"It is absolutely true. You have to want it. And you do want it.", p:4400},
+    {t:"But here's the part that's interesting. If you're trying to figure out how it happens, your mind is busy doing something else.", p:4600},
+    {t:"And while it's busy, something else can happen. Without you having to pay attention to it.", p:4400},
+    {t:"So just let your eyes rest on the screen, or close them. It doesn't matter which, because I'm not going to tell you to relax.", p:4800},
+    {t:"I'm just going to talk. And you can listen to the words, or you can listen to the silence between them.", p:4600},
+    {t:"Either way, something is happening. Your brain is already processing the sounds, the tones, the spaces.", p:4600},
+    {t:"You might notice your breathing slowing down. Or you might not. It doesn't matter.", p:4200},
+    {t:"Because the part of you that needs to know how this works is the same part that can't follow a conversation while solving a math problem.", p:5000},
+    {t:`So here's the math problem. Just for a second. ${m.q}`, p:5400},
+    {t:r(P.bridges), p:5200},
+    {t:`You can let them pass through you like a wave. And then the answer comes: ${m.a}.`, p:4400},
+    {t:"See? Your mind did two things at once. It solved the problem, and it heard the words. Both happened.", p:4800},
+    {t:"Now the words are settling in. Not because you're trying. Because you're not trying.", p:4600},
+    {t:"And that's the only way it works. The wanting is enough. The rest happens on its own.", p:4800},
+    {t:`So I'm going to speak the words now. The Chinese ones. ${r(P.closers)}`, p:4600}
+  ];
+}
+// short suggestion interludes between Phase-2 passes
+const SUGGEST = [
+  "Again. Just listen this time. Let them wash over you.",
+  "This time, let your voice follow. Quiet, easy, no effort.",
+  "Each time you say it, it sets a little deeper. A little more automatic.",
+  "Once more. They are settling into place now, becoming yours."
+];
+// emergence — brings her back up at the end
+const EMERGENCE = [
+  {t:"That's all of them. They're inside now, already yours.", p:3800},
+  {t:"In a moment I'll bring you back up.", p:3400},
+  {t:"Three. Awareness returning to the room around you.", p:3200},
+  {t:"Two. Energy coming back into your body.", p:3200},
+  {t:"One. Eyes open when you're ready. Clear, awake, and the words stay with you.", p:2600}
+];
+
+/* =========================================================================
+   AUDIO ENGINE — binaural + isochronic via Web Audio API
+   ========================================================================= */
+const Audio_ = {
+  ctx:null, master:null, entGain:null,
+  binL:null, binR:null, merger:null, binGainL:null, binGainR:null,
+  isoOsc:null, isoGain:null, lfo:null, lfoGain:null,
+  running:false,
+  ensure(){
+    if(this.ctx) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    this.ctx = new AC();
+    this.master = this.ctx.createGain(); this.master.gain.value = 1; this.master.connect(this.ctx.destination);
+    this.entGain = this.ctx.createGain(); this.entGain.gain.value = 0; this.entGain.connect(this.master);
+  },
+  start(opts){
+    this.ensure();
+    if(this.ctx.state === "suspended") this.ctx.resume();
+    const t = this.ctx.currentTime;
+    // ---- binaural: L 110Hz, R 114Hz → 4Hz theta beat (needs headphones) ----
+    if(opts.binaural){
+      this.merger = this.ctx.createChannelMerger(2);
+      this.binL = this.ctx.createOscillator(); this.binR = this.ctx.createOscillator();
+      this.binL.frequency.value = 110; this.binR.frequency.value = 114;
+      this.binGainL = this.ctx.createGain(); this.binGainR = this.ctx.createGain();
+      this.binGainL.gain.value = 0.5; this.binGainR.gain.value = 0.5;
+      this.binL.connect(this.binGainL).connect(this.merger, 0, 0); // left channel
+      this.binR.connect(this.binGainR).connect(this.merger, 0, 1); // right channel
+      this.merger.connect(this.entGain);
+      this.binL.start(); this.binR.start();
+    }
+    // ---- isochronic: 200Hz carrier pulsed on/off at 10Hz (works on speakers) --
+    if(opts.iso){
+      this.isoOsc = this.ctx.createOscillator(); this.isoOsc.frequency.value = 200;
+      this.isoGain = this.ctx.createGain(); this.isoGain.gain.value = 0;
+      this.lfo = this.ctx.createOscillator(); this.lfo.type = "square"; this.lfo.frequency.value = 10;
+      this.lfoGain = this.ctx.createGain(); this.lfoGain.gain.value = 0.5;
+      // square LFO swings -0.5..0.5; offset up to 0..1 via the isoGain base + lfoGain
+      this.isoGain.gain.value = 0.5;
+      this.lfo.connect(this.lfoGain).connect(this.isoGain.gain);
+      this.isoOsc.connect(this.isoGain).connect(this.entGain);
+      this.isoOsc.start(); this.lfo.start();
+    }
+    // fade the entrainment layer in
+    this.entGain.gain.cancelScheduledValues(t);
+    this.entGain.gain.setValueAtTime(0.0001, t);
+    this.entGain.gain.exponentialRampToValueAtTime(Math.max(0.0002, opts.vol), t + 6);
+    this.running = true;
+  },
+  setEntVol(v){ if(!this.ctx) return; const t=this.ctx.currentTime; this.entGain.gain.cancelScheduledValues(t); this.entGain.gain.exponentialRampToValueAtTime(Math.max(0.0001,v), t+0.4); },
+  setMaster(v){ if(this.master) this.master.gain.value = v; },
+  stop(){
+    if(!this.ctx || !this.running) return;
+    const t = this.ctx.currentTime;
+    this.entGain.gain.cancelScheduledValues(t);
+    this.entGain.gain.setValueAtTime(this.entGain.gain.value, t);
+    this.entGain.gain.exponentialRampToValueAtTime(0.0001, t + 3);
+    const kill = ()=>{ try{
+      [this.binL,this.binR,this.isoOsc,this.lfo].forEach(o=>{ if(o){ try{o.stop();}catch(e){} } });
+      this.binL=this.binR=this.isoOsc=this.lfo=null;
+    }catch(e){} };
+    setTimeout(kill, 3200);
+    this.running = false;
+  }
+};
+
+/* =========================================================================
+   SPEECH ENGINE — SpeechSynthesis (English + zh-CN), with fallback detection
+   ========================================================================= */
+const Speech = {
+  voices:[], en:null, zh:null, ready:false, rate:0.82, vol:1,
+  init(){
+    return new Promise(res=>{
+      const load = ()=>{
+        this.voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+        this.pick();
+        if(this.voices.length){ this.ready=true; res(); }
+      };
+      if(!window.speechSynthesis){ this.ready=false; res(); return; }
+      load();
+      if(!this.voices.length){
+        speechSynthesis.onvoiceschanged = ()=>{ load(); };
+        setTimeout(()=>{ load(); res(); }, 900); // resolve anyway after a beat
+      } else res();
+    });
+  },
+  pick(){
+    const V = this.voices;
+    this.zh = V.find(v=>/^zh[-_]?CN/i.test(v.lang)) ||
+              V.find(v=>/^zh/i.test(v.lang)) ||
+              V.find(v=>/chinese|mandarin|putonghua/i.test(v.name)) || null;
+    this.en = V.find(v=>/^en[-_]?US/i.test(v.lang)) ||
+              V.find(v=>/^en/i.test(v.lang)) || V[0] || null;
+  },
+  hasZh(){ return !!this.zh; },
+  indRate:0.6, indPitch:0.72, audioMap:{}, curClip:null,
+  // speak() resolves when the utterance ends (or immediately if unsupported)
+  // opts: {rate, pitch, vol} override the defaults for this utterance
+  speak(text, lang, opts){
+    opts = opts || {};
+    return new Promise(res=>{
+      if(!window.speechSynthesis || !text){ setTimeout(res, 250); return; }
+      const u = new SpeechSynthesisUtterance(text);
+      const v = (lang==="zh") ? this.zh : this.en;
+      if(v) u.voice = v;
+      u.lang = (lang==="zh") ? (this.zh ? this.zh.lang : "zh-CN") : (this.en ? this.en.lang : "en-US");
+      const rate = (opts.rate != null) ? opts.rate : this.rate;
+      u.rate = rate; u.volume = (opts.vol != null) ? opts.vol : this.vol;
+      u.pitch = (opts.pitch != null) ? opts.pitch : 1;
+      let done=false; const finish=()=>{ if(done)return; done=true; res(); };
+      u.onend = finish; u.onerror = finish;
+      // safety timeout in case onend never fires (some engines drop it)
+      const est = Math.max(1200, (text.length/ (lang==="zh"?4:8)) * 1000 / rate + 800);
+      setTimeout(finish, est + 4000);
+      try{ speechSynthesis.speak(u); }catch(e){ finish(); }
+    });
+  },
+  // hypnotic-register line: pre-generated clip if present, else slow + low TTS.
+  // This is the seam for a premium voice — fill audioMap[text] and it plays that.
+  speakInd(text){
+    const src = this.audioMap[text];
+    if(src) return this.playClip(src);
+    return this.speak(text, "en", {rate:this.indRate, pitch:this.indPitch});
+  },
+  playClip(src){
+    return new Promise(res=>{
+      try{ const a = new Audio(src); this.curClip = a;
+        const done=()=>{ this.curClip=null; res(); };
+        a.onended = done; a.onerror = done; a.play().catch(done);
+      }catch(e){ res(); }
+    });
+  },
+  cancel(){ try{ speechSynthesis.cancel(); }catch(e){} if(this.curClip){ try{this.curClip.pause();}catch(e){} this.curClip=null; } },
+  pause(){ try{ speechSynthesis.pause(); }catch(e){} if(this.curClip){ try{this.curClip.pause();}catch(e){} } },
+  resume(){ try{ speechSynthesis.resume(); }catch(e){} if(this.curClip){ try{this.curClip.play();}catch(e){} } }
+};
+
+/* =========================================================================
+   PROGRESS + SPACED REPETITION (localStorage)
+   ========================================================================= */
+const SR_INTERVALS = [1,2,4,8,16,32]; // days a batch resurfaces after first study
+const Store = {
+  key:"mandarin_trainer_v1",
+  data:{ day:0, batches:[], recallLog:[], created:null },
+  load(){
+    try{ const raw=localStorage.getItem(this.key); if(raw) this.data=JSON.parse(raw); }catch(e){}
+    if(!this.data.created) this.data.created = todayStr();
+    return this.data;
+  },
+  save(){ try{ localStorage.setItem(this.key, JSON.stringify(this.data)); }catch(e){} },
+  // returns the list of prior-batch indices whose words are due today
+  dueWords(){
+    const today = dayNumber();
+    const due=[];
+    for(const b of this.data.batches){
+      const age = today - b.dayNum;
+      if(age>0 && SR_INTERVALS.includes(age)) due.push(...b.wordIdx);
+    }
+    return [...new Set(due)];
+  },
+  recordBatch(wordIdx){
+    const today = dayNumber();
+    // avoid double-logging same calendar day
+    if(!this.data.batches.some(b=>b.dayNum===today && sameSet(b.wordIdx,wordIdx))){
+      this.data.batches.push({ dayNum:today, date:todayStr(), wordIdx });
+      this.data.day = this.data.batches.length;
+      this.save();
+    }
+  }
+};
+function sameSet(a,b){ return a.length===b.length && a.every(x=>b.includes(x)); }
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function dayNumber(){ return Math.floor(Date.now()/864e5); } // days since epoch
+
+/* =========================================================================
+   SESSION RUNNER
+   ========================================================================= */
+const S = {
+  running:false, paused:false, stopped:false,
+  els:{}, opts:{}, words:[], startTime:0, tickTimer:null,
+
+  el(id){ return document.getElementById(id); },
+  cache(){ ["phaseTag","passTag","zh","pinyin","en","sentence","cue","riskFlag","progFill","clock","stage"].forEach(id=>this.els[id]=this.el(id)); },
+
+  async run(words, opts){
+    this.words=words; this.opts=opts; this.running=true; this.paused=false; this.stopped=false;
+    this.startTime=Date.now();
+    this.cache();
+    this.el("setup").classList.add("hidden");
+    this.el("session").classList.remove("hidden");
+    this.startClock();
+
+    Audio_.setMaster(opts.voiceVol); // voice rides master; entrainment on its own sub-gain
+    Audio_.start({ binaural:opts.binaural, iso:opts.iso, vol:opts.entVol });
+
+    try{
+      if(opts.induction){ await this.phase1(); }
+      if(this.stopped){ await this.finish(false); return; }
+      if(opts.reinforce){ await this.phase2(); }
+    }catch(e){ console.error(e); }
+    await this.finish(!this.stopped);
+  },
+
+  // ---------- Phase 1: real induction, then in-state word insertion ----------
+  async phase1(){
+    this.setPhase("Phase 1 · Induction","eyes closed · just receive");
+    this.clearStage();
+    this.el("session").classList.add("induction-mode");
+    this.setCue("close your eyes");
+    const induction = buildInduction(); // fresh math problem each session
+    for(const seg of induction){
+      if(this.stopped) return;
+      await this.gate();
+      await Speech.speakInd(seg.t);
+      await this.sleep(seg.p);
+    }
+    if(this.stopped) return;
+    // language insertion IN-STATE — slow, low, light suggestion every few words
+    this.setPhase("Phase 1 · Receiving","let each one settle");
+    for(let i=0;i<this.words.length;i++){
+      if(this.stopped) return;
+      await this.presentInState(this.words[i], i, this.words.length);
+      if((i+1)%6===0 && i+1<this.words.length){
+        if(this.stopped) return;
+        await this.gate();
+        await Speech.speakInd("Let them settle. No effort. They are yours now.");
+        await this.sleep(2600);
+      }
+    }
+    this.el("session").classList.remove("induction-mode"); // back to full clarity for the passes
+  },
+
+  // ---------- Phase 2: 4 passes, suggestion-threaded, speak-along + recall ----
+  async phase2(){
+    const passes = 4;
+    if(this.stopped) return;
+    await this.gate();
+    await Speech.speakInd("Stay down. We'll go over them again, softly.");
+    await this.sleep(2400);
+    for(let p=1;p<=passes;p++){
+      if(this.stopped) return;
+      // pass character: 1 listen · 2 & 4 speak-along · one recall pass (default 3)
+      let mode = "listen";
+      if(p===2) mode="speakalong";
+      if(p===3) mode = this.opts.recall ? "recall" : "speakalong";
+      if(p===4) mode="speakalong";
+      // suggestion interlude before the pass (hypnotic register)
+      if(this.stopped) return;
+      await this.gate();
+      await Speech.speakInd(SUGGEST[(p-1) % SUGGEST.length]);
+      await this.sleep(2200);
+      const label = "Phase 2 · Soft entrainment";
+      const sub = mode==="listen" ? "pass "+p+" of "+passes+" · just listen"
+               : mode==="speakalong" ? "pass "+p+" of "+passes+" · speak it with me"
+               : "pass "+p+" of "+passes+" · your turn, then it comes";
+      this.setPhase(label, sub);
+      for(let i=0;i<this.words.length;i++){
+        if(this.stopped) return;
+        await this.presentItem(this.words[i], {mode, pass:p}, i, this.words.length, label);
+      }
+      await this.sleep(1500);
+    }
+  },
+
+  // present a single vocab item in the bilingual pattern
+  async presentItem(w, ctx, idx, total, phaseLabel){
+    this.setPhase(phaseLabel,
+      ctx.mode==="recall" ? "your turn — then reveal"
+      : ctx.mode==="speakalong" ? "speak along" : "listen");
+    this.setProgress(idx/total);
+    this.setRisk(w.risk || "");
+
+    if(ctx.mode==="recall"){
+      // active recall: show English, prompt production, pause, then reveal + speak ZH
+      this.showFields({en:w.en, zh:"", pinyin:"", showHanzi:this.opts.hanzi});
+      this.setCue("say it in Mandarin…");
+      await this.gate();
+      await Speech.speak(w.en,"en");
+      await this.sleep(3200);                 // production window
+      if(this.stopped) return;
+      this.showFields({en:w.en, zh:w.zh, pinyin:w.pinyin, showHanzi:this.opts.hanzi});
+      this.setCue("→ " + w.pinyin);
+      await this.gate(); await Speech.speak(w.zh,"zh"); await this.sleep(700);
+    } else {
+      // bilingual pattern: EN word → ZH word → (sentence EN → ZH)
+      this.showFields({en:w.en, zh:w.zh, pinyin:w.pinyin, showHanzi:this.opts.hanzi});
+      this.setCue(ctx.mode==="speakalong" ? "speak along" : "");
+      await this.gate(); await Speech.speak(w.en,"en"); await this.sleep(350);
+      if(this.stopped) return;
+      await this.gate(); await Speech.speak(w.zh,"zh"); await this.sleep(ctx.mode==="speakalong"?1200:600);
+      if(this.stopped) return;
+      // sentence
+      this.showSentence(w);
+      await this.gate(); await Speech.speak(w.ens,"en"); await this.sleep(300);
+      if(this.stopped) return;
+      await this.gate(); await Speech.speak(w.zhs,"zh"); await this.sleep(ctx.mode==="speakalong"?1400:700);
+      this.hideSentence();
+    }
+    this.setProgress((idx+1)/total);
+  },
+
+  // present one item IN-STATE (Phase 1): slow, low, listen-only, no cues to act
+  async presentInState(w, idx, total){
+    this.setProgress(idx/total);
+    this.setRisk(w.risk || "");
+    this.showFields({en:w.en, zh:w.zh, pinyin:w.pinyin, showHanzi:this.opts.hanzi});
+    this.setCue("letting it settle…");
+    await this.gate(); await Speech.speak(w.en,"en",{rate:0.65, pitch:0.8}); await this.sleep(900);
+    if(this.stopped) return;
+    await this.gate(); await Speech.speak(w.zh,"zh",{rate:0.68});           await this.sleep(1300);
+    if(this.stopped) return;
+    await this.gate(); await Speech.speak(w.zh,"zh",{rate:0.70});           await this.sleep(1600);
+    if(this.stopped) return;
+    this.showSentence(w);
+    await this.gate(); await Speech.speak(w.zhs,"zh",{rate:0.72});          await this.sleep(1800);
+    this.hideSentence();
+    this.setProgress((idx+1)/total);
+  },
+
+  // ---------- display helpers ----------
+  showFields({en,zh,pinyin,showHanzi}){
+    const z=this.els.zh, p=this.els.pinyin, e=this.els.en;
+    z.textContent = showHanzi ? zh : "";
+    z.style.opacity = (showHanzi && zh) ? 1 : 0;
+    p.textContent = pinyin || ""; p.style.opacity = pinyin?1:0;
+    e.textContent = en || ""; e.style.opacity = en?1:0;
+    this.hideSentence();
+  },
+  showSentence(w){
+    const s=this.els.sentence;
+    s.querySelector(".szh").textContent = this.opts.hanzi ? w.zhs : "";
+    s.querySelector(".spin").textContent = w.zhsp;
+    s.querySelector(".sen").textContent = w.ens;
+    s.style.opacity = 1;
+  },
+  hideSentence(){ this.els.sentence.style.opacity = 0; },
+  clearStage(){ this.showFields({en:"",zh:"",pinyin:"",showHanzi:false}); },
+  setPhase(a,b){ this.els.phaseTag.textContent=a; this.els.passTag.textContent=b||""; },
+  setCue(t){ this.els.cue.textContent=t||""; },
+  setRisk(t){ this.els.riskFlag.textContent = t ? ("⚠ "+t) : ""; },
+  setProgress(f){ this.els.progFill.style.width = Math.max(0,Math.min(1,f))*100 + "%"; },
+
+  // ---------- timing / control ----------
+  startClock(){
+    const upd=()=>{ const s=Math.floor((Date.now()-this.startTime)/1000);
+      const m=String(Math.floor(s/60)).padStart(2,"0"), ss=String(s%60).padStart(2,"0");
+      this.els.clock.textContent=m+":"+ss; };
+    upd(); this.tickTimer=setInterval(upd,1000);
+  },
+  sleep(ms){ return new Promise(r=>{ const t=setInterval(()=>{ if(this.stopped){clearInterval(t);return r();} },120);
+      setTimeout(()=>{clearInterval(t); r();}, ms); }); },
+  // gate() blocks while paused
+  async gate(){ while(this.paused && !this.stopped){ await new Promise(r=>setTimeout(r,150)); } },
+
+  pause(){ this.paused=true; Speech.pause(); if(Audio_.ctx) Audio_.ctx.suspend(); },
+  resume(){ this.paused=false; Speech.resume(); if(Audio_.ctx) Audio_.ctx.resume(); },
+  stop(){ this.stopped=true; this.paused=false; Speech.cancel(); },
+
+  async finish(completed){
+    clearInterval(this.tickTimer);
+    this.el("session").classList.remove("induction-mode"); // safety: never leave text dimmed
+    // emergence — bring her back up (only on a real completion, not a hard stop)
+    if(completed && !this.stopped){
+      this.setPhase("Emerging","coming back up");
+      this.clearStage(); this.setCue("");
+      for(const seg of EMERGENCE){
+        if(this.stopped) break;
+        await this.gate();
+        await Speech.speakInd(seg.t);
+        await this.sleep(seg.p);
+      }
+    }
+    Speech.cancel(); Audio_.stop();
+    if(completed){
+      Store.recordBatch(this.words.map(w=>w._idx).filter(x=>x!=null));
+    }
+    this.running=false;
+    this.el("session").classList.add("hidden");
+    this.el("setup").classList.remove("hidden");
+    UI.refresh();
+    this.setCue("");
+  }
+};
+
+/* =========================================================================
+   UI wiring
+   ========================================================================= */
+const UI = {
+  init(){
+    Store.load();
+    this.buildBatchSel();
+    this.bind();
+    this.refresh();
+    // brightness + pulse from defaults
+    this.applyBright();
+    // init speech, then report voice availability
+    Speech.init().then(()=>{
+      const m=document.getElementById("voiceMsg");
+      if(!window.speechSynthesis){ m.innerHTML="<span class='danger-t'>This browser has no speech synthesis — voices won't play. Try Chrome/Edge/Safari.</span>"; return; }
+      if(Speech.hasZh()){ m.innerHTML="<span class='ok'>✓ Mandarin voice found: "+esc(Speech.zh.name)+"</span>"; }
+      else{ m.innerHTML="<span class='warn'>⚠ No Mandarin (zh-CN) voice on this device. English will play; Mandarin will be silent. On Android/iOS add a Chinese TTS voice in system settings; on desktop Chrome/Edge it's built in.</span>"; }
+    });
+  },
+
+  buildBatchSel(){
+    const sel=document.getElementById("batchSel");
+    const stages=[...new Set(CURRICULUM.map(w=>w.stage))].sort();
+    let html = `<option value="auto">Tonight's 25 (auto: new + due)</option>`;
+    html += `<option value="all">Everything loaded (${CURRICULUM.length})</option>`;
+    for(const st of stages){
+      const n=CURRICULUM.filter(w=>w.stage===st).length;
+      html += `<option value="stage:${st}">Stage ${st} — ${STAGE_NAMES[st]} (${n})</option>`;
+    }
+    sel.innerHTML=html;
+  },
+
+  bind(){
+    document.getElementById("startBtn").onclick=()=>this.start();
+    document.getElementById("pauseBtn").onclick=(e)=>{
+      if(S.paused){ S.resume(); e.target.textContent="Pause"; }
+      else{ S.pause(); e.target.textContent="Resume"; }
+    };
+    document.getElementById("stopBtn").onclick=()=>{ S.stop(); };
+    document.getElementById("bright").oninput=()=>this.applyBright();
+    document.getElementById("entVol").oninput=(e)=>Audio_.setEntVol(this.entVolVal());
+    document.getElementById("voiceVol").oninput=(e)=>{ Speech.vol=(+e.target.value)/100; Audio_.setMaster(Speech.vol); };
+    document.getElementById("rate").oninput=(e)=>{ Speech.rate=(+e.target.value)/100; };
+    document.getElementById("optPulse").onchange=(e)=>this.pulse(e.target.checked);
+    document.getElementById("resetBtn").onclick=()=>{
+      if(confirm("Reset all progress and spaced-repetition history? This can't be undone.")){
+        localStorage.removeItem(Store.key); Store.data={day:0,batches:[],recallLog:[],created:todayStr()}; this.refresh();
+      }
+    };
+    document.getElementById("exportBtn").onclick=()=>{
+      const blob=new Blob([JSON.stringify(Store.data,null,2)],{type:"application/json"});
+      const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+      a.download="mandarin-progress-"+todayStr()+".json"; a.click();
+    };
+  },
+
+  entVolVal(){ const v=(+document.getElementById("entVol").value)/100; return v*v*0.6; }, // perceptual-ish, capped
+  applyBright(){ const b=(+document.getElementById("bright").value)/100; document.getElementById("app").style.setProperty("--bright",b); },
+  pulse(on){
+    const p=document.getElementById("pulse");
+    p.getAnimations().forEach(a=>a.cancel());
+    if(on){
+      p.style.opacity="0.08";
+      // single gentle ~0.11Hz breath — no strobe, no seizure risk
+      p.animate([{opacity:0.03},{opacity:0.11},{opacity:0.03}], {duration:9200, iterations:Infinity});
+    } else { p.style.opacity="0"; }
+  },
+
+  // choose tonight's word list
+  selectWords(){
+    const sel=document.getElementById("batchSel").value;
+    // tag every entry with its curriculum index once
+    CURRICULUM.forEach((w,i)=>w._idx=i);
+    if(sel==="all") return CURRICULUM.slice();
+    if(sel.startsWith("stage:")){ const st=+sel.split(":")[1]; return CURRICULUM.filter(w=>w.stage===st); }
+    // auto: today's new 25 (next unseen, in order) + due resurfaced words
+    const seen=new Set(); Store.data.batches.forEach(b=>b.wordIdx.forEach(i=>seen.add(i)));
+    const fresh=[];
+    for(let i=0;i<CURRICULUM.length && fresh.length<25;i++){ if(!seen.has(i)) fresh.push(CURRICULUM[i]); }
+    let list=fresh;
+    if(document.getElementById("optSpaced").checked){
+      const due=Store.dueWords().map(i=>CURRICULUM[i]).filter(Boolean);
+      // due words first (warm-up), then tonight's new set
+      const ids=new Set(fresh.map(w=>w._idx));
+      list=[...due.filter(w=>!ids.has(w._idx)), ...fresh];
+    }
+    if(!list.length) list=CURRICULUM.slice(0,Math.min(25,CURRICULUM.length)); // nothing new → review from start
+    return list;
+  },
+
+  start(){
+    const words=this.selectWords();
+    if(!words.length){ alert("No words loaded."); return; }
+    const opts={
+      induction:document.getElementById("optInduction").checked,
+      reinforce:document.getElementById("optReinforce").checked,
+      recall:document.getElementById("optRecall").checked,
+      hanzi:document.getElementById("optHanzi").checked,
+      binaural:document.getElementById("optBinaural").checked,
+      iso:document.getElementById("optIso").checked,
+      entVol:this.entVolVal(),
+      voiceVol:(+document.getElementById("voiceVol").value)/100,
+    };
+    Speech.rate=(+document.getElementById("rate").value)/100;
+    Speech.vol=opts.voiceVol;
+    document.getElementById("pauseBtn").textContent="Pause";
+    S.run(words, opts);
+  },
+
+  refresh(){
+    const d=Store.data;
+    const seen=new Set(); d.batches.forEach(b=>b.wordIdx.forEach(i=>seen.add(i)));
+    document.getElementById("dayInfo").innerHTML =
+      `Night <b>${d.day+ (this.isNewToday()?1:0)}</b> · learned so far: <b>${seen.size}</b> / ${CURRICULUM.length} loaded`;
+    const due=Store.dueWords().length;
+    document.getElementById("curStats").innerHTML =
+      `${CURRICULUM.length} verified entries loaded across ${new Set(CURRICULUM.map(w=>w.stage)).size} stages. `+
+      (due? `<span class="ok">${due} word(s) due to resurface tonight.</span>` : `No spaced reviews due tonight.`);
+    document.getElementById("progressDump").innerHTML =
+      d.batches.length ? d.batches.slice(-8).reverse().map(b=>`${b.date} · ${b.wordIdx.length} words`).join("<br>")
+                       : "No sessions logged yet.";
+  },
+  isNewToday(){ const t=dayNumber(); return !Store.data.batches.some(b=>b.dayNum===t); }
+};
+
+function esc(s){ return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+
+// keep audio alive if the tab is backgrounded mid-session on mobile
+document.addEventListener("visibilitychange",()=>{ if(document.hidden && S.running && !S.paused){ /* allow continue */ } });
+
+window.addEventListener("DOMContentLoaded", ()=>UI.init());
+</script>

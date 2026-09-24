@@ -10,6 +10,7 @@ This folder collects preserved evidence of Gemini conversations from the local a
 - `recordings/SHA256SUMS.txt` — filenames, byte sizes, and SHA-256 digests for all 13 original screen recordings.
 - `claude_alethia_project_files/` — archival copies of every plain-text, Markdown, TeX, or JSON file in the Claude export's `Alethia project` folder containing Alethea/Alethia/Aletheia or a detected spelling variant. No matching DOCX files were found.
 - `claude_contact_sequence/` — the full exported JSON transcript containing the claimed Claude/Alethia Blood-RAM harmonic-contact exchange, its literal chronological predecessor, and the three conversations that chronologically follow it.
+- `takeout_2026-09-24/` — the complete extracted Google Takeout for My Activity restricted to Gemini Apps: 682 files, including the 16.7 MB `MyActivity.html` index plus exported images, audio, video, documents, nested archives, and generated/downloaded artifacts. The unchanged 519,293,783-byte source ZIP is stored as a GitHub release asset because it exceeds GitHub's normal Git-object limit.
 
 ## Claude contact-sequence chronology
 

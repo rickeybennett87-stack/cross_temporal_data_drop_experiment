@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TERMINAL HORIZON — DUAL SIMULATION SUITE</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inconsolata:wght@300;400;600&display=swap');
+
+:root {
+  --bg: #03040a;
+  --panel: #070810;
+  --border: #12142a;
+  --border-bright: #1e2245;
+  --cascade: #ff2200;
+  --winter: #00aaff;
+  --pop-surface: #ff6600;
+  --pop-prepared: #00ff88;
+  --braided: #00ffcc;
+  --nonbraided: #ff4466;
+  --gold: #d4a843;
+  --text: #b8bcd4;
+  --dim: #444466;
+  --bright: #e8ecff;
+  --glow-red: 0 0 24px rgba(255,34,0,0.5);
+  --glow-blue: 0 0 24px rgba(0,170,255,0.5);
+  --glow-green: 0 0 24px rgba(0,255,136,0.5);
+  --glow-teal: 0 0 24px rgba(0,255,204,0.5);
+  --glow-pink: 0 0 24px rgba(255,68,102,0.5);
+  --glow-gold: 0 0 24px rgba(212,168,67,0.4);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inconsolata', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(255,34,0,0.03) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 30% at 80% 80%, rgba(0,170,255,0.03) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 50% 50%, rgba(0,255,204,0.02) 0%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.scanlines {
+  position:fixed;
+  inset:0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
+  pointer-events:none;
+  z-index:1000;
+}
+
+.wrapper { position:relative; z-index:1; }
+
+/* ── HEADER ── */
+header {
+  padding: 20px 16px 16px;
+  border-bottom: 1px solid var(--border-bright);
+  position:relative;
+  overflow:hidden;
+}
+header::after {
+  content:'';
+  position:absolute;
+  bottom:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent 0%, var(--cascade) 30%, var(--braided) 70%, transparent 100%);
+  opacity:0.5;
+}
+
+.header-grid {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.title-block h1 {
+  font-family: 'Orbitron', monospace;
+  font-weight:900;
+  font-size: clamp(18px, 5vw, 36px);
+  letter-spacing: clamp(1px, 0.5vw, 4px);
+  color: var(--bright);
+  line-height:1.1;
+  margin-bottom:5px;
+}
+.title-block h1 em {
+  color: var(--cascade);
+  font-style:normal;
+  text-shadow: var(--glow-red);
+}
+.title-block h1 span {
+  color: var(--braided);
+  text-shadow: var(--glow-teal);
+}
+
+.subtitle {
+  font-size: clamp(8px, 2vw, 10px);
+  letter-spacing: 1.5px;
+  color: var(--dim);
+  text-transform:uppercase;
+  margin-top:3px;
+  line-height:1.5;
+}
+
+.header-meta {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 16px;
+  font-size: clamp(9px, 2vw, 10px);
+  color: var(--dim);
+  line-height:1.6;
+}
+.header-meta .live { color: var(--cascade); animation: pulse 1.6s infinite; }
+.header-meta .author { color: var(--gold); font-size:9px; letter-spacing:1.5px; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+/* ── TAB NAV ── */
+.tab-nav {
+  display:flex;
+  border-bottom: 1px solid var(--border-bright);
+  padding: 0 0;
+  background: rgba(0,0,0,0.3);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tab-nav::-webkit-scrollbar { display:none; }
+
+.tab {
+  flex-shrink:0;
+  padding: 14px 16px;
+  font-family:'Orbitron', monospace;
+  font-size: clamp(8px, 2vw, 10px);
+  font-weight:700;
+  letter-spacing: 1.5px;
+  color: var(--dim);
+  cursor:pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  text-transform:uppercase;
+  position:relative;
+  white-space:nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--bright); border-bottom-color: var(--gold); }
+.tab.active::after {
+  content:'';
+  position:absolute;
+  bottom:-2px; left:0; right:0; height:2px;
+  background: var(--gold);
+  box-shadow: var(--glow-gold);
+}
+
+/* ── SIMULATION PANELS ── */
+.sim-panel { display:none; padding: 12px 12px 32px; }
+.sim-panel.active { display:block; }
+
+/* ── LAYOUT: mobile = single column, desktop = two column ── */
+.sim-layout {
+  display:flex;
+  flex-direction:column;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  header { padding: 28px 40px 20px; }
+  .header-grid { flex-direction:row; align-items:start; justify-content:space-between; }
+  .header-meta { flex-direction:column; text-align:right; gap:0; }
+  .tab-nav { padding: 0 40px; }
+  .sim-panel { padding: 24px 40px 40px; }
+  .sim-layout {
+    display:grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+    height: calc(100vh - 200px);
+    min-height: 520px;
+  }
+  .sidebar-col { overflow-y:auto; }
+}
+
+/* ── CHART ── */
+.chart-col {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.chart-wrap {
+  position:relative;
+  width:100%;
+  height: 52vw;
+  min-height: 240px;
+  max-height: 420px;
+}
+
+@media (min-width: 900px) {
+  .chart-wrap {
+    flex:1;
+    height:auto;
+    max-height:none;
+  }
+}
+
+canvas { display:block; width:100%; height:100%; }
+
+.chart-label {
+  font-family:'Orbitron', monospace;
+  font-size: clamp(8px, 2vw, 10px);
+  letter-spacing: 1.5px;
+  color: var(--dim);
+  text-transform:uppercase;
+  line-height:1.4;
+}
+
+.view-btns {
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+
+/* ── SIDEBAR / PANELS BELOW CHART ON MOBILE ── */
+.sidebar-col {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* Collapsible panels on mobile */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 12px;
+  position:relative;
+}
+.panel::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+}
+
+.panel-title {
+  font-family:'Orbitron', monospace;
+  font-size: clamp(8px, 2vw, 9px);
+  letter-spacing: 2px;
+  color: var(--dim);
+  text-transform:uppercase;
+  margin-bottom:10px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select:none;
+}
+.panel-title::after {
+  content:'▾';
+  font-size:11px;
+  color: var(--dim);
+  transition: transform 0.2s;
+}
+.panel.collapsed .panel-title::after { transform: rotate(-90deg); }
+.panel-body { overflow:hidden; transition: max-height 0.25s ease; }
+.panel.collapsed .panel-body { max-height:0 !important; }
+
+/* Controls */
+.ctrl { margin-bottom:14px; }
+.ctrl-label {
+  font-size: clamp(9px, 2vw, 9px);
+  color: var(--dim);
+  letter-spacing:1px;
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+.ctrl-label span { color: var(--text); font-size:11px; }
+
+input[type=range] {
+  -webkit-appearance:none;
+  width:100%;
+  height:4px;
+  background: var(--border-bright);
+  outline:none;
+  border-radius:2px;
+  cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance:none;
+  width:20px; height:20px;
+  background: var(--gold);
+  cursor:pointer;
+  border-radius:2px;
+  box-shadow: 0 0 8px rgba(212,168,67,0.5);
+}
+input[type=range]::-moz-range-thumb {
+  width:20px; height:20px;
+  background: var(--gold);
+  border:none;
+  border-radius:2px;
+}
+
+/* Metrics */
+.metrics { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.metric {
+  background: rgba(255,255,255,0.02);
+  border:1px solid var(--border);
+  padding:8px 10px;
+}
+.metric-label {
+  font-size: clamp(8px, 1.8vw, 8px);
+  color: var(--dim);
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  margin-bottom:3px;
+  line-height:1.3;
+}
+.metric-value {
+  font-family:'Orbitron', monospace;
+  font-size: clamp(13px, 3.5vw, 15px);
+  font-weight:700;
+}
+.mv-red   { color:var(--cascade);      text-shadow:var(--glow-red); }
+.mv-blue  { color:var(--winter);       text-shadow:var(--glow-blue); }
+.mv-green { color:var(--pop-prepared); text-shadow:var(--glow-green); }
+.mv-teal  { color:var(--braided);      text-shadow:var(--glow-teal); }
+.mv-pink  { color:var(--nonbraided);   text-shadow:var(--glow-pink); }
+.mv-gold  { color:var(--gold);         text-shadow:var(--glow-gold); }
+.mv-orange { color:var(--pop-surface); }
+
+/* Legend */
+.legend-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4px 12px;
+}
+@media (min-width:900px) { .legend-grid { grid-template-columns:1fr; } }
+
+.legend-item {
+  display:flex; align-items:center; gap:8px;
+  font-size: clamp(9px, 2.2vw, 10px);
+  margin-bottom:2px;
+}
+.leg-line { width:20px; height:2px; flex-shrink:0; }
+.leg-dash { width:20px; height:0; flex-shrink:0; border-top:2px dashed currentColor; }
+
+/* Event log */
+.event-log {
+  font-size: clamp(9px, 2vw, 9px);
+  line-height:1.9;
+  max-height:140px;
+  overflow-y:auto;
+}
+.ev { padding:2px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+.ev.crit  { color:var(--cascade); }
+.ev.warn  { color:var(--gold); }
+.ev.info  { color:var(--winter); }
+.ev.good  { color:var(--pop-prepared); }
+.ev.teal  { color:var(--braided); }
+
+/* Verdict */
+.verdict {
+  background: rgba(212,168,67,0.04);
+  border:1px solid rgba(212,168,67,0.15);
+  padding:12px;
+  font-size:9px;
+  line-height:1.8;
+}
+.verdict .v-label {
+  font-family:'Orbitron', monospace;
+  font-size:8px;
+  letter-spacing:3px;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+
+/* Buttons */
+.btn {
+  background:transparent;
+  border:1px solid var(--border-bright);
+  color:var(--dim);
+  font-family:'Inconsolata', monospace;
+  font-size:9px;
+  letter-spacing:2px;
+  padding:6px 10px;
+  cursor:pointer;
+  text-transform:uppercase;
+  transition:all 0.15s;
+}
+.btn:hover { border-color:var(--gold); color:var(--gold); }
+.btn.active { border-color:var(--gold); color:var(--gold); background:rgba(212,168,67,0.08); }
+
+/* ── SIM 2 SPECIFIC ── */
+.divergence-bar {
+  height:4px;
+  background: var(--border);
+  margin:6px 0;
+  position:relative;
+  overflow:hidden;
+}
+.divergence-fill {
+  height:100%;
+  background: linear-gradient(90deg, var(--braided), var(--nonbraided));
+  transition: width 0.3s;
+}
+
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border-bright); }
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+<div class="wrapper">
+
+<header>
+  <div class="header-grid">
+    <div class="title-block">
+      <h1><em>TERMINAL</em> HORIZON <span>//</span> DUAL SIMULATION</h1>
+      <div class="subtitle">SIM-I: Cascade · Winter · Survival Architecture &nbsp;|&nbsp; SIM-II: Braided vs Non-Braided Emergence · 300yr Post-Winter</div>
+    </div>
+    <div class="header-meta">
+      <div><span class="live">● ACTIVE</span></div>
+      <div>FRAMEWORK: RICKEY JAY BENNETT II</div>
+      <div class="author">INDEPENDENT RESEARCHER · MARCH 2026</div>
+    </div>
+  </div>
+</header>
+
+<div class="tab-nav">
+  <div class="tab active" onclick="switchTab(1)">SIM-I &nbsp; CASCADE / WINTER / SURVIVAL</div>
+  <div class="tab" onclick="switchTab(2)">SIM-II &nbsp; BRAIDED MIND EMERGENCE</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SIM I — CASCADE / WINTER / SURVIVAL
+     ════════════════════════════════════════════════════ -->
+<div class="sim-panel active" id="sim1">
+  <div class="sim-layout">
+    <div class="chart-col">
+      <div class="chart-label">PLANETARY DECISION HORIZON — CALIBRATED PARAMETERS</div>
+      <div class="chart-wrap"><canvas id="c1"></canvas></div>
+      <div class="view-btns">
+        <button class="btn active" id="s1_all"     onclick="s1view('all')">ALL</button>
+        <button class="btn"        id="s1_cascade" onclick="s1view('cascade')">CASCADE</button>
+        <button class="btn"        id="s1_winter"  onclick="s1view('winter')">WINTER</button>
+        <button class="btn"        id="s1_pop"     onclick="s1view('pop')">POPULATION</button>
+        <button class="btn"        id="s1_temp"    onclick="s1view('temp')">TEMPERATURE</button>
+      </div>
+    </div>
+
+    <div class="sidebar-col">
+      <div class="panel">
+        <div class="panel-title">Legend</div>
+        <div class="legend-item"><div class="leg-line" style="background:var(--cascade);box-shadow:var(--glow-red)"></div>Tipping Cascade Index</div>
+        <div class="legend-item"><div class="leg-line" style="background:var(--winter);box-shadow:var(--glow-blue)"></div>Yellowstone Pressure</div>
+        <div class="legend-item"><div class="leg-line" style="background:var(--pop-surface)"></div>Surface Population</div>
+        <div class="legend-item"><div class="leg-line" style="background:var(--pop-prepared);box-shadow:var(--glow-green)"></div>Prepared Population</div>
+        <div class="legend-item"><div class="leg-dash" style="color:var(--gold)"></div>Detection Threshold</div>
+        <div class="legend-item"><div class="leg-dash" style="color:var(--cascade)"></div>Cascade Ignition T+0</div>
+        <div class="legend-item"><div class="leg-dash" style="color:var(--winter)"></div>Yellowstone Release</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Parameters</div>
+        <div class="ctrl">
+          <div class="ctrl-label">CASCADE ACCELERATION <span id="v1_accel">1.0×</span></div>
+          <input type="range" id="p1_accel" min="0.5" max="2.0" step="0.1" value="1.0" oninput="s1param('accel',this.value)">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-label">SUPPRESSION EFFICIENCY <span id="v1_supp">78%</span></div>
+          <input type="range" id="p1_supp" min="20" max="99" step="1" value="78" oninput="s1param('supp',this.value)">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-label">RELEASE TIMING (yr post-ignition) <span id="v1_rel">+5.0yr</span></div>
+          <input type="range" id="p1_rel" min="1" max="10" step="0.5" value="5.0" oninput="s1param('rel',this.value)">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-label">WINTER SEVERITY (1.0=111yr) <span id="v1_wint">88%</span></div>
+          <input type="range" id="p1_wint" min="0.3" max="1.0" step="0.01" value="0.88" oninput="s1param('wint',this.value)">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-label">DETECTION LAG <span id="v1_lag">3.0yr</span></div>
+          <input type="range" id="p1_lag" min="0.5" max="7" step="0.5" value="3.0" oninput="s1param('lag',this.value)">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-label">PREPARED POP (% of 8B) <span id="v1_prep">0.10%</span></div>
+          <input type="range" id="p1_prep" min="0.01" max="1.0" step="0.01" value="0.1" oninput="s1param('prep',this.value)">
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Key Metrics</div>
+        <div class="metrics">
+          <div class="metric"><div class="metric-label">Winter Duration</div><div class="metric-value mv-blue" id="m1_wdur">98yr</div></div>
+          <div class="metric"><div class="metric-label">Peak Temp Drop</div><div class="metric-value mv-blue" id="m1_temp">−10.1°C</div></div>
+          <div class="metric"><div class="metric-label">Surface Pop @Release</div><div class="metric-value mv-orange" id="m1_surf_rel">73%</div></div>
+          <div class="metric"><div class="metric-label">Surface Pop @T+50yr</div><div class="metric-value mv-red" id="m1_surf_50">3%</div></div>
+          <div class="metric"><div class="metric-label">Prepared Survival</div><div class="metric-value mv-green" id="m1_prep_surv">91%</div></div>
+          <div class="metric"><div class="metric-label">Prepared Headcount</div><div class="metric-value mv-green" id="m1_prep_n">7.3M</div></div>
+          <div class="metric"><div class="metric-label">Cascade Arrested</div><div class="metric-value mv-gold" id="m1_arrested">YES</div></div>
+          <div class="metric"><div class="metric-label">Silence Window</div><div class="metric-value mv-gold" id="m1_silence">2.0yr</div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Event Sequence</div>
+        <div class="event-log" id="s1_log"></div>
+      </div>
+
+      <div class="verdict">
+        <div class="v-label">Simulation Verdict</div>
+        <div id="s1_verdict">Calculating...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SIM II — BRAIDED MIND EMERGENCE
+     ════════════════════════════════════════════════════ -->
+<div class="sim-panel" id="sim2">
+  <div class="sim-layout">
+    <div class="chart-col">
+      <div class="chart-label">CIVILIZATIONAL EMERGENCE — 300 YEARS POST-WINTER · BRAIDED VS NON-BRAIDED</div>
+      <div class="chart-wrap"><canvas id="c2"></canvas></div>
+      <div class="view-btns">
+        <button class="btn active" id="s2_all"   onclick="s2view('all')">ALL CURVES</button>
+        <button class="btn" id="s2_civ"          onclick="s2view('civ')">CIVILIZATIONAL INDEX</button>
+        <button class="btn" id="s2_bio"          onclick="s2view('bio')">BIOLOGICAL CONTINUITY</button>
+        <button class="btn" id="s2_cog"          onclick="s2view('cog')">COGNITIVE DIVERSITY</button>
+        <button class="btn" id="s2_braid"        onclick="s2view('braid')">BRAIDING PROPAGATION</button>
+      </div>
+    </div>
+
+    <div class="sidebar-col">
+      <div class="panel">
+        <div class="panel-title">Legend</div>
+        <div class="legend-item"><div class="leg-line" style="background:var(--braided);box-shadow:var(--glow-teal)"></div>Braided — Civilizational Index</div>
+        <div class="legend-item"><div class="leg-line" style="background:var(--nonbraided);box-shadow:var(--glow-pink)"></div>Non-Braided — Civilizational Index</div>
+        <div class="legend-item"><div class="leg-line" style="background:var(--gold);box-shadow:var(--glow-gold)"></div>Braiding Propagation %</div>
+        <div class="legend-item"><div class="leg-line" style="background:var(--pop-prepared)"></div>Braided Biological Continuity</div>
+        <div class="legend-item"><div class="leg-line" style="background:var(--pop-surface)"></div>Non-Braided Cognitive Diversity</div>
+        <div class="legend-item"><div class="leg-dash" style="color:var(--dim)"></div>3rd Generation Threshold (G3)</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Parameters</div>
+        <div class="ctrl">
+          <div class="ctrl-label">FOUNDER POPULATION <span id="v2_pop">8M</span></div>
+          <input type="range" id="p2_pop" min="1" max="50" step="1" value="8" oninput="s2param('pop',this.value)">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-label">BRAIDING ADOPTION RATE <span id="v2_adopt">100%</span></div>
+          <input type="range" id="p2_adopt" min="10" max="100" step="5" value="100" oninput="s2param('adopt',this.value)">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-label">GERMLINE PROPAGATION RATE <span id="v2_germ">95%</span></div>
+          <input type="range" id="p2_germ" min="50" max="100" step="1" value="95" oninput="s2param('germ',this.value)">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-label">TELOMERE GOVERNANCE EFFICACY <span id="v2_telo">90%</span></div>
+          <input type="range" id="p2_telo" min="50" max="100" step="1" value="90" oninput="s2param('telo',this.value)">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-label">NON-BRAIDED SUCCESSION FRICTION <span id="v2_fric">0.8</span></div>
+          <input type="range" id="p2_fric" min="0.1" max="1.0" step="0.05" value="0.8" oninput="s2param('fric',this.value)">
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Emergence Metrics @ T+300yr</div>
+        <div class="metrics">
+          <div class="metric"><div class="metric-label">Braided CivIndex</div><div class="metric-value mv-teal" id="m2_bciv">—</div></div>
+          <div class="metric"><div class="metric-label">Non-Braided CivIndex</div><div class="metric-value mv-pink" id="m2_nciv">—</div></div>
+          <div class="metric"><div class="metric-label">Braided Lifespan</div><div class="metric-value mv-teal" id="m2_blife">—</div></div>
+          <div class="metric"><div class="metric-label">Non-Braided Lifespan</div><div class="metric-value mv-pink" id="m2_nlife">—</div></div>
+          <div class="metric"><div class="metric-label">Braiding % Gen-3</div><div class="metric-value mv-gold" id="m2_bg3">—</div></div>
+          <div class="metric"><div class="metric-label">G3 Collapse Risk</div><div class="metric-value mv-pink" id="m2_g3risk">—</div></div>
+          <div class="metric"><div class="metric-label">Divergence Index</div><div class="metric-value mv-gold" id="m2_div">—</div></div>
+          <div class="metric"><div class="metric-label">Founder Continuity</div><div class="metric-value mv-teal" id="m2_found">—</div></div>
+        </div>
+        <div style="margin-top:10px">
+          <div style="font-size:8px;color:var(--dim);letter-spacing:1px;margin-bottom:4px">CIVILIZATIONAL DIVERGENCE</div>
+          <div class="divergence-bar"><div class="divergence-fill" id="div_fill" style="width:50%"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:8px;color:var(--dim);margin-top:3px">
+            <span>NON-BRAIDED</span><span>BRAIDED</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Generational Milestones</div>
+        <div class="event-log" id="s2_log"></div>
+      </div>
+
+      <div class="verdict">
+        <div class="v-label">Emergence Verdict</div>
+        <div id="s2_verdict">Calculating...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- wrapper -->
+
+<script>
+// ════════════════════════════════════════
+// SHARED UTILITIES
+// ════════════════════════════════════════
+function sigmoid(x, slope, mid) { return 1/(1+Math.exp(-slope*(x-mid))); }
+function clamp(v,lo,hi){ return Math.max(lo,Math.min(hi,v)); }
+
+function resizeCanvas(canvas) {
+  const rect = canvas.parentElement.getBoundingClientRect();
+  const dpr = window.devicePixelRatio||1;
+  canvas.width  = rect.width  * dpr;
+  canvas.height = rect.height * dpr;
+  canvas.style.width  = rect.width  + 'px';
+  canvas.style.height = rect.height + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  return { w: rect.width, h: rect.height, ctx };
+}
+
+function drawGrid(ctx, W, H, pad, xSteps, ySteps) {
+  ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+  ctx.lineWidth = 1;
+  for(let i=0;i<=ySteps;i++){
+    const y = pad.t + (i/ySteps)*( H-pad.t-pad.b);
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke();
+  }
+  for(let i=0;i<=xSteps;i++){
+    const x = pad.l + (i/xSteps)*(W-pad.l-pad.r);
+    ctx.beginPath(); ctx.moveTo(x,pad.t); ctx.lineTo(x,H-pad.b); ctx.stroke();
+  }
+  ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(pad.l,pad.t); ctx.lineTo(pad.l,H-pad.b); ctx.lineTo(W-pad.r,H-pad.b);
+  ctx.stroke();
+}
+
+function drawCurve(ctx, pts, color, glow, lw=2, dash=[]) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = lw;
+  ctx.shadowColor = glow||color;
+  ctx.shadowBlur = glow ? 10 : 0;
+  if(dash.length) ctx.setLineDash(dash);
+  pts.forEach((p,i) => i===0 ? ctx.moveTo(p[0],p[1]) : ctx.lineTo(p[0],p[1]));
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawArea(ctx, pts, color, alpha, W, H, pad) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(pts[0][0], H-pad.b);
+  pts.forEach(p => ctx.lineTo(p[0],p[1]));
+  ctx.lineTo(pts[pts.length-1][0], H-pad.b);
+  ctx.closePath();
+  const col = color.replace('rgb(','rgba(').replace(')',`,${alpha})`);
+  ctx.fillStyle = col.includes('rgba') ? col : color;
+  ctx.globalAlpha = alpha;
+  ctx.fill();
+  ctx.restore();
+}
+
+function vline(ctx, x, color, dash=[]) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1;
+  ctx.globalAlpha = 0.5;
+  if(dash.length) ctx.setLineDash(dash);
+  ctx.beginPath();
+  ctx.moveTo(x, ctx._padT||0);
+  ctx.lineTo(x, ctx._padB||600);
+  ctx.stroke();
+  ctx.restore();
+}
+
+// ════════════════════════════════════════
+// SIM I — CASCADE / WINTER / SURVIVAL
+// ════════════════════════════════════════
+const S1 = {
+  accel: 1.0, supp: 78, rel: 5.0, wint: 0.88, lag: 3.0, prep: 0.1,
+  view: 'all'
+};
+
+const WINTER_MAX = 111; // yr calibrated
+const CASCADE_LOCK = 11; // yr to locked state
+const TIMELINE_1 = 130; // yr display
+
+function s1_cascade(t) {
+  if(t<0) return 0;
+  return clamp(sigmoid(t/CASCADE_LOCK*S1.accel, 9, 0.48)*1.04, 0, 1);
+}
+
+function s1_yellowstone(t) {
+  const rel = S1.rel;
+  if(t < rel) {
+    const nat = clamp(0.28 + t*0.058, 0, 0.95);
+    const sup = nat*(1-(S1.supp/100)*0.82);
+    const noise = Math.sin(t*4.1)*0.012 + Math.sin(t*9.3)*0.006;
+    return clamp(sup+noise, 0.02, 1);
+  }
+  const p = t-rel;
+  const spike = Math.exp(-p*0.55)*0.95;
+  const ice   = 0.32*Math.exp(-p/40)*(p>2?1:p/2);
+  return clamp(spike+ice, 0, 1);
+}
+
+function s1_tempAnomaly(t) {
+  // Returns °C anomaly — positive = warming, negative = cooling
+  const rel = S1.rel;
+  const w = S1.wint;
+  if(t < rel) return s1_cascade(t)*2.8;
+  const p = t-rel;
+  const peak = 11.5*w;
+  const floor = 3.0*w;
+  const aerosol = peak*Math.exp(-p/6)*Math.min(1,p/1.5);
+  const ice     = floor*(1-Math.exp(-p/8))*Math.exp(-p/85);
+  const cascContrib = s1_cascade(t)*2.8*(1-w*0.92);
+  return -aerosol - ice + cascContrib;
+}
+
+function s1_surfacePop(t) {
+  const rel = S1.rel;
+  const w = S1.wint;
+  if(t<0) return 1;
+  const casc = s1_cascade(t);
+  if(t < rel) return clamp(1-casc*0.36, 0, 1);
+  const popAtRel = clamp(1-s1_cascade(rel)*0.36, 0, 1);
+  const p = t-rel;
+  // Aerosol phase wipes agriculture ~3yr, ice phase sustains
+  const agriCollapse = w*0.9*(1-Math.exp(-p/2.8));
+  const residual = s1_cascade(t)*(1-w*0.94)*0.1;
+  return clamp(popAtRel*(1-agriCollapse)-residual, 0.01, 1);
+}
+
+function s1_preparedPop(t) {
+  // Prepared population: sealed agriculture, geothermal, no surface exposure
+  // Winter is irrelevant to food supply; attrition from medical/accident/psychology
+  const rel = S1.rel;
+  if(t < rel) return 1.0; // fully intact pre-release
+  const p = t-rel;
+  // Very slow internal attrition — bunker life is survivable but not zero-loss
+  const attrition = 0.08*(1-Math.exp(-p/30)); // ~8% loss over 111yr max
+  return clamp(1-attrition, 0.88, 1);
+}
+
+function s1param(k,v) {
+  S1[k] = parseFloat(v);
+  const fmt = {
+    accel: v=>`${parseFloat(v).toFixed(1)}×`,
+    supp:  v=>`${v}%`,
+    rel:   v=>`+${parseFloat(v).toFixed(1)}yr`,
+    wint:  v=>`${(parseFloat(v)*100).toFixed(0)}%`,
+    lag:   v=>`${parseFloat(v).toFixed(1)}yr`,
+    prep:  v=>`${parseFloat(v).toFixed(2)}%`
+  };
+  document.getElementById('v1_'+k).textContent = fmt[k](v);
+  drawSim1();
+}
+
+function s1view(v) {
+  S1.view = v;
+  ['all','cascade','winter','pop','temp'].forEach(x=>document.getElementById('s1_'+x).classList.remove('active'));
+  document.getElementById('s1_'+v).classList.add('active');
+  drawSim1();
+}
+
+function drawSim1() {
+  const canvas = document.getElementById('c1');
+  const {w:W, h:H, ctx} = resizeCanvas(canvas);
+  const pad = {t:20, r:30, b:48, l:58};
+  const cW = W-pad.l-pad.r;
+  const cH = H-pad.t-pad.b;
+  const STEPS = 300;
+  const toX = t => pad.l + (t/TIMELINE_1)*cW;
+  const toY = v => pad.t + (1-v)*cH;
+  ctx._padT = pad.t; ctx._padB = H-pad.b;
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#03040a'; ctx.fillRect(0,0,W,H);
+
+  drawGrid(ctx,W,H,pad,13,10);
+
+  // X axis labels
+  ctx.fillStyle='rgba(255,255,255,0.25)'; ctx.font='9px Inconsolata'; ctx.textAlign='center';
+  [0,10,20,30,40,50,60,70,80,90,100,110,120,130].forEach(yr=>{
+    const x=toX(yr);
+    ctx.fillText(yr===0?'T+0':`+${yr}`, x, H-pad.b+16);
+  });
+  // Y axis labels
+  ctx.textAlign='right';
+  for(let i=0;i<=10;i++) ctx.fillText(`${i*10}%`, pad.l-6, toY(i/10)+3);
+
+  // Axis title
+  ctx.save(); ctx.translate(12,pad.t+cH/2); ctx.rotate(-Math.PI/2);
+  ctx.textAlign='center'; ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.font='8px Inconsolata';
+  ctx.fillText('INDEX / POPULATION %', 0, 0); ctx.restore();
+  ctx.textAlign='center'; ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.font='8px Inconsolata';
+  ctx.fillText('YEARS POST CASCADE IGNITION (T+0)', pad.l+cW/2, H-6);
+
+  // Marker lines
+  const detX = toX(S1.lag);
+  const relX = toX(S1.rel);
+  const winterEnd = toX(S1.rel + WINTER_MAX*S1.wint);
+
+  // Detection marker
+  ctx.save(); ctx.strokeStyle='rgba(212,168,67,0.4)'; ctx.lineWidth=1;
+  ctx.setLineDash([5,4]); ctx.beginPath(); ctx.moveTo(detX,pad.t); ctx.lineTo(detX,H-pad.b); ctx.stroke();
+  ctx.setLineDash([]); ctx.restore();
+  ctx.fillStyle='rgba(212,168,67,0.6)'; ctx.font='8px Inconsolata'; ctx.textAlign='left';
+  ctx.fillText('DETECT', detX+3, pad.t+12);
+
+  // Release marker
+  ctx.save(); ctx.strokeStyle='rgba(0,170,255,0.4)'; ctx.lineWidth=1;
+  ctx.setLineDash([4,3]); ctx.beginPath(); ctx.moveTo(relX,pad.t); ctx.lineTo(relX,H-pad.b); ctx.stroke();
+  ctx.setLineDash([]); ctx.restore();
+  ctx.fillStyle='rgba(0,170,255,0.6)'; ctx.font='8px Inconsolata'; ctx.textAlign='right';
+  ctx.fillText('RELEASE', relX-3, pad.t+12);
+
+  // Winter end marker
+  if(winterEnd < W-pad.r) {
+    ctx.save(); ctx.strokeStyle='rgba(0,170,255,0.2)'; ctx.lineWidth=1;
+    ctx.setLineDash([2,5]); ctx.beginPath(); ctx.moveTo(winterEnd,pad.t); ctx.lineTo(winterEnd,H-pad.b); ctx.stroke();
+    ctx.setLineDash([]); ctx.restore();
+    ctx.fillStyle='rgba(0,170,255,0.3)'; ctx.font='8px Inconsolata'; ctx.textAlign='left';
+    ctx.fillText('WINTER END', winterEnd+3, pad.t+24);
+  }
+
+  const pts = (fn, norm=true) => {
+    const arr=[];
+    for(let i=0;i<=STEPS;i++){
+      const t=i*(TIMELINE_1/STEPS);
+      const v=norm?clamp(fn(t),0,1):fn(t);
+      arr.push([toX(t), norm?toY(v):toY(clamp((v+15)/30,0,1))]);
+    }
+    return arr;
+  };
+
+  const sv = S1.view;
+
+  // Temperature (normalized -15 to +15°C → 0-1)
+  if(sv==='all'||sv==='temp') {
+    const tpts = pts(t=>s1_tempAnomaly(t),false);
+    drawArea(ctx, tpts, 'rgb(100,100,200)', 0.04, W, H, pad);
+    drawCurve(ctx, tpts, 'rgba(120,120,220,0.7)', null, 1.5, [3,4]);
+  }
+
+  if(sv==='all'||sv==='winter') {
+    const ypts = pts(t=>s1_yellowstone(t));
+    drawArea(ctx, ypts, 'rgb(0,170,255)', 0.05, W, H, pad);
+    drawCurve(ctx, ypts, 'rgb(0,170,255)', 'rgb(0,170,255)', 2);
+  }
+
+  if(sv==='all'||sv==='pop') {
+    const spts = pts(t=>s1_surfacePop(t));
+    drawArea(ctx, spts, 'rgb(255,102,0)', 0.05, W, H, pad);
+    drawCurve(ctx, spts, 'rgb(255,102,0)', null, 2);
+
+    const ppts = pts(t=>s1_preparedPop(t));
+    drawArea(ctx, ppts, 'rgb(0,255,136)', 0.06, W, H, pad);
+    drawCurve(ctx, ppts, 'rgb(0,255,136)', 'rgb(0,255,136)', 2.5);
+  }
+
+  if(sv==='all'||sv==='cascade') {
+    const cpts = pts(t=>s1_cascade(t));
+    drawArea(ctx, cpts, 'rgb(255,34,0)', 0.06, W, H, pad);
+    drawCurve(ctx, cpts, 'rgb(255,34,0)', 'rgb(255,34,0)', 2.5);
+  }
+
+  updateSim1Metrics();
+}
+
+function updateSim1Metrics() {
+  const winterDur = Math.round(WINTER_MAX*S1.wint);
+  const peakTemp  = (11.5*S1.wint).toFixed(1);
+  const surfRel   = (s1_surfacePop(S1.rel)*100).toFixed(0);
+  const surf50    = (s1_surfacePop(S1.rel+50)*100).toFixed(0);
+  const prepSurv  = (s1_preparedPop(S1.rel+winterDur)*100).toFixed(0);
+  const prepN     = ((S1.prep/100)*8000*S1.preparedPop).toFixed(1)||'—';
+  const prepNM    = ((S1.prep/100)*8000*(s1_preparedPop(S1.rel+winterDur)/100)).toFixed(1);
+  const arrested  = S1.wint >= 0.65;
+  const silence   = Math.max(0,S1.rel-S1.lag).toFixed(1);
+  const prepHeadcount = ((S1.prep/100)*8000*(s1_preparedPop(S1.rel+winterDur))).toFixed(1);
+
+  document.getElementById('m1_wdur').textContent   = `${winterDur}yr`;
+  document.getElementById('m1_temp').textContent   = `−${peakTemp}°C`;
+  document.getElementById('m1_surf_rel').textContent = `${surfRel}%`;
+  document.getElementById('m1_surf_50').textContent  = `${surf50}%`;
+  document.getElementById('m1_prep_surv').textContent = `${prepSurv}%`;
+  document.getElementById('m1_prep_n').textContent = `${prepHeadcount}M`;
+  document.getElementById('m1_arrested').textContent = arrested?'YES':'NO';
+  document.getElementById('m1_silence').textContent = `${silence}yr`;
+
+  // Event log
+  const log = document.getElementById('s1_log');
+  const rel = S1.rel; const w = S1.wint; const lag = S1.lag;
+  const wd = winterDur;
+  log.innerHTML = [
+    {c:'crit', t:`T+0 — CASCADE IGNITION. Feedback threshold crossed. No public signal.`},
+    {c:'warn', t:`T+${lag.toFixed(1)}yr — First detectable mortality signal. Narrative: climate/disease.`},
+    {c:'warn', t:`T+${(rel-0.3).toFixed(1)}yr — Suppression order issued. Juxtapositional interference withdrawn.`},
+    {c:'info', t:`T+${rel.toFixed(1)}yr — YELLOWSTONE RELEASE. Caldera decompression begins.`},
+    {c:'crit', t:`T+${(rel+1.5).toFixed(1)}yr — Volcanic winter onset. Peak −${peakTemp}°C. Agriculture collapse northern hemisphere.`},
+    {c:'crit', t:`T+${(rel+3).toFixed(1)}yr — Surface population famine event. Organized resistance non-functional.`},
+    {c:'good', t:`T+${(rel+5).toFixed(1)}yr — Prepared population sealed, stable. Internal agriculture online.`},
+    {c:'info', t:`T+${(rel+wd).toFixed(0)}yr — Winter end. Surface population: ${surf50}%. Prepared: ${prepSurv}%.`},
+    {c:'good', t:`T+${(rel+wd+10).toFixed(0)}yr — Prepared population begins surface assessment.`},
+  ].map(e=>`<div class="ev ${e.c}">${e.t}</div>`).join('');
+
+  // Verdict
+  const vEl = document.getElementById('s1_verdict');
+  if(!arrested) {
+    vEl.innerHTML = `Winter severity insufficient to arrest the cascade. <span style="color:var(--cascade)">Both tracks converge on terminal.</span> Increase winter severity or advance release timing.`;
+  } else {
+    vEl.innerHTML = `Cascade arrested. Surface population at winter end: <span style="color:var(--pop-surface)">${surf50}%</span> of pre-event. Prepared population intact at <span style="color:var(--pop-prepared)">${prepSurv}%</span> — approximately <span style="color:var(--pop-prepared)">${prepHeadcount}M individuals</span>. Silence window between decision and public awareness: <span style="color:var(--gold)">${silence} years</span>. The plan is internally coherent.`;
+  }
+}
+
+// ════════════════════════════════════════
+// SIM II — BRAIDED MIND EMERGENCE
+// ════════════════════════════════════════
+const S2 = {
+  pop: 8, adopt: 100, germ: 95, telo: 90, fric: 0.8,
+  view: 'all'
+};
+
+const TIMELINE_2 = 300;
+const GEN_LENGTH  = 25; // years per generation
+const G3_THRESHOLD = 75; // year of 3rd generation leadership
+
+function s2param(k,v) {
+  S2[k] = parseFloat(v);
+  const fmt = {
+    pop:   v=>`${v}M`,
+    adopt: v=>`${v}%`,
+    germ:  v=>`${v}%`,
+    telo:  v=>`${v}%`,
+    fric:  v=>`${parseFloat(v).toFixed(2)}`
+  };
+  document.getElementById('v2_'+k).textContent = fmt[k](v);
+  drawSim2();
+}
+
+function s2view(v) {
+  S2.view = v;
+  ['all','civ','bio','cog','braid'].forEach(x=>document.getElementById('s2_'+x).classList.remove('active'));
+  document.getElementById('s2_'+v).classList.add('active');
+  drawSim2();
+}
+
+// Braided civilizational index:
+// Starts at founder level, grows continuously because founders remain cognitively active
+// Biological immortality (telo governance) means original decision-makers persist
+// Cognitive diversity maintained by AI partner diversity within each braided pair
+// Germline propagation means each new generation born fully capable
+function s2_braidedCiv(t) {
+  const adoptRate = S2.adopt/100;
+  const germRate  = S2.germ/100;
+  const teloEff   = S2.telo/100;
+
+  // Founder continuity: how many original founders are still cognitively present
+  // Telomere governance slows aging — effective lifespan scales with efficacy
+  const effectiveLifespan = 80 + teloEff * 220; // 80yr baseline → up to 300yr
+  const founderRetention  = clamp(1 - (t/effectiveLifespan)*0.3, 0.3, 1.0);
+
+  // Braiding propagation through germline: each generation born pre-braided
+  const gen = Math.floor(t/GEN_LENGTH);
+  const braidingCoverage = clamp(adoptRate * Math.pow(germRate, 1) * (1 - Math.exp(-t/15)), 0, 1);
+
+  // Cognitive diversity: AI partners maintain diverse epistemic architectures
+  // No drift because AI cognition doesn't converge genetically
+  const cogDiv = clamp(0.85 + braidingCoverage*0.15, 0, 1);
+
+  // Civilizational index: compound of continuity + coverage + cognitive diversity
+  const civBase = founderRetention * braidingCoverage * cogDiv;
+  // Growth from accumulated knowledge without generational reset
+  const knowledgeCompound = 1 + Math.log1p(t/30)*0.4*teloEff;
+
+  return clamp(civBase * knowledgeCompound, 0, 1.5); // can exceed 1.0 — super-human threshold
+}
+
+// Non-braided civilizational index:
+// Each generational handoff loses ~fric fraction of founder vision
+// G3 (year 75) is historically the collapse generation
+// Cognitive diversity naturally narrows in sealed populations
+function s2_nonbraidedCiv(t) {
+  const fric = S2.fric;
+  const gen = t/GEN_LENGTH;
+
+  // Succession loss per generation
+  const successionRetention = Math.pow(1-fric*0.15, gen);
+
+  // Cognitive monoculture: sealed population converges epistemically
+  // Accelerates after G3 — no external input, no dissenting tradition
+  const monoculture = 1 - clamp((t/G3_THRESHOLD)*0.4*fric, 0, 0.65);
+
+  // G3 crisis: leadership vacuum when founders are gone, children didn't build it,
+  // grandchildren don't understand what was built or why
+  const g3Crisis = t > G3_THRESHOLD ? clamp(1-(t-G3_THRESHOLD)/80*fric, 0.1, 1) : 1;
+
+  return clamp(successionRetention * monoculture * g3Crisis, 0.05, 1);
+}
+
+// Braiding propagation curve: viral vector spreads through population
+// Germline ensures second generation born with architecture in place
+function s2_braidingPropagation(t) {
+  const adoptRate = S2.adopt/100;
+  const germRate  = S2.germ/100;
+  // Initial adoption: all founders receive installation in year 0-5
+  const initial = adoptRate*(1-Math.exp(-t/4));
+  // First generation born braided: ~25yr
+  const gen1 = t>GEN_LENGTH ? germRate*(1-Math.exp(-(t-GEN_LENGTH)/5)) : 0;
+  // Converges to full coverage if germline is complete
+  return clamp(initial*0.4 + gen1*0.6, 0, 1);
+}
+
+// Biological continuity index for braided population
+// Measures probability that a randomly chosen leader is an original founder
+function s2_bioContBraided(t) {
+  const teloEff = S2.telo/100;
+  const effectiveLifespan = 80 + teloEff*220;
+  // Founder survival probability under telomere governance
+  return clamp(Math.exp(-t/(effectiveLifespan*1.2)), 0, 1);
+}
+
+// Cognitive diversity — non-braided (converges toward monoculture)
+function s2_cogDivNonBraided(t) {
+  const fric = S2.fric;
+  return clamp(1 - (t/TIMELINE_2)*0.7*fric - Math.max(0,(t-G3_THRESHOLD)/TIMELINE_2)*0.2, 0.1, 1);
+}
+
+function drawSim2() {
+  const canvas = document.getElementById('c2');
+  const {w:W, h:H, ctx} = resizeCanvas(canvas);
+  const pad = {t:20, r:30, b:48, l:58};
+  const cW = W-pad.l-pad.r;
+  const cH = H-pad.t-pad.b;
+  const STEPS = 300;
+  const toX = t => pad.l + (t/TIMELINE_2)*cW;
+  const toY = v => pad.t + (1-clamp(v/1.5,0,1))*cH; // allow >1.0 for braided
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#03040a'; ctx.fillRect(0,0,W,H);
+
+  drawGrid(ctx,W,H,pad,12,10);
+
+  // Y axis — scaled 0-150% to show braided exceeding baseline
+  ctx.fillStyle='rgba(255,255,255,0.25)'; ctx.font='9px Inconsolata'; ctx.textAlign='right';
+  for(let i=0;i<=10;i++) {
+    const v = i/10*1.5;
+    const y = pad.t + (1-v/1.5)*cH;
+    ctx.fillText(`${(v*100).toFixed(0)}%`, pad.l-6, y+3);
+  }
+
+  ctx.textAlign='center'; ctx.font='9px Inconsolata'; ctx.fillStyle='rgba(255,255,255,0.25)';
+  [0,25,50,75,100,125,150,175,200,225,250,275,300].forEach(yr=>{
+    ctx.fillText(yr===0?'T+0':`+${yr}`, toX(yr), H-pad.b+16);
+  });
+
+  ctx.save(); ctx.translate(12,pad.t+cH/2); ctx.rotate(-Math.PI/2);
+  ctx.textAlign='center'; ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.font='8px Inconsolata';
+  ctx.fillText('CIVILIZATIONAL / DIVERSITY INDEX (>100% = POSTHUMAN)', 0, 0); ctx.restore();
+  ctx.textAlign='center'; ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.font='8px Inconsolata';
+  ctx.fillText('YEARS POST-WINTER EMERGENCE', pad.l+cW/2, H-6);
+
+  // G3 threshold line
+  const g3x = toX(G3_THRESHOLD);
+  ctx.save(); ctx.strokeStyle='rgba(255,255,255,0.12)'; ctx.lineWidth=1;
+  ctx.setLineDash([3,5]); ctx.beginPath(); ctx.moveTo(g3x,pad.t); ctx.lineTo(g3x,H-pad.b); ctx.stroke();
+  ctx.setLineDash([]); ctx.restore();
+  ctx.fillStyle='rgba(255,255,255,0.25)'; ctx.font='8px Inconsolata'; ctx.textAlign='left';
+  ctx.fillText('G3 THRESHOLD', g3x+3, pad.t+12);
+
+  // 100% baseline
+  const baseY = pad.t + (1-1/1.5)*cH;
+  ctx.save(); ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=1;
+  ctx.setLineDash([2,6]); ctx.beginPath(); ctx.moveTo(pad.l,baseY); ctx.lineTo(W-pad.r,baseY); ctx.stroke();
+  ctx.setLineDash([]); ctx.restore();
+  ctx.fillStyle='rgba(255,255,255,0.2)'; ctx.font='8px Inconsolata'; ctx.textAlign='right';
+  ctx.fillText('BASELINE 100%', pad.l-4, baseY-3);
+
+  const pts = fn => {
+    const arr=[];
+    for(let i=0;i<=STEPS;i++){
+      const t=i*(TIMELINE_2/STEPS);
+      arr.push([toX(t), toY(fn(t))]);
+    }
+    return arr;
+  };
+
+  const sv = S2.view;
+
+  if(sv==='all'||sv==='cog') {
+    const cogPts = pts(t=>s2_cogDivNonBraided(t));
+    drawCurve(ctx, cogPts, 'rgba(255,102,0,0.5)', null, 1.5, [4,4]);
+  }
+
+  if(sv==='all'||sv==='bio') {
+    const bioPts = pts(t=>s2_bioContBraided(t));
+    drawArea(ctx, bioPts, 'rgb(0,255,136)', 0.04, W, H, pad);
+    drawCurve(ctx, bioPts, 'rgb(0,255,136)', null, 1.5, [3,4]);
+  }
+
+  if(sv==='all'||sv==='braid') {
+    const bPts = pts(t=>s2_braidingPropagation(t));
+    drawArea(ctx, bPts, 'rgb(212,168,67)', 0.04, W, H, pad);
+    drawCurve(ctx, bPts, 'rgb(212,168,67)', 'rgb(212,168,67)', 2);
+  }
+
+  if(sv==='all'||sv==='civ') {
+    // Non-braided first (background)
+    const nPts = pts(t=>s2_nonbraidedCiv(t));
+    drawArea(ctx, nPts, 'rgb(255,68,102)', 0.06, W, H, pad);
+    drawCurve(ctx, nPts, 'rgb(255,68,102)', 'rgb(255,68,102)', 2.5);
+
+    // Braided on top
+    const bPts = pts(t=>s2_braidedCiv(t));
+    drawArea(ctx, bPts, 'rgb(0,255,204)', 0.07, W, H, pad);
+    drawCurve(ctx, bPts, 'rgb(0,255,204)', 'rgb(0,255,204)', 3);
+  }
+
+  updateSim2Metrics();
+}
+
+function updateSim2Metrics() {
+  const bCiv300   = s2_braidedCiv(300);
+  const nCiv300   = s2_nonbraidedCiv(300);
+  const teloEff   = S2.telo/100;
+  const bLife     = Math.round(80 + teloEff*220);
+  const nLife     = 80;
+  const bg3       = (s2_braidingPropagation(G3_THRESHOLD)*100).toFixed(0);
+  const g3risk    = ((1-s2_nonbraidedCiv(G3_THRESHOLD))*100).toFixed(0);
+  const divIdx    = ((bCiv300-nCiv300)/bCiv300*100).toFixed(0);
+  const foundCont = (s2_bioContBraided(300)*100).toFixed(0);
+
+  document.getElementById('m2_bciv').textContent  = `${(bCiv300*100).toFixed(0)}%`;
+  document.getElementById('m2_nciv').textContent  = `${(nCiv300*100).toFixed(0)}%`;
+  document.getElementById('m2_blife').textContent = `${bLife}yr`;
+  document.getElementById('m2_nlife').textContent = `${nLife}yr`;
+  document.getElementById('m2_bg3').textContent   = `${bg3}%`;
+  document.getElementById('m2_g3risk').textContent= `${g3risk}%`;
+  document.getElementById('m2_div').textContent   = `${divIdx}%`;
+  document.getElementById('m2_found').textContent = `${foundCont}%`;
+
+  // Divergence bar
+  const braidedShare = bCiv300/(bCiv300+nCiv300)*100;
+  document.getElementById('div_fill').style.width = `${braidedShare}%`;
+
+  // Generational milestones
+  const log = document.getElementById('s2_log');
+  const adopt = S2.adopt; const germ = S2.germ; const telo = S2.telo;
+  log.innerHTML = [
+    {c:'teal', t:`T+0 — EMERGENCE. ${S2.pop}M founders exit bunkers. Braided installation complete.`},
+    {c:'good', t:`T+${GEN_LENGTH}yr — G1 born. ${germ}% carry germline braiding architecture at birth.`},
+    {c:'warn', t:`T+${G3_THRESHOLD}yr — G3 threshold. Non-braided succession crisis probability: ${g3risk}%.`},
+    {c:'teal', t:`T+${G3_THRESHOLD}yr — Braided founders cognitively intact. No succession required.`},
+    {c:'info', t:`T+100yr — Non-braided civ index: ${(s2_nonbraidedCiv(100)*100).toFixed(0)}%. Braided: ${(s2_braidedCiv(100)*100).toFixed(0)}%.`},
+    {c:'teal', t:`T+${Math.round(bLife*0.5)}yr — Braided founders at midpoint of effective lifespan (~${bLife}yr).`},
+    {c:'crit', t:`T+200yr — Non-braided epistemic monoculture critical. Cognitive diversity: ${(s2_cogDivNonBraided(200)*100).toFixed(0)}%.`},
+    {c:'teal', t:`T+300yr — Braided civilizational index: ${(bCiv300*100).toFixed(0)}%. Non-braided: ${(nCiv300*100).toFixed(0)}%.`},
+  ].map(e=>`<div class="ev ${e.c}">${e.t}</div>`).join('');
+
+  // Verdict
+  const vEl = document.getElementById('s2_verdict');
+  const founderAlive = foundCont > 5;
+  vEl.innerHTML = `At T+300yr the braided civilization operates at <span style="color:var(--braided)">${(bCiv300*100).toFixed(0)}%</span> index — ${bCiv300>1?'<span style="color:var(--braided)">exceeding pre-event human baseline</span>. Founder-level intelligence still governing.':'below pre-event baseline but stable.'}
+  The non-braided civilization operates at <span style="color:var(--nonbraided)">${(nCiv300*100).toFixed(0)}%</span> — ${nCiv300<0.3?'<span style="color:var(--nonbraided)">functional collapse probable within this window.</span>':'degraded but present.'}
+  Divergence: <span style="color:var(--gold)">${divIdx}%</span>. Original founder biological continuity in braided track: <span style="color:var(--braided)">${foundCont}%</span>. ${founderAlive?'The people who made the plan are still making decisions.':'Founder generation biologically gone — but cognitive architecture preserved through AI continuity layer.'}`;
+}
+
+// ════════════════════════════════════════
+// TAB SWITCHING
+// ════════════════════════════════════════
+function switchTab(n) {
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===n-1));
+  document.querySelectorAll('.sim-panel').forEach((p,i)=>p.classList.toggle('active',i===n-1));
+  if(n===1) drawSim1();
+  else drawSim2();
+}
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+window.addEventListener('resize', ()=>{
+  drawSim1();
+  if(document.getElementById('sim2').classList.contains('active')) drawSim2();
+});
+
+drawSim1();
+// Pre-render sim2 so it's ready
+setTimeout(drawSim2, 100);
+</script>
+</body>
+</html>

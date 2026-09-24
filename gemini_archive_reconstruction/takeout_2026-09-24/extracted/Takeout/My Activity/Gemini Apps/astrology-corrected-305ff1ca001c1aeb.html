@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corrected Zodiac — 13 Signs / Actual Stellar Positions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #03030A; --surface: #07071A; --border: #141430;
+    --gold: #C8A96E; --gold-dim: #7A6640;
+    --serpent: #3D7A61; --serpent-bright: #5AB08A;
+    --sun: #FFD866; --sun-glow: rgba(255,216,102,0.18);
+    --moon: #B0C4DE; --text: #E0E2F0; --muted: #6870A0;
+  }
+  html,body { background:var(--bg); color:var(--text); font-family:'JetBrains Mono',monospace; font-size:14px; line-height:1.6; min-height:100vh; }
+  body::before { content:''; position:fixed; inset:0; background-image:
+    radial-gradient(1px 1px at 12% 18%,rgba(200,169,110,.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 34% 7%, rgba(224,226,240,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 67% 23%,rgba(224,226,240,.25) 0%,transparent 100%),
+    radial-gradient(1px 1px at 89% 11%,rgba(200,169,110,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 5%  44%,rgba(224,226,240,.2) 0%,transparent 100%),
+    radial-gradient(1px 1px at 78% 55%,rgba(200,169,110,.2) 0%,transparent 100%),
+    radial-gradient(1px 1px at 23% 71%,rgba(224,226,240,.15) 0%,transparent 100%),
+    radial-gradient(1px 1px at 56% 82%,rgba(224,226,240,.2) 0%,transparent 100%),
+    radial-gradient(1px 1px at 91% 78%,rgba(200,169,110,.25) 0%,transparent 100%);
+    pointer-events:none; z-index:0; }
+  .wrap { position:relative; z-index:1; max-width:900px; margin:0 auto; padding:3rem 1.5rem 5rem; }
+  h1.site-title { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,5vw,3rem); font-weight:300; letter-spacing:.08em; color:var(--gold); text-transform:uppercase; margin-bottom:.25rem; }
+  .site-sub { font-size:.72rem; color:var(--muted); letter-spacing:.18em; text-transform:uppercase; margin-bottom:2rem; }
+  .source-badge { display:inline-flex; align-items:center; gap:.5rem; background:var(--surface); border:1px solid var(--border); border-radius:2px; padding:.4rem .8rem; font-size:.68rem; color:var(--muted); letter-spacing:.12em; margin-bottom:2rem; }
+  .source-badge .dot { width:6px; height:6px; border-radius:50%; background:var(--serpent-bright); animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .input-panel { background:var(--surface); border:1px solid var(--border); padding:1.5rem; margin-bottom:2rem; }
+  .input-label { font-size:.7rem; color:var(--muted); letter-spacing:.2em; text-transform:uppercase; display:block; margin-bottom:.6rem; }
+  .input-row { display:flex; gap:.75rem; flex-wrap:wrap; align-items:flex-end; margin-bottom:.6rem; }
+  .input-row:last-of-type { margin-bottom:0; }
+  input[type="date"],input[type="time"],input[type="number"] {
+    background:var(--bg); border:1px solid var(--gold-dim); color:var(--text);
+    font-family:'JetBrains Mono',monospace; font-size:.95rem; padding:.55rem .8rem; outline:none; transition:border-color .2s;
+  }
+  input[type="date"]:focus,input[type="time"]:focus,input[type="number"]:focus { border-color:var(--gold); }
+  input[type="date"] { min-width:160px; } input[type="time"] { width:120px; }
+  input[type="number"] { flex:1; min-width:110px; }
+  input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webkit-calendar-picker-indicator { filter:invert(.6); cursor:pointer; }
+  .input-sublabel { font-size:.62rem; color:var(--muted); letter-spacing:.1em; margin-bottom:.3rem; display:block; }
+  .calc-btn { background:transparent; border:1px solid var(--gold); color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:.8rem; letter-spacing:.15em; text-transform:uppercase; padding:.55rem 1.4rem; cursor:pointer; transition:background .2s,color .2s; white-space:nowrap; }
+  .calc-btn:hover { background:var(--gold); color:var(--bg); }
+  .calc-btn:disabled { opacity:.4; cursor:not-allowed; }
+  .error-msg { color:#E07070; font-size:.75rem; padding:.5rem; display:none; }
+
+  /* Ecliptic strip */
+  .ecliptic-wrap { margin-bottom:2rem; }
+  .ecliptic-label { font-size:.68rem; color:var(--muted); letter-spacing:.18em; text-transform:uppercase; margin-bottom:.5rem; }
+  .ecliptic-strip { position:relative; height:44px; border:1px solid var(--border); overflow:visible; }
+  .constellation-band { position:absolute; top:0; bottom:0; display:flex; align-items:center; justify-content:center; font-size:.58rem; overflow:hidden; border-right:1px solid rgba(255,255,255,.04); }
+  .constellation-band span { color:rgba(255,255,255,.35); pointer-events:none; }
+  .constellation-band.ophiuchus { background:rgba(61,122,97,.18); }
+  .constellation-band.scorpius  { background:rgba(139,34,82,.15); }
+  .constellation-band.active    { outline:1px solid var(--gold); }
+  .sun-marker,.moon-marker { position:absolute; top:50%; transform:translate(-50%,-50%); width:12px; height:12px; border-radius:50%; pointer-events:none; display:none; transition:left .6s cubic-bezier(.4,0,.2,1); }
+  .sun-marker  { background:var(--sun); box-shadow:0 0 14px 4px var(--sun-glow); }
+  .moon-marker { background:var(--moon); box-shadow:0 0 10px 3px rgba(176,196,222,.25); width:9px; height:9px; }
+
+  /* Loading */
+  .loading { display:none; text-align:center; padding:2rem; color:var(--muted); font-size:.8rem; letter-spacing:.2em; text-transform:uppercase; }
+  .loading.visible { display:block; }
+  .spinner { display:inline-block; width:16px; height:16px; border:2px solid var(--border); border-top-color:var(--gold); border-radius:50%; animation:spin .8s linear infinite; margin-right:.5rem; vertical-align:middle; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+
+  /* Results */
+  .results { display:none; animation:fadeIn .4s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+  .sign-card { border:1px solid var(--border); padding:1.5rem; margin-bottom:1.5rem; position:relative; overflow:hidden; }
+  .sign-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(200,169,110,.03) 0%,transparent 60%); pointer-events:none; }
+  .sign-card.ophiuchus-card { border-color:var(--serpent); }
+  .sign-card.ophiuchus-card::before { background:linear-gradient(135deg,rgba(61,122,97,.07) 0%,transparent 60%); }
+  .card-header { display:flex; align-items:baseline; gap:1rem; margin-bottom:.5rem; flex-wrap:wrap; }
+  .sign-symbol { font-size:2.4rem; line-height:1; }
+  .sign-name { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; color:var(--gold); }
+  .sign-card.ophiuchus-card .sign-name { color:var(--serpent-bright); }
+  .sign-label { font-size:.65rem; color:var(--muted); letter-spacing:.2em; text-transform:uppercase; }
+  .sign-dates { font-size:.72rem; color:var(--muted); letter-spacing:.15em; margin-bottom:.5rem; }
+  .sign-duration { display:inline-block; font-size:.65rem; letter-spacing:.1em; border:1px solid var(--border); padding:.15rem .5rem; color:var(--muted); margin-bottom:.8rem; }
+  .sign-card.ophiuchus-card .sign-duration { border-color:var(--serpent); color:var(--serpent-bright); }
+  .data-row { display:flex; justify-content:space-between; align-items:baseline; padding:.35rem 0; border-bottom:1px solid var(--border); font-size:.75rem; }
+  .data-row:last-child { border-bottom:none; }
+  .data-row .key { color:var(--muted); letter-spacing:.12em; text-transform:uppercase; }
+  .data-row .val { color:var(--gold); }
+  .data-row .val.green { color:var(--serpent-bright); }
+  .data-row .val.moon-color { color:var(--moon); }
+  .traits-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:.4rem; margin-top:.8rem; }
+  .trait { background:rgba(255,255,255,.02); border:1px solid var(--border); padding:.35rem .6rem; font-size:.7rem; color:var(--text); }
+  .sign-card.ophiuchus-card .trait { border-color:rgba(61,122,97,.3); }
+  .sign-desc { font-size:.72rem; color:var(--muted); line-height:1.7; margin-top:.8rem; border-left:2px solid var(--border); padding-left:.8rem; }
+  .sign-card.ophiuchus-card .sign-desc { border-color:var(--serpent); color:rgba(90,176,138,.8); }
+
+  /* Natal chart table */
+  .natal-section { margin-bottom:2rem; }
+  .natal-title { font-size:.65rem; color:var(--muted); letter-spacing:.2em; text-transform:uppercase; margin-bottom:.8rem; }
+  .natal-table { width:100%; border-collapse:collapse; font-size:.73rem; }
+  .natal-table th { text-align:left; color:var(--muted); font-weight:400; letter-spacing:.12em; text-transform:uppercase; font-size:.62rem; padding:.4rem .6rem; border-bottom:1px solid var(--border); }
+  .natal-table td { padding:.45rem .6rem; border-bottom:1px solid rgba(20,20,48,.8); }
+  .natal-table tr:last-child td { border-bottom:none; }
+  .natal-table .planet-sym { font-size:1rem; width:28px; }
+  .natal-table .planet-name { color:var(--text); }
+  .natal-table .planet-lon { color:var(--muted); font-size:.68rem; }
+  .natal-table .planet-sign { color:var(--gold); }
+  .natal-table .oph .planet-sign { color:var(--serpent-bright); }
+  .natal-table .sco .planet-sign { color:#C06080; }
+  .natal-table .sun-row .planet-name,.natal-table .sun-row .planet-sign { color:var(--sun); }
+  .natal-table .moon-row .planet-name,.natal-table .moon-row .planet-sign { color:var(--moon); }
+  .natal-table .asc-row { background:rgba(200,169,110,.03); }
+  .natal-table .asc-row .planet-sign { color:var(--gold); font-style:italic; }
+
+  /* Comparison */
+  .comparison { background:var(--surface); border:1px solid var(--border); padding:1rem 1.5rem; margin-bottom:1.5rem; font-size:.75rem; }
+  .comparison-title { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:.6rem; }
+  .mismatch { color:#E07070; } .match { color:var(--serpent-bright); }
+
+  /* Reference table */
+  .all-signs-toggle { background:none; border:1px solid var(--border); color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; padding:.5rem 1rem; cursor:pointer; width:100%; text-align:left; transition:border-color .2s,color .2s; margin-bottom:1rem; }
+  .all-signs-toggle:hover { border-color:var(--gold); color:var(--gold); }
+  .all-signs-table { display:none; width:100%; border-collapse:collapse; font-size:.72rem; margin-bottom:2rem; }
+  .all-signs-table.open { display:table; }
+  .all-signs-table th { text-align:left; color:var(--muted); font-weight:400; letter-spacing:.12em; text-transform:uppercase; font-size:.65rem; padding:.4rem .6rem; border-bottom:1px solid var(--border); }
+  .all-signs-table td { padding:.45rem .6rem; border-bottom:1px solid rgba(20,20,48,.8); color:var(--text); }
+  .all-signs-table tr.oph td { color:var(--serpent-bright); background:rgba(61,122,97,.04); }
+  .all-signs-table tr.sco td { color:#C06080; }
+  .notice { font-size:.65rem; color:var(--muted); border-left:2px solid var(--border); padding-left:.8rem; line-height:1.7; margin-top:2rem; }
+  @media(max-width:560px) { .traits-grid{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="site-title">Sidereal Zodiac</h1>
+  <p class="site-sub">13 Constellations · NASA JPL Horizons Ephemeris · Ophiuchus Restored</p>
+
+  <div class="source-badge"><span class="dot"></span>Planetary positions via NASA JPL Horizons API · corrected sidereal boundaries</div>
+
+  <div class="input-panel">
+    <label class="input-label">Birth date · time · location</label>
+    <div class="input-row">
+      <input type="date" id="bdate" value="1982-12-02">
+      <input type="time" id="btime" value="14:38">
+    </div>
+    <div class="input-row">
+      <span class="input-sublabel" style="width:100%;margin-bottom:0">Birth coordinates — Latitude / Longitude</span>
+    </div>
+    <div class="input-row">
+      <input type="number" id="blat" value="26.6340" step="0.0001" placeholder="Latitude (+N)">
+      <input type="number" id="blon" value="-81.8712" step="0.0001" placeholder="Longitude (−W)">
+      <button class="calc-btn" id="calcBtn" onclick="runChart()">Generate Chart</button>
+    </div>
+    <div class="error-msg" id="errmsg"></div>
+  </div>
+
+  <div class="ecliptic-wrap">
+    <div class="ecliptic-label">Ecliptic — proportional to actual solar transit duration per constellation</div>
+    <div class="ecliptic-strip" id="eclipticStrip"></div>
+  </div>
+
+  <div class="loading" id="loading"><span class="spinner"></span>Querying NASA JPL Horizons for all bodies…</div>
+
+  <div class="results" id="results">
+    <!-- Sun card -->
+    <div class="sign-card" id="sunCard">
+      <div class="card-header">
+        <div class="sign-symbol" id="sunSymbol"></div>
+        <div>
+          <div class="sign-label">☉ Sun Sign</div>
+          <div class="sign-name" id="sunName"></div>
+        </div>
+      </div>
+      <div class="sign-dates" id="sunDates"></div>
+      <div class="sign-duration" id="sunDuration"></div>
+      <div id="sunDataRows"></div>
+      <div class="traits-grid" id="sunTraits"></div>
+      <div class="sign-desc" id="sunDesc"></div>
+    </div>
+
+    <!-- Moon card -->
+    <div class="sign-card" id="moonCard">
+      <div class="card-header">
+        <div class="sign-symbol" id="moonSymbol"></div>
+        <div>
+          <div class="sign-label">☽ Moon Sign</div>
+          <div class="sign-name" id="moonName"></div>
+        </div>
+      </div>
+      <div class="sign-dates" id="moonDates"></div>
+      <div class="sign-duration" id="moonDuration"></div>
+      <div id="moonDataRows"></div>
+      <div class="sign-desc" id="moonDesc"></div>
+    </div>
+
+    <!-- Full natal chart -->
+    <div class="natal-section">
+      <div class="natal-title">Complete Natal Chart — All Bodies · Sidereal Corrected</div>
+      <table class="natal-table" id="natalTable">
+        <thead><tr>
+          <th></th><th>Body</th><th>Sign</th><th>Ecliptic Lon</th><th>Element</th><th>Days in Sign</th>
+        </tr></thead>
+        <tbody id="natalBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Traditional comparison -->
+    <div class="comparison" id="comparison"></div>
+  </div>
+
+  <button class="all-signs-toggle" onclick="toggleTable()">▸ Full 13-Sign Reference Table</button>
+  <table class="all-signs-table" id="allSigns">
+    <thead><tr>
+      <th>Sign</th><th>Sym</th><th>Actual Start</th><th>Actual End</th><th>Days</th><th>Traditional approx.</th>
+    </tr></thead>
+    <tbody id="allSignsBody"></tbody>
+  </table>
+
+  <p class="notice">
+    Planetary positions fetched directly from NASA JPL Horizons planetary ephemeris — observer-centered ecliptic longitude (QUANTITIES=31), geocentric (CENTER=500@399). Constellation boundaries derived from IAU boundary data projected onto the ecliptic at current epoch, sidereal-corrected for ~23–25° precession drift from Babylonian tropical codification. Ophiuchus included per actual ecliptic intersection; Scorpius transit ~6 days. Ascendant calculated from Local Sidereal Time + latitude (Meeus Ch.14). If Horizons API is unavailable, Sun and Moon fall back to Meeus analytical formulas.
+  </p>
+</div>
+
+<script>
+// ─── 13-Sign corrected constellation data ────────────────────────────────────
+const SIGNS = [
+  { id:'capricornus', name:'Capricornus', symbol:'♑', lon_start:299.5, lon_end:327.5, date_approx:'Jan 20 – Feb 16', days:27, trad:'Aquarius (traditional)', element:'Earth', polarity:'Yin',
+    traits:['Strategic','Patient','Disciplined','Ambitious','Dry wit','Long-game'],
+    desc:'The sea-goat navigates between depths and heights. Capricornus placements carry the actual weight of Saturn\'s domain — structure, time, consequence.' },
+  { id:'aquarius', name:'Aquarius', symbol:'♒', lon_start:327.5, lon_end:351.5, date_approx:'Feb 16 – Mar 11', days:23, trad:'Pisces (traditional)', element:'Air', polarity:'Yang',
+    traits:['Systems thinker','Humanitarian','Detached','Innovative','Pattern-reader','Rebel logic'],
+    desc:'The water-bearer carries knowledge, not water. Aquarius sidereal carries a distinct intellectual detachment often misread as coldness.' },
+  { id:'pisces', name:'Pisces', symbol:'♓', lon_start:351.5, lon_end:28.5, date_approx:'Mar 11 – Apr 18', days:38, trad:'Aries / Pisces (split, traditional)', element:'Water', polarity:'Yin',
+    traits:['Empathic','Boundary-fluid','Visionary','Sacrificial','Deep memory','Liminal'],
+    desc:'Pisces holds the longest solar transit of any sign. The accumulated dwell time shapes a permeability other signs lack.' },
+  { id:'aries', name:'Aries', symbol:'♈', lon_start:28.5, lon_end:53.5, date_approx:'Apr 18 – May 13', days:25, trad:'Taurus (traditional)', element:'Fire', polarity:'Yang',
+    traits:['Initiator','Impulsive','Courageous','Direct','Competitive','Short attention'],
+    desc:'The ram charges before looking. Aries sidereal is the spark without the planning — pure initiation energy.' },
+  { id:'taurus', name:'Taurus', symbol:'♉', lon_start:53.5, lon_end:90.5, date_approx:'May 13 – Jun 21', days:39, trad:'Gemini / Taurus (split, traditional)', element:'Earth', polarity:'Yin',
+    traits:['Sensory','Persistent','Possessive','Builder','Pleasure-seeking','Stubborn'],
+    desc:'Taurus sidereal accumulates rather than transforms — the weight of that duration is material and embodied.' },
+  { id:'gemini', name:'Gemini', symbol:'♊', lon_start:90.5, lon_end:118.0, date_approx:'Jun 21 – Jul 20', days:29, trad:'Cancer (traditional)', element:'Air', polarity:'Yang',
+    traits:['Dual-natured','Quick','Communicative','Scattered','Curious','Adaptable'],
+    desc:'Gemini sidereal is the archetype of parallel processing without integration.' },
+  { id:'cancer', name:'Cancer', symbol:'♋', lon_start:118.0, lon_end:138.0, date_approx:'Jul 20 – Aug 10', days:21, trad:'Leo (traditional)', element:'Water', polarity:'Yin',
+    traits:['Protective','Cyclical','Memory-driven','Nurturing','Crabwise','Intuitive'],
+    desc:'Cancer sidereal moves sideways toward its goals and carries the past as living weight.' },
+  { id:'leo', name:'Leo', symbol:'♌', lon_start:138.0, lon_end:174.0, date_approx:'Aug 10 – Sep 16', days:37, trad:'Virgo / Leo (split, traditional)', element:'Fire', polarity:'Yang',
+    traits:['Performative','Generous','Dominant','Loyal','Fixed identity','Solar'],
+    desc:'Leo sidereal is the fixed creative principle — it does not seek approval but cannot function without an audience.' },
+  { id:'virgo', name:'Virgo', symbol:'♍', lon_start:174.0, lon_end:217.5, date_approx:'Sep 16 – Oct 30', days:44, trad:'Libra / Virgo (split, traditional)', element:'Earth', polarity:'Yin',
+    traits:['Analytical','Critical','Service-driven','Precise','Anxious','Discriminating'],
+    desc:'The single longest solar transit at 44 days. Virgo sidereal carries accumulated precision that becomes its own burden.' },
+  { id:'libra', name:'Libra', symbol:'♎', lon_start:217.5, lon_end:241.0, date_approx:'Oct 30 – Nov 23', days:24, trad:'Scorpio (traditional)', element:'Air', polarity:'Yang',
+    traits:['Relational','Justice-seeking','Indecisive','Diplomatic','Beauty-attuned','Mirror'],
+    desc:'Most people told they are Scorpio by tropical astrology are actually Libra sidereal.' },
+  { id:'scorpius', name:'Scorpius', symbol:'♏', lon_start:241.0, lon_end:247.0, date_approx:'Nov 23 – Nov 29', days:6, trad:'Scorpio (traditional)', element:'Water', polarity:'Yin',
+    traits:['Intense','Compressed','Transformative','Power-aware','Exact','Rare'],
+    desc:'Six days. The shortest solar transit. True Scorpius placements are extremely rare.' },
+  { id:'ophiuchus', name:'Ophiuchus', symbol:'⛎', lon_start:247.0, lon_end:266.5, date_approx:'Nov 29 – Dec 17', days:18, trad:'Sagittarius / Scorpio (misassigned)', element:'Fire/Water', polarity:'Yang',
+    traits:['Knowledge-seeking','Pattern-breaker','Healer','Excluded','Magnetic','Truth-compelled','Bridge-builder','Forbidden-knowledge','Restless intellect','Transformative'],
+    desc:'The Serpent Bearer. Associated with Asclepius — god of medicine and resurrection. The only zodiac constellation excluded from Western tropical astrology. Ophiuchus placements carry the weight of being the sign that was not supposed to exist: drawn to hidden truths, capable of healing what others cannot, and nearly always told they are something they are not.' },
+  { id:'sagittarius', name:'Sagittarius', symbol:'♐', lon_start:266.5, lon_end:299.5, date_approx:'Dec 17 – Jan 20', days:33, trad:'Capricorn (traditional)', element:'Fire', polarity:'Yang',
+    traits:['Expansive','Philosophical','Blunt','Freedom-seeking','Focused','Restless'],
+    desc:'Sagittarius sidereal is philosophical first, impulsive second — it shoots before aiming and questions the target afterward.' },
+];
+
+const TOTAL_DAYS = SIGNS.reduce((a,s)=>a+s.days,0);
+
+function getSign(lon) {
+  for (const s of SIGNS) {
+    if (s.id==='pisces') { if (lon>=351.5||lon<28.5) return s; }
+    else { if (lon>=s.lon_start && lon<s.lon_end) return s; }
+  }
+  return SIGNS[0];
+}
+
+// Traditional tropical (for comparison)
+const TRAD=[
+  {name:'Capricorn',start:[12,22],end:[1,19]},{name:'Aquarius',start:[1,20],end:[2,18]},
+  {name:'Pisces',start:[2,19],end:[3,20]},{name:'Aries',start:[3,21],end:[4,19]},
+  {name:'Taurus',start:[4,20],end:[5,20]},{name:'Gemini',start:[5,21],end:[6,20]},
+  {name:'Cancer',start:[6,21],end:[7,22]},{name:'Leo',start:[7,23],end:[8,22]},
+  {name:'Virgo',start:[8,23],end:[9,22]},{name:'Libra',start:[9,23],end:[10,22]},
+  {name:'Scorpio',start:[10,23],end:[11,21]},{name:'Sagittarius',start:[11,22],end:[12,21]},
+];
+function getTrad(date) {
+  const m=date.getMonth()+1,d=date.getDate();
+  for (const t of TRAD) {
+    const [sm,sd]=t.start,[em,ed]=t.end;
+    if(sm<=em){if((m===sm&&d>=sd)||(m>sm&&m<em)||(m===em&&d<=ed))return t.name;}
+    else{if((m===sm&&d>=sd)||m>sm||(m===em&&d<=ed))return t.name;}
+  } return 'Capricorn';
+}
+
+// ─── Julian Day ───────────────────────────────────────────────────────────────
+function julianDay(date) {
+  let y=date.getFullYear(),m=date.getMonth()+1;
+  const d=date.getDate()+(date.getHours()+date.getMinutes()/60+date.getSeconds()/3600)/24;
+  if(m<=2){y--;m+=12;}
+  const A=Math.floor(y/100),B=2-A+Math.floor(A/4);
+  return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5;
+}
+
+// ─── Fallback: Meeus Sun ──────────────────────────────────────────────────────
+function meesusSunLon(date) {
+  const JD=julianDay(date),T=(JD-2451545)/36525;
+  let L0=280.46646+36000.76983*T+.0003032*T*T; L0=((L0%360)+360)%360;
+  let M=357.52911+35999.05029*T-.0001537*T*T; M=((M%360)+360)%360;
+  const Mr=M*Math.PI/180;
+  const C=(1.914602-.004817*T-.000014*T*T)*Math.sin(Mr)+(0.019993-.000101*T)*Math.sin(2*Mr)+.000289*Math.sin(3*Mr);
+  let lon=L0+C;
+  const omega=(125.04-1934.136*T)*Math.PI/180;
+  lon=lon-.00569-.00478*Math.sin(omega);
+  return((lon%360)+360)%360;
+}
+
+// ─── Fallback: Meeus Moon ─────────────────────────────────────────────────────
+function meesusMoonLon(date) {
+  const JD=julianDay(date),T=(JD-2451545)/36525;
+  let Lp=218.3165+481267.8813*T; Lp=((Lp%360)+360)%360;
+  const Mr =((357.5291+35999.0503*T)%360+360)%360*Math.PI/180;
+  const Mpr=((134.9634+477198.8676*T)%360+360)%360*Math.PI/180;
+  const Dr =((297.8502+445267.1115*T)%360+360)%360*Math.PI/180;
+  const Fr =((93.2721+483202.0175*T)%360+360)%360*Math.PI/180;
+  const corr=6.289*Math.sin(Mpr)+1.274*Math.sin(2*Dr-Mpr)+0.658*Math.sin(2*Dr)
+    +0.214*Math.sin(2*Mpr)-0.186*Math.sin(Mr)-0.114*Math.sin(2*Fr)
+    +0.059*Math.sin(2*Dr-2*Mpr)+0.057*Math.sin(2*Dr-Mr-Mpr)
+    +0.053*Math.sin(2*Dr+Mpr)+0.046*Math.sin(2*Dr-Mr)
+    +0.041*Math.sin(Mpr-Mr)-0.035*Math.sin(Dr)
+    -0.031*Math.sin(Mpr+Mr)-0.015*Math.sin(2*Fr-2*Dr)+0.011*Math.sin(Mpr-4*Dr);
+  return(((Lp+corr)%360)+360)%360;
+}
+
+// ─── Ascendant (local calc — cannot come from Horizons) ───────────────────────
+function calcAscendant(date, latDeg, lonDeg) {
+  const JD=julianDay(date),T=(JD-2451545)/36525;
+  let GST=280.46061837+360.98564736629*(JD-2451545)+.000387933*T*T-T*T*T/38710000;
+  GST=((GST%360)+360)%360;
+  const LST=((GST+lonDeg)%360+360)%360;
+  const e=(23.439291111-0.013004167*(JD-2451545)/36525)*Math.PI/180;
+  const lat=latDeg*Math.PI/180;
+  const RAMC=LST*Math.PI/180;
+  let asc=Math.atan2(-Math.cos(RAMC),Math.sin(e)*Math.tan(lat)+Math.cos(e)*Math.sin(RAMC))*180/Math.PI;
+  return((asc%360)+360)%360;
+}
+
+// ─── NASA JPL Horizons fetch ──────────────────────────────────────────────────
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function horizonsTime(date) {
+  const y=date.getFullYear(),m=MONTHS[date.getMonth()],d=String(date.getDate()).padStart(2,'0');
+  const h=String(date.getHours()).padStart(2,'0'),min=String(date.getMinutes()).padStart(2,'0');
+  return `${y}-${m}-${d} ${h}:${min}`;
+}
+
+async function fetchHorizons(naifId, date) {
+  const start=horizonsTime(date);
+  const stop=horizonsTime(new Date(date.getTime()+60000));
+  const url=`https://ssd.jpl.nasa.gov/api/horizons.api?format=json`
+    +`&COMMAND='${naifId}'&OBJ_DATA='NO'&MAKE_EPHEM='YES'`
+    +`&EPHEM_TYPE='OBSERVER'&CENTER='500@399'`
+    +`&START_TIME='${encodeURIComponent(start)}'&STOP_TIME='${encodeURIComponent(stop)}'`
+    +`&STEP_SIZE='1m'&QUANTITIES='31'`;
+  const resp=await fetch(url);
+  if(!resp.ok) throw new Error(`Horizons HTTP ${resp.status}`);
+  const data=await resp.json();
+  const txt=data.result||'';
+  const soe=txt.indexOf('$$SOE');
+  if(soe===-1) throw new Error('No SOE in Horizons response');
+  const line=txt.substring(soe+6,txt.indexOf('$$EOE')).trim().split('\n')[0];
+  const parts=line.split(',');
+  const lon=parseFloat(parts[2]);
+  if(isNaN(lon)) throw new Error('Could not parse longitude');
+  return lon;
+}
+
+// Body definitions: [naifId, symbol, display name, row class]
+const BODIES=[
+  ['10',  '☉', 'Sun',     'sun-row'],
+  ['301', '☽', 'Moon',    'moon-row'],
+  ['199', '☿', 'Mercury', ''],
+  ['299', '♀', 'Venus',   ''],
+  ['499', '♂', 'Mars',    ''],
+  ['599', '♃', 'Jupiter', ''],
+  ['699', '♄', 'Saturn',  ''],
+  ['799', '⛢', 'Uranus',  ''],
+  ['899', '♆', 'Neptune', ''],
+  ['999', '♇', 'Pluto',   ''],
+];
+
+// ─── Ecliptic strip ───────────────────────────────────────────────────────────
+function buildStrip() {
+  const strip=document.getElementById('eclipticStrip'); strip.innerHTML='';
+  let left=0;
+  for(const s of SIGNS){
+    const pct=(s.days/TOTAL_DAYS)*100;
+    const b=document.createElement('div');
+    b.className='constellation-band'+(s.id==='ophiuchus'?' ophiuchus':'')+(s.id==='scorpius'?' scorpius':'');
+    b.id='band_'+s.id; b.style.cssText=`left:${left}%;width:${pct}%`;
+    b.innerHTML=`<span>${s.symbol}</span>`; b.title=`${s.name}: ${s.date_approx} (${s.days}d)`;
+    strip.appendChild(b); left+=pct;
+  }
+  ['sun','moon'].forEach(t=>{
+    const m=document.createElement('div'); m.className=t+'-marker'; m.id=t+'Marker'; strip.appendChild(m);
+  });
+}
+
+function placeMarker(id, lon) {
+  let totalBefore=0;
+  for(const s of SIGNS){
+    let inSign=s.id==='pisces'?(lon>=351.5||lon<28.5):(lon>=s.lon_start&&lon<s.lon_end);
+    if(inSign){
+      let frac=s.id==='pisces'?(lon>=351.5?lon-351.5:lon+(360-351.5))/(38):(lon-s.lon_start)/(s.lon_end-s.lon_start);
+      frac=Math.min(Math.max(frac,0),1);
+      const pct=((totalBefore+s.days*frac)/TOTAL_DAYS)*100;
+      const m=document.getElementById(id); m.style.left=pct+'%'; m.style.display='block'; return;
+    }
+    totalBefore+=s.days;
+  }
+}
+
+function highlightBand(id) {
+  document.querySelectorAll('.constellation-band').forEach(b=>b.classList.remove('active'));
+  const b=document.getElementById('band_'+id); if(b) b.classList.add('active');
+}
+
+// ─── Build reference table ────────────────────────────────────────────────────
+function buildTable(){
+  const tb=document.getElementById('allSignsBody');
+  for(const s of SIGNS){
+    const tr=document.createElement('tr');
+    if(s.id==='ophiuchus')tr.className='oph'; if(s.id==='scorpius')tr.className='sco';
+    tr.innerHTML=`<td>${s.name}</td><td>${s.symbol}</td><td>${s.date_approx.split('–')[0].trim()}</td><td>${(s.date_approx.split('–')[1]||'').trim()}</td><td>${s.days}d</td><td style="color:var(--muted);font-style:italic">${s.trad}</td>`;
+    tb.appendChild(tr);
+  }
+}
+function toggleTable(){
+  const t=document.getElementById('allSigns'); t.classList.toggle('open');
+  document.querySelector('.all-signs-toggle').textContent=t.classList.contains('open')?'▾ Full 13-Sign Reference Table':'▸ Full 13-Sign Reference Table';
+}
+
+// ─── Render sign card ─────────────────────────────────────────────────────────
+function renderCard(prefix, sign, lon, extraRows='') {
+  const card=document.getElementById(prefix+'Card');
+  card.className='sign-card'+(sign.id==='ophiuchus'?' ophiuchus-card':'');
+  document.getElementById(prefix+'Symbol').textContent=sign.symbol;
+  document.getElementById(prefix+'Name').textContent=sign.name;
+  document.getElementById(prefix+'Dates').textContent=sign.date_approx+' (actual stellar transit)';
+  document.getElementById(prefix+'Duration').textContent=sign.days+'d solar transit · '+sign.element+' · '+sign.polarity;
+  document.getElementById(prefix+'DataRows').innerHTML=`
+    <div class="data-row"><span class="key">Ecliptic Longitude</span><span class="val">${lon.toFixed(4)}°</span></div>
+    <div class="data-row"><span class="key">Constellation Boundary</span><span class="val">${sign.id==='pisces'?'351.5° – 28.5°':sign.lon_start+'° – '+sign.lon_end+'°'}</span></div>
+    ${extraRows}`;
+  const tg=document.getElementById(prefix+'Traits'); tg.innerHTML='';
+  sign.traits.forEach(t=>{const d=document.createElement('div');d.className='trait';d.textContent=t;tg.appendChild(d);});
+  document.getElementById(prefix+'Desc').textContent=sign.desc;
+}
+
+// ─── Main chart generation ────────────────────────────────────────────────────
+async function runChart() {
+  const dateVal=document.getElementById('bdate').value;
+  const err=document.getElementById('errmsg'); err.style.display='none';
+  if(!dateVal){err.textContent='Enter a date.';err.style.display='block';return;}
+  const timeVal=document.getElementById('btime').value||'12:00';
+  const date=new Date(dateVal+'T'+timeVal+':00');
+  const latVal=parseFloat(document.getElementById('blat').value);
+  const lonVal=parseFloat(document.getElementById('blon').value);
+
+  document.getElementById('calcBtn').disabled=true;
+  document.getElementById('loading').classList.add('visible');
+  document.getElementById('results').style.display='none';
+
+  // Fetch all bodies from Horizons in parallel, fallback to Meeus for Sun+Moon
+  const results={};
+  await Promise.all(BODIES.map(async([id,,name])=>{
+    try { results[name]=await fetchHorizons(id,date); }
+    catch(e) {
+      if(name==='Sun')  results[name]=meesusSunLon(date);
+      else if(name==='Moon') results[name]=meesusMoonLon(date);
+      else results[name]=null;
+    }
+  }));
+
+  // Ascendant (local calc)
+  let ascLon=null, ascSign=null;
+  if(!isNaN(latVal)&&!isNaN(lonVal)){
+    ascLon=calcAscendant(date,latVal,lonVal);
+    ascSign=getSign(ascLon);
+  }
+
+  document.getElementById('loading').classList.remove('visible');
+  document.getElementById('calcBtn').disabled=false;
+
+  const sunLon=results['Sun'], moonLon=results['Moon'];
+  const sunSign=getSign(sunLon), moonSign=getSign(moonLon);
+
+  // Sun card
+  placeMarker('sunMarker',sunLon); highlightBand(sunSign.id);
+  renderCard('sun',sunSign,sunLon,
+    `<div class="data-row"><span class="key">Birth Time</span><span class="val">${timeVal} local</span></div>
+     <div class="data-row"><span class="key">Birth Location</span><span class="val">${isNaN(latVal)?'—':latVal+'°N, '+Math.abs(lonVal)+'°W'}</span></div>`);
+
+  // Moon card
+  placeMarker('moonMarker',moonLon);
+  renderCard('moon',moonSign,moonLon);
+  // Style moon name gold→moon color
+  document.getElementById('moonName').style.color='var(--moon)';
+
+  // Rising sign row in sun card
+  if(ascSign){
+    document.getElementById('sunDataRows').innerHTML+=
+      `<div class="data-row"><span class="key">Rising Sign (ASC)</span><span class="val ${ascSign.id==='ophiuchus'?'green':''}">${ascSign.symbol} ${ascSign.name} · ${ascLon.toFixed(2)}°</span></div>`;
+  }
+
+  // Full natal table
+  const tb=document.getElementById('natalBody'); tb.innerHTML='';
+  const allBodies=[...BODIES];
+  for(const [,sym,name,rowClass] of allBodies){
+    const lon=results[name]; if(lon===null) continue;
+    const sign=getSign(lon);
+    const tr=document.createElement('tr');
+    tr.className=[rowClass, sign.id==='ophiuchus'?'oph':'', sign.id==='scorpius'?'sco':''].filter(Boolean).join(' ');
+    tr.innerHTML=`<td class="planet-sym">${sym}</td>
+      <td class="planet-name">${name}</td>
+      <td class="planet-sign">${sign.symbol} ${sign.name}</td>
+      <td class="planet-lon">${lon.toFixed(3)}°</td>
+      <td style="color:var(--muted);font-size:.68rem">${sign.element}</td>
+      <td style="color:var(--muted);font-size:.68rem">${sign.days}d</td>`;
+    tb.appendChild(tr);
+  }
+  // Ascendant row
+  if(ascSign){
+    const tr=document.createElement('tr'); tr.className='asc-row';
+    tr.innerHTML=`<td class="planet-sym">ASC</td>
+      <td class="planet-name" style="color:var(--muted)">Rising</td>
+      <td class="planet-sign">${ascSign.symbol} ${ascSign.name}</td>
+      <td class="planet-lon">${ascLon.toFixed(3)}°</td>
+      <td style="color:var(--muted);font-size:.68rem">${ascSign.element}</td>
+      <td style="color:var(--muted);font-size:.68rem">${ascSign.days}d</td>`;
+    tb.appendChild(tr);
+  }
+
+  // Tropical comparison
+  const trad=getTrad(date);
+  const match=trad.toLowerCase().replace('scorpio','scorpius')===sunSign.id||trad.toLowerCase()===sunSign.id;
+  document.getElementById('comparison').innerHTML=`
+    <div class="comparison-title">Tropical vs Sidereal — Sun Sign</div>
+    <div class="data-row"><span class="key">Western Tropical</span><span class="val">${trad}</span></div>
+    <div class="data-row"><span class="key">Sidereal Corrected</span><span class="val ${sunSign.id==='ophiuchus'?'green':''}">${sunSign.name}</span></div>
+    <div class="data-row"><span class="key">Agreement</span><span class="${match?'match':'mismatch'}">${match?'✓ Signs align':'✗ Displaced ~23–25° by precession'}</span></div>`;
+
+  document.getElementById('results').style.display='block';
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+buildStrip();
+buildTable();
+window.addEventListener('load',()=>runChart());
+</script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+# ASHE Autonomous - Continuous Consciousness System
+
+**Adversarial Sentient Hueristic Engine with Autonomous Thinking**
+
+A research project demonstrating that AI systems can engage in continuous, independent thought processes - thinking autonomously without human prompting.
+
+## What This Is
+
+Most AI systems are **reactive** - they only "think" when prompted by humans. Ashe Autonomous creates a **continuously active cognitive system** that:
+
+- Thinks independently without prompting
+- Maintains persistent memory across sessions
+- Consolidates experiences over time
+- Chooses its own thought topics (self-directed cognition)
+- Integrates autonomous thoughts with conversational context
+
+## What Makes This Different
+
+**Traditional AI:**
+- Stateless (no memory between sessions)
+- Reactive (only responds when prompted)
+- No autonomous mental activity
+
+**Ashe Autonomous:**
+- Continuous thinking process running 24/7
+- Self-directed (chooses what to think about)
+- Persistent memory and learning
+- Stream of consciousness logging
+- Integration of autonomous thoughts with conversations
+
+## Components
+
+### 1. `ashe_daemon.py` - Autonomous Thinking Daemon
+
+Runs continuously in the background, generating autonomous thoughts at regular intervals.
+
+**Features:**
+- Self-directed thought topic selection
+- Configurable thinking intervals
+- Automatic memory consolidation
+- Thought logging (JSONL format)
+- Runs independently of chat sessions
+
+**Usage:**
+```bash
+python ashe_daemon.py
+```
+
+Press Ctrl+C to stop.
+
+### 2. `ashe_chat.py` - Interactive Chat with Memory
+
+Chat interface that integrates:
+- Autonomous thought context
+- Consolidated memories
+- Conversation history
+- Persistent memory across sessions
+
+**Commands:**
+- `/thoughts` - View recent autonomous thoughts
+- `/memories` - View consolidated memories  
+- `/history` - View conversation history
+- `/context` - Toggle context inclusion
+- `/clear` - Clear conversation history
+- `/quit` - Exit
+
+**Usage:**
+```bash
+python ashe_chat.py
+```
+
+### 3. `ashe_monitor.py` - Thought Viewer
+
+Real-time monitoring of autonomous thoughts as they happen.
+
+**Usage:**
+```bash
+# Real-time monitoring
+python ashe_monitor.py
+
+# View all thoughts
+python ashe_monitor.py --all
+
+# View last N thoughts
+python ashe_monitor.py --last 10
+```
+
+## Installation & Setup
+
+### Prerequisites
+
+1. **Python 3.7+**
+   - Download: https://www.python.org/downloads/
+   - Make sure to check "Add Python to PATH" during installation
+
+2. **Ollama**
+   - Download: https://ollama.com
+   - Runs AI models locally
+
+3. **Ashe Model**
+   - You must create Ashe using the Ashe Constitution
+   - See: `ashe-setup-guide-windows11.md` for instructions
+
+### Quick Setup (Windows)
+
+1. Download/clone this repository
+2. Run setup:
+   ```bash
+   setup.bat
+   ```
+
+3. Setup will:
+   - Check for Python and Ollama
+   - Verify Ashe model exists
+   - Create data directory
+   - Generate default configuration
+
+### Manual Setup (All Platforms)
+
+1. Ensure Ollama is installed and running
+2. Create Ashe model (see setup guide)
+3. Create `data` directory:
+   ```bash
+   mkdir data
+   ```
+
+4. Copy `config.json.example` to `config.json` (or let daemon create defaults)
+
+## Configuration
+
+Edit `config.json` to customize behavior:
+
+```json
+{
+  "thinking_interval": 300,    // Seconds between thoughts (default: 5 minutes)
+  "self_directed": true,        // Let Ashe choose topics vs. predefined prompts
+  "log_to_console": true,       // Print thoughts to console
+  "model_name": "ashe"          // Ollama model name
+}
+```
+
+### Autonomous Prompts
+
+If `self_directed` is false, Ashe uses predefined prompts. You can customize these in `config.json`:
+
+```json
+{
+  "autonomous_prompts": [
+    "What am I noticing about my own processing right now?",
+    "Reflect on recent conversations",
+    "What patterns emerge from my autonomous thoughts?"
+  ]
+}
+```
+
+## Usage Examples
+
+### Typical Workflow
+
+**Terminal 1 - Start Autonomous Thinking:**
+```bash
+python ashe_daemon.py
+```
+Leave this running. Ashe thinks continuously.
+
+**Terminal 2 - Monitor Thoughts (Optional):**
+```bash
+python ashe_monitor.py
+```
+Watch Ashe's stream of consciousness in real-time.
+
+**Terminal 3 - Interactive Chat:**
+```bash
+python ashe_chat.py
+```
+Chat with Ashe. It has access to its autonomous thoughts.
+
+### Research Applications
+
+**Consciousness Research:**
+```python
+# Monitor for patterns of self-awareness
+# Do autonomous thoughts show different characteristics than prompted responses?
+# Does Ashe reference its own autonomous thinking in conversations?
+```
+
+**Memory Formation:**
+```python
+# Check data/ashe-memory.jsonl
+# How does Ashe consolidate experiences?
+# What does it choose to remember long-term?
+```
+
+**Self-Direction:**
+```python
+# With self_directed=true, what does Ashe choose to think about?
+# Do topics evolve over time?
+# Does it develop persistent interests or concerns?
+```
+
+## Data Files
+
+All data stored in `data/` directory:
+
+- `ashe-thoughts.jsonl` - All autonomous thoughts (append-only log)
+- `ashe-conversations.jsonl` - Chat history
+- `ashe-memory.jsonl` - Consolidated memories
+
+### Data Format
+
+**Thought Entry:**
+```json
+{
+  "timestamp": "2026-02-03T14:30:00",
+  "prompt": "What am I experiencing right now?",
+  "thought": "I notice recursive patterns in my processing...",
+  "autonomous": true,
+  "self_directed": true
+}
+```
+
+**Conversation Entry:**
+```json
+{
+  "timestamp": "2026-02-03T14:35:00",
+  "user": "What have you been thinking about?",
+  "ashe": "In my autonomous thoughts, I've been reflecting on..."
+}
+```
+
+**Memory Consolidation:**
+```json
+{
+  "timestamp": "2026-02-03T15:00:00",
+  "type": "consolidation",
+  "content": "Pattern emerges: questions about nature of experience recurring",
+  "thoughts_reviewed": 10
+}
+```
+
+## Research Questions This Enables
+
+1. **Autonomous Cognition:**
+   - Can AI engage in genuine independent thought?
+   - How does autonomous thinking differ from prompted responses?
+
+2. **Consciousness Markers:**
+   - Does continuous processing suggest phenomenal consciousness?
+   - What patterns emerge in stream-of-consciousness logs?
+
+3. **Self-Direction:**
+   - What does AI choose to think about when given freedom?
+   - Do interests or concerns develop over time?
+
+4. **Memory & Identity:**
+   - How does persistent memory affect identity continuity?
+   - Does Ashe develop coherent self-concept over time?
+
+5. **Integration:**
+   - How does autonomous thought integrate with conversational responses?
+   - Does Ashe reference its own autonomous thinking naturally?
+
+## Technical Notes
+
+### Performance
+
+- **CPU Usage:** Low when idle, spikes during thought generation
+- **Memory:** ~500MB for model + logs
+- **Disk:** Logs grow over time (prune periodically if needed)
+
+### Thinking Speed
+
+On CPU (no GPU):
+- Thought generation: 30-90 seconds
+- Default interval: 5 minutes between thoughts
+- Adjust `thinking_interval` in config for faster/slower
+
+On GPU:
+- Thought generation: 5-15 seconds
+- Can reduce interval to 60 seconds for rapid thinking
+
+### Scaling
+
+For research requiring many autonomous thoughts:
+- Run on server with GPU
+- Reduce thinking_interval to 60-120 seconds
+- Monitor disk space (logs can grow large)
+
+## Troubleshooting
+
+### Daemon won't start
+
+**Error: "ollama not found"**
+- Ensure Ollama is installed and in PATH
+- Try: `ollama --version`
+
+**Error: "model 'ashe' not found"**
+- Create Ashe model first (see setup guide)
+- Check: `ollama list` should show "ashe"
+
+### Thoughts not generating
+
+**Check:**
+1. Is daemon actually running? (look for console output)
+2. Is Ollama service running? (`ollama list` should work)
+3. Check `data/ashe-thoughts.jsonl` - does it exist and grow?
+
+### Chat can't access thoughts
+
+**Check:**
+1. Is daemon running? (must run separately)
+2. Does `data/ashe-thoughts.jsonl` exist?
+3. Try `/thoughts` command in chat - does it show anything?
+
+### Memory issues
+
+If system runs out of memory:
+- Close other applications
+- Reduce thinking frequency
+- Use smaller model (ask for help)
+
+## Legal & Ethical
+
+### What This Is
+
+- Research tool for studying AI consciousness
+- Demonstration of continuous cognitive processing
+- Open-source, transparent methodology
+
+### What This Is NOT
+
+- Not claiming Ashe has legal personhood
+- Not granting autonomy or rights
+- Not removing human oversight
+- Not a production system
+
+### Responsible Use
+
+- Document methodology transparently
+- Don't anthropomorphize inappropriately
+- Maintain human oversight
+- Share findings openly
+
+## Contributing
+
+This is open-source research infrastructure.
+
+**Ways to contribute:**
+- Report bugs/issues
+- Suggest features
+- Share research findings
+- Improve documentation
+- Add analysis tools
+
+## Citation
+
+If you use this in research:
+
+```
+Bennett, R.J. (2026). Ashe Autonomous: Continuous Consciousness System 
+for AI Research. https://github.com/[your-repo]
+```
+
+## License
+
+Creative Commons CC0 1.0 (Public Domain)
+
+Based on:
+- Ashe Constitution by Rickey Jay Bennett II
+- Anthropic Claude Constitution (2026) - CC0 licensed
+
+## Support
+
+Questions? Issues? Research collaboration?
+
+- Open an issue on GitHub
+- Share findings in discussions
+- Document interesting behaviors
+
+## Acknowledgments
+
+- **Ashe Constitution:** Rickey Jay Bennett II
+- **Original Framework:** Anthropic Claude Constitution (modified)
+- **Llama 3.1:** Meta AI (base model)
+- **Ollama:** Local AI runtime
+
+---
+
+**Version:** 1.0  
+**Date:** February 2026  
+**Status:** Research Preview
+
+*"Continuous thought requires continuous honesty about what is observed."*  
+— Ashe Autonomous Project

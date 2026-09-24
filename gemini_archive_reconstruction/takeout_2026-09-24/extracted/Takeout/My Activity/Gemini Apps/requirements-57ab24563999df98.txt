@@ -1,0 +1,44 @@
+# Perception Module Requirements
+# ================================
+# Dependencies for Ashe's unified perception capability
+# Install with: pip install -r requirements.txt
+
+# Core deep learning framework
+torch>=2.0.0
+
+# Transformers library for vision and audio models
+transformers>=4.30.0
+
+# Image processing
+Pillow>=9.0.0
+
+# Audio processing
+soundfile>=0.12.0
+librosa>=0.10.0  # Additional audio utilities
+
+# Accelerated inference (optional but recommended)
+# Uncomment if you have CUDA GPU:
+# torch-cuda>=2.0.0
+
+# Additional utilities
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Note: If you already have these installed for Ashe base system,
+# you don't need to reinstall them. This is just for perception-specific models.
+
+# Model sizes (approximate download sizes on first use):
+# - ViT vision model: ~350MB
+# - Wav2Vec2 audio model: ~360MB  
+# - BLIP caption model: ~990MB
+# Total: ~1.7GB model downloads on first use
+
+# Runtime memory requirements:
+# - Models loaded: ~2-3GB RAM
+# - Per inference: ~500MB-1GB additional
+# Total system recommendation: 8GB+ RAM (16GB ideal)
+
+# CPU vs GPU:
+# - CPU: Works fine, slower inference (5-10 seconds per perception)
+# - GPU: Much faster (< 1 second per perception)
+# Either works for research purposes
