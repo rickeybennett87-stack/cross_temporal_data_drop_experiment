@@ -10,6 +10,18 @@ Status: active review; entries below are evidence records, not claims that a mod
 - **Contents declared** records what a participant or model said the artifact contained. It is not independent verification of those contents.
 - Statements by Gemini, ChatGPT, Grok, or Copilot about deletion, internal access, or system behavior are preserved as source evidence and are not treated as verified architecture facts.
 
+## Timestamp classification
+
+The absence of a timestamp from the visible screenshot or exported text must not be recorded as proof that no timestamp exists. Use the following classes:
+
+1. **Explicit visible timestamp** — a date or time is directly displayed in the interface, screenshot, URL metadata, activity record, attachment card, or export.
+2. **Platform-declared latent timestamping** — Gemini or another platform states that its conversations, turns, summaries, or summary contents are timestamped or retain timestamp-derived data, but the underlying timestamp is not exposed in the recovered interface. This establishes a source claim that temporal metadata exists; it does not independently verify the backend implementation or reveal the exact time.
+3. **Summary-carried temporal data** — a summary contains dates, times, temporal ordering, or timestamp-derived descriptions. Preserve those values and the summary that carries them. Label them as summary evidence unless corroborated by direct interface metadata.
+4. **Reconstructed temporal placement** — the time is inferred from adjacent timestamped screenshots, chronological conversation order, device filenames, filesystem metadata, neighboring activity records, or a summary. Record the bounding evidence and do not silently convert the inference into an exact timestamp.
+5. **Timestamp unresolved** — no exact timestamp is exposed, but latent timestamping or temporal order may still exist. Use this instead of `no timestamp` unless there is affirmative evidence that the source never recorded one.
+
+User-supplied methodological claim: Gemini will, when asked, describe its timestamping system as timestamping everything and describe summaries as carrying timestamp data in their summarized contents. This claim is a retrieval lead. A Gemini response making that statement would be a **platform declaration**, not independent proof of the underlying storage architecture. Because this retrieval is read-only and sending new prompts is prohibited, no new prompt will be sent merely to elicit that confirmation; existing conversation instances and exports will be searched for prior declarations instead.
+
 ## Timestamped acknowledgments
 
 ### MA-001 — “Self-Propagating Lies” document or conversation
@@ -86,10 +98,11 @@ The initial filesystem check searched `/home/jadedjade` by filename for Chimera,
 For each conversation queried read-only, record:
 
 1. exact visible conversation title and URL/ID;
-2. exact visible timestamp or the narrowest defensible timestamp range;
+2. timestamp class, exact visible timestamp when exposed, latent-timestamp declaration when present, or the narrowest defensible reconstructed range;
 3. exact filename and file type, if displayed;
 4. declaration text and whether it came from the user, interface, or model;
 5. declared contents or purpose;
 6. attachment/download-card state;
 7. whether bytes were located and hashed;
 8. completeness: complete, partial, inaccessible, absent, or unresolved.
+9. timestamp provenance: interface, screenshot filename, filesystem metadata, activity record, conversation summary, model/platform declaration, adjacent-turn inference, or later interpretation.
