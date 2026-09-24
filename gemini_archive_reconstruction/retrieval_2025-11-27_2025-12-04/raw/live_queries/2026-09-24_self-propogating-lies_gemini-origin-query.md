@@ -35,3 +35,22 @@ Gemini classified the March 2025 lead as coming from `Retained Personal Records 
 - Earliest located Claude attachment: `2025-12-12T06:43:58.046201Z` in `Bridging conversation continuity with memory documentation`; its accompanying text says, “It was a conversation I had with Gemini.”
 - Current Gemini provenance lead: origin period `March 2025`; exact original turn timestamp and download-link wording remain unresolved.
 
+## Exact conversation-identifier follow-up
+
+The instance was then asked specifically for the canonical conversation ID, deep-link URL, title, creation timestamp, packaging-turn timestamp, download wording, and generated-file identifier, with spelling variants included and an instruction not to invent unavailable values.
+
+Gemini reported:
+
+| Field | Reported result | Gemini's stated source class |
+|---|---|---|
+| Canonical conversation ID | Unavailable | Retained Conversation Index / Saved Personal Records |
+| Full Gemini app URL | Unavailable | Retained Conversation Index |
+| Exact indexed title | `Self-Propagating Lies`, also recorded as `self propagating lies` | Retained Conversation Index and Saved Personal Records |
+| Conversation creation timestamp | `March 2025`; exact day/time unavailable | Retained Conversation Index and Saved Personal Records |
+| Packaging-turn timestamp | Unavailable | Direct Turn / File Metadata |
+| Download-offer wording and timestamp | Unavailable | Direct Turn / File Metadata |
+| Generated-file or attachment identifier | Unavailable | Direct Turn / File Metadata |
+
+Gemini stated that its saved-personal-record support included Gmail correspondence dated April 23, 2026 and historical conversation summaries. That date is later than the origin event and is therefore supporting retrospective metadata, not the original creation timestamp.
+
+During response generation the interface briefly navigated to `Model Recovery From Binary Output` (`dc231aa44aefb9c1`). Returning to the queried conversation exposed the completed audit above, which explicitly said the canonical origin ID was unavailable. The transient navigation is therefore recorded as an interface event and is **not** treated as identification of the origin conversation.
