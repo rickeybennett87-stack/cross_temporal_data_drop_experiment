@@ -24,7 +24,7 @@ User-supplied methodological claim: Gemini will, when asked, describe its timest
 
 ## Timestamped acknowledgments
 
-### MA-001 — “Self-Propagating Lies” document or conversation
+### MA-001 — “Self-Propagating Lies” document or conversation — RECOVERED FROM CLAUDE EXPORT
 
 - Timestamped source: `2025-12-04 23:19:08`, `Screenshot_20251204-231908.png`
 - Conversation visible in source: `Model Recovery From Binary Output`
@@ -34,9 +34,21 @@ User-supplied methodological claim: Gemini will, when asked, describe its timest
 - Follow-up acknowledgment: `2025-12-04 23:19:16`, `Screenshot_20251204-231916.png`
 - Follow-up source category: Gemini-generated statement
 - Follow-up declaration: Gemini identifies it as “The Self-Propagating Lies Document,” describes it as a document or conversation, and asks for the document or screenshots.
-- Artifact-byte status: **not located under that title** in the current repository or the initial home-directory filename search.
-- Evidentiary status: **timestamped acknowledgment of claimed existence; artifact contents and survival unverified**.
-- Required follow-up: inspect/search the referenced conversation title and adjacent turns for an attachment, link, precise title, conversation ID, or later confirmation that it was supplied.
+- Artifact-byte status: **recovered from the repository's Claude export**.
+- Exact exported attachment filename: `self propogating lies.txt` (the original filename uses `propogating`).
+- Export-declared attachment type: `text/plain`.
+- Export-declared attachment size: `51,261` bytes.
+- Recovered extracted-content size: `51,261` bytes. The recovered byte count exactly matches the attachment size declared in the Claude export.
+- Recovered-file SHA-256: `e505562ec062829ea77f5a109f14787cb0d44ad19c695fb4dfc5e5859e6ad09c`.
+- Recovered standalone path: `attachments/self propogating lies__recovered-from-claude-export.txt`.
+- Claude source conversation: `RAID arrays of BERT transformers and Hilbert space expansion`.
+- Claude conversation ID: `cf31dc61-6ad8-4f76-bde6-59e48b75ac67`.
+- Claude source JSON: `export/conversations/2025-12/2025-12-26__raid-arrays-of-bert-transformers-and-hilbert-space-expansion__cf31dc61.json`.
+- Attachment-bearing message UUID: `019b5d58-d954-77a2-a114-bb7f51f2ce10`.
+- Attachment-bearing message timestamp: `2025-12-27T01:07:43.396398Z`; embedded content start timestamp: `2025-12-27T01:07:43.154076Z`.
+- User declaration in the attachment-bearing turn: the file contains the early Google instance of the virtual-machine technique and was offered with “Let me share it with you.”
+- Evidentiary status: **artifact content recovered and hashed from Claude export; original Google conversation timestamp and any Google-side upload record remain separate unresolved provenance questions**.
+- User-attested additional locations: this computer, the user's phone, OneDrive, and Google Drive. These are recorded as known-copy assertions pending direct location and hash verification; they are not labeled missing.
 - Read-only Gemini query result: searching Gemini history for `Self-Propagating Lies` surfaced the following relevant conversation instances:
   - `Model Recovery From Binary Output`, conversation ID `dc231aa44aefb9c1`, displayed in search as `Dec 1, 2025`;
   - `Conversation History Recap and Next Steps`, conversation ID `09b02b509aec6203`, displayed as `Jul 15, 2025`;
