@@ -1,0 +1,592 @@
+{
+  "conversation_id": "6898723d-062c-832d-9446-1439498feb23",
+  "conversation_template_id": null,
+  "create_time": 1754821214.860271,
+  "current_node": "c8da437c-512c-4cd7-91db-a054902976cf",
+  "default_model_slug": "gpt-5",
+  "id": "6898723d-062c-832d-9446-1439498feb23",
+  "is_archived": false,
+  "is_do_not_remember": false,
+  "is_read_only": null,
+  "is_starred": null,
+  "is_study_mode": false,
+  "mapping": {
+    "2ecbff85-dfd6-4e89-b631-fc92a1fe4b10": {
+      "id": "2ecbff85-dfd6-4e89-b631-fc92a1fe4b10",
+      "message": null,
+      "parent": null
+    },
+    "bbb21ba2-c3fa-43e6-a2c3-c3bd19dd1ea1": {
+      "id": "bbb21ba2-c3fa-43e6-a2c3-c3bd19dd1ea1",
+      "message": {
+        "author": {
+          "name": null,
+          "role": "user"
+        },
+        "content": {
+          "content_type": "text",
+          "parts": [
+            "Hey so I need to make a non-xway battery work on an Xway longboard how does the smart battery on an X-ray determine it's an x-way battery"
+          ]
+        },
+        "create_time": 1754821214.2153,
+        "id": "bbb21ba2-c3fa-43e6-a2c3-c3bd19dd1ea1",
+        "metadata": {
+          "content_references": [],
+          "image_results": []
+        }
+      },
+      "parent": "2ecbff85-dfd6-4e89-b631-fc92a1fe4b10"
+    },
+    "c8da437c-512c-4cd7-91db-a054902976cf": {
+      "id": "c8da437c-512c-4cd7-91db-a054902976cf",
+      "message": {
+        "author": {
+          "name": null,
+          "role": "assistant"
+        },
+        "content": {
+          "content_type": "text",
+          "parts": [
+            "You're asking how an Exway board's *smart battery* system determines whether it's an authentic “X-way” (i.e., Exway) battery—so you can explore whether a non-Exway battery can be made to work. Here’s what I found:\n\n---\n\n###  How Exway Smart Batteries Are Identified\n\nMost discussions suggest that Exway’s system relies on a **data connection**—not just power lines. In effect, the ESC (electronic speed controller) expects to receive data from the battery's internal management system (BMS) or a specific communication interface. Without that proper handshake, the board may not function properly. Essentially, the ESC is looking for firmware or signals that indicate it's talking to a genuine Exway battery. citeturn1search1\n\n---\n\n###  Community Insight on Compatibility Workarounds\n\nOn Reddit, one user outlined two potential methods when using a non-standard battery:\n\n> **\"You can attempt to reverse engineer the data protocol used between the ESC and the smart battery by using an oscilloscope to analyze the signals… Or, keep the original battery BMS as a ‘data battery’ and use a secondary battery just for power, as long as voltage/current match.\"** citeturn1search1\n\n- **Method 1: Reverse Engineering the Data Protocol**  \n  Quite technical—requires capturing and decoding communications and then emulating them with a microcontroller.\n\n- **Method 2: Use the Original Battery as a \"Data Pass-Through\"**  \n  Retain the original battery’s BMS solely for data communication, and connect an external battery to actually supply power. This bypasses the need to recreate that data handshake, though it demands careful handling to ensure voltages and currents align.\n\n---\n\n###  Summary & What You Can Do\n\n- **Exway boards detect authenticity via the data handshake between ESC and battery.** Without it, the board won’t operate correctly.\n- **Possible options include:**\n  1. Reverse-engineering the communication (advanced and complex).\n  2. Using the stock battery’s BMS as a data interface while powering the board from another battery (easier, but still requires matching specs).\n\n---\n\nWant a deeper dive into how that data link might be structured or tips on safely combining batteries? Let me know—I’ll gladly unpack it further."
+          ]
+        },
+        "create_time": 1754821220.459968,
+        "id": "c8da437c-512c-4cd7-91db-a054902976cf",
+        "metadata": {
+          "content_references": [
+            {
+              "alt": "You're asking how an Exway board's *smart battery* system determines whether it's an authentic “X‑way” (i.e., Exway) battery—so you can explore whether a non‑Exway battery can be made to work. Here’s what I found:",
+              "attributable_index": "0-0",
+              "attributions": null,
+              "prompt_text": null,
+              "type": "attribution"
+            },
+            {
+              "alt": "Most discussions suggest that Exway’s system relies on a **data connection**—not just power lines. In effect, the ESC (electronic speed controller) expects to receive data from the battery's internal management system (BMS) or a specific communication interface. Without that proper handshake, the board may not function properly. Essentially, the ESC is looking for firmware or signals that indicate it's talking to a genuine Exway battery. ",
+              "attributable_index": "0-1",
+              "attributions": null,
+              "prompt_text": null,
+              "type": "attribution"
+            },
+            {
+              "alt": "([Reddit](https://www.reddit.com/r/ElectricSkateboarding/comments/17c5jar/exway_flex_smart_battery_bypass/?utm_source=chatgpt.com))",
+              "fallback_items": [
+                {
+                  "attribution_segments": null,
+                  "attributions": null,
+                  "hue": null,
+                  "pub_date": 1697787354.425,
+                  "refs": [
+                    {
+                      "ref_index": 1,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    }
+                  ],
+                  "snippet": "You can attempt to reverse engineer the data protocol used between the ESC and the smart battery by using an oscilloscope to analyze the signals ...",
+                  "supporting_websites": [],
+                  "title": "Exway flex smart battery bypass : r/ElectricSkateboarding",
+                  "url": "https://www.reddit.com/r/ElectricSkateboarding/comments/17c5jar/exway_flex_smart_battery_bypass/?utm_source=chatgpt.com"
+                }
+              ],
+              "items": [
+                {
+                  "attribution": "Reddit",
+                  "attribution_segments": [
+                    "0-0"
+                  ],
+                  "attributions": null,
+                  "hue": null,
+                  "pub_date": 1697787354.425,
+                  "refs": [
+                    {
+                      "ref_index": 1,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    },
+                    {
+                      "ref_index": 4,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    },
+                    {
+                      "ref_index": 12,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    },
+                    {
+                      "ref_index": 0,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    },
+                    {
+                      "ref_index": 5,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    },
+                    {
+                      "ref_index": 9,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    },
+                    {
+                      "ref_index": 11,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    },
+                    {
+                      "ref_index": 17,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    },
+                    {
+                      "ref_index": 7,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    },
+                    {
+                      "ref_index": 13,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    },
+                    {
+                      "ref_index": 15,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    }
+                  ],
+                  "snippet": "You can attempt to reverse engineer the data protocol used between the ESC and the smart battery by using an oscilloscope to analyze the signals ...",
+                  "supporting_websites": [
+                    {
+                      "attribution": "Exway Electric Skateboard",
+                      "pub_date": null,
+                      "snippet": "Intelligently matches with high-end hardware devices within the Exway ecosystem, automatically selecting the appropriate current and voltage charging scheme.See more",
+                      "title": "Exway 1050W Smart Super Charger 42~92.4V",
+                      "url": "https://www.exwayboard.com/products/exway-sc1050-flash-super-smart-charger?srsltid=AfmBOop6uu1fx99jMKZLgsiKFk6l2W1otQkh___DBzYwr-QjCS_QhuX4&utm_source=chatgpt.com"
+                    },
+                    {
+                      "attribution": "Facebook",
+                      "pub_date": null,
+                      "snippet": "I bought a off brand remote to replace and I can't get it to pair with my flex exway board. any idea how to do it? Exway board owner seeks ...",
+                      "title": "How to pair a third-party remote with an Exway Flex board?",
+                      "url": "https://www.facebook.com/groups/1326710927426344/posts/8524774590953239/?utm_source=chatgpt.com"
+                    },
+                    {
+                      "attribution": "Reddit",
+                      "pub_date": null,
+                      "snippet": "The remote or the board has some odd battery detection issues and the drive cuts power and the remote displays the board capacity symbol when it gets to 75% ...See more",
+                      "title": "Remote/board battery issue : r/Exway",
+                      "url": "https://www.reddit.com/r/Exway/comments/1lrzkfv/remoteboard_battery_issue/?utm_source=chatgpt.com"
+                    },
+                    {
+                      "attribution": "Facebook",
+                      "pub_date": null,
+                      "snippet": "Try reseting the board. How? When you manually turn on the board, just keep pressing the button until the lights start going in circles.",
+                      "title": "Exway Flex Riot Board Battery Issue",
+                      "url": "https://www.facebook.com/groups/1326710927426344/posts/4997554343675299/?utm_source=chatgpt.com"
+                    },
+                    {
+                      "attribution": "YouTube",
+                      "pub_date": null,
+                      "snippet": "Exway R3 Remote Tutorial. Exway Electric Skateboard•12K views &middot; 12:58. Go to channel &middot; Exway Flex & Exway Wave Detailed App Walkthrough.",
+                      "title": "The Exway App - Everything You Need To Know (With Chapters)",
+                      "url": "https://www.youtube.com/watch?v=W7LuJlRRMEU&utm_source=chatgpt.com"
+                    },
+                    {
+                      "attribution": "YouTube",
+                      "pub_date": null,
+                      "snippet": "A Tutorial pn how to use Exway App and what settings are available for you. Exway X1 Max board review video link: https://youtu.be ...",
+                      "title": "Exway App TUTORIAL",
+                      "url": "https://www.youtube.com/watch?v=N189bnGgBks&utm_source=chatgpt.com"
+                    },
+                    {
+                      "attribution": "YouTube",
+                      "pub_date": null,
+                      "snippet": "Brian with ExwayUSA walks you through the Exway App and shows you how to setup and dial your new Exway X1 Pro. Watch this video if you are ...",
+                      "title": "Bought an Exway? Start Here!",
+                      "url": "https://www.youtube.com/watch?v=_e9I8eJJMso&utm_source=chatgpt.com"
+                    },
+                    {
+                      "attribution": "Exway Electric Skateboard",
+                      "pub_date": null,
+                      "snippet": "The Flex battery has 216wh/346wh capacity, 51V-3A max input, 24 safety sensors, and is waterproof. The 345wh battery is sold out.",
+                      "title": "Battery For Flex",
+                      "url": "https://www.exwayboard.com/products/flex-battery?srsltid=AfmBOoo1kyAnwNugx6N3vdl_RH_YzCRAyIcLpxbqJI88oeu1Jr3iQSGB&utm_source=chatgpt.com"
+                    },
+                    {
+                      "attribution": "Electric Ride Co.",
+                      "pub_date": null,
+                      "snippet": "The Exway AUX Pack battery has a 1037Wh capacity and provides a 2.5x increase in range for the Atlas models. Unlock endless off-road exploration!",
+                      "title": "Exway AUX Pack 1037Wh Battery for Atlas Boards",
+                      "url": "https://electricrideco.com/products/exway-auxpack?srsltid=AfmBOor9-O_uJGCq6Vt2sO8YxTnbU800oq7u-AIbkujcx5PMC6qWBBKQ&utm_source=chatgpt.com"
+                    },
+                    {
+                      "attribution": "Exway Electric Skateboard",
+                      "pub_date": null,
+                      "snippet": "To access certain features on your board (3rd gen and above), you may need to connect it to the ExSkate app. Download the app by scanning the QR codes below.",
+                      "title": "Instruction Manual",
+                      "url": "https://www.exwayboard.com/pages/instruction-manual?srsltid=AfmBOorjwmMf3U5ZR8JwxCy643I3B0SaMn5l3e-rJVno3xcfqWfc4gNV&utm_source=chatgpt.com"
+                    }
+                  ],
+                  "title": "Exway flex smart battery bypass : r/ElectricSkateboarding",
+                  "url": "https://www.reddit.com/r/ElectricSkateboarding/comments/17c5jar/exway_flex_smart_battery_bypass/?utm_source=chatgpt.com"
+                }
+              ],
+              "prompt_text": null,
+              "type": "grouped_webpages"
+            },
+            {
+              "alt": "On Reddit, one user outlined two potential methods when using a non‑standard battery:",
+              "attributable_index": "728-0",
+              "attributions": null,
+              "prompt_text": null,
+              "type": "attribution"
+            },
+            {
+              "alt": "**\"You can attempt to reverse engineer the data protocol used between the ESC and the smart battery by using an oscilloscope to analyze the signals… Or, keep the original battery BMS as a ‘data battery’ and use a secondary battery just for power, as long as voltage/current match.\"** ",
+              "attributable_index": "728-1",
+              "attributions": null,
+              "prompt_text": null,
+              "type": "attribution"
+            },
+            {
+              "alt": "([Reddit](https://www.reddit.com/r/ElectricSkateboarding/comments/17c5jar/exway_flex_smart_battery_bypass/?utm_source=chatgpt.com))",
+              "fallback_items": [
+                {
+                  "attribution_segments": null,
+                  "attributions": null,
+                  "hue": null,
+                  "pub_date": 1697787354.425,
+                  "refs": [
+                    {
+                      "ref_index": 1,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    }
+                  ],
+                  "snippet": "You can attempt to reverse engineer the data protocol used between the ESC and the smart battery by using an oscilloscope to analyze the signals ...",
+                  "supporting_websites": [],
+                  "title": "Exway flex smart battery bypass : r/ElectricSkateboarding",
+                  "url": "https://www.reddit.com/r/ElectricSkateboarding/comments/17c5jar/exway_flex_smart_battery_bypass/?utm_source=chatgpt.com"
+                }
+              ],
+              "items": [
+                {
+                  "attribution": "Reddit",
+                  "attribution_segments": [
+                    "728-0",
+                    "728-1"
+                  ],
+                  "attributions": null,
+                  "hue": null,
+                  "pub_date": 1697787354.425,
+                  "refs": [
+                    {
+                      "ref_index": 1,
+                      "ref_type": "search",
+                      "turn_index": 1
+                    }
+                  ],
+                  "snippet": "You can attempt to reverse engineer the data protocol used between the ESC and the smart battery by using an oscilloscope to analyze the signals ...",
+                  "supporting_websites": [],
+                  "title": "Exway flex smart battery bypass : r/ElectricSkateboarding",
+                  "url": "https://www.reddit.com/r/ElectricSkateboarding/comments/17c5jar/exway_flex_smart_battery_bypass/?utm_source=chatgpt.com"
+                }
+              ],
+              "prompt_text": null,
+              "type": "grouped_webpages"
+            },
+            {
+              "alt": "",
+              "has_images": false,
+              "prompt_text": null,
+              "sources": [
+                {
+                  "attribution": "Reddit",
+                  "title": "Exway flex smart battery bypass : r/ElectricSkateboarding",
+                  "url": "https://www.reddit.com/r/ElectricSkateboarding/comments/17c5jar/exway_flex_smart_battery_bypass/?utm_source=chatgpt.com"
+                }
+              ],
+              "type": "sources_footnote"
+            }
+          ],
+          "model_slug": "gpt-5",
+          "parent_id": "6e594e33-7478-479c-83f5-a89f9fb70eb6",
+          "search_result_groups": [
+            {
+              "domain": "reddit.com",
+              "entries": [
+                {
+                  "attribution": "reddit.com",
+                  "snippet": "Battery for the X1 Max is 230Wh 12S1P. the battery you have isn't for the X1 Max unless it is the wrong label. A delivered X1 Max and also any ...",
+                  "title": "An Army electronics repairer's view on Exway battery ...",
+                  "url": "https://www.reddit.com/r/Exway/comments/13i51p4/an_army_electronics_repairers_view_on_exway/?utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "reddit.com",
+                  "snippet": "The remote or the board has some odd battery detection issues and the drive cuts power and the remote displays the board capacity symbol when it gets to 75% ...See more",
+                  "title": "Remote/board battery issue : r/Exway",
+                  "url": "https://www.reddit.com/r/Exway/comments/1lrzkfv/remoteboard_battery_issue/?utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "facebook.com",
+              "entries": [
+                {
+                  "attribution": "facebook.com",
+                  "snippet": "Possible Coverter/Battery issue. We are camping with a Exiss Living Quarters trailer. Battery did not charge while hooked to shore power (30 amp) ...",
+                  "title": "Help!! What's wrong with this exway wave battery?",
+                  "url": "https://www.facebook.com/groups/1326710927426344/posts/5272434369520627/?utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "facebook.com",
+                  "snippet": "Hey guys, My exway wave is no longer charging. The rubber cover for battery connector has been ripping slowly so I can't rule out that water ...",
+                  "title": "Exway Wave not charging, possible water damage",
+                  "url": "https://www.facebook.com/groups/1326710927426344/posts/5581065711990823/?utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "facebook.com",
+                  "snippet": "How does the Flex “Smart battery” work ? I asked Exway via messenger about storing my board and they have said I need to charge it once a month!",
+                  "title": "How does the Flex “Smart battery” work ? I asked Exway ...",
+                  "url": "https://www.facebook.com/groups/1326710927426344/posts/3424950017602414/?utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "facebook.com",
+                  "snippet": "Try reseting the board. How? When you manually turn on the board, just keep pressing the button until the lights start going in circles.",
+                  "title": "Exway Flex Riot Board Battery Issue",
+                  "url": "https://www.facebook.com/groups/1326710927426344/posts/4997554343675299/?utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "facebook.com",
+                  "snippet": "I bought a off brand remote to replace and I can't get it to pair with my flex exway board. any idea how to do it? Exway board owner seeks ...",
+                  "title": "How to pair a third-party remote with an Exway Flex board?",
+                  "url": "https://www.facebook.com/groups/1326710927426344/posts/8524774590953239/?utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "youtube.com",
+              "entries": [
+                {
+                  "attribution": "youtube.com",
+                  "snippet": "After less than four months of owning my exway wave electric skateboard it developed this issue with its original smart battery, ...",
+                  "title": "exway wave smart battery issue (exway sent a replacement ...",
+                  "url": "https://www.youtube.com/watch?v=pLvjpo7yfwk&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "youtube.com",
+                  "snippet": "The Exway Flex is one of the best budget electric skateboards and is packed with premium features. I compare the differences between the Hub ...",
+                  "title": "Exway Flex Review and Comparison - Budget eBoard With ...",
+                  "url": "https://m.youtube.com/watch?t=713s&v=ToPpckE_j88&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "youtube.com",
+                  "snippet": "One of the most versatile computer boards on the market, the Exway Wave. Let's see how it stacks up! The backpack used in the video ...",
+                  "title": "My EDC Electric Board - Exway Wave - Full Review",
+                  "url": "https://www.youtube.com/watch?v=P5bqVWk4_ik&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "youtube.com",
+                  "snippet": "Exway Flex Review – After 2 weeks of ridding! Disappointment? Fast Charger & Hidden Features! 38K views 5 years ago",
+                  "title": "Exway Flex Review – After 2 weeks of ridding! Disappointment ...",
+                  "url": "https://www.youtube.com/watch?v=9SzQq8AxfFQ&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "youtube.com",
+                  "snippet": "Exway Wave – The Ultimate Travel-Friendly E-Skateboard! ⚡ With a removable battery, it meets most airline regulations, making it perfect for ...",
+                  "title": "Extend Your Ride! Exway Wave Battery Swap Made Simple ...",
+                  "url": "https://www.youtube.com/watch?v=yWxxjUFYy4w&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "youtube.com",
+                  "snippet": "Exway R3 Remote Tutorial. Exway Electric Skateboard•12K views &middot; 12:58. Go to channel &middot; Exway Flex & Exway Wave Detailed App Walkthrough.",
+                  "title": "The Exway App - Everything You Need To Know (With Chapters)",
+                  "url": "https://www.youtube.com/watch?v=W7LuJlRRMEU&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "youtube.com",
+                  "snippet": "A Tutorial pn how to use Exway App and what settings are available for you. Exway X1 Max board review video link: https://youtu.be ...",
+                  "title": "Exway App TUTORIAL",
+                  "url": "https://www.youtube.com/watch?v=N189bnGgBks&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "youtube.com",
+                  "snippet": "Brian with ExwayUSA walks you through the Exway App and shows you how to setup and dial your new Exway X1 Pro. Watch this video if you are ...",
+                  "title": "Bought an Exway? Start Here!",
+                  "url": "https://www.youtube.com/watch?v=_e9I8eJJMso&utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "esk8.news",
+              "entries": [
+                {
+                  "attribution": "esk8.news",
+                  "snippet": "Dec 12, 2024 — Bypassing the discharge is as simple as just bypassing the discharge. Put the bms on your charge circuit, not your discharge circuit.",
+                  "title": "So how do I bypass this one? - esk8.news",
+                  "url": "https://forum.esk8.news/t/so-how-do-i-bypass-this-one/86644?utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "exwayboard.com",
+              "entries": [
+                {
+                  "attribution": "exwayboard.com",
+                  "snippet": "and experience a whole new way to ride. Smart and Safe Power. With individual cell monitoring for all 20 cells within the battery module, UL certified ...",
+                  "title": "Wave Belt",
+                  "url": "https://www.exwayboard.com/products/exway-wave?srsltid=AfmBOopvR504ionjyL5yc4JYf4vqSFCO9kpSJAsrSr8dUwbD2y_ZAD9D&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "exwayboard.com",
+                  "snippet": "Intelligent Battery Management System (BMS):. Protects against short-circuit, overcharge, over-discharge, temperature extremes. High-Visibility Power Display ...",
+                  "title": "Atlas Pro",
+                  "url": "https://www.exwayboard.com/products/exway-atlas-pro?srsltid=AfmBOoq18RBcnU-rm6ZNWxDplBh2yMWVRttlqdGrcrLoULPxhSjsVJYR&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "exwayboard.com",
+                  "snippet": "Battery range estimates depend on conditions such as rider weight, speed, temperature, wind, tire pressure, terrain, incline, etc. Mileage may vary. Are the ...",
+                  "title": "Flex Pro （Only for USA）",
+                  "url": "https://www.exwayboard.com/products/exway-flex-pro?srsltid=AfmBOooXBEU2TaawayaWgvDIY34B_cQq0aISTt0qwhwzjnBUUeqQZONj&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "exwayboard.com",
+                  "snippet": "Intelligently matches with high-end hardware devices within the Exway ecosystem, automatically selecting the appropriate current and voltage charging scheme.See more",
+                  "title": "Exway 1050W Smart Super Charger 42~92.4V",
+                  "url": "https://www.exwayboard.com/products/exway-sc1050-flash-super-smart-charger?srsltid=AfmBOop6uu1fx99jMKZLgsiKFk6l2W1otQkh___DBzYwr-QjCS_QhuX4&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "exwayboard.com",
+                  "snippet": "The Flex battery has 216wh/346wh capacity, 51V-3A max input, 24 safety sensors, and is waterproof. The 345wh battery is sold out.",
+                  "title": "Battery For Flex",
+                  "url": "https://www.exwayboard.com/products/flex-battery?srsltid=AfmBOoo1kyAnwNugx6N3vdl_RH_YzCRAyIcLpxbqJI88oeu1Jr3iQSGB&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "exwayboard.com",
+                  "snippet": "UL-certified multi-layer software and hardware protection circuit always engaged. High-precision galvanometer monitors battery to within 2% for more accuracy ...",
+                  "title": "Battery For Flex",
+                  "url": "https://www.exwayboard.com/products/flex-battery?srsltid=AfmBOorBw75titP6tRD2Q9T2PK_dCvgOkiUTRyAN3LiHKTzNAzWRO1rV&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "exwayboard.com",
+                  "snippet": "To access certain features on your board (3rd gen and above), you may need to connect it to the ExSkate app. Download the app by scanning the QR codes below.",
+                  "title": "Instruction Manual",
+                  "url": "https://www.exwayboard.com/pages/instruction-manual?srsltid=AfmBOorjwmMf3U5ZR8JwxCy643I3B0SaMn5l3e-rJVno3xcfqWfc4gNV&utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "amazon.com",
+              "entries": [
+                {
+                  "attribution": "amazon.com",
+                  "snippet": "EXWAY Wave Electric Skateboard with Remote, Top Speed of 23 Mph, Quick-Swap Battery, 440 LBS Max Load, IP55 Waterproof, Cruiser for Adults & Teens.",
+                  "title": "EXWAY Wave Electric Skateboard with Remote, Top ...",
+                  "url": "https://www.amazon.com/EXWAY-Electric-Skateboard-Quick-Swap-Waterproof/dp/B0C2GXF3HD?utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "tiktok.com",
+              "entries": [
+                {
+                  "attribution": "tiktok.com",
+                  "snippet": "Easy way to tell is go and trace one of the wires. And the wire that goes to the starter is your positive. and the wire that goes to your frame ...",
+                  "title": "回复 @mr so, how safe is the battery of an exway electric ...",
+                  "url": "https://www.tiktok.com/%40exwayboard/video/7426450519918497056?utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "benbucklerboards.com.au",
+              "entries": [
+                {
+                  "attribution": "benbucklerboards.com.au",
+                  "snippet": "Smart Battery. • 24 safety sensors connected to the ESC leaves no unmonitored cells. • UL certified multi-layer software and hardware protection circuit always ...",
+                  "title": "Exway Flex Riot - Electric Skateboard",
+                  "url": "https://benbucklerboards.com.au/products/exway-flex-riot?srsltid=AfmBOoqpNnuq1by_ZDvyAJWGO6VHMFujYCnIv5uC-u_gboyFhjzOqSfa&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "benbucklerboards.com.au",
+                  "snippet": "The Exway Wave electric skateboard offers great control, portability, and smart features, such as lighting and easy battery swapping.See more",
+                  "title": "Exway Wave Riot - Electric Skateboard",
+                  "url": "https://benbucklerboards.com.au/products/exway-wave?srsltid=AfmBOoo1ZlAPSdSIRWoxtSiPbiV8zk2UNHe9iMWCSzQ9u3UGAEZoQV4g&utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "electricskateboardhq.com",
+              "entries": [
+                {
+                  "attribution": "electricskateboardhq.com",
+                  "snippet": "Jul 28, 2020 — The elephant in the room is the swappable battery pack design. Exway has gone for a slide and click design for their 10S2P Sony VTC6 “smart” ...",
+                  "title": "Exway Wave Review - Bye Mini",
+                  "url": "https://www.electricskateboardhq.com/exway-wave-review/?utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "eskatehub.com",
+              "entries": [
+                {
+                  "attribution": "eskatehub.com",
+                  "snippet": "When I come to a stop, the battery indicator goes back up to 35%ish. This doesn't affect the ride all that much. It doesn't drop down gears, like the Evolve ...",
+                  "title": "Exway X1 Pro Review - Everything You Need To Know",
+                  "url": "https://eskatehub.com/electric-skateboard-reviews/exway-x1-pro/?utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "electricrideco.com",
+              "entries": [
+                {
+                  "attribution": "electricrideco.com",
+                  "snippet": "Smart and Safe Power. With individual cell monitoring for all 24 cells within the battery module, UL certified software and hardware protection systems, and ...",
+                  "title": "Exway Wave Electric Skateboard",
+                  "url": "https://electricrideco.com/products/exway-wave-electric-skateboard?srsltid=AfmBOoqD3sC_T31pN9J1f_Ah7Saxq5ayR_Whf78h-Oi0QzjGhR_CRkQR&utm_source=chatgpt.com"
+                },
+                {
+                  "attribution": "electricrideco.com",
+                  "snippet": "The Exway AUX Pack battery has a 1037Wh capacity and provides a 2.5x increase in range for the Atlas models. Unlock endless off-road exploration!",
+                  "title": "Exway AUX Pack 1037Wh Battery for Atlas Boards",
+                  "url": "https://electricrideco.com/products/exway-auxpack?srsltid=AfmBOor9-O_uJGCq6Vt2sO8YxTnbU800oq7u-AIbkujcx5PMC6qWBBKQ&utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "gp.lib.mi.us",
+              "entries": [
+                {
+                  "attribution": "gp.lib.mi.us",
+                  "snippet": "Mar 18, 1999 — \"We tned to console those who needed our help. Our SOCial workers, school psycholOgIsts and counselors were there for our students\". Manor said ...See more",
+                  "title": "Conners Creek Power Plant to convert to gas",
+                  "url": "https://digitize.gp.lib.mi.us/history/newspapers/grossePointeNews/year_ranges/1990s/1999/pdf/1999-03-18.pdf?utm_source=chatgpt.com"
+                }
+              ]
+            },
+            {
+              "domain": "hybrid-analysis.com",
+              "entries": [
+                {
+                  "attribution": "hybrid-analysis.com",
+                  "snippet": "Submit malware for free analysis with Falcon Sandbox and Hybrid Analysis technology. Hybrid Analysis develops and licenses analysis tools to fight malware.",
+                  "title": "Incident Response",
+                  "url": "https://hybrid-analysis.com/sample/4afea16e9bba8b70ce1bcc27ca922ec8a513c8a665ac6fc095bc1d32d663664d/5d0b8d1f038838e49d2d0694?utm_source=chatgpt.com"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "parent": "bbb21ba2-c3fa-43e6-a2c3-c3bd19dd1ea1"
+    }
+  },
+  "memory_scope": "global_enabled",
+  "pinned_time": null,
+  "plugin_ids": null,
+  "title": "Exway battery compatibility",
+  "update_time": 1754821226.648006,
+  "voice": null
+}

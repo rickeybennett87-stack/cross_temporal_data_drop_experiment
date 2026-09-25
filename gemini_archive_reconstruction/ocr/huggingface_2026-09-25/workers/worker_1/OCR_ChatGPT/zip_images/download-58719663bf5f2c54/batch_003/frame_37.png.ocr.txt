@@ -1,0 +1,51 @@
+4:02 a) vill > Cs
+
+= O Ask ©! Imagine G
+
+After=ad_logger.service
+
+[Service]
+
+Type=oneshot
+
+User=ad_service
+
+WorkingDirectory=/home/ad_logger
+Environment="PATH=/home/ad_service/ad_logger/venv/bir
+ExecStart=/usr/bin/curl -s localhost:5000/status
+
+EOF
+
+sudo tee /etc/systemd/system/ad_logger.status-check.t
+[Unit]
+Description=Daily ad status check
+
+Requires=ad_logger.status-check.service
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+
+# Enable and start
+
+sudo systemctl daemon-reload
+
+sudo systemctl enable ad_logger ad_logger.status-chec
+sudo systemctl start ad_logger ad_logger.status-check
+
+# Nginx + SSL (proxy to gunicorn)
+sudo tee /etc/nginx/sites-available/ad_logger <<EOF
+server {
+listen 80; listen 443 ssl http2; server_name your
+ssl_certificate /etc/letsencrypt/live/your-¢ af
+ssl_certificate_key /etc/letsencrypt/live/y W“
+location / { proxy_pass http://unix:/run/ad_ivgge
+}
+
+Ask anything
+
+®@ @ Auto v @

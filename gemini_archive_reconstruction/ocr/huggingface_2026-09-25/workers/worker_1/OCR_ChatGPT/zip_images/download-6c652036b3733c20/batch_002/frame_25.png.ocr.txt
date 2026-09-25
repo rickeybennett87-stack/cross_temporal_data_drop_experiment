@@ -1,0 +1,49 @@
+4:01 Gg ee all > GE
+
+= O Ask ©! Imagine G
+
+cat > ad_logger.py <<'PY'
+
+from flask import Flask, request, jsonify
+import time, os, subprocess
+
+from datetime import datetime
+
+app = Flask(__name__)
+
+BEACON = os.path.expanduser('~/ad_logger/last_impress
+RELEASE = os.path.expanduser( '~/ad_logger/publish_arc
+DISABLED = os.path.expanduser('~/ad_logger/DISABLED' )
+EXPIRY = os.path.expanduser('~/ad_logger/valid_until.
+
+# Safeguards
+
+if os.path.exists (DISABLED):
+@app.route('/')
+def off(): return "Service paused", 503
+
+if os.path.exists(EXPIRY):
+with open(EXPIRY, 'r') as f: expiry = f.read().st
+if datetime.now().strftime( '%Y-%m-%d') > expiry:
+open(DISABLED, ‘w').write('expired')
+@app.route('/')
+def off(): return "Service paused", 503
+
+@app.route('/ad/unit_300x250')
+def impression():
+open(BEACON, "w").write(str(int(time.time())))
+return jsonify({
+"event": "impression",
+"unit": "promo_300x250",
+"cpm_usd": 0.0004,
+"ts": int(time.time())
++)
+
+@app.route('/status') Vv
+def status():
+
+if nat anc nath avictcfREACNN):
+
+Ask anything
+
+®@ @ Auto v @

@@ -11,6 +11,17 @@ This folder collects preserved evidence of Gemini conversations from the local a
 - `claude_alethia_project_files/` — archival copies of every plain-text, Markdown, TeX, or JSON file in the Claude export's `Alethia project` folder containing Alethea/Alethia/Aletheia or a detected spelling variant. No matching DOCX files were found.
 - `claude_contact_sequence/` — the full exported JSON transcript containing the claimed Claude/Alethia Blood-RAM harmonic-contact exchange, its literal chronological predecessor, and the three conversations that chronologically follow it.
 - `takeout_2026-09-24/` — the complete extracted Google Takeout for My Activity restricted to Gemini Apps: 682 files, including the 16.7 MB `MyActivity.html` index plus exported images, audio, video, documents, nested archives, and generated/downloaded artifacts. The unchanged 519,293,783-byte source ZIP is stored as a GitHub release asset because it exceeds GitHub's normal Git-object limit.
+- `ocr/huggingface_2026-09-25/` — 1,031 completed OCR text records and 12 preserved HTML-rendering error records produced by two Hugging Face workers. The index files retain source paths, hashes, methods, character counts, elapsed times, and completion states.
+- `manifests/manifest.xml` — unified XML manifest containing direct DOM extraction from both Lyra HTML paths and `MyActivity.html`, together with all available Hugging Face OCR records and text bodies.
+- `concept_timeline/` — chronological cross-platform evidence concerning the Lyra bonding/contact event, the sixth bullet, the Harmonic Convergence Layer, the Thread Memory Scaffold, and MRS. Directly timestamped records appear first; undated HTML/OCR candidates are preserved separately rather than assigned invented dates.
+
+## Unified retrieval entry points
+
+- Human-readable chronology: [`concept_timeline/TIMELINE.md`](concept_timeline/TIMELINE.md)
+- Machine-readable chronology: [`concept_timeline/chronological_evidence.jsonl`](concept_timeline/chronological_evidence.jsonl)
+- XML chronology with complete source-unit text: [`concept_timeline/chronological_evidence.xml`](concept_timeline/chronological_evidence.xml)
+- Unified source and OCR manifest: [`manifests/manifest.xml`](manifests/manifest.xml)
+- Repository-wide catalog: [`../MASTER_ARCHIVE_INDEX.jsonl`](../MASTER_ARCHIVE_INDEX.jsonl)
 
 ## Claude contact-sequence chronology
 
@@ -36,3 +47,5 @@ GitHub normalized punctuation in two release-asset names during upload. The byte
 - OCR text records what the OCR system recognized; it is not a claim that every character is accurate.
 - The saved HTML pages and recordings are source artifacts. Their contents may include claims made inside conversations; inclusion does not independently validate those claims.
 - SHA-256 digests allow downloaded release assets to be checked against the local source artifacts.
+- The two differently named Lyra HTML files have the same byte size and SHA-256 digest. They remain separately indexed because their distinct archival paths are provenance information; their shared digest establishes byte-identical content.
+- A Google My Activity entry's interface timestamp is direct metadata for that activity record. A date asserted inside a prompt or generated response remains source content unless independently corroborated.

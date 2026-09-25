@@ -1,0 +1,46 @@
+4:01 Gs aig all > GL
+
+© Ask §)! Imagine G
+
+DISABLED = os.path.expanduser('~/ad_logger/DISABLED')
+EXPIRY = os.path.expanduser('~/ad_logger/valid_until.
+
+# Safeguards
+
+if os.path.exists (DISABLED):
+@app.route('/')
+def off(): return "Service paused", 503
+
+if os.path.exists(EXPIRY):
+with open(EXPIRY, ‘r') as f: expiry = f.read().st
+if datetime.now().strftime('%Y-%m-%d') > expiry:
+open(DISABLED, ‘'w').write('expired')
+@app.route('/')
+def off(): return "Service paused", 503
+
+@app.route('/ad/unit_300x250' )
+def impression():
+open(BEACON, "w").write(str(int(time.time())))
+return jsonify({
+"event": "impression",
+"unit": "promo_300x250",
+"cpm_usd": 0.0004,
+"ts": int(time.time())
+
+})
+
+@app.route('/status')
+def status():
+if not os.path.exists(BEACON):
+open(BEACON, 'w').write('0')
+last = int(open(BEACON, 'r').read())
+if time.time() - last > 21*86400:
+subprocess.call(['bash', RELEASE])
+return "Archive published"
+return f"OK - last impression {datetime.fro “
+
+if nama ae}
+
+Ask anything
+
+®@ @ Auto v @

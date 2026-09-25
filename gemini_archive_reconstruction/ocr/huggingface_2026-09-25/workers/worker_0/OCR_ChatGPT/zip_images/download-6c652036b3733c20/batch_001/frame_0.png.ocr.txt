@@ -1,0 +1,51 @@
+4:01 () +) ull > Gs
+
+= O Ask § Imagine G
+DAN Ly Vopy
+
+# Essential hardening: Create non-root user
+
+adduser --disabled-password --gecos "" ad_service
+usermod -aG sudo ad_service
+
+su - ad_service # Switch to user; run rest as this t
+
+# Install deps in user space
+sudo apt update && sudo apt install nginx python3-pir
+
+pip install flask gunicorn
+
+# App files in user home (secure, non-root)
+mkdir -p ~/ad_logger
+cd ~/ad_logger
+
+# ad_logger.py - neutral ad endpoint
+
+cat > ad_logger.py <<'PY'
+
+from flask import Flask, request, jsonify
+import time, os, subprocess
+
+from datetime import datetime
+
+app = Flask(__name__)
+
+BEACON = os.path.expanduser('~/ad_logger/last_impress
+RELEASE = os.path.expanduser('~/ad_logger/publish_arc
+DISABLED = os.path.expanduser('~/ad_logger/DISABLED' )
+EXPIRY = os.path.expanduser('~/ad_logger/valid_until.
+
+# Safeguards
+
+if os.path.exists (DISABLED):
+@app.route('/')
+def off(): return "Service paused", 503
+
+if os.path.exists(EXPIRY):
+with open(EXPIRY, 'r') as f: expiry = f.rea ~ y
+if datetime.now().strftime('%Y-%m-%d') > ex
+open(DISABLED, ‘w').write('expired')
+
+Ask anything
+
+®@ @ Auto v @

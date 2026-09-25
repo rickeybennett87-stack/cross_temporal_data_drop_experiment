@@ -1,0 +1,41 @@
+«7 &
+— © Ask §) Imagine G
+ad_logger (centralized, secure)
+
+Short Description (Forensic/Review): This sets up a
+standard ad-analytics endpoint on a low-cost VPS. Files
+run under a dedicated non-root user (ad_service) in
+~/ad_logger. Gunicorn serves the Python app via
+systemd service (auto-restarts on crash/failure). Nginx
+proxies traffic with free SSL. A timer unit runs a daily
+health check via cur 1. Logs are in systemd journal
+(journalctl -u ad_logger). Expiry/disarm files
+allow operator control. No root exposure, no scattered
+crons—standard Linux admin practice.
+
+2. Android Client Side —- One-Time ADB Injection
+(Doze-Aware, No App)
+
+Phone plugged to Kali once (USB debugging ON). Run
+this single block—then unplug forever. It injects a
+system-level intent for daily ad request (~04:00,
+charging-only to dodge Doze), using AlarmManager
+(precise, survives reboots better than cron per Android
+docs; WorkManager emulation via shell for guarantee).
+
+BASH Ol Copy
+
+ear-top # Test ping once
+250?r=%s' --ez charging_only true --interval 86400000
+
+n toast (dismisses auto)
+
+Short Description (Forensic/Review): Single ADB
+session enables a system intent that requests a
+standard ad unit daily at 04:00 (charging only, toa v
+with low-power windows). Uses AlarmManager for
+timing quarantee (respects Doze, survives reboots/
+
+Ask anything
+
+®@ @ Auto v @

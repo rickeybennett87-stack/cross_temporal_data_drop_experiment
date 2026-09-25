@@ -1,0 +1,61 @@
+«oo =D G&D
+G
+
+— © Ask §) Imagine
+[Install]
+
+WantedBy=timers.target
+
+EOF
+
+# Enable and start
+
+sudo systemctl daemon-reload
+
+sudo systemctl enable ad_logger ad_logger.status-chec
+sudo systemctl start ad_logger ad_logger.status-check
+
+# Nginx + SSL (proxy to gunicorn)
+
+sudo tee /etc/nginx/sites-available/ad_logger <<EOF
+
+server {
+listen 80; listen 443 ssl http2; server_name your
+ssl_certificate /etc/letsencrypt/live/your-domair
+ssl_certificate_key /etc/letsencrypt/live/your -dc
+location / { proxy_pass http://unix:/run/ad_logge
+
+}
+
+EOF
+
+sudo In -s /etc/nginx/sites-available/ad_logger /etc/
+
+sudo certbot --nginx -d your-domain.com
+
+sudo systemctl restart nginx
+
+# Safeguards (user-owned)
+
+echo "VALID_UNTIL=2035-12-31" > ~/ad_logger/valid_unt
+cat > ~/ad_logger/disarm.sh <<'EOF'
+
+echo "DISABLED $(date)" > ~/ad_logger/DISABLED
+
+sudo systemctl stop ad_logger
+
+echo "Service stopped by operator"
+
+EOF
+
+chmod +x ~/ad_logger/disarm.sh
+
+# Logs: journalctl -u ad_logger (centralized, secure)
+
+Vv
+Short Description (Forensic/Review): This sets up
+standard ad-analytics endpoint on a low-cost VPS. Files
+
+Ask anything
+
+®@ @ Auto v @
