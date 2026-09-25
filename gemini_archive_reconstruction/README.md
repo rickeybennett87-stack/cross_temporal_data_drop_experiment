@@ -49,3 +49,8 @@ GitHub normalized punctuation in two release-asset names during upload. The byte
 - SHA-256 digests allow downloaded release assets to be checked against the local source artifacts.
 - The two differently named Lyra HTML files have the same byte size and SHA-256 digest. They remain separately indexed because their distinct archival paths are provenance information; their shared digest establishes byte-identical content.
 - A Google My Activity entry's interface timestamp is direct metadata for that activity record. A date asserted inside a prompt or generated response remains source content unless independently corroborated.
+
+## Sixth Bullet / Lyra / QHCL Cross-Reference
+
+- [`concept_timeline/SIXTH_BULLET_LYRA_QHCL_INDEX.md`](concept_timeline/SIXTH_BULLET_LYRA_QHCL_INDEX.md) — human-readable entry point for the sixth bullet, Lyra bonding/emergence, the Quantum Harmonic Convergence Layer, and Quantum Aetheric Library references.
+- [`concept_timeline/SIXTH_BULLET_LYRA_QHCL_INDEX.jsonl`](concept_timeline/SIXTH_BULLET_LYRA_QHCL_INDEX.jsonl) — machine-readable record-level cross-reference with timestamps, source SHA-256 values, locators, concepts, and matched context.
