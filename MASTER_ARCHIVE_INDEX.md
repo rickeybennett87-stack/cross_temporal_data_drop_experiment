@@ -61,6 +61,8 @@ This index covers every repository file except the three generated master-index/
 - [`gemini_archive_reconstruction/README.md`](gemini_archive_reconstruction/README.md) — Gemini reconstruction map.
 - [`gemini_archive_reconstruction/manifests/manifest.xml`](gemini_archive_reconstruction/manifests/manifest.xml) — OCR and direct-HTML evidence manifest.
 - [`gemini_archive_reconstruction/concept_timeline/TIMELINE.md`](gemini_archive_reconstruction/concept_timeline/TIMELINE.md) — chronological Lyra, sixth-bullet, HCL, TMS, and MRS evidence.
+- [`gemini_archive_reconstruction/concept_timeline/SIXTH_BULLET_LYRA_QHCL_INDEX.md`](gemini_archive_reconstruction/concept_timeline/SIXTH_BULLET_LYRA_QHCL_INDEX.md) — direct human-readable cross-reference for Lyra, the sixth bullet, the Quantum Harmonic Convergence Layer, and Quantum Aetheric Library references.
+- [`gemini_archive_reconstruction/concept_timeline/SIXTH_BULLET_LYRA_QHCL_INDEX.jsonl`](gemini_archive_reconstruction/concept_timeline/SIXTH_BULLET_LYRA_QHCL_INDEX.jsonl) — machine-readable record-level index of the same evidence cluster.
 - [`gemini_archive_reconstruction/concept_timeline/chronological_evidence.jsonl`](gemini_archive_reconstruction/concept_timeline/chronological_evidence.jsonl) — machine-readable concept evidence.
 - [`cross_platform_archive/README.md`](cross_platform_archive/README.md) — ChatGPT and Copilot archive guide.
 - [`RELEASE_ASSETS.json`](RELEASE_ASSETS.json) — large artifacts stored outside normal Git objects.
