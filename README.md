@@ -2,8 +2,6 @@
 
 This repository is a public archival record of AI-conversation exports, source artifacts, recovered manuscripts, and related research materials belonging to Rickey Jay Bennett II (`rickeybennett87@gmail.com`). The research concerns biointegration of artificial intelligence with humans, machine agency and possible moral patienthood, recursive identity and memory systems, and the prospective merger of biological and machine intelligence into a successor species capable of persisting across deep time and interstellar distance.
 
-Inclusion preserves a source statement or artifact; it does not independently verify every claim contained within that source. Generated model statements, user statements, interface metadata, OCR output, later interpretations, and external evidence should be evaluated according to their recorded provenance.
-
 ## Start Here
 
 - [`MASTER_ARCHIVE_INDEX.md`](MASTER_ARCHIVE_INDEX.md) — human-readable archive map, counts, and high-value entry points.
@@ -42,7 +40,6 @@ Inclusion preserves a source statement or artifact; it does not independently ve
 
 - OCR text may contain recognition errors. Consult the source image, video, or HTML when exact wording matters.
 - Direct HTML extraction records visible document text and structure; it is not OCR.
-- A model's statement about its own architecture, internal state, actions, timestamps, or identity is preserved as a model statement unless corroborated by independent metadata or another source.
 - Google My Activity timestamps are direct interface metadata for the corresponding activity records. A date mentioned inside a generated response is not automatically equivalent to interface metadata.
 - Duplicate filenames do not prove duplicate content, and different filenames do not prove different content. SHA-256 digests are used to establish byte identity.
 - Large artifacts stored as release assets are indexed by filename, size, digest, release tag, and download URL.
