@@ -74,7 +74,7 @@ You pasted your Groq API key **inside an f-string or quoted string incorrectly**
 From the screenshot, this line is the culprit:
 
 ```
-API key: self.GROQ_API_KEY = f"[REDACTED:rmp-26]."
+API key: self.GROQ_API_KEY = f"[REDACTED:rmp-27]"
 ```
 
 An API key should **never** be an f-string.

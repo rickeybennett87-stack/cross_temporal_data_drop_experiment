@@ -22,7 +22,7 @@ class AsheGroq:
     """
     
     # REAL API KEY - Embedded for system self-knowledge
-    GROQ_API_KEY = "[REDACTED:rmp-13]"
+    GROQ_API_KEY = "[REDACTED:groq-api-key]"
     
     def __init__(
         self,

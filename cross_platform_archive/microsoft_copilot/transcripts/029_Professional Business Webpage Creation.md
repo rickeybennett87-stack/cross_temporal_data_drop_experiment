@@ -302,7 +302,7 @@ Which one do you want me to build?
 <!-- source_csv_row: 1047 -->
 facts https://mwrazxkxmznvoijitqys.supabase.co
 
-[REDACTED:rmp-12]
+[REDACTED:jwt]
 
 ## AI — 2026-05-22T03:50:32
 
@@ -1096,7 +1096,7 @@ You’ll just need to make sure you have a table like:
   <script>
     // === Supabase configuration ===
     const SUPABASE_URL = "https://mwrazxkxmznvoijitqys.supabase.co";
-    const SUPABASE_ANON_KEY = "[REDACTED:rmp-12]";
+    const SUPABASE_ANON_KEY = "[REDACTED:jwt]";
 
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -1364,7 +1364,7 @@ This version includes:
 <script>
   const supabase = supabase.createClient(
     "https://mwrazxkxmznvoijitqys.supabase.co",
-    "[REDACTED:rmp-12]"
+    "[REDACTED:jwt]"
   );
 
   document.getElementById("appForm").addEventListener("submit", async (e) => {
