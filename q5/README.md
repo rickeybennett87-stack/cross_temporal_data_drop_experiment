@@ -20,6 +20,9 @@ The page exposes five independently switchable edge graphs: model affinity,
 subject, chronology, repository provenance, and filename/content correlation.
 Search and filters rebuild only the visible GPU buffers and enabled edge layers.
 Continuous five-dimensional rotation is performed in the WebGL vertex shader.
+The scene includes the complete 32-vertex, 80-edge five-dimensional hypercube
+wireframe. Selecting a rendered corpus node opens its metadata and a direct
+link to the corresponding archive file or release asset.
 
 ## Coverage
 
