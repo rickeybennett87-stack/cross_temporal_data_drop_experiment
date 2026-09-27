@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Q5 Corpus Hypercube</title>
+<style>
+:root{color-scheme:dark;--panel:rgba(5,8,14,.9);--border:rgba(255,255,255,.16);--text:#eef6ff;--muted:#9fb0c4;--cyan:#00eaff;--pink:#ff4fd8;--green:#6dff65;--yellow:#ffd84a;--violet:#8b7cff}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:var(--text);font:14px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}#app,#viewport{position:absolute;inset:0}canvas{display:block;width:100%;height:100%}
+.panel{position:absolute;z-index:4;background:var(--panel);border:1px solid var(--border);border-radius:14px;backdrop-filter:blur(9px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+#summary{left:12px;top:12px;width:min(430px,calc(100vw - 24px));padding:11px 13px}h1{font-size:16px;margin:0 0 3px;font-weight:650}.sub{color:var(--muted);font-size:12px}.stats{display:flex;flex-wrap:wrap;gap:5px 13px;margin-top:7px;font-size:12px}.stats b{color:#fff}.legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin-top:7px;font-size:11px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:currentColor;box-shadow:0 0 9px currentColor}
+#controls{right:12px;top:12px;width:min(360px,calc(100vw - 24px));padding:11px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.full{grid-column:1/-1}label{display:block;color:var(--muted);font-size:11px}select,input,button{width:100%;min-height:36px;margin-top:3px;border-radius:8px;border:1px solid var(--border);background:#090e17;color:var(--text);padding:0 9px;font:inherit}button{cursor:pointer;width:auto}.layers{display:grid;grid-template-columns:1fr 1fr;gap:4px 9px;margin-top:8px}.layers label{display:flex;align-items:center;gap:6px;color:var(--text);min-height:28px}.layers input{width:auto;min-height:auto;margin:0}.buttons{display:flex;gap:7px;margin-top:8px}.buttons button{flex:1}
+#detail{left:12px;bottom:12px;width:min(550px,calc(100vw - 24px));padding:11px 13px;display:none;max-height:40vh;overflow:auto}#detail strong{display:block;margin-bottom:4px;overflow-wrap:anywhere}#detail .path{color:var(--muted);font-size:11px;overflow-wrap:anywhere}.bars{display:grid;grid-template-columns:70px 1fr 34px;gap:3px 7px;align-items:center;margin-top:8px;font-size:11px}.track{height:6px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden}.fill{height:100%}.tags{margin-top:7px;color:#d9e7f5;font-size:11px}
+#status{right:12px;bottom:12px;padding:8px 10px;color:var(--muted);font-size:11px;max-width:min(520px,calc(100vw - 24px))}.warn{color:#ffd58a}
+@media(max-width:800px){#summary{right:12px;width:auto}#controls{top:auto;left:12px;bottom:54px;width:auto;max-height:47vh;overflow:auto}#detail{bottom:auto;top:132px;right:12px;width:auto;max-height:30vh}#status{left:12px}.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<main id="app">
+  <div id="viewport" aria-label="GPU-rendered five-dimensional corpus graph"></div>
+  <section id="summary" class="panel">
+    <h1>Q₅ • Five-model corpus space</h1>
+    <div class="sub">Every indexed repository file and release asset positioned by five simultaneous model affinities.</div>
+    <div class="stats"><span><b id="visibleCount">0</b> visible</span><span><b id="totalCount">0</b> nodes</span><span><b id="edgeCount">0</b> edges</span><span><b id="byteCount">0</b> represented</span></div>
+    <div class="legend"><span style="color:var(--cyan)"><i class="dot"></i>ChatGPT</span><span style="color:var(--pink)"><i class="dot"></i>Claude</span><span style="color:var(--green)"><i class="dot"></i>Gemini</span><span style="color:var(--yellow)"><i class="dot"></i>Grok</span><span style="color:var(--violet)"><i class="dot"></i>Copilot</span></div>
+  </section>
+  <section id="controls" class="panel" aria-label="Graph controls">
+    <div class="grid">
+      <label class="full">Search path, title, model, or subject<input id="search" type="search" placeholder="sentience, Atlas, Gemini…"></label>
+      <label>Model<select id="model"><option value="">All five models</option></select></label>
+      <label>Subject<select id="subject"><option value="">All subjects</option></select></label>
+      <label>Artifact<select id="kind"><option value="">Files + releases</option><option value="file">Repository files</option><option value="release">Release assets</option></select></label>
+      <label>Minimum affinity<input id="affinity" type="range" min="0" max="1" step=".05" value=".4"><span id="affinityValue">0.40</span></label>
+    </div>
+    <div class="layers" role="group" aria-label="Edge graphs">
+      <label><input type="checkbox" data-layer="model" checked>Model graph</label>
+      <label><input type="checkbox" data-layer="subject">Subject graph</label>
+      <label><input type="checkbox" data-layer="chronology">Chronology</label>
+      <label><input type="checkbox" data-layer="provenance">Provenance</label>
+      <label><input type="checkbox" data-layer="correlation">Correlation</label>
+      <label><input id="auto" type="checkbox" checked>5D rotation</label>
+    </div>
+    <div class="buttons"><button id="reset" type="button">Reset view</button><button id="clear" type="button">Clear filters</button></div>
+  </section>
+  <aside id="detail" class="panel" aria-live="polite"></aside>
+  <div id="status" class="panel">WebGL initializes the existing browser GPU pipeline; graph layers are materialized only when enabled.</div>
+</main>
+<script src="./q5-corpus-data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(()=>{'use strict';
+const data=window.Q5_DATA,models=data.meta.models,colors=[0x00eaff,0xff4fd8,0x6dff65,0xffd84a,0x8b7cff],cssColors=['#00eaff','#ff4fd8','#6dff65','#ffd84a','#8b7cff'];
+const host=document.getElementById('viewport'),renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));renderer.setSize(innerWidth,innerHeight);renderer.setClearColor(0x000000,1);host.appendChild(renderer.domElement);
+const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x000000,.022);const camera=new THREE.PerspectiveCamera(52,innerWidth/innerHeight,.1,200);camera.position.set(11,8,13);const controls=new THREE.OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.06;controls.minDistance=4;controls.maxDistance=45;
+const uniforms={uAngles:{value:new Float32Array(10)},uPointSize:{value:5.5},uPixelRatio:{value:renderer.getPixelRatio()}};
+const vertexShader=`attribute vec4 q4;attribute float q5;attribute vec3 tint;varying vec3 vColor;uniform float uAngles[10];uniform float uPointSize;uniform float uPixelRatio;void rot(inout float a,inout float b,float t){float c=cos(t),s=sin(t),x=a;a=x*c-b*s;b=x*s+b*c;}void main(){float a=q4.x,b=q4.y,c=q4.z,d=q4.w,e=q5;rot(a,b,uAngles[0]);rot(a,c,uAngles[1]);rot(a,d,uAngles[2]);rot(a,e,uAngles[3]);rot(b,c,uAngles[4]);rot(b,d,uAngles[5]);rot(b,e,uAngles[6]);rot(c,d,uAngles[7]);rot(c,e,uAngles[8]);rot(d,e,uAngles[9]);vec3 p=vec3(.90*a-.28*b+.42*d-.17*e,.82*b-.31*c-.22*d+.44*e,.78*c+.34*a+.30*d+.26*e);vColor=tint;vec4 mv=modelViewMatrix*vec4(p,1.0);gl_Position=projectionMatrix*mv;gl_PointSize=uPointSize*uPixelRatio*(16.0/max(4.0,-mv.z));}`;
+const pointFragment=`varying vec3 vColor;void main(){vec2 p=gl_PointCoord-.5;float r=length(p);if(r>.5)discard;float core=smoothstep(.5,.08,r);gl_FragColor=vec4(vColor,core);}`;
+const lineFragment=`varying vec3 vColor;void main(){gl_FragColor=vec4(vColor,.32);}`;
+const pointMaterial=new THREE.ShaderMaterial({uniforms,vertexShader,fragmentShader:pointFragment,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
+let points=null,lineObjects=[],visibleNodes=[],visibleSet=new Set(),angleClock=0;
+function qCoords(n){let seed=parseInt(n.h.slice(0,8),16)||1,j=d=>((((seed>>>(d*5))&31)/31)-.5)*.34;return n.v.map((v,d)=>(v-.38)*5.8+j(d));}
+function primary(n){let best=0;for(let i=1;i<5;i++)if(n.v[i]>n.v[best])best=i;return best}
+function colorVec(hex){return new THREE.Color(hex)}
+function makeGeometry(nodes){const q4=[],q5=[],tint=[],position=[];for(const n of nodes){const q=qCoords(n),c=colorVec(colors[primary(n)]);q4.push(q[0],q[1],q[2],q[3]);q5.push(q[4]);tint.push(c.r,c.g,c.b);position.push(0,0,0)}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(position,3));g.setAttribute('q4',new THREE.Float32BufferAttribute(q4,4));g.setAttribute('q5',new THREE.Float32BufferAttribute(q5,1));g.setAttribute('tint',new THREE.Float32BufferAttribute(tint,3));g.frustumCulled=false;return g}
+function clearLines(){for(const o of lineObjects){scene.remove(o);o.geometry.dispose();o.material.dispose()}lineObjects=[]}
+function makeLines(layer,triples){const q4=[],q5=[],tint=[],position=[];let used=0;for(const e of triples){if(used>=12000)break;if(!visibleSet.has(e[0])||!visibleSet.has(e[1]))continue;for(const id of [e[0],e[1]]){const n=data.nodes[id],q=qCoords(n);q4.push(q[0],q[1],q[2],q[3]);q5.push(q[4]);position.push(0,0,0);let c;if(layer==='model')c=colorVec(colors[Number(e[2])]);else if(layer==='chronology')c=colorVec(0xffb86b);else if(layer==='correlation')c=colorVec(0xffffff);else if(layer==='subject')c=colorVec(0x52d7ff);else c=colorVec(0x8aa0b9);tint.push(c.r,c.g,c.b)}used++}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(position,3));g.setAttribute('q4',new THREE.Float32BufferAttribute(q4,4));g.setAttribute('q5',new THREE.Float32BufferAttribute(q5,1));g.setAttribute('tint',new THREE.Float32BufferAttribute(tint,3));g.frustumCulled=false;const m=new THREE.ShaderMaterial({uniforms,vertexShader,fragmentShader:lineFragment,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});const lines=new THREE.LineSegments(g,m);lines.frustumCulled=false;lines.userData.count=used;scene.add(lines);lineObjects.push(lines);return used}
+function filterNodes(){const q=document.getElementById('search').value.trim().toLowerCase(),model=document.getElementById('model').value,subject=document.getElementById('subject').value,kind=document.getElementById('kind').value,min=+document.getElementById('affinity').value,mi=models.indexOf(model);return data.nodes.filter(n=>(!kind||n.k===kind)&&(!subject||n.s.includes(subject))&&(!model||n.v[mi]>=min)&&(!q||(n.p+' '+n.n+' '+n.m.join(' ')+' '+n.s.join(' ')).toLowerCase().includes(q)))}
+function rebuild(){visibleNodes=filterNodes();visibleSet=new Set(visibleNodes.map(n=>n.i));if(points){scene.remove(points);points.geometry.dispose()}points=new THREE.Points(makeGeometry(visibleNodes),pointMaterial);scene.add(points);clearLines();let edgeCount=0;document.querySelectorAll('[data-layer]').forEach(box=>{if(box.checked)edgeCount+=makeLines(box.dataset.layer,data.edges[box.dataset.layer])});document.getElementById('visibleCount').textContent=visibleNodes.length.toLocaleString();document.getElementById('edgeCount').textContent=edgeCount.toLocaleString();document.getElementById('status').textContent=(edgeCount>=12000?'Edge display capped per layer at 12,000. ':'')+'Drag to orbit • wheel/pinch to zoom • click near a point to inspect.'}
+function humanBytes(n){const u=['B','KB','MB','GB','TB'];let i=0;while(n>=1000&&i<u.length-1){n/=1000;i++}return n.toFixed(i?2:0)+' '+u[i]}
+function selectNode(n){const d=document.getElementById('detail');if(!n){d.style.display='none';return}d.style.display='block';const bars=models.map((m,i)=>`<span>${m}</span><span class="track"><span class="fill" style="display:block;width:${n.v[i]*100}%;background:${cssColors[i]}"></span></span><span>${n.v[i].toFixed(2)}</span>`).join('');d.innerHTML=`<strong>${escapeHtml(n.n)}</strong><div class="path">${escapeHtml(n.p)}</div><div class="bars">${bars}</div><div class="tags">${n.s.map(escapeHtml).join(' • ')}<br>${humanBytes(n.b)}${n.d?' • '+n.d:''} • ${escapeHtml(n.mimetype)}</div>`}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function projectNode(n){let q=qCoords(n).slice(),a=uniforms.uAngles.value,k=0;for(let i=0;i<5;i++)for(let j=i+1;j<5;j++){const c=Math.cos(a[k]),s=Math.sin(a[k]),x=q[i];q[i]=x*c-q[j]*s;q[j]=x*s+q[j]*c;k++}const p=new THREE.Vector3(.90*q[0]-.28*q[1]+.42*q[3]-.17*q[4],.82*q[1]-.31*q[2]-.22*q[3]+.44*q[4],.78*q[2]+.34*q[0]+.30*q[3]+.26*q[4]);return p.project(camera)}
+renderer.domElement.addEventListener('click',e=>{const r=renderer.domElement.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*2-1,y=-((e.clientY-r.top)/r.height*2-1);let best=null,dist=.035;for(const n of visibleNodes){const p=projectNode(n),d=Math.hypot(p.x-x,p.y-y);if(d<dist){dist=d;best=n}}selectNode(best)});
+const modelSel=document.getElementById('model'),subjectSel=document.getElementById('subject');models.forEach(m=>modelSel.add(new Option(m,m)));Object.keys(data.meta.subjects).sort().forEach(s=>subjectSel.add(new Option(`${s} (${data.meta.subjects[s].toLocaleString()})`,s)));
+['search','model','subject','kind','affinity'].forEach(id=>document.getElementById(id).addEventListener(id==='search'?'input':'change',()=>{document.getElementById('affinityValue').textContent=(+document.getElementById('affinity').value).toFixed(2);rebuild()}));document.querySelectorAll('[data-layer]').forEach(x=>x.addEventListener('change',rebuild));
+document.getElementById('reset').onclick=()=>{camera.position.set(11,8,13);controls.target.set(0,0,0);controls.update();selectNode(null)};document.getElementById('clear').onclick=()=>{document.getElementById('search').value='';modelSel.value='';subjectSel.value='';document.getElementById('kind').value='';document.getElementById('affinity').value=.4;document.getElementById('affinityValue').textContent='0.40';rebuild()};
+document.getElementById('totalCount').textContent=data.meta.node_count.toLocaleString();document.getElementById('byteCount').textContent=humanBytes(data.meta.repository_bytes+data.meta.release_bytes);rebuild();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));uniforms.uPixelRatio.value=renderer.getPixelRatio()});
+function animate(t){requestAnimationFrame(animate);if(document.getElementById('auto').checked){angleClock=t*.00012;const a=uniforms.uAngles.value;a[2]=Math.sin(angleClock)*.72;a[6]=Math.cos(angleClock*.83)*.68;a[8]=Math.sin(angleClock*.61)*.54;a[9]=Math.cos(angleClock*.47)*.48}controls.update();renderer.render(scene,camera)}requestAnimationFrame(animate);
+})();
+</script>
+</body>
+</html>
