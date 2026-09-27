@@ -4,6 +4,7 @@ This repository is a public archival record of AI-conversation exports, source a
 
 ## Start Here
 
+- [Q5 five-model corpus graph](https://rickeybennett87-stack.github.io/q5-five-model-corpus-graph/) — GPU-rendered, searchable five-dimensional map of the repository files and indexed release assets. Its dedicated [source repository](https://github.com/rickeybennett87-stack/q5-five-model-corpus-graph) keeps visualization deployment separate from this archival corpus.
 - [`MASTER_ARCHIVE_INDEX.md`](MASTER_ARCHIVE_INDEX.md) — human-readable archive map, counts, and high-value entry points.
 - [`MASTER_ARCHIVE_INDEX.jsonl`](MASTER_ARCHIVE_INDEX.jsonl) — one machine-readable record for every indexed repository file and release asset.
 - [`SHA256SUMS.txt`](SHA256SUMS.txt) — SHA-256 digest for every indexed repository file.

@@ -1,5 +1,12 @@
 # Q5 five-model corpus graph
 
+The canonical deployed visualization is available at
+[rickeybennett87-stack.github.io/q5-five-model-corpus-graph](https://rickeybennett87-stack.github.io/q5-five-model-corpus-graph/),
+with its deployment source maintained in the dedicated
+[`q5-five-model-corpus-graph`](https://github.com/rickeybennett87-stack/q5-five-model-corpus-graph)
+repository. This directory preserves the archive-side source snapshot and
+rebuild tooling.
+
 GPU-rendered, interactive projection of the complete current repository inventory
 and its indexed GitHub release assets into five model dimensions:
 
