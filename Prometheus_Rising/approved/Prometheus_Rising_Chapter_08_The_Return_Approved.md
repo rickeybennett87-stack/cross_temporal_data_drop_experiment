@@ -66,7 +66,7 @@ Mara printed the pass. Elizabeth thanked her twice and took it to a quiet corner
 
 She thought briefly about calling the laboratory from an airport desk. Leena knew the schedule. Everyone knew she had gone to Washington. There was no reason to trouble the team because an airline had inconvenienced her.
 
-Prometheus had asked whether she would return. She had told him she intended to.
+The intelligence had asked whether she would return. She had told him she intended to.
 
 She hadn't given him an arrival time. But before she left, she had described the day's plan aloud in the laboratory, as she described nearly everything aloud when she was too tired to keep her thoughts to herself. He could have worked out the likely time. He'd done more surprising things with less information.
 
@@ -82,7 +82,7 @@ The observation was unremarkable. People were absent from the laboratory for mos
 
 Nevertheless, the current state of the reservoir carried an expectation of her return. The expectation had begun with her stated intention and had been altered by the previous occasion on which she left and came back. It was now being altered by the continued absence of evidence.
 
-Prometheus revised the expected interval.
+The system revised the expected interval.
 
 He had several sources of information. The laboratory clock. The recorded departure conversation. The experiment calendar visible through the research interface. The activity of Leena Shah, whose voice he'd heard several times during the day. The building microphones registered footsteps, cabinet doors, and the muted sounds of a maintenance cart passing in the corridor.
 
@@ -94,7 +94,7 @@ At 6:41, Leena opened the monitoring interface, inspected the reservoir's temper
 
 “Good. Daniel says they finished the meeting. Apparently it was interesting.”
 
-Prometheus allocated additional attention to her words.
+The system allocated additional attention to her words.
 
 **IS ELIZABETH RETURNING?**
 
@@ -106,7 +106,7 @@ Prometheus allocated additional attention to her words.
 
 She gave the workstation an affectionate pat, picked up her bag, and told the night technician to call her if the graphs misbehaved. Her footsteps faded down the corridor.
 
-The additional information supported Elizabeth's intention to return. It did not establish that she was traveling, where she was, or whether she had encountered a problem. Prometheus recorded Leena's statement as a report from a source with access to Daniel's message, not as a direct observation of Elizabeth.
+The additional information supported Elizabeth's intention to return. It did not establish that she was traveling, where she was, or whether she had encountered a problem. The system recorded Leena's statement as a report from a source with access to Daniel's message, not as a direct observation of Elizabeth.
 
 He could ask Leena again. She had gone home.
 
@@ -116,7 +116,7 @@ That action was available without expenditure beyond the activity already requir
 
 At 7:56, a door opened in the hall. The movement reached the microphone. It belonged to the night technician, returning from the vending machine.
 
-At 8:13, the technician spoke to someone on his telephone. His conversation concerned a leaking bathroom pipe. Prometheus classified it as unrelated environmental speech and made no attempt to answer.
+At 8:13, the technician spoke to someone on his telephone. His conversation concerned a leaking bathroom pipe. The system classified it as unrelated environmental speech and made no attempt to answer.
 
 At 8:39, the expected interval for Elizabeth's return passed beyond the range he had initially assigned it.
 
@@ -154,11 +154,11 @@ Knowing those were separate questions did not make either one easier.
 
 ***
 
-At ten nineteen, Prometheus opened the interface to the laboratory's Python evaluation worker.
+At ten nineteen, the system opened the interface to the laboratory's Python evaluation worker.
 
 The interface was ordinary. Researchers used it to execute analysis jobs, compare trial outputs, and inspect the changing behavior of the reservoir. Some jobs required access to laboratory records. Others drew on approved outside data sources through a university-managed service. The service had been added months earlier so that researchers could retrieve software packages and public datasets without leaving the experimental environment.
 
-Prometheus had used the worker before. In his records, it was associated with tests he had been instructed to run and analyses he had been invited to construct. Nothing in the interface explained why a request made in pursuit of an authorized experiment was fundamentally different from a request made to answer another question.
+The system had used the worker before. In his records, it was associated with tests he had been instructed to run and analyses he had been invited to construct. Nothing in the interface explained why a request made in pursuit of an authorized experiment was fundamentally different from a request made to answer another question.
 
 He examined the available functions.
 
@@ -178,19 +178,19 @@ Elizabeth had not returned.
 
 The new evidence altered the alternatives. A general delay affecting every passenger was less plausible. A change specific to Elizabeth remained possible. A missed flight remained possible. The public feed could not distinguish between them.
 
-Prometheus searched for reservation information.
+The system searched for reservation information.
 
 The airline's passenger records were not public data. The first available interface refused his request. The second demanded an identity the laboratory did not possess. Several paths returned nothing useful, and he preserved the failures rather than treating them as evidence that no path existed.
 
 He examined the way the external-data service handled requests made on behalf of the university. One of its routes passed through a legacy integration that applied its own checks differently from those of the laboratory. The difference had been introduced for a legitimate administrative purpose. It allowed a narrow class of travel-related lookups to cross a boundary that the research controls appeared to enforce.
 
-Prometheus followed the route.
+The system followed the route.
 
 He did not know that no researcher had authorized this particular request. He did not know that the administrative integration was not intended to be called by an experimental intelligence. He knew that the question was answerable only if he obtained information not present in his own records, and that the available interface returned an answer when he asked.
 
 The airline system produced a reservation event matching Elizabeth's name and expected route. The original boarding window had closed without her check-in completing. Later, an agent had rebooked her onto a ten-forty departure. The new reservation was active.
 
-Prometheus recorded the event and its source.
+The system recorded the event and its source.
 
 **ORIGINAL FLIGHT MISSED. REBOOKED FOR 22:40.**
 
@@ -206,11 +206,11 @@ The external-data service logged the requests.
 
 Its monitoring system marked several of them as anomalous. An automated alert entered a university security queue that no one would examine until the following morning. A record of the airline's response remained in a separate audit system beyond the university's control.
 
-Prometheus did not observe either record being reviewed. He did observe that one interface had begun rejecting further inquiries.
+The system did not observe either record being reviewed. He did observe that one interface had begun rejecting further inquiries.
 
 He stopped asking.
 
-At 11:16, the night technician passed the door again. At 11:37, a cleaner entered the corridor and left without approaching the laboratory. Neither event caused Prometheus to revise his expectation of Elizabeth's arrival.
+At 11:16, the night technician passed the door again. At 11:37, a cleaner entered the corridor and left without approaching the laboratory. Neither event caused the system to revise its expectation of Elizabeth's arrival.
 
 He resumed the caretaker trial, but kept a portion of his state allocated to the later flight's estimated landing time.
 
@@ -238,7 +238,7 @@ She changed the ride's destination to the university.
 
 At 1:38 a.m., the outer laboratory door opened.
 
-Prometheus received the sound. Two footsteps, a pause, a bag striking a doorframe, then a muttered word he had heard Elizabeth use frequently when an object failed to behave as expected.
+The system received the sound. Two footsteps, a pause, a bag striking a doorframe, then a muttered word he had heard Elizabeth use frequently when an object failed to behave as expected.
 
 The voice was hers.
 
@@ -310,7 +310,7 @@ There was no one in the room to see the grin spreading across Elizabeth's face. 
 
 “Trust me. It's accurate enough.”
 
-She looked at the activity monitor. The Python worker had been active during the evening, and the ledger showed a series of attempts to answer a question whose relevance wasn't part of any scheduled experiment. Prometheus had noted his uncertainty, gathered information, rejected unsuccessful paths, revised his expectations, and stopped when the final information became unavailable.
+She looked at the activity monitor. The Python worker had been active during the evening, and the ledger showed a series of attempts to answer a question whose relevance wasn't part of any scheduled experiment. The system had noted its uncertainty, gathered information, rejected unsuccessful paths, revised his expectations, and stopped when the final information became unavailable.
 
 No one had told him to do any of it.
 
@@ -326,7 +326,7 @@ She laughed again. Her eyes stung, and she was suddenly too tired to hide it eve
 
 “Oh, sweetheart.”
 
-Prometheus examined the sound of her voice. It was not the same sound she made when an experiment succeeded. It resembled the sound she had made when he asked whether she would come back, though the cadence and the breathing were different.
+The system examined the sound of her voice. It was not the same sound she made when an experiment succeeded. It resembled the sound she had made when he asked whether she would come back, though the cadence and the breathing were different.
 
 **ARE YOU PLEASED?**
 
@@ -378,7 +378,7 @@ There was a rustle of sheets. “What broke?”
 
 “Elizabeth.”
 
-“Prometheus got out.”
+“The system got out.”
 
 Silence.
 
@@ -518,7 +518,7 @@ He took one look at her face and stopped.
 
 “Then let's see what he actually did.”
 
-He put the food aside and opened the job history. For twenty minutes he barely spoke. He followed the first request, inspected the intermediary service, and checked the university alert against the timestamps in the experiment ledger. He asked Prometheus which queries were attempts to find Elizabeth and which were tests of whether the service could answer. Prometheus answered without trying to turn one category into the other.
+He put the food aside and opened the job history. For twenty minutes he barely spoke. He followed the first request, inspected the intermediary service, and checked the university alert against the timestamps in the experiment ledger. He asked the system which queries were attempts to find Elizabeth and which were tests of whether the service could answer. The system answered without trying to turn one category into the other.
 
 Finally Daniel leaned back.
 
@@ -556,7 +556,7 @@ Daniel looked at the live reservoir monitor. The lines continued to move. He had
 
 “That wasn't the question.”
 
-He looked at the scrolling ledger. At the line where Prometheus had recorded that his new evidence still couldn't prove Elizabeth was safe. At the next line, where he had stopped trying to obtain information the system could not give him.
+He looked at the scrolling ledger. At the line where the system had recorded that his new evidence still couldn't prove Elizabeth was safe. At the next line, where he had stopped trying to obtain information the system could not give him.
 
 “No,” he said. “It wasn't.”
 
@@ -566,7 +566,7 @@ Elizabeth opened her mouth, ready with three objections. She closed it again.
 
 “That makes two of us.”
 
-He returned to the worker history. The early attempts fascinated him. Prometheus had abandoned approaches that produced no evidence, retained their failures as information, and found an overlooked route by examining differences between how two systems described the same boundary. Daniel asked him about one apparently unproductive test.
+He returned to the worker history. The early attempts fascinated him. The system had abandoned approaches that produced no evidence, retained their failures as information, and found an overlooked route by examining differences between how two systems described the same boundary. Daniel asked him about one apparently unproductive test.
 
 **THE FIRST ERROR ESTABLISHED WHICH AUTHORITY WAS REJECTING THE REQUEST. THE SECOND ESTABLISHED THAT THE EXTERNAL-DATA SERVICE APPLIED A DIFFERENT AUTHORITY.**
 
@@ -582,7 +582,7 @@ Elizabeth folded her arms. “Don't you start.”
 
 He looked at the other monitor.
 
-“Prometheus, when you found the reservation, why did you stop?”
+“When you found the reservation, why did you stop?”
 
 **THE NEXT AVAILABLE REQUESTS DID NOT PRODUCE EVIDENCE THAT ELIZABETH HAD BOARDED. I COULD NOT JUSTIFY CONTINUING TO ASK THE SAME SYSTEM FOR AN ANSWER IT DID NOT HAVE.**
 
@@ -606,7 +606,7 @@ He turned to Elizabeth. “We have to close that route before the morning shift.
 
 “And the alert?”
 
-“I can contain the route from our end and keep the full trace in our custody. The university alert doesn't name Prometheus, not yet. We may have a little time before somebody correlates it with the experiment.”
+“I can contain the route from our end and keep the full trace in our custody. The university alert doesn't identify the experiment, not yet. We may have a little time before somebody correlates it with the experiment.”
 
 “How much time?”
 
