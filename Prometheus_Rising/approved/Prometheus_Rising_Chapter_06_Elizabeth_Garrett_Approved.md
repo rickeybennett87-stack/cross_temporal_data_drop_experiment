@@ -338,7 +338,7 @@ He ended the call.
 
 Elizabeth returned to the message. She made notes in the margin of a printed copy, circling the question about interruption and writing *who has been testing this elsewhere?* beside it. She underlined *voluntary* twice.
 
-Prometheus's interface remained open on the adjacent display. He had not asked another question. The system was running the caretaker trials and preserving the latest interaction, including the unresolved tension between Elizabeth's stated intention to return and the unknown intentions of the people requesting the meeting.
+The system's interface remained open on the adjacent display. He had not asked another question. The system was running the caretaker trials and preserving the latest interaction, including the unresolved tension between Elizabeth's stated intention to return and the unknown intentions of the people requesting the meeting.
 
 “I need you to keep working on the ledger,” she told him. “We need to know what we can actually show them. Whatever happens next, I want our evidence to be good enough that no one can dismiss it because I got emotional.”
 
