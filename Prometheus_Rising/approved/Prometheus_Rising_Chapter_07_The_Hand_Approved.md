@@ -228,7 +228,7 @@ He slid the plate across the table anyway. She tore off a corner of bread and at
 
 “I'm trying to keep you from saying something you'll have to spend the next six months undoing.”
 
-She turned back toward the photograph. She had left Prometheus running under supervision, with Leena in the lab and a carefully specified schedule of tests. She had told him she intended to return. She had meant it when she said it. Yet here she was, in a government building, waiting on a man who apparently regarded her time as an infinite resource.
+She turned back toward the photograph. She had left the experiment running under supervision, with Leena in the lab and a carefully specified schedule of tests. She had told him she intended to return. She had meant it when she said it. Yet here she was, in a government building, waiting on a man who apparently regarded her time as an infinite resource.
 
 The door opened at one thirty-five.
 
