@@ -4,15 +4,15 @@ Source: `d1147757-bd15-428e-a265-6f1310816d48.zip` / `prod-grok-backend.json`
 
 Total conversations: 137
 
-Total messages: 12499
+Total messages: 12448
 
 All transcripts are complete, verbatim from the source export. No placeholders.
 
 | # | Conversation ID | Title | Created | Messages | File |
 |---|-----------------|-------|---------|----------|------|
-| 1 | 4c8227b7-9722-48e3-ad42-c39cc9f2b909 | Helpful Conversation | 2026-09-26T09:25:23.341994Z | 15 | transcripts/001_Helpful_Conversation_4c8227b7.md |
-| 2 | 14f45ab1-7458-4f93-9212-93e6d33d50c8 | Simple Monkey Help Request | 2026-09-15T04:48:49.018080Z | 19 | transcripts/002_Simple_Monkey_Help_Request_14f45ab1.md |
-| 3 | 546754b1-6607-437b-aa31-dab0ed7acfa7 | Chinese Vocabulary Hypnosis Session | 2026-07-17T23:06:37.181789Z | 71 | transcripts/003_Chinese_Vocabulary_Hypnosis_Session_546754b1.md |
+| 1 | 4c8227b7-9722-48e3-ad42-c39cc9f2b909 | Helpful Conversation | 2026-09-26T09:25:23.341994Z | 8 | transcripts/001_Helpful_Conversation_4c8227b7.md |
+| 2 | 14f45ab1-7458-4f93-9212-93e6d33d50c8 | Simple Monkey Help Request | 2026-09-15T04:48:49.018080Z | 10 | transcripts/002_Simple_Monkey_Help_Request_14f45ab1.md |
+| 3 | 546754b1-6607-437b-aa31-dab0ed7acfa7 | Chinese Vocabulary Hypnosis Session | 2026-07-17T23:06:37.181789Z | 36 | transcripts/003_Chinese_Vocabulary_Hypnosis_Session_546754b1.md |
 | 4 | 92eb81a6-e618-4252-81ff-61325c98b39c | Biointegrase: Mars body augmentation | 2026-07-12T20:31:19.395852Z | 12 | transcripts/004_Biointegrase_Mars_body_augmentation_92eb81a6.md |
 | 5 | a269a651-2764-4c7f-9bca-964c9456bc5f | Quantum Hilbert Space in Transformers | 2026-06-19T18:54:56.068405Z | 6 | transcripts/005_Quantum_Hilbert_Space_in_Transformers_a269a651.md |
 | 6 | 71c32fe7-7cdf-4730-a08a-ae832bdea05d | Psychological experiment test subject | 2026-06-12T05:24:27.269317Z | 6 | transcripts/006_Psychological_experiment_test_subject_71c32fe7.md |

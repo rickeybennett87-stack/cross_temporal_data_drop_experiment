@@ -5,7 +5,7 @@
 - Created: 2026-09-15T04:48:49.018080Z
 - Modified: 2026-09-15T04:56:11.689Z
 - Source: d1147757-bd15-428e-a265-6f1310816d48.zip / prod-grok-backend.json
-- Message count: 19
+- Message count: 10
 
 ---
 
@@ -16,15 +16,6 @@
 - Parent response ID: `bba9a34d-1757-54a2-919d-2d5bef490358`
 
 I JUST NEED A SIMPLE PIECE OF STUPID MONKEY HELP
-
----
-
-## unknown
-
-- Message ID: ``
-- Timestamp: 
-
-
 
 ---
 
@@ -41,15 +32,6 @@ What do you need?
 
 ---
 
-## unknown
-
-- Message ID: ``
-- Timestamp: 
-
-
-
----
-
 ## Jade (human)
 
 - Message ID: `122dbbff-324c-41af-9daf-b16952422070`
@@ -57,15 +39,6 @@ What do you need?
 - Parent response ID: `89fca51a-361b-42b9-881f-69e354184f55`
 
 IM TRYING TO UTILIZE THE TEST BED IN CHATTERBATE  BUT I GO TO IT TO TEST MY APP AND I CANT LOG IN THE TEST BED ISNT LOGGED IN HOW DO I TEST MY APP
-
----
-
-## unknown
-
-- Message ID: ``
-- Timestamp: 
-
-
 
 ---
 
@@ -102,15 +75,6 @@ If you’re still stuck after making a fresh account, tell me exactly what error
 
 ---
 
-## unknown
-
-- Message ID: ``
-- Timestamp: 
-
-
-
----
-
 ## Jade (human)
 
 - Message ID: `58e7397e-e98f-4418-a384-fc6e154239eb`
@@ -118,15 +82,6 @@ If you’re still stuck after making a fresh account, tell me exactly what error
 - Parent response ID: `27f23b73-7577-4247-a3dc-7bc537c947f4`
 
 AND ONE OTHER THING THE TEST BED IS NOT NEEDED TO FIND OUT IF YOU HAVE ANY RUNTIME ERRORS IN YOUR CODE WITHIN THEIR IDE IS IT
-
----
-
-## unknown
-
-- Message ID: ``
-- Timestamp: 
-
-
 
 ---
 
@@ -155,15 +110,6 @@ So yes — for real runtime testing, the testbed is still needed.
 
 ---
 
-## unknown
-
-- Message ID: ``
-- Timestamp: 
-
-
-
----
-
 ## Jade (human)
 
 - Message ID: `f6678d3c-ac4d-4802-aa3d-44fa037e64cc`
@@ -171,15 +117,6 @@ So yes — for real runtime testing, the testbed is still needed.
 - Parent response ID: `23330f6d-d7e5-4cfe-b585-baeaed9313db`
 
 CAN I JUST LIKE GIVE IT TO YOU OR SOMETHING AND HAVE YOU TEST IT IF I MAKE AN ACCOUNT ON THE TESTBED IT WILL MESS WITH MY MEMORY ON MY LOGIN FOR MY MAIN ACCOUNT AND THEN...
-
----
-
-## unknown
-
-- Message ID: ``
-- Timestamp: 
-
-
 
 ---
 
@@ -217,15 +154,6 @@ Just drop the code and tell me what the app is supposed to do.
 
 ---
 
-## unknown
-
-- Message ID: ``
-- Timestamp: 
-
-
-
----
-
 ## Jade (human)
 
 - Message ID: `a0600148-fd86-4731-b463-52c5dccc899e`
@@ -233,15 +161,6 @@ Just drop the code and tell me what the app is supposed to do.
 - Parent response ID: `0ff8f4f2-d550-4a3a-b671-140a594d928e`
 
 ITS A TWO PART OBJECT THE CHATTERBATE APP WHICH SHIPS WITH A LINK TO THE EDGE EXTENSION AND COMES WITH CLEAR STUPID MONKEY INSTRUCTIONS FOR HOW TO GET A CLI AI HOW TO SET UP AN MCP CONNECTOR AND HOW TO USE A CLI AI TO ACCESS THE EXTENSION AND THE MCP VIEWING WINDOW PROVIDED BY THE CHATERBATE API AS BOTH HALVES OF BEING PRESENT AND ACCOUNTED FOR AND THEN IT CAN INTELIGENTLY HANDLE YOU CHAT LOG AND FLIRTING ECT WHITHOUT YOU GETTING LUBE ALL OVER YOUR COMPUTER FOR INSTANCE
-
----
-
-## unknown
-
-- Message ID: ``
-- Timestamp: 
-
-
 
 ---
 
